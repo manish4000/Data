@@ -1,0 +1,84 @@
+<?php
+
+
+/*
+|--------------------------------------------------------------------------
+| Dash Routes
+|--------------------------------------------------------------------------
+
+|
+*/
+
+use App\Http\Controllers\Dash\Auth\LoginController;
+use App\Http\Controllers\Dash\LanguageController;
+use Illuminate\Support\Facades\Route;
+
+
+// Route::get('lang/{locale}',[LanguageController::class,'swap']);
+
+
+Route::middleware('dash')->name('dash')->group(function(){
+
+    Route::group(['namespace' =>'Dash\Auth','middleware'=>'guest:dash'],function(){
+        Route::get('/',"LoginController@showLoginForm");
+        Route::post('login',"LoginController@login")->name('login');    
+        Route::get('password/reset',"ForgotPasswordController@showLinkRequestForm")->name('password.request');    
+        Route::post('password/reset',"ForgotPasswordController@sendResetLinkEmail")->name('password.email');          
+    });
+
+    Route::group(['middleware' => 'dashauth'], function () {
+
+        Route::group(['prefix'=>'stock-manager','namespace'=>'Dash','as' => 'stock-manager.'],function(){
+            Route::get('/',function(){
+                return view('dash.content.blank',['message' => " Stock Manager listing Page "]);
+            });
+            Route::get('/create',function(){
+                return view('dash.content.blank' ,['message' => " Add New Stock Manager  Page "]);
+            });
+        });
+
+        Route::group(['prefix'=>'inquries','namespace'=>'Dash','as' => 'inquries.'],function(){
+            Route::get('/',function(){
+                return view('dash.content.blank',['message' => "Inquries listing Page "]);
+            });
+        });
+
+        Route::group(['prefix'=>'proforma-manager','namespace'=>'Dash','as' => 'proforma-manager.'],function(){
+            Route::get('/',function(){
+                return view('dash.content.blank',['message' => "Proforma Manager listing Page "]);
+            });
+            Route::get('/create',function(){
+                return view('dash.content.blank' ,['message' => " Add New Proforma Manager Page "]);
+            });
+        });
+
+        Route::group(['prefix'=>'members','namespace'=>'Dash','as' => 'members.'],function(){
+            Route::get('/',function(){
+                return view('dash.content.blank',['message' => "Members listing Page "]);
+            });
+            Route::get('/create',function(){
+                return view('dash.content.blank' ,['message' => " Add New Member Page "]);
+            });
+        });
+
+        Route::get('/logout','Dash\Auth\LoginController@logout')->name('logout');
+        Route::get('/dashboard',function(){return view('dash.content.dashboard');})->name('home');
+
+        Route::group(['prefix'=>'users','namespace'=>'Dash','as' => 'users.'],function(){
+            Route::get('/','UserController@index')->name('index');
+            Route::get('/create','UserController@create')->name('create');
+            Route::post('/store','UserController@store')->name('store');
+            Route::get('edit/{id}','UserController@edit')->name('edit');
+            Route::post('/delete', 'UserController@destroy')->name('delete');   
+    
+        });
+
+    });
+
+});
+
+
+
+// Route::get('register',function(){
+//     return view('dash.auth.register');
+// });

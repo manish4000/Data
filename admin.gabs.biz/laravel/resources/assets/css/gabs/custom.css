@@ -1,0 +1,24 @@
+
+/* this class for default display for child elements  */
+.item-tr-display-none{
+    display:none;
+}
+
+/* this class for child td color change  */
+.child-td-color{
+    color:red;
+}
+
+/* this class for heightlight a string  */
+.heighlight-string{
+    background-color:#ffff00;
+}
+
+/* this is for required filed border  */
+
+.required-input-border{
+    border:1px solid red;
+}
+.position-for-filter-heading{
+    position: relative;
+}
