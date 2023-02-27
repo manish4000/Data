@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Providers;
 
 use Illuminate\Cache\RateLimiting\Limit;
@@ -62,7 +61,7 @@ class RouteServiceProvider extends ServiceProvider
 
     protected function mapWebRoutes()
     {
-        Route::middleware('web')
+        Route::middleware('web')->domain('admin.gabs.biz')
              ->namespace($this->namespace)
              ->group(base_path('routes/web.php'));
     }
@@ -75,7 +74,7 @@ class RouteServiceProvider extends ServiceProvider
     }
     protected function mapDashRoutes()
     {
-        Route::prefix('dash')
+        Route::domain('dash.gabs.biz')
             ->namespace($this->namespace)
             ->group(base_path('routes/dash.php'));
     }
