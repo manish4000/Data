@@ -1,11 +1,9 @@
 
-
-    function changeDisplayStatus(id,url){
-
+   function changeDisplayStatus(id,url){
         $.ajax({    
             type: "POST",
             url: url,
-            data: {id:id},
+            data: { id:id},
             success: function(data) {
                     if(data.result.status == true){
                         successToast(data.result.message);
