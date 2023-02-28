@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
 use App\Models\CityModel;
-use App\Models\company\CompanyContactPersonDetails;
-use App\Models\company\CompanyDocument;
+use App\Models\Company\CompanyContactPersonDetails;
+use App\Models\Company\CompanyDocument;
 use App\Models\Company\CompanyMenuGroupMenu;
 use App\Models\Company\CompanyPermission;
 use App\Models\Dash\CompanyUsers;
@@ -247,11 +247,13 @@ class CompanyController extends Controller
               $company_model->company_name = $request->company_name;  
               //old field
               $company_model->name = $request->company_name;  
-              $company_model->short_name = $request->company_name;  
+              $company_model->short_name = $request->company_name; 
+              $company_model->email_id_1 = $request->email;   
               //
               $company_model->password =  Hash::make($request->password);  
               $company_model->gabs_uuid = $request->gabs_uuid;  
               $company_model->email = $request->email;  
+             
               $company_model->status = $request->status;  
               $company_model->address = $request->address;  
               $company_model->city_id = $request->city_id;  
@@ -652,7 +654,7 @@ class CompanyController extends Controller
             $request->logo->move(public_path('company_data').'/'.$request->gabs_uuid.'/logo', $logo);
             $company_model->logo = $logo;
         
-            if(file_exists(public_path('company_data').'/'.$request->gabs_uuid.'/logo/'.$old_logo_name )){
+            if(is_file(public_path('company_data').'/'.$request->gabs_uuid.'/logo/'.$old_logo_name )){
 
                 unlink(public_path('company_data').'/'.$request->gabs_uuid.'/logo/'.$old_logo_name);
             }
