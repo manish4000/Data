@@ -2,8 +2,8 @@
 
 namespace App\Models\Masters\Company;
 
-use App\Models\company\CompanyContactPersonDetails;
-use App\Models\company\CompanyDocument;
+use App\Models\Company\CompanyContactPersonDetails;
+use App\Models\Company\CompanyDocument;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
