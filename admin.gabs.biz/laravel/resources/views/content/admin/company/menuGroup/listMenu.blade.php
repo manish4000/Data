@@ -12,6 +12,8 @@
 
 @section('content')
 <div >
+
+
 	<div class="row">
 		<div class="col-md-6">
 			<div class="card card-primary">
@@ -77,7 +79,7 @@
 					  	<div class="form-group">
 							<x-admin.form.inputs.text tooltip="{{__('webCaption.slug.caption')}}"  label="{{__('webCaption.slug.title')}}"  for="slug"  maxlength="255" class="form-control" name="slug"  placeholder="{{__('webCaption.slug.title')}}" value="{{old('slug', isset($data->slug)?$data->slug:'' )}}"  required="" />
 							@if ($errors->has('slug'))
-								<x-admin.form.form_error_messages message="{{ $errors->first('order') }}"  />
+								<x-admin.form.form_error_messages message="{{ $errors->first('slug') }}"  />
 						 	@endif
 					    </div>
 						<div class="form-group">
