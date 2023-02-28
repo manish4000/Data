@@ -26,7 +26,7 @@ function deleteMultiple(url){
                     $.ajax({
                         url: url,
                         type: 'post',
-                        data: {delete_ids: delete_ids_ary},
+                        data: {delete_ids: delete_ids_ary,"_token": "{{ csrf_token() }}"},
                         success: function(data) {       
                           if(data.result.status == true ){      
                               successToast(data.result.message);
