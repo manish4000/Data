@@ -31,9 +31,10 @@ class WebCaptionController extends Controller
         $defalutLanguage_id = SiteLanguage::where('status','Active')->where('default_lang',1)->value('id');  
         $webcaptions = WebCaption::select('local_translations','local_slug' ,'title')->get();    
         $locale_array = [];
+
         foreach($languages as $id=>$lang){
             $locale_array[$lang] = [];
-            $path = resource_path().'/lang/'.$lang;
+            $path = resource_path().'/'."lang/".$lang;
 
             if(!File::exists($path)) {
              File::makeDirectory($path,0755);
