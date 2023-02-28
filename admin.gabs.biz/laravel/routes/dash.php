@@ -70,8 +70,21 @@ Route::middleware('dash')->name('dash')->group(function(){
             Route::post('/store','UserController@store')->name('store');
             Route::get('edit/{id}','UserController@edit')->name('edit');
             Route::post('/delete', 'UserController@destroy')->name('delete');   
-    
         });
+
+        Route::group(['prefix'=>'bank-details','namespace'=>'Dash','as' => 'bank-details.'],function(){
+            Route::get('/','BankDetailsController@index')->name('index');
+            Route::get('/create','BankDetailsController@create')->name('create');
+            Route::post('/store','BankDetailsController@store')->name('store');
+            Route::get('edit/{id}','BankDetailsController@edit')->name('edit');
+            Route::post('/delete', 'BankDetailsController@destroy')->name('delete');   
+            Route::post('/status', 'BankDetailsController@updateStatus')->name('status');   
+            Route::post('/delete-multiple','BankDetailsController@deleteMultiple')->name('delete-multiple');
+
+        });
+
+        Route::post('state-list','Dash\BankDetailsController@stateList')->name('state-list');
+        Route::post('city-list','Dash\BankDetailsController@cityList')->name('city-list');
 
     });
 
