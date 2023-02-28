@@ -17,7 +17,7 @@
 
 @section('content')
 <div>
-	<form action="{{ route('dashbank-details.store')}}" method="POST">
+	<form action="{{ route('bank-details.store')}}" method="POST">
 		@csrf
 		<div class="card card-primary">
 			<div class="card-header">
@@ -224,7 +224,7 @@ $city_id =  (isset($city_id)) ? $city_id : ( (isset($data->city_id)) ? $data->ci
       if(state){
           $.ajax ({
               type: 'POST',
-              url: "{{route('dashcity-list')}}",
+              url: "{{route('city-list')}}",
               data: { id : state ,"_token": "{{ csrf_token() }}"},
               success : function(result) {
                 $('#city_id').html('<option value="">Select City</option>');
@@ -263,7 +263,7 @@ $city_id =  (isset($city_id)) ? $city_id : ( (isset($data->city_id)) ? $data->ci
 
       $.ajax ({
                     type: 'POST',
-                    url: "{{route('dashstate-list')}}",
+                    url: "{{route('state-list')}}",
                     data: { id : country ,"_token": "{{ csrf_token() }}"},
                     success : function(result) {
 
@@ -289,7 +289,7 @@ $city_id =  (isset($city_id)) ? $city_id : ( (isset($data->city_id)) ? $data->ci
 
     $.ajax ({
               type: 'POST',
-              url: "{{route('dashcity-list')}}",
+              url: "{{route('city-list')}}",
               data: { id : state ,"_token": "{{ csrf_token() }}" },
               success : function(result) {
                 $('#city_id').html('<option value="">Select City</option>');
