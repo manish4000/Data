@@ -3,4 +3,4 @@
     'message'
 ])
 
-<span class="{{$class}} text-danger"> {{ $message }} </span>
+<span class="text-danger"> {{ $message }} </span>
