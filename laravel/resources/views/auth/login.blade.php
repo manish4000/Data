@@ -38,9 +38,9 @@
             <div class="d-flex justify-content-between">
               <label for="login-password">Password</label>
               @if (Route::has('password.request'))
-              <a href="{{ route('password.request') }}">
+              {{-- <a href="{{ route('password.request') }}">
                 <small>Forgot Password?</small>
-              </a>
+              </a> --}}
               @endif
             </div>
             <div class="input-group input-group-merge form-password-toggle">
@@ -56,23 +56,23 @@
               <label class="custom-control-label" for="remember-me"> Remember Me </label>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary btn-block" tabindex="4">Sign in</button>
+          <button type="submit" class="btn btn-primary btn-block my-3" tabindex="4">Sign in</button>
         </form>
 
-        <p class="text-center mt-2">
+        {{-- <p class="text-center mt-2">
           <span>New on our platform?</span>
           @if (Route::has('register'))
           <a href="{{ route('register') }}">
             <span>Create an account</span>
           </a>
           @endif
-        </p>
+        </p> --}}
 
-        <div class="divider my-2">
+        {{-- <div class="divider my-2">
           <div class="divider-text">or</div>
-        </div>
+        </div> --}}
 
-        <div class="auth-footer-btn d-flex justify-content-center">
+        {{-- <div class="auth-footer-btn d-flex justify-content-center">
           <a href="javascript:void(0)" class="btn btn-facebook">
             <i data-feather="facebook"></i>
           </a>
@@ -85,7 +85,7 @@
           <a href="javascript:void(0)" class="btn btn-github">
             <i data-feather="github"></i>
           </a>
-        </div>
+        </div> --}}
       </div>
     </div>
     <!-- /Login v1 -->
