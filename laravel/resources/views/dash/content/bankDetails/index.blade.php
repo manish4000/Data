@@ -34,7 +34,7 @@
 							</div>
                             <div class="px-2 my-2">
                                 {{-- deleteMultiple() for delete multiple data pass url here  --}}
-                                <x-dash.form.buttons.multipleDelete url="{{route('bank-details.delete-multiple')}}" />
+                                <x-dash.form.buttons.multipleDelete url="{{route('dashbank-details.delete-multiple')}}" />
                             </div>
 							<table class="table">
 								<thead>

@@ -10,7 +10,7 @@
 					<h4 class="card-title" title="{{__('webCaption.search_filter.caption')}}"  data-toggle="tooltip" > {{__('webCaption.search_filter.title')}} </h4>                    
 				</div>
 				<div class="card-body">
-					<form method="GET" action="{{route('dashusers.index')}}">
+					<form method="GET" action="{{route('users.index')}}">
 						<div class="d-flex justify-content-between align-items-center  row pt-0 pb-2">
 							<div class="col-md-3">
 								{{-- <div class="form-group">

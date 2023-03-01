@@ -18,19 +18,19 @@
     <td >{{$item->swift_code}}    </td>
     <td>
 
-        <x-dash.form.inputs.listing_checkbox id="list{{$item->id}}"  onclick="changeDisplayStatus('{{$item->id}}','{{route('bank-details.status')}}')"  dataItemId="{{$item->id}}" dataUrl="{{route('bank-details.status')}}" 
+        <x-dash.form.inputs.listing_checkbox id="list{{$item->id}}"  onclick="changeDisplayStatus('{{$item->id}}','{{route('dashbank-details.status')}}')"  dataItemId="{{$item->id}}" dataUrl="{{route('dashbank-details.status')}}" 
             value="{{$item->id}}" checked="{{($item->status == 1)? 'checked' :''}}"  /> 
     </td>
 <td>
   
-    <x-dash.form.buttons.edit href="{{ route('bank-details.edit', $item->id) }}" />
+    <x-dash.form.buttons.edit href="{{ route('dashbank-details.edit', $item->id) }}" />
 
    &nbsp;
 
   {{-- pass in  deleteSingleData(id , name ,url ) for delete  --}}
 
 
-   <x-dash.form.buttons.delete id="{{$item->id}}" name="{{$item->bank_name}}" url="{{route('bank-details.delete')}}" action="{{route('bank-details.delete',$item->id)}}" /> 
+   <x-dash.form.buttons.delete id="{{$item->id}}" name="{{$item->bank_name}}" url="{{route('dashbank-details.delete')}}" action="{{route('dashbank-details.delete',$item->id)}}" /> 
 
 </td>
 </tr>
