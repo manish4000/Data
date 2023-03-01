@@ -14,7 +14,7 @@ class UserController extends Controller
 
     protected $baseUrl = '';
     protected $url;
-    public $menuUrl ='dash/users';
+    public $menuUrl ='users';
     protected $status  =  [ 
         [ 'value' => 'Permitted', 'name'=> 'Permitted' ],
         [ 'value' => 'Blocked', 'name'=> 'Blocked' ]
@@ -24,7 +24,7 @@ class UserController extends Controller
     public function __construct(UrlGenerator $url)
     {   
         $this->url = $url;
-        $this->baseUrl = $this->url->to('dash/users');
+        $this->baseUrl = $this->url->to('users');
     }
 
 

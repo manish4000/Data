@@ -21,7 +21,7 @@ class BankDetailsController extends Controller
     public function __construct(UrlGenerator $url)
     {
         $this->url = $url;
-        $this->baseUrl =  $this->url->to('/dash/bank-details');
+        $this->baseUrl =  $this->url->to('bank-details');
     }
 
     public function index(Request $request){
