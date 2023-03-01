@@ -9,7 +9,7 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-app/Providers/RouteServiceProvider.php
+/app/Providers/RouteServiceProvider.php
 /vuexy-shell-scripts
 supervisord.log
 supervisord.pid
