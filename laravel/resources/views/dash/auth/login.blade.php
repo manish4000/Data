@@ -60,12 +60,25 @@
               </span>
             @endif
           </div>
-          <div class="form-group">
-            <div class="custom-control custom-checkbox">
-              <input class="custom-control-input" type="checkbox" id="remember-me" name="remember" tabindex="3" {{ old('remember') ? 'checked' : '' }} />
-              <label class="custom-control-label" for="remember-me"> Remember Me </label>
+          
+
+          <div class="form-group {{ $errors->has('g-recaptcha-response') ? ' has-error' : '' }}">
+            {!! NoCaptcha::renderJs() !!}
+           <label class="col-md-4 control-label"></label>
+             <div class="col-md-6 pull-center">
+             {!! app('captcha')->display() !!}
+              @if ($errors->has('g-recaptcha-response'))
+              <x-admin.form.form_error_messages message="{{ $errors->first('g-recaptcha-response') }}"  />
+              @endif
             </div>
+         </div>
+
+         <div class="form-group">
+          <div class="custom-control custom-checkbox">
+            <input class="custom-control-input" type="checkbox" id="remember-me" name="remember" tabindex="3" {{ old('remember') ? 'checked' : '' }} />
+            <label class="custom-control-label" for="remember-me"> Remember Me </label>
           </div>
+        </div>
           <button type="submit" class="btn btn-primary btn-block my-2" tabindex="4">Sign in</button>
         </form>
 

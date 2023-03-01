@@ -21,7 +21,7 @@ class CreateCompanyBankDetailsTable extends Migration
             $table->string('branch_code');
             $table->unsignedBigInteger('country_id');
             $table->string('account_name',100);
-            $table->string('account_number',100);
+            $table->string('account_number');
             $table->string('account_address');
             $table->string('bank_address');
             $table->unsignedBigInteger('city_id');

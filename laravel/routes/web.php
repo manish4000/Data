@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\Masters\TypeController;
 use App\Http\Controllers\Admin\Masters\VechileMasterController;
 use App\Http\Controllers\Admin\CompanyController;
+use App\Http\Controllers\Admin\GoogleV3CaptchaController;
 use App\Http\Controllers\Admin\MasterDataTranslationController;
 use App\Http\Controllers\Admin\MenuGroupController;
 use App\Http\Controllers\Admin\SiteLanguageController;
@@ -30,6 +31,11 @@ use App\Models\User;
 
 
 Auth::routes();
+
+
+Route::get('google-v3-recaptcha', [GoogleV3CaptchaController::class, 'index']);
+Route::post('validate-g-recaptcha', [GoogleV3CaptchaController::class, 'validateGCaptch']);
+
 
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('home');
 Route::get('dashboard', [StaterkitController::class, 'home'])->middleware('auth');

@@ -4,6 +4,7 @@ namespace App\Models\Dash;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Crypt;
 
 class CompanyBankDetails extends Model
 {
@@ -20,4 +21,18 @@ class CompanyBankDetails extends Model
                ->orWhere('swift_code' ,'like','%'.$keyword.'%');
         });
     }
+
+    //encrypt the string
+    public function setAccountNumberAttribute($value)
+    {
+        $this->attributes['account_number'] = Crypt::encryptString( $value);
+    }
+
+    //dcrypt the string
+
+    public function getAccountNumberAttribute($value)
+        {
+            return Crypt::decryptString($value);
+        }
+
 }
