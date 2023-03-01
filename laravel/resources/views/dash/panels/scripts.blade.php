@@ -12,6 +12,17 @@
 <!-- BEGIN: Theme JS-->
 {{-- <script src="{{asset('assets/dash/assets/js/core/app-menu.js')}}"></script>
 <script src="{{asset('assets/dash/assets/js/core/app.js')}}"></script> --}}
+
+
+<script type="text/javascript">
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+</script>
+
+
 <script src="{{ asset(mix('js/core/app-menu.js')) }}"></script>
 <script src="{{ asset(mix('js/core/app.js')) }}"></script>
 <script src="{{ asset('assets/dash/assets/js/dash/common.js') }}"></script>
