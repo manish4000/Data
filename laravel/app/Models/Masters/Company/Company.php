@@ -39,6 +39,7 @@ class Company extends Model
             $query->where('name', 'like', '%'.$keyword.'%')->orWhere( 'company_name', 'like', '%'.$keyword.'%');
         });
     }
+    
     public function scopeCountryFilter($query, $country)
     {
         return $query->where( function($query) use ($country) {

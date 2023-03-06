@@ -12,7 +12,7 @@
 @php
 $multiple = (isset($multiple))? $multiple :'';
 $imageId = (isset($imageId))? $imageId :'';
-$editImageUrl = (isset($editImageUrl))? $editImageUrl :asset('assets/images/portrait/small/avatar-s-11.jpg');
+$editImageUrl = (isset($editImageUrl))? $editImageUrl : asset('assets/images/portrait/small/avatar-s-11.jpg');
 
 @endphp
 
