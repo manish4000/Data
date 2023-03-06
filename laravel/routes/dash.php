@@ -29,36 +29,22 @@ Route::middleware('dash')->name('dash')->group(function(){
     Route::group(['middleware' => 'dashauth'], function () {
 
         Route::group(['prefix'=>'stock-manager','namespace'=>'Dash','as' => 'stock-manager.'],function(){
-            Route::get('/',function(){
-                return view('dash.content.blank',['message' => " Stock Manager listing Page "]);
-            });
-            Route::get('/create',function(){
-                return view('dash.content.blank' ,['message' => " Add New Stock Manager  Page "]);
-            });
+            Route::get('/',function(){ return view('dash.content.blank',['message' => " Stock Manager listing Page "]); });
+            Route::get('/create',function(){ return view('dash.content.blank' ,['message' => " Add New Stock Manager  Page "]);  });
         });
 
         Route::group(['prefix'=>'inquries','namespace'=>'Dash','as' => 'inquries.'],function(){
-            Route::get('/',function(){
-                return view('dash.content.blank',['message' => "Inquries listing Page "]);
-            });
+            Route::get('/',function(){ return view('dash.content.blank',['message' => "Inquries listing Page "]); });
         });
 
         Route::group(['prefix'=>'proforma-manager','namespace'=>'Dash','as' => 'proforma-manager.'],function(){
-            Route::get('/',function(){
-                return view('dash.content.blank',['message' => "Proforma Manager listing Page "]);
-            });
-            Route::get('/create',function(){
-                return view('dash.content.blank' ,['message' => " Add New Proforma Manager Page "]);
-            });
+            Route::get('/',function(){ return view('dash.content.blank',['message' => "Proforma Manager listing Page "]);  });
+            Route::get('/create',function(){ return view('dash.content.blank' ,['message' => " Add New Proforma Manager Page "]); });
         });
 
         Route::group(['prefix'=>'members','namespace'=>'Dash','as' => 'members.'],function(){
-            Route::get('/',function(){
-                return view('dash.content.blank',['message' => "Members listing Page "]);
-            });
-            Route::get('/create',function(){
-                return view('dash.content.blank' ,['message' => " Add New Member Page "]);
-            });
+            Route::get('/',function(){ return view('dash.content.blank',['message' => "Members listing Page "]);  });
+            Route::get('/create',function(){ return view('dash.content.blank' ,['message' => " Add New Member Page "]); });
         });
 
         Route::get('/logout','Dash\Auth\LoginController@logout')->name('logout');
@@ -70,6 +56,14 @@ Route::middleware('dash')->name('dash')->group(function(){
             Route::post('/store','UserController@store')->name('store');
             Route::get('edit/{id}','UserController@edit')->name('edit');
             Route::post('/delete', 'UserController@destroy')->name('delete');   
+        });
+        Route::group(['prefix'=>'testimonial','namespace'=>'Dash','as' => 'testimonial.'],function(){
+            Route::get('/','TestimonialController@index')->name('index');
+            Route::get('/create','TestimonialController@create')->name('create');
+            Route::post('/store','TestimonialController@store')->name('store');
+            Route::get('edit/{id}','TestimonialController@edit')->name('edit');
+            Route::post('/delete', 'TestimonialController@destroy')->name('delete');  
+            Route::post('/delete-multiple','TestimonialController@deleteMultiple')->name('delete-multiple'); 
         });
 
         Route::group(['prefix'=>'bank-details','namespace'=>'Dash','as' => 'bank-details.'],function(){
