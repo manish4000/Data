@@ -69,7 +69,6 @@ class CompanyController extends Controller
 
         $data = Company::with('user')->select(['id','name','company_name','email' ,'status','updated_at','updated_by']);
         
-        
         if(  !empty($request->input('search.keyword') ) ) {
             $data->keywordFilter($request->input('search.keyword')); 
         }
@@ -564,7 +563,7 @@ class CompanyController extends Controller
             'country_id' => 'nullable|numeric',
             'postcode' => 'nullable|string|max:15',
             'region_id' => 'nullable|numeric',
-            'telephone' => 'nullable|string|max:20',
+            'telephone' => 'required|string|max:20',
             'skype_id'=> 'nullable|string|max:25',
             'website'=> 'nullable|string|max:20',
             'logo'=> 'nullable|image|mimes:jpeg,png,jpg,gif|max:6120',
