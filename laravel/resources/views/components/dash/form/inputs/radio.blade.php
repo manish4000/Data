@@ -1,6 +1,6 @@
 @props([
     'for',
-    'lable',
+    'label',
     'name',
     'placeholder',
     'value',
@@ -15,7 +15,7 @@ $border ="";
     }
 @endphp
 
-<div class="custom-control custom-checkbox">
+<div class="form-check form-check-inline">
     <input style="{{$border}}"  type="radio" name='{{ $name }}' class="custom-control-input" id="{{ $for }}" value="{{ $value }}" {{$checked}} >
-    <label style="{{$border}}"  class="custom-control-label" for="{{ $for }}">{{ $lable }}</label>
+    <label style="{{$border}}"  class="custom-control-label" for="{{ $for }}">{{ $label }}</label>
 </div>
