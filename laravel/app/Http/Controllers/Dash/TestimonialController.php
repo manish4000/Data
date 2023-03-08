@@ -72,7 +72,18 @@ class TestimonialController extends Controller
     public function create()
     {   
         $country = Country::get(['id as value' ,'name']);
-        return view('dash.content.testimonial.create',['country' => $country]);
+        $pageConfigs = [
+            'pageHeader' => true, 
+            'baseUrl' => $this->baseUrl, 
+            'moduleName' => $this->moduleName, 
+
+        ];
+        $breadcrumbs[0] = [
+            'link' => $this->baseUrl,
+            'name' => 'List'
+        ];
+
+        return view('dash.content.testimonial.create',['country' => $country ,'pageConfigs' => $pageConfigs ,'breadcrumbs' => $breadcrumbs ]);
     }
 
     /**
