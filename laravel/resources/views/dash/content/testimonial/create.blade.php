@@ -205,7 +205,8 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                          <x-dash.form.inputs.file id="" caption="{{__('webCaption.vehicle_image.title')}}" ImageId="vehicle-image-preview" for="vehicle_image"  class="form-control"  name="vehicle_image"  placeholder="{{__('webCaption.vehicle_image.title')}}" required="required" />
+                        
+                          <x-dash.form.inputs.file id="" caption="{{__('webCaption.vehicle_image.title')}}" ImageId="vehicle-image-preview" for="vehicle_image" editImageUrl="{{ isset($data->vehicle_image)? asset('company_data/'.$imageFolder.'/testimonials/'.$data->vehicle_image) :''}}"  class="form-control"  name="vehicle_image"  placeholder="{{__('webCaption.vehicle_image.title')}}" required="required" />
                           @if($errors->has('vehicle_image'))
                             <x-dash.form.form_error_messages message="{{ $errors->first('vehicle_image') }}"  />
                           @endif
