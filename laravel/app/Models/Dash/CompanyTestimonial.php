@@ -14,7 +14,9 @@ class CompanyTestimonial extends Model
     public function scopeKeywordFilter($query, $keyword)
     {
         return $query->where( function($query) use ($keyword) {
-            $query->where('title', 'like', '%'.$keyword.'%');
+            $query->where('title', 'like', '%'.$keyword.'%')
+            ->orWhere('email' ,'like','%'.$keyword.'%')
+            ->orWhere('person_name' ,'like','%'.$keyword.'%');
         });
     }
 
