@@ -142,7 +142,7 @@ class TypeController extends Controller
             'name.required' => __('webCaption.validation_required.title', ['field'=> "name" ] ),
             'display.required' => __('webCaption.validation_required.title', ['field'=> "display" ] ),
             'name.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('name')] ),
-         ]);
+          ]);
     
         if ($validator->fails()) {
             return redirect()->back()->with('errors', $validator->errors() )->withInput();
