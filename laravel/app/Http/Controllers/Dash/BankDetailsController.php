@@ -80,7 +80,7 @@ class BankDetailsController extends Controller
             'dealer_name' => 'required|string|max:255', 
             'branch_name' => 'required|string|max:255', 
             'branch_code' => 'required|string|max:255', 
-            'country_id' => 'required|string|max:255', 
+            'country_id' => 'required|numeric', 
             'account_name' => 'required|string|max:255', 
             'account_number' => 'required|string|max:255', 
             'account_address' => 'required|string|max:255', 
@@ -92,6 +92,66 @@ class BankDetailsController extends Controller
             'account_currency' => 'required|string|max:255', 
             'reason_for_remittance' => 'required|string|max:255', 
             'display_order' => 'required|integer' 
+            ],
+            [
+                'bank_name.required' => __('webCaption.validation_required.title', ['field'=> "Bank Name" ] ),
+                'bank_name.string' => __('webCaption.validation_string.title', ['field'=> "Bank Name" ] ),
+                'bank_name.max' => __('webCaption.validation_max.title', ['field'=> "Bank Name" ,'max' =>"255" ] ),
+
+                'dealer_name.required' => __('webCaption.validation_required.title', ['field'=> "Dealer Name" ] ),
+                'dealer_name.string' => __('webCaption.validation_string.title', ['field'=> "Dealer Name" ] ),
+                'dealer_name.max' => __('webCaption.validation_max.title', ['field'=> "Dealer Name" ,'max' =>"255" ] ),
+
+                'branch_name.required' => __('webCaption.validation_required.title', ['field'=> "Branch Name" ] ),
+                'branch_name.string' => __('webCaption.validation_string.title', ['field'=> "Branch Name" ] ),
+                'branch_name.max' => __('webCaption.validation_max.title', ['field'=> "Branch Name" ,'max' =>"255" ] ),
+
+                'branch_code.required' => __('webCaption.validation_required.title', ['field'=> "Branch Code" ] ),
+                'branch_code.string' => __('webCaption.validation_string.title', ['field'=> "Branch Code" ] ),
+                'branch_code.max' => __('webCaption.validation_max.title', ['field'=> "Branch Code" ,'max' => '255' ] ),
+
+                'country_id.required' => __('webCaption.validation_required.title', ['field'=> "Country" ] ),
+                'country_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "Country" ] ),
+           
+
+                'account_name.required' => __('webCaption.validation_required.title', ['field'=> "Account Name" ] ),
+                'account_name.string' => __('webCaption.validation_string.title', ['field'=> "Account Name" ] ),
+                'account_name.max' => __('webCaption.validation_max.title', ['field'=> "Account Name" ,"max" => "255" ] ),
+
+                'account_number.required' => __('webCaption.validation_required.title', ['field'=> "Account Number" ] ),
+                'account_number.string' => __('webCaption.validation_string.title', ['field'=> "Account Number" ] ),
+                'account_number.max' => __('webCaption.validation_max.title', ['field'=> "Account Number" ,"max" => "255" ] ),
+
+                'account_address.required' => __('webCaption.validation_required.title', ['field'=> "Account Address" ] ),
+                'account_address.string' => __('webCaption.validation_string.title', ['field'=> "Account Address" ] ),
+                'account_address.max' => __('webCaption.validation_max.title', ['field'=> "Account Address" ,"max" => "255" ] ),
+
+                'bank_address.required' => __('webCaption.validation_required.title', ['field'=> "Bank Address" ] ),
+                'bank_address.required' => __('webCaption.validation_string.title', ['field'=> "Bank Address" ] ),
+                'bank_address.max' => __('webCaption.validation_max.title', ['field'=> "Bank Address"  ,"max" => "255"] ),
+
+                'city_id.required' => __('webCaption.validation_required.title', ['field'=> "City" ] ),
+                'city_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "City" ] ),
+
+                'state_id.required' => __('webCaption.validation_required.title', ['field'=> "State" ] ),
+                'state_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "State" ] ),
+
+                'swift_code.required' => __('webCaption.validation_required.title', ['field'=> "Swift Code" ] ),
+                'swift_code.max' => __('webCaption.validation_max.title', ['field'=> "Swift Code" ,"max" => "100" ] ),
+
+                'iban_no.required' => __('webCaption.validation_required.title', ['field'=> "Iban Number" ] ),
+                'iban_no.string' => __('webCaption.validation_string.title', ['field'=> "Iban Number" ] ),
+                'iban_no.max' => __('webCaption.validation_max.title', ['field'=> "Iban Number" ,"max" =>"255" ] ),
+
+                'account_currency.required' => __('webCaption.validation_required.title', ['field'=> "Account Currency" ] ),
+                'account_currency.string' => __('webCaption.validation_string.title', ['field'=> "Account Currency" ] ),
+
+                'reason_for_remittance.required' => __('webCaption.validation_required.title', ['field'=> "Reason For Remittance" ] ),
+                'reason_for_remittance.string' => __('webCaption.validation_string.title', ['field'=> "Reason For Remittance" ] ),
+
+                'display_order.required' => __('webCaption.validation_required.title', ['field'=> "Display Order" ] ),
+                'display_order.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "Display Order" ] ),
+                
             ]
         );
 
