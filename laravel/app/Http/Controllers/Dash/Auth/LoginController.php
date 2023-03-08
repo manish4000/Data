@@ -14,7 +14,7 @@ class LoginController extends Controller
 {
 
     use AuthenticatesUsers;
-    protected $redirectTo = '/dash/dashboard';
+    protected $redirectTo = 'dashboard';
     
     public function showLoginForm()
     {   
@@ -32,6 +32,10 @@ class LoginController extends Controller
             'email' => 'required|email',
             'password' => 'required', 
             'g-recaptcha-response'  => ['required', new DashReCaptcha]
+        ],[
+            'email.required' => __('webCaption.validation_required.title', ['field'=> "Email" ] ),
+            'email.email' => __('webCaption.validation_email.title', ['field'=> "Email" ] ),
+            'password.required' => __('webCaption.validation_required.title', ['field'=> "Password" ] ),
         ]);
         
         if(Auth::guard('dash')->attempt($request->only('email','password'),$request->filled('remember'))){
