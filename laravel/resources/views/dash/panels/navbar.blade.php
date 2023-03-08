@@ -17,9 +17,9 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-language" id="language-dropdown">
                       @if ($activeLanguageData)
-                      @foreach ( $activeLanguageData as $language )
-                        <a class="dropdown-item @php echo (app()->getLocale() == $language->alias ) ? 'active':''; @endphp" href="{{url('/lang/'.$language->alias)}}" data-language="{{ $language->alias }}">{{ $language->language_en }}</a>
-                      @endforeach
+                        @foreach ( $activeLanguageData as $language )
+                          <a class="dropdown-item @php echo (app()->getLocale() == $language->alias ) ? 'active':''; @endphp" href="{{url('/lang/'.$language->alias)}}" data-language="{{ $language->alias }}">{{ $language->language_en }}</a>
+                        @endforeach
                       @endif
                     </div>
                   </li>

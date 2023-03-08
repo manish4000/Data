@@ -14,10 +14,11 @@ use App\Http\Controllers\Dash\LanguageController;
 use Illuminate\Support\Facades\Route;
 
 
-// Route::get('lang/{locale}',[LanguageController::class,'swap']);
+
 
 
 Route::middleware('dash')->name('dash')->group(function(){
+    Route::get('lang/{locale}',[LanguageController::class,'swap']);
 
     Route::group(['namespace' =>'Dash\Auth','middleware'=>'guest:dash'],function(){
         Route::get('/',"LoginController@showLoginForm");
