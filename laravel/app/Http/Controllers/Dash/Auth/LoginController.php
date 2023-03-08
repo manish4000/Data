@@ -36,6 +36,7 @@ class LoginController extends Controller
             'email.required' => __('webCaption.validation_required.title', ['field'=> "Email" ] ),
             'email.email' => __('webCaption.validation_email.title', ['field'=> "Email" ] ),
             'password.required' => __('webCaption.validation_required.title', ['field'=> "Password" ] ),
+            'g-recaptcha-response.required' => __('webCaption.validation_required.title', ['field'=> "g-recaptcha-response" ] ),
         ]);
         
         if(Auth::guard('dash')->attempt($request->only('email','password'),$request->filled('remember'))){
