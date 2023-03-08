@@ -55,9 +55,9 @@
 										{{__('webCaption.email.title')}}
 										<x-dash.filter.order-by-filter-div orderBy="email" />
 									</th>
-									<th scope="col" class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.country.caption')}}" >
+									<th scope="col"  data-toggle="tooltip" title="{{__('webCaption.country.caption')}}" >
 										{{__('webCaption.country.title')}}
-										<x-dash.filter.order-by-filter-div orderBy="country_id" />
+										
 									</th>
 									<th scope="col" class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.posted_date.caption')}}" >
 										{{__('webCaption.posted_date.title')}}
