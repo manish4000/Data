@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dash\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Rules\DashReCaptcha;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,7 +31,7 @@ class LoginController extends Controller
         $request->validate([
             'email' => 'required|email',
             'password' => 'required', 
-            //'g-recaptcha-response'  => 'required|captcha'
+            'g-recaptcha-response'  => ['required', new DashReCaptcha]
         ]);
         
         if(Auth::guard('dash')->attempt($request->only('email','password'),$request->filled('remember'))){
