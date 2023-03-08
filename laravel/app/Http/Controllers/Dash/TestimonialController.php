@@ -48,7 +48,7 @@ class TestimonialController extends Controller
             'name' => 'Add'
         ];
 
-        $data = CompanyTestimonial::select('*');
+        $data = CompanyTestimonial::with('country')->select('*');
 
         $perPage =  (isset($request->perPage) && !empty($request->perPage)) ? $request->perPage : 500;
 
@@ -61,7 +61,6 @@ class TestimonialController extends Controller
         }
 
         $data = $data->paginate($perPage);
-
         return view('dash.content.testimonial.index',['pageConfigs' => $pageConfigs ,'breadcrumbs' => $breadcrumbs ,'data' => $data ]);
     }
 
@@ -93,7 +92,7 @@ class TestimonialController extends Controller
             'person_name' => 'nullable|string',
             'email' => 'nullable|email',
             'country_id' => 'required|numeric',
-            'phone' => 'nullable|string',
+            'phone' => 'nullable|string|max:15',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:6120',
             'vehicle_image' => 'required||image|mimes:jpeg,png,jpg,gif|max:6120',
             'operator' => 'nullable|numeric',
@@ -103,7 +102,38 @@ class TestimonialController extends Controller
             'rating' => 'nullable|numeric|between:1,5',
             'youtube_url' => 'required|url',
             'd_stock_number' => 'required|string',
-        ]);
+        ], [
+            'title.string' => __('webCaption.validation_string.title', ['field'=> "Title" ] ),
+            'posted_date.date' => __('webCaption.validation_date.title', ['field'=> "Posted Date" ] ),
+            'description.required' => __('webCaption.validation_required.title', ['field'=> "Description" ] ),
+            'person_name.string' => __('webCaption.validation_string.title', ['field'=> "Person Name" ] ),
+            'email.email' => __('webCaption.validation_email.title', ['field'=> "Email" ] ),
+            'country_id.required' => __('webCaption.validation_required.title', ['field'=> "Country" ] ),
+            'country_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "Country" ] ),
+            'phone.string' => __('webCaption.validation_string.title', ['field'=> "Phone" ] ),
+            'phone.max' => __('webCaption.validation_max.title', ['field'=> "Phone" ,"max" => "15" ] ),
+            'image.image' => __('webCaption.validation_image.title', ['field'=> "Image" ] ),
+            'image.mimes' => __('webCaption.validation_mimes.title', ['field'=> "Image" ,"fileTypes" => "jpeg,png,jpg,gif"] ),
+            'image.max' => __('webCaption.validation_max_file.title', ['field'=> "Image" ,"max" => "6120"] ),
+
+            'operator.numeric' => __('webCaption.validation_numeric.title', ['field'=> "Operator" ] ),
+            'testimonial_by.required' => __('webCaption.validation_required.title', ['field'=> "Testimonial By" ] ),
+            'testimonial_by.in' => __('webCaption.validation_in.title', ['field'=> "Testimonial By" ] ),
+            'jct_remark.required' => __('webCaption.validation_required.title', ['field'=> "Jct Remark" ] ),
+            'jct_remark.string' => __('webCaption.validation_string.title', ['field'=> "Jct Remark" ] ),
+
+            'testimonials_ref_id.string' => __('webCaption.validation_string.title', ['field'=> "Testimonials Reference Id"] ),
+            'rating.numeric' => __('webCaption.validation_numeric.title', ['field'=> "Rating" ] ),
+            'rating.between' => __('webCaption.validation_between.title', ['field'=> "Rating" ,"min" => '1' ,"max" => "5"] ),
+        
+            'youtube_url.required' => __('webCaption.validation_required.title', ['field'=> "Youtube Url" ] ),
+            'youtube_url.url' => __('webCaption.validation_url.title', ['field'=> "Youtube Url" ] ),
+
+            'd_stock_number.required' => __('webCaption.validation_required.title', ['field'=> "stock Number" ] ),
+            'd_stock_number.string' => __('webCaption.validation_string.title', ['field'=> "stock Number" ] ),
+
+        ]        
+        );
 
 
         if($request->id){
@@ -112,8 +142,8 @@ class TestimonialController extends Controller
             $testmonail_model =  new CompanyTestimonial();
         }
 
-        $user =   Auth::guard('dash')->user();
-        $folder =     Company::where('id',$user->company_id)->value('gabs_uuid');   
+            $user =   Auth::guard('dash')->user();
+            $folder =     Company::where('id',$user->company_id)->value('gabs_uuid');   
 
             $testmonail_model->title = $request->title; 
             $testmonail_model->company_user_id = $user->company_id; 
@@ -128,7 +158,7 @@ class TestimonialController extends Controller
             $testmonail_model->jct_remark = $request->jct_remark; 
             $testmonail_model->show_jct_remark = ($request->has('show_jct_remark')) ? 1 :0; 
             $testmonail_model->testimonials_ref_id = 0; 
-            $testmonail_model->rating = isset($request->rating)? $request->rating : ''; 
+            $testmonail_model->rating = isset($request->rating)? $request->rating : 0; 
             $testmonail_model->youtube_url = $request->youtube_url; 
             $testmonail_model->image_url = "https://test/"; 
             $testmonail_model->d_stock_number = $request->d_stock_number; 
