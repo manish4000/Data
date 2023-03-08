@@ -31,8 +31,11 @@ class CompanyBankDetails extends Model
     //dcrypt the string
 
     public function getAccountNumberAttribute($value)
-        {
-            return Crypt::decryptString($value);
-        }
+    {       
+       
+            return  Crypt::decryptString($value);
+    }
+
+        
 
 }
