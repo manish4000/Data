@@ -19,7 +19,7 @@
         </a>
 
         <h4 class="card-title mb-1">Welcome to DASH 👋</h4>
-        <p class="card-text mb-2">Please sign-in to your account and start the adventure</p>
+        <p class="card-text mb-2">Please Login to your account and start the adventure</p>
         @if (session('error'))
           <div class="alert alert-danger py-1 text-center">
               {{ session('error') }}
