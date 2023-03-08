@@ -50,16 +50,18 @@
               </div>
             </div>
           </div>
-          <div class="form-group {{ $errors->has('g-recaptcha-response') ? ' has-error' : '' }}">
-               {!! NoCaptcha::renderJs() !!}
-              <label class="col-md-4 control-label"></label>
-                <div class="col-md-6 pull-center">
-                {!! app('captcha')->display() !!}
-                @if ($errors->has('g-recaptcha-response'))
-                <x-admin.form.form_error_messages message="{{ $errors->first('g-recaptcha-response') }}"  />
-                @endif
+
+          <div class="row">
+            <div class="col-md-12">
+                  <div class="form-group">
+                      <div class="g-recaptcha" data-sitekey="{{ env('ADMIN_GOOGLE_RECAPTCHA_KEY') }}"></div>
+                      @if ($errors->has('g-recaptcha-response'))
+                          <span class="text-danger">{{ $errors->first('g-recaptcha-response') }}</span>
+                      @endif
+                  </div>  
+              </div>
             </div>
-          </div>
+
           <div class="form-group">
             <div class="custom-control custom-checkbox">
               <input class="custom-control-input" type="checkbox" id="remember-me" name="remember-me" tabindex="3" {{ old('remember-me') ? 'checked' : '' }} />
@@ -101,4 +103,5 @@
     <!-- /Login v1 -->
   </div>
 </div>
+<script src='https://www.google.com/recaptcha/api.js'></script>
 @endsection
