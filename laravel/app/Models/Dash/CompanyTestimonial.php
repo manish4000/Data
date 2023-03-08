@@ -2,6 +2,7 @@
 
 namespace App\Models\Dash;
 
+use App\Models\Masters\Country;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,5 +18,8 @@ class CompanyTestimonial extends Model
         });
     }
 
+    public function country(){
+        return $this->belongsTo(Country::class, 'country_id');
+    }
 
 }
