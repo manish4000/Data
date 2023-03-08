@@ -12,7 +12,7 @@
     </td>
     <td >{{$item->person_name}}    </td>
     <td >{{$item->email}}    </td>
-    <td >{{$item->country_id}}    </td>
+    <td >{{$item->country->name}}    </td>
     <td >{{$item->posted_date}}    </td>
     <td>
         <x-dash.form.buttons.edit href="{{ route('dashtestimonial.edit', $item->id) }}" />
