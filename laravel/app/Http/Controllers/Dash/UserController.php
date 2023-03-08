@@ -135,7 +135,14 @@ class UserController extends Controller
             'status'   => 'required',
             // 'username' =>  'required|unique:company_users,username,'.$request->id,
             'password' => 'nullable|confirmed|min:8',  
-        ]);
+        ],[
+            'name.required' => __('webCaption.validation_required.title', ['field'=> "Name" ] ),
+            'email.required' => __('webCaption.validation_required.title', ['field'=> "Email" ] ),
+            'email.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('email')] ),
+            'status.required' => __('webCaption.validation_required.title', ['field'=> 'status'] ),
+            'password.min' => __('webCaption.validation_min.title', ['field'=> 'password' ,'min' => "8"] ),
+          ]
+        );
 
         if(!isset($request->id)){
             $request->validate([
