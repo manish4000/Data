@@ -7,6 +7,7 @@
 /admin.gabs.biz/public_html/css
 /admin.gabs.biz/public_html/vendors
 *.sql
+/.idea
 /tmp
 /ssl
 /public_ftp

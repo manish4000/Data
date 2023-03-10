@@ -12,14 +12,7 @@
    <!-- users edit start -->
 
    <form action="{{route('company.store')}}" method="POST"  enctype="multipart/form-data">
-
-      @php
-        echo "<pre>";
-         print_r(request()->session()->all());
-         echo "</pre>";
-      @endphp
       @csrf
-
       <section class="form-control-repeater">
          <div class="card">
             <div class="card-header">
@@ -380,9 +373,9 @@
 {{--                              $contact_whatsapp_1 =   (isset($contact_whatsapp[1]) && $contact_whatsapp[1] == 1 ) ? 'checked' : '';--}}
 
 {{--                           @endphp--}}
-                           <x-admin.form.inputs.checkbox id="" for="contact_1_option_viber" tooltip="{{__('webCaption.viber.caption')}}" label="{{__('webCaption.viber.title')}}"  class="form-control" name="contact_viber[0]"   value="1" checked="" />
+{{--                           <x-admin.form.inputs.checkbox id="" for="contact_1_option_viber" tooltip="{{__('webCaption.viber.caption')}}" label="{{__('webCaption.viber.title')}}"  class="form-control" name="contact_viber[0]"   value="1" checked="" />--}}
 
-                           <x-admin.form.inputs.checkbox id="" for="contact_1_option_line" tooltip="{{__('webCaption.line.caption')}}" label="{{__('webCaption.line.title')}}" class="form-control" name="contact_line[0]"   value="1"  checked="" />
+{{--                           <x-admin.form.inputs.checkbox id="" for="contact_1_option_line" tooltip="{{__('webCaption.line.caption')}}" label="{{__('webCaption.line.title')}}" class="form-control" name="contact_line[0]"   value="1"  checked="" />--}}
 
 {{--                           <x-admin.form.inputs.checkbox id="" for="contact_1_option_whatsapp" tooltip="{{__('webCaption.whatsapp.caption')}}"  label="{{__('webCaption.whatsapp.title')}}"  class="form-control" name="contact_whatsapp[0]"   value="1"  checked="" />&ensp;--}}
                         </div>
@@ -511,7 +504,7 @@
             <x-admin.form.inputs.checkbox id="" for="terms_and_services"  tooltip="{{__('webCaption.accept_terms_and_services.caption')}}" label="{{__('webCaption.accept_terms_and_services.title')}}"  class="form-control" name="terms_and_services"   value="1" checked="{{ old('terms_and_services') == '1' ? 'checked' : '' }}" /> &ensp;
          </div>
       </section>
-      <div>
+      <div class="text-center">
          <input type="hidden" name="id" value="@if(isset($data->id) && !empty($data->id)){{$data->id}}@endif" />
          @if(isset($data->id)) <x-admin.form.buttons.update />   @else <x-admin.form.buttons.create />    @endif
       </div>
