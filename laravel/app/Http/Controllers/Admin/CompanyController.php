@@ -130,7 +130,7 @@ class CompanyController extends Controller
        
         $country = Country::get(['id as value' ,'name']);
 
-        $cities = DB::select('SELECT  id as value ,name FROM cities');
+        //$cities = DB::select('SELECT  id as value ,name FROM cities');
 
         $BusinessTypes = BusinessType::whereNotNull('name')->where('is_service', 'No')->get([ "id as value", "name"]);
 
