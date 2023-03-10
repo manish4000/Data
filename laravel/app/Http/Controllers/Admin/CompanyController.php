@@ -25,7 +25,6 @@ use Carbon\Carbon;
 use Hamcrest\Core\IsNull;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use League\CommonMark\Block\Element\Document;
 use NunoMaduro\Collision\Adapters\Phpunit\State;
 
 class CompanyController extends Controller
@@ -111,14 +110,13 @@ class CompanyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {   
+    {
 
-        // return view('content.admin.company.new_create');
 
         if (!Auth::user()->can('main-navigation-company-add')) {
             abort(403);
         } 
-           $pageConfigs = [
+        $pageConfigs = [
             'pageHeader'    => true, 
             'baseUrl'       => $this->baseUrl, 
             'moduleName'    => $this->moduleName, 
@@ -133,8 +131,6 @@ class CompanyController extends Controller
         $country = Country::get(['id as value' ,'name']);
 
         $cities = DB::select('SELECT  id as value ,name FROM cities');
-
-  
 
         $BusinessTypes = BusinessType::whereNotNull('name')->where('is_service', 'No')->get([ "id as value", "name"]);
 
@@ -303,7 +299,7 @@ class CompanyController extends Controller
                         'created_at'=> \Carbon\Carbon::now()->toDateTimeString(),
                         'updated_at'=> \Carbon\Carbon::now()->toDateTimeString(),
                         ];
-                        $company_user  =  $company_users_model->create($company_user_data);
+                          $company_users_model->create($company_user_data);
                         // $company_user_add_permission  = CompanyUsers::find($company_user->id);
                         // $company_user_add_permission->permissions()->attach($request->permissions);
 
