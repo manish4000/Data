@@ -363,7 +363,7 @@
 
                               $contact_viber =  session()->getOldInput('contact_viber');
 
-                              print_r($contact_viber);
+                              print_r(session()->all());
                               $contact_line =  session()->getOldInput('contact_line');
                               $contact_whatsapp =  session()->getOldInput('contact_whatsapp');
 
