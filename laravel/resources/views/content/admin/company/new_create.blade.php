@@ -367,34 +367,34 @@
 
                </div>
                <hr class="m-0 p-0">
-{{--               <div class="card-body" >--}}
-{{--                  <h4 class="card-title">    {{__('webCaption.contact_person_2.title')}} </h4>--}}
-{{--                  <div class="row">--}}
-{{--                     <div class="col-md-4">--}}
-{{--                        <div class="form-group">--}}
-{{--                           <x-admin.form.inputs.text id="" for="contact_2_name" tooltip="{{__('webCaption.name.caption')}}" label="{{__('webCaption.name.title')}}" maxlength="100" class="form-control" name="contact_name[]"  placeholder="{{__('webCaption.name.title')}}" value=""  required="" />--}}
-{{--                           @if($errors->has('contact_name.1'))--}}
-{{--                              <x-admin.form.form_error_messages message="{{ $errors->first('contact_name.1') }}"  />--}}
-{{--                           @endif--}}
-{{--                        </div>--}}
-{{--                     </div>--}}
-{{--                     <div class="col-md-4">--}}
-{{--                        <div class="form-group">--}}
-{{--                           <x-admin.form.inputs.text id="" for="contact_2_designation" tooltip="{{__('webCaption.designation.caption')}}" label="{{__('webCaption.designation.title')}}" maxlength="50" class="form-control" name="contact_designation[]"  placeholder="{{__('webCaption.designation.title')}}" value=""  required="" />--}}
-{{--                           @if($errors->has('contact_designation.1'))--}}
-{{--                              <x-admin.form.form_error_messages message="{{ $errors->first('contact_designation.1') }}"  />--}}
-{{--                           @endif--}}
-{{--                        </div>--}}
-{{--                     </div>--}}
-{{--                     <div class="col-md-4">--}}
-{{--                        <div class="form-group">--}}
-{{--                           <x-admin.form.inputs.email id="" for="contact_2_email" tooltip="{{__('webCaption.email.caption')}}" label="{{__('webCaption.email.title')}}" maxlength="50" class="form-control" name="contact_email[]"  placeholder="{{__('webCaption.email.title')}}" value=""  required="" />--}}
-{{--                           @if($errors->has('contact_email.1'))--}}
-{{--                              <x-admin.form.form_error_messages message="{{ $errors->first('contact_email.1') }}"  />--}}
-{{--                           @endif--}}
-{{--                        </div>--}}
-{{--                     </div>--}}
-{{--                  </div>--}}
+               <div class="card-body" >
+                  <h4 class="card-title">    {{__('webCaption.contact_person_2.title')}} </h4>
+                  <div class="row">
+                     <div class="col-md-4">
+                        <div class="form-group">
+                           <x-admin.form.inputs.text id="" for="contact_2_name" tooltip="{{__('webCaption.name.caption')}}" label="{{__('webCaption.name.title')}}" maxlength="100" class="form-control" name="contact_name[]"  placeholder="{{__('webCaption.name.title')}}" value=""  required="" />
+                           @if($errors->has('contact_name.1'))
+                              <x-admin.form.form_error_messages message="{{ $errors->first('contact_name.1') }}"  />
+                           @endif
+                        </div>
+                     </div>
+                     <div class="col-md-4">
+                        <div class="form-group">
+                           <x-admin.form.inputs.text id="" for="contact_2_designation" tooltip="{{__('webCaption.designation.caption')}}" label="{{__('webCaption.designation.title')}}" maxlength="50" class="form-control" name="contact_designation[]"  placeholder="{{__('webCaption.designation.title')}}" value=""  required="" />
+                           @if($errors->has('contact_designation.1'))
+                              <x-admin.form.form_error_messages message="{{ $errors->first('contact_designation.1') }}"  />
+                           @endif
+                        </div>
+                     </div>
+                     <div class="col-md-4">
+                        <div class="form-group">
+                           <x-admin.form.inputs.email id="" for="contact_2_email" tooltip="{{__('webCaption.email.caption')}}" label="{{__('webCaption.email.title')}}" maxlength="50" class="form-control" name="contact_email[]"  placeholder="{{__('webCaption.email.title')}}" value=""  required="" />
+                           @if($errors->has('contact_email.1'))
+                              <x-admin.form.form_error_messages message="{{ $errors->first('contact_email.1') }}"  />
+                           @endif
+                        </div>
+                     </div>
+                  </div>
 
 {{--                  <div class="row">--}}
 {{--                     <div class="col-md-4">--}}
