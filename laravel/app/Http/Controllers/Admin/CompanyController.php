@@ -153,7 +153,7 @@ class CompanyController extends Controller
 
         }
 
-        
+
         return view("content.admin.company.new_create",['types' => $types,'pageConfigs' => $pageConfigs ,'permissions' => $permissions,'country' => $country ,'breadcrumbs' => $breadcrumbs, 'status' =>$status,'BusinessTypes' => $BusinessTypes ]);
     }
 
