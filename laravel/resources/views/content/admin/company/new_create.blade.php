@@ -306,123 +306,123 @@
 
             </div>
          </div>
-         <div class="card">
-            <div class="card-header">
-               <h4 class="card-title">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info font-medium-3 mr-1"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                  {{__('webCaption.contact_person_details.title')}}
-               </h4>
-            </div>
-            <hr class="m-0 p-0">
-            <div id="container">
+{{--         <div class="card">--}}
+{{--            <div class="card-header">--}}
+{{--               <h4 class="card-title">--}}
+{{--                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info font-medium-3 mr-1"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>--}}
+{{--                  {{__('webCaption.contact_person_details.title')}}--}}
+{{--               </h4>--}}
+{{--            </div>--}}
+{{--            <hr class="m-0 p-0">--}}
+{{--            <div id="container">--}}
 
-               <div class="card-body" >
-                  <h4 class="card-title">  {{__('webCaption.contact_person_1.title')}} </h4>
-                  <div class="row">
-                     <div class="col-md-4">
-                        <div class="form-group">
-                           <x-admin.form.inputs.text id="" for="contact_1_name" tooltip="{{__('webCaption.name.caption')}}" label="{{__('webCaption.name.title')}}" maxlength="100" class="form-control" name="contact_name[]"  placeholder="{{__('webCaption.name.title')}}" value=""  required="" />
-                           @if($errors->has('contact_name.0'))
-                              <x-admin.form.form_error_messages message="{{ $errors->first('contact_name.0') }}"  />
-                           @endif
-                        </div>
-                     </div>
-                     <div class="col-md-4">
-                        <div class="form-group">
-                           <x-admin.form.inputs.text id="" for="contact_1_designation" tooltip="{{__('webCaption.designation.caption')}}" label="{{__('webCaption.designation.title')}}" maxlength="50" class="form-control" name="contact_designation[]"  placeholder="{{__('webCaption.designation.title')}}" value=""  required="" />
-                           @if($errors->has('contact_designation0'))
-                              <x-admin.form.form_error_messages message="{{ $errors->first('contact_designation0') }}"  />
-                           @endif
-                        </div>
-                     </div>
-                     <div class="col-md-4">
-                        <div class="form-group">
-                           <x-admin.form.inputs.email id="" for="contact_1_email" tooltip="{{__('webCaption.email.caption')}}" label="{{__('webCaption.email.title')}}" maxlength="50" class="form-control" name="contact_email[]"  placeholder="{{__('webCaption.email.title')}}" value=""  required="" />
-                           @if($errors->has('contact_email.0'))
-                              <x-admin.form.form_error_messages message="{{ $errors->first('contact_email.0') }}"  />
-                           @endif
-                        </div>
-                     </div>
-                  </div>
+{{--               <div class="card-body" >--}}
+{{--                  <h4 class="card-title">  {{__('webCaption.contact_person_1.title')}} </h4>--}}
+{{--                  <div class="row">--}}
+{{--                     <div class="col-md-4">--}}
+{{--                        <div class="form-group">--}}
+{{--                           <x-admin.form.inputs.text id="" for="contact_1_name" tooltip="{{__('webCaption.name.caption')}}" label="{{__('webCaption.name.title')}}" maxlength="100" class="form-control" name="contact_name[]"  placeholder="{{__('webCaption.name.title')}}" value=""  required="" />--}}
+{{--                           @if($errors->has('contact_name.0'))--}}
+{{--                              <x-admin.form.form_error_messages message="{{ $errors->first('contact_name.0') }}"  />--}}
+{{--                           @endif--}}
+{{--                        </div>--}}
+{{--                     </div>--}}
+{{--                     <div class="col-md-4">--}}
+{{--                        <div class="form-group">--}}
+{{--                           <x-admin.form.inputs.text id="" for="contact_1_designation" tooltip="{{__('webCaption.designation.caption')}}" label="{{__('webCaption.designation.title')}}" maxlength="50" class="form-control" name="contact_designation[]"  placeholder="{{__('webCaption.designation.title')}}" value=""  required="" />--}}
+{{--                           @if($errors->has('contact_designation0'))--}}
+{{--                              <x-admin.form.form_error_messages message="{{ $errors->first('contact_designation0') }}"  />--}}
+{{--                           @endif--}}
+{{--                        </div>--}}
+{{--                     </div>--}}
+{{--                     <div class="col-md-4">--}}
+{{--                        <div class="form-group">--}}
+{{--                           <x-admin.form.inputs.email id="" for="contact_1_email" tooltip="{{__('webCaption.email.caption')}}" label="{{__('webCaption.email.title')}}" maxlength="50" class="form-control" name="contact_email[]"  placeholder="{{__('webCaption.email.title')}}" value=""  required="" />--}}
+{{--                           @if($errors->has('contact_email.0'))--}}
+{{--                              <x-admin.form.form_error_messages message="{{ $errors->first('contact_email.0') }}"  />--}}
+{{--                           @endif--}}
+{{--                        </div>--}}
+{{--                     </div>--}}
+{{--                  </div>--}}
 
-                  <div class="row">
-                     <div class="col-md-4">
-                        <div class="form-group">
-                           <x-admin.form.inputs.text id="" for="contact_1_phone" tooltip="{{__('webCaption.phone.caption')}}" label="{{__('webCaption.phone.title')}}" maxlength="20" class="form-control" name="contact_phone[]"  placeholder="{{__('webCaption.phone.title')}}" value=""  required="" />
-                           @if($errors->has('contact_phone.0'))
-                              <x-admin.form.form_error_messages message="{{ $errors->first('contact_phone.0') }}"  />
-                           @endif
-                        </div>
-                     </div>
-                     <div class="col-md-4">
-                        <x-admin.form.label for="" tooltip="{{__('webCaption.contact_option.caption')}}" value="{{__('webCaption.contact_option.title')}}" class="" />
-                        <div class="form-group">
-                           <x-admin.form.inputs.checkbox id="" for="contact_1_option_viber" tooltip="{{__('webCaption.viber.caption')}}" label="{{__('webCaption.viber.title')}}"  class="form-control" name="contact_viber[0]"   value="1" checked="{{ ( old('contact_viber.0')  == 1 )? 'checked' :'' }}" /> &ensp;
+{{--                  <div class="row">--}}
+{{--                     <div class="col-md-4">--}}
+{{--                        <div class="form-group">--}}
+{{--                           <x-admin.form.inputs.text id="" for="contact_1_phone" tooltip="{{__('webCaption.phone.caption')}}" label="{{__('webCaption.phone.title')}}" maxlength="20" class="form-control" name="contact_phone[]"  placeholder="{{__('webCaption.phone.title')}}" value=""  required="" />--}}
+{{--                           @if($errors->has('contact_phone.0'))--}}
+{{--                              <x-admin.form.form_error_messages message="{{ $errors->first('contact_phone.0') }}"  />--}}
+{{--                           @endif--}}
+{{--                        </div>--}}
+{{--                     </div>--}}
+{{--                     <div class="col-md-4">--}}
+{{--                        <x-admin.form.label for="" tooltip="{{__('webCaption.contact_option.caption')}}" value="{{__('webCaption.contact_option.title')}}" class="" />--}}
+{{--                        <div class="form-group">--}}
+{{--                           <x-admin.form.inputs.checkbox id="" for="contact_1_option_viber" tooltip="{{__('webCaption.viber.caption')}}" label="{{__('webCaption.viber.title')}}"  class="form-control" name="contact_viber[0]"   value="1" checked="{{ ( old('contact_viber.0')  == 1 )? 'checked' :'' }}" /> &ensp;--}}
 
-                           <x-admin.form.inputs.checkbox id="" for="contact_1_option_line" tooltip="{{__('webCaption.line.caption')}}" label="{{__('webCaption.line.title')}}" class="form-control" name="contact_line[0]"   value="1"  checked="{{ ( old('contact_line.0')  == 1 )? 'checked' :'' }}" />&ensp;
+{{--                           <x-admin.form.inputs.checkbox id="" for="contact_1_option_line" tooltip="{{__('webCaption.line.caption')}}" label="{{__('webCaption.line.title')}}" class="form-control" name="contact_line[0]"   value="1"  checked="{{ ( old('contact_line.0')  == 1 )? 'checked' :'' }}" />&ensp;--}}
 
-                           <x-admin.form.inputs.checkbox id="" for="contact_1_option_whatsapp" tooltip="{{__('webCaption.whatsapp.caption')}}"  label="{{__('webCaption.whatsapp.title')}}"  class="form-control" name="contact_whatsapp[0]"   value="1"  checked="{{ ( old('contact_whatsapp.0')  == 1 )? 'checked' :'' }}" />&ensp;
-                        </div>
-                     </div>
-                  </div>
+{{--                           <x-admin.form.inputs.checkbox id="" for="contact_1_option_whatsapp" tooltip="{{__('webCaption.whatsapp.caption')}}"  label="{{__('webCaption.whatsapp.title')}}"  class="form-control" name="contact_whatsapp[0]"   value="1"  checked="{{ ( old('contact_whatsapp.0')  == 1 )? 'checked' :'' }}" />&ensp;--}}
+{{--                        </div>--}}
+{{--                     </div>--}}
+{{--                  </div>--}}
 
-               </div>
-               <hr class="m-0 p-0">
-               <div class="card-body" >
-                  <h4 class="card-title">    {{__('webCaption.contact_person_2.title')}} </h4>
-                  <div class="row">
-                     <div class="col-md-4">
-                        <div class="form-group">
-                           <x-admin.form.inputs.text id="" for="contact_2_name" tooltip="{{__('webCaption.name.caption')}}" label="{{__('webCaption.name.title')}}" maxlength="100" class="form-control" name="contact_name[]"  placeholder="{{__('webCaption.name.title')}}" value=""  required="" />
-                           @if($errors->has('contact_name.1'))
-                              <x-admin.form.form_error_messages message="{{ $errors->first('contact_name.1') }}"  />
-                           @endif
-                        </div>
-                     </div>
-                     <div class="col-md-4">
-                        <div class="form-group">
-                           <x-admin.form.inputs.text id="" for="contact_2_designation" tooltip="{{__('webCaption.designation.caption')}}" label="{{__('webCaption.designation.title')}}" maxlength="50" class="form-control" name="contact_designation[]"  placeholder="{{__('webCaption.designation.title')}}" value=""  required="" />
-                           @if($errors->has('contact_designation.1'))
-                              <x-admin.form.form_error_messages message="{{ $errors->first('contact_designation.1') }}"  />
-                           @endif
-                        </div>
-                     </div>
-                     <div class="col-md-4">
-                        <div class="form-group">
-                           <x-admin.form.inputs.email id="" for="contact_2_email" tooltip="{{__('webCaption.email.caption')}}" label="{{__('webCaption.email.title')}}" maxlength="50" class="form-control" name="contact_email[]"  placeholder="{{__('webCaption.email.title')}}" value=""  required="" />
-                           @if($errors->has('contact_email.1'))
-                              <x-admin.form.form_error_messages message="{{ $errors->first('contact_email.1') }}"  />
-                           @endif
-                        </div>
-                     </div>
-                  </div>
+{{--               </div>--}}
+{{--               <hr class="m-0 p-0">--}}
+{{--               <div class="card-body" >--}}
+{{--                  <h4 class="card-title">    {{__('webCaption.contact_person_2.title')}} </h4>--}}
+{{--                  <div class="row">--}}
+{{--                     <div class="col-md-4">--}}
+{{--                        <div class="form-group">--}}
+{{--                           <x-admin.form.inputs.text id="" for="contact_2_name" tooltip="{{__('webCaption.name.caption')}}" label="{{__('webCaption.name.title')}}" maxlength="100" class="form-control" name="contact_name[]"  placeholder="{{__('webCaption.name.title')}}" value=""  required="" />--}}
+{{--                           @if($errors->has('contact_name.1'))--}}
+{{--                              <x-admin.form.form_error_messages message="{{ $errors->first('contact_name.1') }}"  />--}}
+{{--                           @endif--}}
+{{--                        </div>--}}
+{{--                     </div>--}}
+{{--                     <div class="col-md-4">--}}
+{{--                        <div class="form-group">--}}
+{{--                           <x-admin.form.inputs.text id="" for="contact_2_designation" tooltip="{{__('webCaption.designation.caption')}}" label="{{__('webCaption.designation.title')}}" maxlength="50" class="form-control" name="contact_designation[]"  placeholder="{{__('webCaption.designation.title')}}" value=""  required="" />--}}
+{{--                           @if($errors->has('contact_designation.1'))--}}
+{{--                              <x-admin.form.form_error_messages message="{{ $errors->first('contact_designation.1') }}"  />--}}
+{{--                           @endif--}}
+{{--                        </div>--}}
+{{--                     </div>--}}
+{{--                     <div class="col-md-4">--}}
+{{--                        <div class="form-group">--}}
+{{--                           <x-admin.form.inputs.email id="" for="contact_2_email" tooltip="{{__('webCaption.email.caption')}}" label="{{__('webCaption.email.title')}}" maxlength="50" class="form-control" name="contact_email[]"  placeholder="{{__('webCaption.email.title')}}" value=""  required="" />--}}
+{{--                           @if($errors->has('contact_email.1'))--}}
+{{--                              <x-admin.form.form_error_messages message="{{ $errors->first('contact_email.1') }}"  />--}}
+{{--                           @endif--}}
+{{--                        </div>--}}
+{{--                     </div>--}}
+{{--                  </div>--}}
 
-                  <div class="row">
-                     <div class="col-md-4">
-                        <div class="form-group">
-                           <x-admin.form.inputs.text id="" for="contact_2_phone" tooltip="{{__('webCaption.phone.caption')}}" label="{{__('webCaption.phone.title')}}" maxlength="20" class="form-control" name="contact_phone[]"  placeholder="{{__('webCaption.phone.title')}}" value=""  required="" />
-                           @if($errors->has('contact_phone.1'))
-                              <x-admin.form.form_error_messages message="{{ $errors->first('contact_phone.1') }}"  />
-                           @endif
-                        </div>
-                     </div>
-                     <div class="col-md-4">
-                        <x-admin.form.label for="" tooltip="{{__('webCaption.contact_option.caption')}}" value="{{__('webCaption.contact_option.title')}}" class="" />
-                        <div class="form-group">
-                           <x-admin.form.inputs.checkbox id="" for="contact_2_option_viber" tooltip="{{__('webCaption.viber.caption')}}" label="{{__('webCaption.viber.title')}}"  class="form-control" name="contact_viber[1]"   value="1" checked="{{ ( old('contact_viber.1')  == 1 )? 'checked' :'' }}" /> &ensp;
+{{--                  <div class="row">--}}
+{{--                     <div class="col-md-4">--}}
+{{--                        <div class="form-group">--}}
+{{--                           <x-admin.form.inputs.text id="" for="contact_2_phone" tooltip="{{__('webCaption.phone.caption')}}" label="{{__('webCaption.phone.title')}}" maxlength="20" class="form-control" name="contact_phone[]"  placeholder="{{__('webCaption.phone.title')}}" value=""  required="" />--}}
+{{--                           @if($errors->has('contact_phone.1'))--}}
+{{--                              <x-admin.form.form_error_messages message="{{ $errors->first('contact_phone.1') }}"  />--}}
+{{--                           @endif--}}
+{{--                        </div>--}}
+{{--                     </div>--}}
+{{--                     <div class="col-md-4">--}}
+{{--                        <x-admin.form.label for="" tooltip="{{__('webCaption.contact_option.caption')}}" value="{{__('webCaption.contact_option.title')}}" class="" />--}}
+{{--                        <div class="form-group">--}}
+{{--                           <x-admin.form.inputs.checkbox id="" for="contact_2_option_viber" tooltip="{{__('webCaption.viber.caption')}}" label="{{__('webCaption.viber.title')}}"  class="form-control" name="contact_viber[1]"   value="1" checked="{{ ( old('contact_viber.1')  == 1 )? 'checked' :'' }}" /> &ensp;--}}
 
-                           <x-admin.form.inputs.checkbox id="" for="contact_2_option_line" tooltip="{{__('webCaption.line.caption')}}" label="{{__('webCaption.line.title')}}" class="form-control" name="contact_line[1]"   value="1"  checked="{{ ( old('contact_line.1')  == 1 )? 'checked' :'' }}" />&ensp;
+{{--                           <x-admin.form.inputs.checkbox id="" for="contact_2_option_line" tooltip="{{__('webCaption.line.caption')}}" label="{{__('webCaption.line.title')}}" class="form-control" name="contact_line[1]"   value="1"  checked="{{ ( old('contact_line.1')  == 1 )? 'checked' :'' }}" />&ensp;--}}
 
-                           <x-admin.form.inputs.checkbox id="" for="contact_2_option_whatsapp" tooltip="{{__('webCaption.whatsapp.caption')}}" label="{{__('webCaption.whatsapp.title')}}"  class="form-control" name="contact_whatsapp[1]"   value="1"  checked="{{ ( old('contact_whatsapp.1')  == 1 )? 'checked' :'' }}" />&ensp;
-                        </div>
-                     </div>
-                  </div>
+{{--                           <x-admin.form.inputs.checkbox id="" for="contact_2_option_whatsapp" tooltip="{{__('webCaption.whatsapp.caption')}}" label="{{__('webCaption.whatsapp.title')}}"  class="form-control" name="contact_whatsapp[1]"   value="1"  checked="{{ ( old('contact_whatsapp.1')  == 1 )? 'checked' :'' }}" />&ensp;--}}
+{{--                        </div>--}}
+{{--                     </div>--}}
+{{--                  </div>--}}
 
-               </div>
-            </div>
+{{--               </div>--}}
+{{--            </div>--}}
 
 
-         </div>
+{{--         </div>--}}
 
 
 {{--         <div class="card">--}}
