@@ -358,7 +358,12 @@
                         <div class="form-group">
                            @php
 
+                            echo "<pre>";
+
+
                               $contact_viber =  session()->getOldInput('contact_viber');
+
+                              print_r($contact_viber);
                               $contact_line =  session()->getOldInput('contact_line');
                               $contact_whatsapp =  session()->getOldInput('contact_whatsapp');
 
