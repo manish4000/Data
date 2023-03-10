@@ -375,7 +375,7 @@
                               $contact_whatsapp_1 =   (isset($contact_whatsapp[1]) && $contact_whatsapp[1] == 1 ) ? 'checked' : '';
 
                            @endphp
-                           <x-admin.form.inputs.checkbox id="" for="contact_1_option_viber" tooltip="{{__('webCaption.viber.caption')}}" label="{{__('webCaption.viber.title')}}"  class="form-control" name="contact_viber[0]"   value="1" checked="{{ $contact_viber_0 }}" /> &ensp;
+{{--                           <x-admin.form.inputs.checkbox id="" for="contact_1_option_viber" tooltip="{{__('webCaption.viber.caption')}}" label="{{__('webCaption.viber.title')}}"  class="form-control" name="contact_viber[0]"   value="1" checked="{{ $contact_viber_0 }}" /> &ensp;--}}
 
 {{--                           <x-admin.form.inputs.checkbox id="" for="contact_1_option_line" tooltip="{{__('webCaption.line.caption')}}" label="{{__('webCaption.line.title')}}" class="form-control" name="contact_line[0]"   value="1"  checked="{{ $contact_line_0 }}" />&ensp;--}}
 
