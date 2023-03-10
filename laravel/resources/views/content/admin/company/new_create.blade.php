@@ -358,7 +358,7 @@
                         <div class="form-group">
                            <x-admin.form.inputs.checkbox id="" for="contact_1_option_viber" tooltip="{{__('webCaption.viber.caption')}}" label="{{__('webCaption.viber.title')}}"  class="form-control" name="contact_viber[0]"   value="1" checked="{{ ( old('contact_viber.0')  == 1 )? 'checked' :'' }}" /> &ensp;
 
-{{--                           <x-admin.form.inputs.checkbox id="" for="contact_1_option_line" tooltip="{{__('webCaption.line.caption')}}" label="{{__('webCaption.line.title')}}" class="form-control" name="contact_line[0]"   value="1"  checked="{{ ( old('contact_line.0')  == 1 )? 'checked' :'' }}" />&ensp;--}}
+                           <x-admin.form.inputs.checkbox id="" for="contact_1_option_line" tooltip="{{__('webCaption.line.caption')}}" label="{{__('webCaption.line.title')}}" class="form-control" name="contact_line[0]"   value="1"  checked="{{ ( old('contact_line.0')  == 1 )? 'checked' :'' }}" />&ensp;
 
 {{--                           <x-admin.form.inputs.checkbox id="" for="contact_1_option_whatsapp" tooltip="{{__('webCaption.whatsapp.caption')}}"  label="{{__('webCaption.whatsapp.title')}}"  class="form-control" name="contact_whatsapp[0]"   value="1"  checked="{{ ( old('contact_whatsapp.0')  == 1 )? 'checked' :'' }}" />&ensp;--}}
                         </div>
