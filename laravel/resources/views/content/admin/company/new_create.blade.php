@@ -13,6 +13,11 @@
 
    <form action="{{route('company.store')}}" method="POST"  enctype="multipart/form-data">
 
+      @php
+        echo "<pre>";
+         print_r(request()->session()->all());
+         echo "</pre>";
+      @endphp
       @csrf
 
       <section class="form-control-repeater">
@@ -358,29 +363,24 @@
                         <div class="form-group">
                            @php
 
-                            echo "<pre>";
-
-
                               $contact_viber =  session()->getOldInput('contact_viber');
-
-                              print_r(session()->all());
                               $contact_line =  session()->getOldInput('contact_line');
                               $contact_whatsapp =  session()->getOldInput('contact_whatsapp');
 
-                           echo   $contact_viber_0 =   (isset($contact_viber[0]) && $contact_viber[0] == 1 ) ? 'checked' : '' ;
+                              $contact_viber_0 =   (isset($contact_viber[0]) && $contact_viber[0] == 1 ) ? 'checked' : '' ;
 
-                           echo    $contact_viber_1 =   (isset($contact_viber[1]) && $contact_viber[1] == 1 ) ? 'checked' :'' ;
+                              $contact_viber_1 =   (isset($contact_viber[1]) && $contact_viber[1] == 1 ) ? 'checked' :'' ;
 
-                           echo    $contact_line_0 =   (isset($contact_line[0]) && $contact_line[0] == 1 )  ? 'checked' : '';
+                              $contact_line_0 =   (isset($contact_line[0]) && $contact_line[0] == 1 )  ? 'checked' : '';
 
-                           echo    $contact_line_1 =   (isset($contact_line[1]) && $contact_line[1] == 1 ) ? 'checked' :'';
+                              $contact_line_1 =   (isset($contact_line[1]) && $contact_line[1] == 1 ) ? 'checked' :'';
 
-                           echo    $contact_whatsapp_0 =   (isset($contact_whatsapp[0]) && $contact_whatsapp[0] == 1 ) ? 'checked' : '' ;
+                              $contact_whatsapp_0 =   (isset($contact_whatsapp[0]) && $contact_whatsapp[0] == 1 ) ? 'checked' : '' ;
 
-                           echo    $contact_whatsapp_1 =   (isset($contact_whatsapp[1]) && $contact_whatsapp[1] == 1 ) ? 'checked' : '';
+                              $contact_whatsapp_1 =   (isset($contact_whatsapp[1]) && $contact_whatsapp[1] == 1 ) ? 'checked' : '';
 
                            @endphp
-{{--                           <x-admin.form.inputs.checkbox id="" for="contact_1_option_viber" tooltip="{{__('webCaption.viber.caption')}}" label="{{__('webCaption.viber.title')}}"  class="form-control" name="contact_viber[0]"   value="1" checked="{{ $contact_viber_0 }}" /> &ensp;--}}
+                           <x-admin.form.inputs.checkbox id="" for="contact_1_option_viber" tooltip="{{__('webCaption.viber.caption')}}" label="{{__('webCaption.viber.title')}}"  class="form-control" name="contact_viber[0]"   value="1" checked="{{ $contact_viber_0 }}" /> &ensp;
 
 {{--                           <x-admin.form.inputs.checkbox id="" for="contact_1_option_line" tooltip="{{__('webCaption.line.caption')}}" label="{{__('webCaption.line.title')}}" class="form-control" name="contact_line[0]"   value="1"  checked="{{ $contact_line_0 }}" />&ensp;--}}
 
