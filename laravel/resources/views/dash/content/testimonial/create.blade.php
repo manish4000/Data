@@ -169,7 +169,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <x-dash.form.inputs.text  for="stock_number" maxlength="50"  tooltip="{{__('webCaption.stock_number.caption')}}" label="{{__('webCaption.stock_number.title')}}"  class="form-control" name="d_stock_number"  placeholder="{{__('webCaption.d_stock_number.title')}}" value="{{old('d_stock_number', isset($data->d_stock_number)?$data->d_stock_number:'' )}}"  required="required" />
+                            <x-dash.form.inputs.text  for="stock_number" maxlength="50"  tooltip="{{__('webCaption.stock_number.caption')}}" label="{{__('webCaption.stock_number.title')}}"  class="form-control" name="d_stock_number"  placeholder="{{__('webCaption.stock_number.title')}}" value="{{old('d_stock_number', isset($data->d_stock_number)?$data->d_stock_number:'' )}}"  required="required" />
                             @if ($errors->has('d_stock_number'))
                                 <x-dash.form.form_error_messages message="{{ $errors->first('d_stock_number') }}" />
                             @endif
