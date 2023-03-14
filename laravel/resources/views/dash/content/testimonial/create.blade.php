@@ -8,11 +8,6 @@
 
 @section('content')
 <div>
-   @if($errors->any())
-   @foreach ($errors->all() as $error)
-      <div>{{ $error }}</div>
-  @endforeach
-@endif
 	<form action="{{ route('dashtestimonial.store')}}" method="POST" enctype="multipart/form-data">
 		@csrf
 		<div class="card card-primary">
