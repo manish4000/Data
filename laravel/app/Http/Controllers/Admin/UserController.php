@@ -159,7 +159,15 @@ class UserController extends Controller
             if (!Auth::user()->can('settings-users-edit')) {
                 abort(403);
             }
+
             $userModel =    User::find($request->id);
+            if(isset($request->password)){
+                $request->validate([
+                    'password' => 'required|confirmed|min:5',
+                ]);
+                $userModel->password = bcrypt($request->password);
+            }
+
         }else{
             if (!Auth::user()->can('settings-users-add')) {
                 abort(403);
