@@ -13,7 +13,7 @@
 $multiple = (isset($multiple))? $multiple :'';
 $imageId = (isset($imageId))? $imageId :'';
 
-$editImageUrl = (isset($editImageUrl) && !empty($editImageUrl) )? $editImageUrl :asset('assets/images/portrait/small/avatar-s-11.jpg');
+$editImageUrl = (isset($editImageUrl) && !empty($editImageUrl) )? $editImageUrl :asset('assets/images/portrait/small/no-photo.jpg');
 
 @endphp
 
