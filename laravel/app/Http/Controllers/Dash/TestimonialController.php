@@ -98,7 +98,7 @@ class TestimonialController extends Controller
     
         $request->validate([
             'title' => 'string|nullable',
-            'posted_date' => 'nullable|date',
+            'posted_date' => 'required|date',
             'description' => 'required',
             'person_name' => 'nullable|string',
             'email' => 'nullable|email',
@@ -110,12 +110,13 @@ class TestimonialController extends Controller
             'testimonial_by' => 'required|in:Buyer,Dealer',
             'jct_remark' => 'required|string',
             'testimonials_ref_id' => 'nullable|string',
-            'rating' => 'nullable|numeric|between:1,5',
+            'rating' => 'nullable|numeric|between:0,5',
             'youtube_url' => 'required|url',
             'd_stock_number' => 'required|string',
         ], [
             'title.string' => __('webCaption.validation_string.title', ['field'=> "Title" ] ),
             'posted_date.date' => __('webCaption.validation_date.title', ['field'=> "Posted Date" ] ),
+            'posted_date.required' => __('webCaption.validation_required.title', ['field'=> "Posted Date" ] ),
             'description.required' => __('webCaption.validation_required.title', ['field'=> "Description" ] ),
             'person_name.string' => __('webCaption.validation_string.title', ['field'=> "Person Name" ] ),
             'email.email' => __('webCaption.validation_email.title', ['field'=> "Email" ] ),
@@ -172,8 +173,7 @@ class TestimonialController extends Controller
             $testmonail_model->rating = isset($request->rating)? $request->rating : 0; 
             $testmonail_model->youtube_url = $request->youtube_url; 
             $testmonail_model->image_url = "https://test/"; 
-            $testmonail_model->d_stock_number = $request->d_stock_number; 
-            $testmonail_model->vehicle_image = $request->vehicle_image; 
+            $testmonail_model->d_stock_number = $request->d_stock_number;
             $testmonail_model->verified_buyer = ($request->has('verified_buyer')) ? 1 :0;  
             $testmonail_model->is_paid = ($request->has('show_jct_remark')) ? 1 :0;  ; 
             $testmonail_model->operator = 0; 
