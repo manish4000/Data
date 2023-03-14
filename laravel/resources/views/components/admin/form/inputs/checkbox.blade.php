@@ -6,7 +6,6 @@
     'customClass',
     'checked',
     'tooltip'
-   
 ])
 
 
