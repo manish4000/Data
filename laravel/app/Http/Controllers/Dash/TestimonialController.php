@@ -105,7 +105,7 @@ class TestimonialController extends Controller
             'country_id' => 'required|numeric',
             'phone' => 'nullable|string|max:15',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:6120',
-            'vehicle_image' => 'required||image|mimes:jpeg,png,jpg,gif|max:6120',
+            'vehicle_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:6120',
             'operator' => 'nullable|numeric',
             'testimonial_by' => 'required|in:Buyer,Dealer',
             'jct_remark' => 'required|string',
