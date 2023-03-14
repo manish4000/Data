@@ -170,7 +170,7 @@
                         $jumvea_account =   (isset($old_jumvea_account_value) && $old_jumvea_account_value == 1  ) ? 'checked' : ((isset($data->jumvea_account) && $data->jumvea_account == 1)? 'checked' :'' );
                     @endphp
                     <div class="col-md-4">
-                     <x-admin.form.label for="" value="{{__('webCaption.jumvea_account.caption')}}" class="" />
+                     <x-admin.form.label for="" tooltip="{{__('webCaption.jumvea_account.caption')}}" value="{{__('webCaption.jumvea_account.title')}}" class="" />
                         <div class="form-group">
                             <x-dash.form.inputs.checkbox  name="jumvea_account"  for="" label="{{__('webCaption.yes.caption')}}" checked="{{$jumvea_account}}"  value="1"  customClass="form-check-input"  />
                             @if ($errors->has('jumvea_account'))
