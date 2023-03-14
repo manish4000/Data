@@ -53,11 +53,11 @@
 							</div>
 						</div>
 					</div>
-					@if(!isset($user))
+					@if(isset($user))
 						<div class="row">
 							<div class="col-6">
 								<div class="form-group">
-									<x-admin.form.inputs.password  maxlength="255"  for="password" tooltip="{{__('webCaption.password.caption')}}"   label="{{__('webCaption.password.title')}}"  class="form-control" name="password"  placeholder="{{__('webCaption.password.title')}}" value=""  required="required" />
+									<x-admin.form.inputs.password  maxlength="255"  for="password" tooltip="{{__('webCaption.password.caption')}}"   label="{{__('webCaption.password.title')}}"  class="form-control" name="password"  placeholder="{{__('webCaption.password.title')}}" value=""  required="" />
 									@if ($errors->has('password'))
 									<x-admin.form.form_error_messages message="{{ $errors->first('password') }}"  />
 								    @endif
@@ -65,14 +65,33 @@
 							</div>
 							<div class="col-6">
 								<div class="form-group">
-									<x-admin.form.inputs.password tooltip="{{__('webCaption.password_confirm.caption')}}"   maxlength="255" for="password_confirmation"  label="{{__('webCaption.password_confirm.title')}}"  class="form-control" name="password_confirmation"  placeholder="{{__('webCaption.password_confirm.title')}}" value=""  required="required" />
+									<x-admin.form.inputs.password tooltip="{{__('webCaption.password_confirm.caption')}}"   maxlength="255" for="password_confirmation"  label="{{__('webCaption.password_confirm.title')}}"  class="form-control" name="password_confirmation"  placeholder="{{__('webCaption.password_confirm.title')}}" value=""  required="" />
 									@if ($errors->has('password_confirmation'))
 									<x-admin.form.form_error_messages message="{{ $errors->first('password_confirmation') }}"  />
 								    @endif
 								</div>
 							</div>
 						</div>
-					@endif	
+					@else
+						<div class="row">
+							<div class="col-6">
+								<div class="form-group">
+									<x-admin.form.inputs.password  maxlength="255"  for="password" tooltip="{{__('webCaption.password.caption')}}"   label="{{__('webCaption.password.title')}}"  class="form-control" name="password"  placeholder="{{__('webCaption.password.title')}}" value=""  required="required" />
+									@if ($errors->has('password'))
+										<x-admin.form.form_error_messages message="{{ $errors->first('password') }}"  />
+									@endif
+								</div>
+							</div>
+							<div class="col-6">
+								<div class="form-group">
+									<x-admin.form.inputs.password tooltip="{{__('webCaption.password_confirm.caption')}}"   maxlength="255" for="password_confirmation"  label="{{__('webCaption.password_confirm.title')}}"  class="form-control" name="password_confirmation"  placeholder="{{__('webCaption.password_confirm.title')}}" value=""  required="required" />
+									@if ($errors->has('password_confirmation'))
+										<x-admin.form.form_error_messages message="{{ $errors->first('password_confirmation') }}"  />
+									@endif
+								</div>
+							</div>
+						</div>
+					@endif
 					<div class="row">
 						<div class="col-md-12">
 							<x-admin.form.label for="" tooltip="{{__('webCaption.roles.caption')}}" value="{{__('webCaption.roles.title')}}" class="" />
