@@ -12,12 +12,12 @@
 @php
 $multiple = (isset($multiple))? $multiple :'';
 $imageId = (isset($imageId))? $imageId :'';
-$editImageUrl = (isset($editImageUrl))? $editImageUrl : asset('assets/images/portrait/small/avatar-s-11.jpg');
+$editImageUrl = ((isset($editImageUrl)) &&  !empty($editImageUrl) )? $editImageUrl : asset('assets/images/portrait/small/no-photo.jpg');
 
 @endphp
 
 <div class="media">
-    @php $logo_file = asset('assets/images/portrait/small/avatar-s-11.jpg'); @endphp
+    @php $logo_file = asset('assets/images/portrait/small/no-photo.jpg'); @endphp
     {{-- @if(isset($data->logo_file) && !empty($data->logo_file))
         @php $logo_file = 'https://www.japanesecartrade.com/logo/'.$data->logo_file;  @endphp
     @endif --}}
