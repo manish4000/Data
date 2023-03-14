@@ -7,13 +7,14 @@
     'attributes',
     'maxlength',
     'class',
-    'required'
+    'required',
+     'tooltip'
 ])
 @php
 $charLength =  (isset($value))? strlen($value) : 0;
 @endphp
 
-@if (isset($label) && isset($for)) <label for='{{ $for }}'>{{ $label }} </label> @endif
+@if (isset($label) && isset($for)) <label @if (isset($tooltip)) title="{{$tooltip}}"  @endif   data-toggle="tooltip" for='{{ $for }}'>{{ $label }} </label> @endif
 <textarea 
 
     @if(isset($class)) class="{{$class}}"  @endif    
