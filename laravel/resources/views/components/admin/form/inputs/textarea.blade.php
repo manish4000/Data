@@ -14,7 +14,7 @@
 $charLength =  (isset($value))? strlen($value) : 0;
 @endphp
 
-@if (isset($label) && isset($for)) <label @if (isset($tooltip)) title="{{$tooltip}}"  @endif   data-toggle="tooltip"  for='{{ $for }}'>{{ $label }} </label> @endif
+@if (isset($label) && isset($for)) <label @if (isset($tooltip)) title="{{$tooltip}}"  @endif   data-toggle="tooltip"  for='{{ $for }}'>{{ $label }} @if(isset($required) && !empty($required)) <span class="text-danger" style="font-size: 18px"> * </span>  @endif  </label> @endif
 <textarea 
 
     @if(isset($class)) class="{{$class}}"  @endif    
@@ -26,7 +26,8 @@ $charLength =  (isset($value))? strlen($value) : 0;
      rows="3" 
      @if(isset($placeholder )) placeholder='{{ $placeholder }}'  @endif  
   
-     @if(isset($required)) {{ $required }}  @endif  >{{ old($name, $value) }}</textarea>
+     @if(isset($required)) {{ $required }}  @endif  >{{ old($name, $value) }}
+</textarea>
     @if (isset($maxlength) && isset($for) )(<span class="text-right" id="count_{{$for}}">{{$charLength}}</span>/{{$maxlength}}) @endif    
 
     @section('inner-script')

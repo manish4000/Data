@@ -12,16 +12,10 @@
     'editSelected'
 ])
 
-@php
-$border ="";
-    if($required == "required"){
-        $border ="border:1px solid red;";
-    }
-@endphp
 
 <div class="form-group">
-    @if (isset($label)) <label for='{{ $for }}'>{{ $label }} </label> @endif 
-    <select  class="select2-multiple" style="{{$border}}" data-autofill="true" multiple data-is-parent="false"  name="{{ $name }}" id="{{ $for }}" {{ $required }}>
+    @if (isset($label)) <label for='{{ $for }}'>{{ $label }} @if(isset($required) && !empty($required)) <span class="text-danger" style="font-size: 18px"> * </span>  @endif  </label> @endif
+    <select  class="select2-multiple"  data-autofill="true" multiple data-is-parent="false"  name="{{ $name }}" id="{{ $for }}" {{ $required }}>
         <option value="">Select</option>
         @if(isset($optionData) && count($optionData) > 0)
             @foreach($optionData as $option)

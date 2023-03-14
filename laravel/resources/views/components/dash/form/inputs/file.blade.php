@@ -6,11 +6,13 @@
     'value',
     'multiple',
     'imageId',
-    'editImageUrl'
+    'editImageUrl',
+    'required'
 ])
 
 @php
 $multiple = (isset($multiple))? $multiple :'';
+$required = (isset($required))? $required :'';
 $imageId = (isset($imageId))? $imageId :'';
 
 $editImageUrl = (isset($editImageUrl) && !empty($editImageUrl) )? $editImageUrl :asset('assets/images/portrait/small/no-photo.jpg');
@@ -27,8 +29,8 @@ $editImageUrl = (isset($editImageUrl) && !empty($editImageUrl) )? $editImageUrl 
     </a>
 
     <div class="media-body mt-75 ml-1">
-        <label for="{{ $for }}" class="btn btn-sm btn-primary mb-75 mr-75">{{ $caption }}</label>
-        <input type="file" name="{{ $name }}" id="{{ $for }}" hidden accept="image/*"  {{$multiple}} />
+        <label for="{{ $for }}" class="btn btn-sm btn-primary mb-75 mr-75">{{ $caption }}  @if(isset($required) && !empty($required)) &nbsp; <span class="text-danger" style="font-size: 14px;font-weight:bolder"> * </span>  @endif </label>
+        <input type="file" name="{{ $name }}" id="{{ $for }}" hidden accept="image/*"  {{$multiple}} {{$required}} />
         <p>Allowed JPEG, JPG, PNG, GIF or BMP. Max size of 5MiB</p>
     </div>
 

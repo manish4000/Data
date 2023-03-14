@@ -14,7 +14,7 @@
 $charLength =  (isset($value))? strlen($value) : 0;
 @endphp
 
-@if (isset($label) && isset($for)) <label @if (isset($tooltip)) title="{{$tooltip}}"  @endif   data-toggle="tooltip" for='{{ $for }}'>{{ $label }} </label> @endif
+@if (isset($label) && isset($for)) <label @if (isset($tooltip)) title="{{$tooltip}}"  @endif   data-toggle="tooltip" for='{{ $for }}'>{{ $label }}  @if(isset($required) && !empty($required)) <span class="text-danger" style="font-size: 14px;font-weight: bolder"> * </span>  @endif   </label> @endif
 <textarea 
 
     @if(isset($class)) class="{{$class}}"  @endif    

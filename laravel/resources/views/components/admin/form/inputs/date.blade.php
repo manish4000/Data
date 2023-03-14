@@ -3,11 +3,12 @@
     'label',
     'name',
     'placeholder',
-    'value'
+    'value',
+     'required',
 ])
 
 <div class="form-group">
-    @if (isset($label)) <label @if (isset($for)) for='{{ $for }}'  @endif >{{ $label }} </label> @endif
+    @if (isset($label)) <label @if (isset($for)) for='{{ $for }}'  @endif >{{ $label }}  @if(isset($required) && !empty($required)) <span class="text-danger" style="font-size: 18px"> * </span>  @endif </label> @endif
     <input  
     @if (isset($for)) id='{{ $for }}' @endif 
     name='{{ $name }}'

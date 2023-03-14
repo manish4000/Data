@@ -13,19 +13,15 @@
 ])
 @php
 
-$border ="";
-if($required == "required"){
-    $border ="border:1px solid red;";
-}
+
 $charLength =  (isset($value))? strlen($value) : 0;
 @endphp
 
 @if (isset($label) && isset($for)) 
-  <label  @if (isset($tooltip)) title="{{$tooltip}}"  @endif   data-toggle="tooltip" for='{{ $for }}'>{{ $label }} </label>
+  <label  @if (isset($tooltip)) title="{{$tooltip}}"  @endif   data-toggle="tooltip" for='{{ $for }}'>{{ $label }}  @if(isset($required) && !empty($required)) <span class="text-danger" style="font-size: 14px;font-weight:bolder"> * </span>  @endif </label>
 @endif
 <input 
-    style="{{$border}}" 
-    type="text" 
+    type="text"
     @if (isset($for)) id="{{$for}}" onkeyup="checkTextLimit('{{$for}}');"  @endif
 
     @if (isset($maxlength))  maxlength="{{$maxlength}}" @endif 

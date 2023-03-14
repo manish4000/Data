@@ -13,19 +13,14 @@
     'customClass'
 ])
 
-@php
-$border ="";
-    if($required == "required"){
-        $border ="border:1px solid red;";
-    }
-@endphp
+
 <?php  $customClass = (isset($customClass)) ? $customClass :''; ?>
 
 <div class="form-label">
     @if (isset($label))
-       <label  @if (isset($tooltip)) title="{{$tooltip}}"  @endif   data-toggle="tooltip"  @if(isset($for)) for='{{ $for }}' @endif > {{ $label }} </label> 
+       <label  @if (isset($tooltip)) title="{{$tooltip}}"  @endif   data-toggle="tooltip"  @if(isset($for)) for='{{ $for }}' @endif > {{ $label }}  @if(isset($required) && !empty($required)) <span class="text-danger" style="font-size: 14px;font-weight: bolder"> * </span>  @endif </label>
     @endif
-    <select style="{{$border}}" class="<?php echo  $customClass ?> select2"  name="{{$name}}" 
+    <select style="" class="<?php echo  $customClass ?> select2"  name="{{$name}}"
     
        @if(isset($for)) id="{{ $for }}" @endif  {{ $required }}>
         <option value=""> Select </option>
