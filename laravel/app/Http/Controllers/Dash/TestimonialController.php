@@ -175,7 +175,7 @@ class TestimonialController extends Controller
             $testmonail_model->image_url = "https://test/"; 
             $testmonail_model->d_stock_number = $request->d_stock_number;
             $testmonail_model->verified_buyer = ($request->has('verified_buyer')) ? 1 :0;  
-            $testmonail_model->is_paid = ($request->has('show_jct_remark')) ? 1 :0;  ; 
+            $testmonail_model->is_paid =  1  ;
             $testmonail_model->operator = 0; 
 
             if($request->has('image')){
