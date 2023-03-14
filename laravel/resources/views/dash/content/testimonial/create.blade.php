@@ -37,9 +37,9 @@
                     @endphp
 
                     <div class="col-md-4">
-                           <x-admin.form.label for="" value="{{__('webCaption.show.caption')}}" class="" />
+                           <x-admin.form.label for="" value="{{__('webCaption.show_person_name.caption')}}" class="" />
                            <div class="form-group">
-                               <x-dash.form.inputs.checkbox  name="show_person_name"  for="" label="{{__('webCaption.show.caption')}}" checked="{{$show_person_name}}"  value="1"  customClass="form-check-input"  />
+                               <x-dash.form.inputs.checkbox  name="show_person_name"  for="" label="{{__('webCaption.show_person_name.caption')}}" checked="{{$show_person_name}}"  value="1"  customClass="form-check-input"  />
                                @if ($errors->has('show_person_name'))
                                    <x-dash.form.form_error_messages message="{{ $errors->first('show_person_name') }}" />
                                @endif
@@ -80,7 +80,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <x-dash.form.inputs.date  for="posted_date"  maxlength="255" tooltip="{{__('webCaption.posted_date.caption')}}" label="{{__('webCaption.posted_date.title')}}"  class="form-control" name="posted_date"  placeholder="{{__('webCaption.posted_date.title')}}" value="{{old('posted_date', isset($data->posted_date)?$data->posted_date:'' )}}"  required="" />
+                            <x-dash.form.inputs.date  for="posted_date"  maxlength="255" tooltip="{{__('webCaption.posted_date.caption')}}" label="{{__('webCaption.posted_date.title')}}"  class="form-control" name="posted_date"  placeholder="{{__('webCaption.posted_date.title')}}" value="{{old('posted_date', isset($data->posted_date)?$data->posted_date:'' )}}"  required="required" />
                             @if ($errors->has('posted_date'))
                                 <x-dash.form.form_error_messages message="{{ $errors->first('posted_date') }}" />
                             @endif
@@ -107,9 +107,10 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <x-dash.form.inputs.text  for="rating"  tooltip="{{__('webCaption.rating.caption')}}" label="{{__('webCaption.rating.title')}}"  class="form-control" name="rating"  placeholder="{{__('webCaption.rating.title')}}" value="{{old('rating', isset($data->rating)?$data->rating:'' )}}"  required="" />
-                            @if ($errors->has('rating'))
-                                <x-dash.form.form_error_messages message="{{ $errors->first('rating') }}" />
+                            <x-dash.form.inputs.select label="{{__('webCaption.rating.title')}}"  tooltip="{{__('webCaption.rating.caption')}}" for="rating" name="rating"
+                                                       placeholder="{{ __('locale.rating.caption') }}" customClass="rating"  editSelected="{{(isset($data->rating) && ($data->rating != null))?$data->rating :''; }}"  required=""  />
+                            @if($errors->has('rating'))
+                                <x-dash.form.form_error_messages message="{{ $errors->first('rating') }}"  />
                             @endif
                         </div>
                     </div>
@@ -141,9 +142,9 @@
 
                     
                     <div class="col-md-4">
-                        <x-admin.form.label for="" value="{{__('webCaption.show.caption')}}" class="" />
+                        <x-admin.form.label for="" value="{{__('webCaption.show_jct_remark.caption')}}" class="" />
                         <div class="form-group">
-                            <x-dash.form.inputs.checkbox  name="show_jct_remark"  for="" label="{{__('webCaption.show.caption')}}" checked="{{$show_jct_remark}}"  value="1"  customClass="form-check-input"  />
+                            <x-dash.form.inputs.checkbox  name="show_jct_remark"  for="" label="{{__('webCaption.show_jct_remark.caption')}}" checked="{{$show_jct_remark}}"  value="1"  customClass="form-check-input"  />
                             @if ($errors->has('show_jct_remark'))
                                 <x-dash.form.form_error_messages message="{{ $errors->first('show_jct_remark') }}" />
                             @endif
@@ -213,15 +214,15 @@
                         $is_paid =   (isset($old_is_paid) && $old_is_paid == 1  ) ? 'checked' : ((isset($data->is_paid) && $data->is_paid == 1)? 'checked' :'' );
                         @endphp
 
-                    <div class="col-md-4">
-                        <x-admin.form.label for="" value="{{__('webCaption.is_paid.caption')}}" class="" />
-                        <div class="form-group">
-                            <x-dash.form.inputs.checkbox  name="is_paid"  for="" label="{{__('webCaption.is_paid.caption')}}" checked="{{$is_paid}}"  value="1"  customClass="form-check-input"  />
-                            @if ($errors->has('is_paid'))
-                                <x-dash.form.form_error_messages message="{{ $errors->first('is_paid') }}" />
-                            @endif
-                        </div>
-                    </div>                        
+{{--                    <div class="col-md-4">--}}
+{{--                        <x-admin.form.label for="" value="{{__('webCaption.is_paid.caption')}}" class="" />--}}
+{{--                        <div class="form-group">--}}
+{{--                            <x-dash.form.inputs.checkbox  name="is_paid"  for="" label="{{__('webCaption.is_paid.caption')}}" checked="{{$is_paid}}"  value="1"  customClass="form-check-input"  />--}}
+{{--                            @if ($errors->has('is_paid'))--}}
+{{--                                <x-dash.form.form_error_messages message="{{ $errors->first('is_paid') }}" />--}}
+{{--                            @endif--}}
+{{--                        </div>--}}
+{{--                    </div>                        --}}
 				</div>
 
 			</div>
