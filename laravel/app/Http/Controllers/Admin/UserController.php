@@ -180,6 +180,13 @@ class UserController extends Controller
             'name'     => 'required',
             'email'    => 'required|email|unique:users,email,'.$request->id,
             'username' =>  'required|unique:users,username,'.$request->id,
+        ], [
+            'name.required'=> __('webCaption.validation_required.title', ['field'=> "Name" ] ),
+            'email.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('email')] ),
+            'email.required'=> __('webCaption.validation_required.title', ['field'=> "Email" ] ),
+            'email.email'=> __('webCaption.validation_email.title', ['field'=> "Email" ] ),
+            'username.required'=> __('webCaption.validation_required.title', ['field'=> "Username" ] ),
+            'username.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('username')] ),
         ]);
 
         if(!isset($request->id)){
@@ -248,6 +255,11 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users,email,'.$id
+        ],[
+            'name.required'=> __('webCaption.validation_required.title', ['field'=> "Name" ] ),
+            'email.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('email')] ),
+            'email.required'=> __('webCaption.validation_required.title', ['field'=> "Email" ] ),
+            'email.email'=> __('webCaption.validation_email.title', ['field'=> "Email"] ),
         ]);
   
         // $validatedData['password'] = bcrypt($validatedData['password']);
@@ -305,6 +317,11 @@ class UserController extends Controller
             $validatedData = $request->validate([
                 'name' => 'required',
                 'email' => 'required|email|unique:users,email,'.$user->id
+            ],[
+                'name.required'=> __('webCaption.validation_required.title', ['field'=> "Name" ] ),
+                'email.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('email')] ),
+                'email.required'=> __('webCaption.validation_required.title', ['field'=> "Email" ] ),
+                'email.email'=> __('webCaption.validation_email.title', ['field'=> $request->input('email') ] ),
             ]);
         }
         else {
@@ -312,6 +329,14 @@ class UserController extends Controller
                 'name' => 'required',
                 'password' => 'required|confirmed|min:5',
                 'email' => 'required|email|unique:users,email,'.$user->id
+            ],[
+                'name.required'=> __('webCaption.validation_required.title', ['field'=> "Name" ] ),
+                'email.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('email')] ),
+                'email.required'=> __('webCaption.validation_required.title', ['field'=> "Email" ] ),
+                'email.email'=> __('webCaption.validation_email.title', ['field'=> $request->input('email') ] ),
+                'password.required'=> __('webCaption.validation_required.title', ['field'=> "Password" ] ),
+                'password.confirmed'=> __('webCaption.validation_confirmed.title', ['field'=> "Password" ] ),
+                'password.min'=> __('webCaption.validation_min.title', ['field'=> "Password" ,"min" => "5" ] ),
             ]);
             $encryptPassword = bcrypt($validatedData['password']);
             $user->password = $encryptPassword;

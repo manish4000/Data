@@ -127,7 +127,7 @@ class BankDetailsController extends Controller
                 'account_address.max' => __('webCaption.validation_max.title', ['field'=> "Account Address" ,"max" => "255" ] ),
 
                 'bank_address.required' => __('webCaption.validation_required.title', ['field'=> "Bank Address" ] ),
-                'bank_address.required' => __('webCaption.validation_string.title', ['field'=> "Bank Address" ] ),
+                'bank_address.string' => __('webCaption.validation_string.title', ['field'=> "Bank Address" ] ),
                 'bank_address.max' => __('webCaption.validation_max.title', ['field'=> "Bank Address"  ,"max" => "255"] ),
 
                 'city_id.required' => __('webCaption.validation_required.title', ['field'=> "City" ] ),

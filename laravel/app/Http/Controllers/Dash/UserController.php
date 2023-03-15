@@ -134,19 +134,26 @@ class UserController extends Controller
             'email'    => 'required|email|unique:company_users,email,'.$request->id,
             'status'   => 'required',
             // 'username' =>  'required|unique:company_users,username,'.$request->id,
-            'password' => 'nullable|confirmed|min:8',  
+            'password' => 'nullable|confirmed|min:8',
+
         ],[
             'name.required' => __('webCaption.validation_required.title', ['field'=> "Name" ] ),
             'email.required' => __('webCaption.validation_required.title', ['field'=> "Email" ] ),
+            'email.email'=> __('webCaption.validation_email.title', ['field'=> "Email" ] ),
             'email.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('email')] ),
             'status.required' => __('webCaption.validation_required.title', ['field'=> 'status'] ),
             'password.min' => __('webCaption.validation_min.title', ['field'=> 'password' ,'min' => "8"] ),
+            'password.confirmed'=> __('webCaption.validation_confirmed.title', ['field'=> "Password" ] ),
           ]
         );
 
         if(!isset($request->id)){
             $request->validate([
                 'password' => 'required|confirmed|min:8',   
+            ],[
+                'password.required' => __('webCaption.validation_required.title', ['field'=> "Password" ] ),
+                'password.min' => __('webCaption.validation_min.title', ['field'=> 'password' ,'min' => "8"] ),
+                'password.confirmed'=> __('webCaption.validation_confirmed.title', ['field'=> "Password" ] ),
             ]);
         }
         

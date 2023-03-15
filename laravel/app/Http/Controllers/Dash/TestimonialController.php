@@ -110,7 +110,7 @@ class TestimonialController extends Controller
             'testimonial_by' => 'required|in:Buyer,Dealer',
             'jct_remark' => 'required|string',
             'testimonials_ref_id' => 'nullable|string',
-            'rating' => 'nullable|numeric|between:0,5',
+            'rating' => 'nullable|numeric',
             'youtube_url' => 'required|url',
             'd_stock_number' => 'required|string',
         ], [
@@ -136,8 +136,6 @@ class TestimonialController extends Controller
 
             'testimonials_ref_id.string' => __('webCaption.validation_string.title', ['field'=> "Testimonials Reference Id"] ),
             'rating.numeric' => __('webCaption.validation_numeric.title', ['field'=> "Rating" ] ),
-            'rating.between' => __('webCaption.validation_between.title', ['field'=> "Rating" ,"min" => '1' ,"max" => "5"] ),
-        
             'youtube_url.required' => __('webCaption.validation_required.title', ['field'=> "Youtube Url" ] ),
             'youtube_url.url' => __('webCaption.validation_url.title', ['field'=> "Youtube Url" ] ),
 

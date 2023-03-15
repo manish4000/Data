@@ -285,6 +285,10 @@ class MenuGroupController extends Controller
                 'permission_slug.required' => __('webCaption.validation_required.title', ['field'=> "permission slug" ] ),
                 'permission_slug.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('permission_slug')] )  ,
                 'slug.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('slug')] )  ,
+                'slug.required_if' => __('webCaption.validation_required.title', ['field'=> 'Slug' ] )  ,
+                'icon.required_if' => __('webCaption.validation_required.title', ['field'=> 'Icon' ] )  ,
+                'uri.required_if' => __('webCaption.validation_required.title', ['field'=> 'Uri' ] )  ,
+                'type.in' => __('webCaption.validation_in.title', ['field'=> "Type" ] ),
                 'type.required' => __('webCaption.validation_required.title', ['field'=> "Type" ] ),
                 'order.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "Order" ] ),
 
@@ -333,7 +337,12 @@ class MenuGroupController extends Controller
             'permission_slug.required' => __('webCaption.validation_required.title', ['field'=> "Permission Slug" ] ),
             'type.required' => __('webCaption.validation_required.title', ['field'=> "Type"]),
             'permission_slug.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('permission_slug')] )  ,
-            'slug.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('slug')] )  
+
+            'slug.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('slug')] )  ,
+            'slug.required_if' => __('webCaption.validation_required.title', ['field'=> 'Slug' ] )  ,
+            'icon.required_if' => __('webCaption.validation_required.title', ['field'=> 'Icon' ] )  ,
+            'uri.required_if' => __('webCaption.validation_required.title', ['field'=> 'Uri' ] )  ,
+            'type.in' => __('webCaption.validation_in.title', ['field'=> "Type" ] ),
         ]);
 
         $menu = Menu::findOrFail($id);
@@ -381,7 +390,6 @@ class MenuGroupController extends Controller
         $permissions = Permission::where('parent_id', 0)->get();
         $arrayData = [];
         $permissionData = $this->listSelectableTreeData($permissions, $arrayData);
-
 
         $selectableMenuData = $this->listSelectableMenuData($menuList, $arrayData);
 

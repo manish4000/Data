@@ -108,6 +108,8 @@ class SiteLanguageController extends Controller
                     'language_text.required'=> __('webCaption.validation_required.title', ['field'=> "language_text" ] ),
                     'language_text.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('language_text')] ),
                     'status.required'=> __('webCaption.validation_required.title', ['field'=> "status" ] ),
+                    'alias.required'=> __('webCaption.validation_required.title', ['field'=> "alias" ] ),
+                    'alias.string'=> __('webCaption.validation_string.title', ['field'=> "alias" ] ),
                     'alias.regex' => __('webCaption.validation_space.title', ['field'=> "alias" ,"use" => "(_)" ] ),
                 ]
                 );

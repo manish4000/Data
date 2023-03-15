@@ -154,7 +154,9 @@ class WebCaptionController extends Controller
                     // 'title.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('title')] ),
                     'local_slug.required'=> __('webCaption.validation_required.title', ['field'=> "local_slug" ] ),
                     'local_slug.string' => __('webCaption.validation_string.title', ['field'=> "local_slug"] ),
-                    'local_slug.regex' => __('webCaption.validation_space.title', ['field'=> "local_slug" ,"use" => "(_)" ] )
+                    'title.string' => __('webCaption.validation_string.title', ['field'=> "title"] ),
+                    'local_slug.regex' => __('webCaption.validation_space.title', ['field'=> "local_slug" ,"use" => "(_)" ] ),
+                    'local_slug.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('local_slug')] ),
                 ]                           
             );
 
@@ -188,8 +190,7 @@ class WebCaptionController extends Controller
         $breadcrumbs[0] = [
             'link' => $this->baseUrl,
             'name' => __('webCaption.list.title')
-        ];   
-    
+        ];
         return view('content.admin.webCaption.create', ['data' => $data,'breadcrumbs' => $breadcrumbs,'local_translations' => $local_translations ,'menuUrl' => $this->menuUrl]);
 
     }
