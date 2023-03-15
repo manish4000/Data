@@ -164,6 +164,11 @@ class UserController extends Controller
             if(isset($request->password)){
                 $request->validate([
                     'password' => 'required|confirmed|min:5',
+                ],
+                [
+                        'password.required' => __('webCaption.validation_required.title', ['field'=> "Password" ] ),
+                        'password.min' => __('webCaption.validation_min.title', ['field'=> 'password' ,'min' => "5"] ),
+                        'password.confirmed'=> __('webCaption.validation_confirmed.title', ['field'=> "Password" ] ),
                 ]);
                 $userModel->password = bcrypt($request->password);
             }
@@ -192,6 +197,11 @@ class UserController extends Controller
         if(!isset($request->id)){
             $request->validate([
                 'password' => 'required|confirmed|min:5',   
+            ],
+            [
+                'password.required' => __('webCaption.validation_required.title', ['field'=> "Password" ] ),
+                'password.min' => __('webCaption.validation_min.title', ['field'=> 'password' ,'min' => "5"] ),
+                'password.confirmed'=> __('webCaption.validation_confirmed.title', ['field'=> "Password" ] ),
             ]);
         }
 
