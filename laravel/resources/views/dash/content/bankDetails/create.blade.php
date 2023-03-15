@@ -87,7 +87,7 @@
                    </div>
                    <div class="col-md-4">
                         <div class="form-group">
-                             <x-dash.form.inputs.select label="{{__('webCaption.state.title')}}"  tooltip="{{__('webCaption.state.caption')}}"  customClass="state" id="" for="state_id" name="state_id" placeholder="{{ __('locale.state.caption') }}" editSelected=""  required="" :optionData="[]" />
+                             <x-dash.form.inputs.select label="{{__('webCaption.state.title')}}"  tooltip="{{__('webCaption.state.caption')}}"  customClass="state" id="" for="state_id" name="state_id" placeholder="{{ __('locale.state.caption') }}" editSelected=""  required="required" :optionData="[]" />
                             @if($errors->has('state_id'))
                             <x-dash.form.form_error_messages message="{{ $errors->first('state_id') }}"  />
                             @endif
@@ -95,7 +95,7 @@
                    </div>
                    <div class="col-md-4">
                         <div class="form-group">
-                        <x-dash.form.inputs.select label="{{__('webCaption.city.title')}}"   tooltip="{{__('webCaption.city.caption')}}" id="" for="city_id" name="city_id" placeholder="{{ __('locale.city.caption') }}" editSelected=""  required="" :optionData="[]" />
+                        <x-dash.form.inputs.select label="{{__('webCaption.city.title')}}"   tooltip="{{__('webCaption.city.caption')}}" id="" for="city_id" name="city_id" placeholder="{{ __('locale.city.caption') }}" editSelected=""  required="required" :optionData="[]" />
                             @if($errors->has('city_id'))
                             <x-dash.form.form_error_messages message="{{ $errors->first('city_id') }}"  />
                             @endif
@@ -105,7 +105,7 @@
 				<div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <x-dash.form.inputs.textarea id="" for="account_address" tooltip="{{__('webCaption.account_address.caption')}}"  label="{{__('webCaption.account_address.title')}}" maxlength="250" class="form-control" name="account_address"  placeholder="{{__('webCaption.account_address.title')}}" value="{{old('account_address', isset($data->account_address)?$data->account_address:'' )}}"  required="" />
+                            <x-dash.form.inputs.textarea id="" for="account_address" tooltip="{{__('webCaption.account_address.caption')}}"  label="{{__('webCaption.account_address.title')}}" maxlength="250" class="form-control" name="account_address"  placeholder="{{__('webCaption.account_address.title')}}" value="{{old('account_address', isset($data->account_address)?$data->account_address:'' )}}"  required="required" />
                             @if($errors->has('account_address'))
                                 <x-dash.form.form_error_messages message="{{ $errors->first('account_address') }}"  />
                             @endif
@@ -113,7 +113,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <x-dash.form.inputs.textarea id="" for="bank_address" tooltip="{{__('webCaption.bank_address.caption')}}"  label="{{__('webCaption.bank_address.title')}}" maxlength="250" class="form-control" name="bank_address"  placeholder="{{__('webCaption.bank_address.title')}}" value="{{old('bank_address', isset($data->bank_address)?$data->bank_address:'' )}}"  required="" />
+                            <x-dash.form.inputs.textarea id="" for="bank_address" tooltip="{{__('webCaption.bank_address.caption')}}"  label="{{__('webCaption.bank_address.title')}}" maxlength="250" class="form-control" name="bank_address"  placeholder="{{__('webCaption.bank_address.title')}}" value="{{old('bank_address', isset($data->bank_address)?$data->bank_address:'' )}}"  required="required" />
                             @if($errors->has('bank_address'))
                                 <x-dash.form.form_error_messages message="{{ $errors->first('bank_address') }}"  />
                             @endif
@@ -121,7 +121,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <x-dash.form.inputs.textarea id="" for="reason_for_remittance" tooltip="{{__('webCaption.reason_for_remittance.caption')}}"  label="{{__('webCaption.reason_for_remittance.title')}}" maxlength="250" class="form-control" name="reason_for_remittance"  placeholder="{{__('webCaption.reason_for_remittance.title')}}" value="{{old('reason_for_remittance', isset($data->reason_for_remittance)?$data->reason_for_remittance:'' )}}"  required="" />
+                            <x-dash.form.inputs.textarea id="" for="reason_for_remittance" tooltip="{{__('webCaption.reason_for_remittance.caption')}}"  label="{{__('webCaption.reason_for_remittance.title')}}" maxlength="250" class="form-control" name="reason_for_remittance"  placeholder="{{__('webCaption.reason_for_remittance.title')}}" value="{{old('reason_for_remittance', isset($data->reason_for_remittance)?$data->reason_for_remittance:'' )}}"  required="required" />
                             @if($errors->has('reason_for_remittance'))
                                 <x-dash.form.form_error_messages message="{{ $errors->first('reason_for_remittance') }}"  />
                             @endif
