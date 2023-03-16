@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Dash\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Dash\CompanyUsers;
+use App\Models\Masters\Company\Company;
 use App\Rules\DashReCaptcha;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -26,11 +28,11 @@ class LoginController extends Controller
     }
 
     public function login(Request $request)
-    { 
-      
+    {
+
         $request->validate([
             'email' => 'required|email',
-            'password' => 'required', 
+            'password' => 'required',
             'g-recaptcha-response'  => ['required', new DashReCaptcha]
         ],[
             'email.required' => __('webCaption.validation_required.title', ['field'=> "Email" ] ),
@@ -38,10 +40,10 @@ class LoginController extends Controller
             'password.required' => __('webCaption.validation_required.title', ['field'=> "Password" ] ),
             'g-recaptcha-response.required' => __('webCaption.validation_required.title', ['field'=> "g-recaptcha-response" ] ),
         ]);
-        
+
         if(Auth::guard('dash')->attempt($request->only('email','password'),$request->filled('remember'))){
-            //Authentication passed...    
-            
+            //Authentication passed...
+
             return redirect()
                 ->intended(route('dashhome'))
                 ->with('status','You are Logged in as Company!');
@@ -49,8 +51,17 @@ class LoginController extends Controller
             return redirect()->back()->with('error',__('webCaption.error_credentials_not_match.title'));
         }
 
-        
     }
+
+
+    public function loginWithId(Request $request){
+
+        $user  = CompanyUsers::where('company_id',$request->id)->where('user_type',1)->first();
+        Auth::guard('dash')->login($user);
+        return redirect('/dashboard');
+
+    }
+
 
     public function logout(Request $request)
     {
