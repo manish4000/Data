@@ -105,6 +105,11 @@ Route::group([ 'middleware' => 'auth', 'prefix' => 'admin' ], function() {
 
         Route::get('/','CompanyController@index')->name('index');
         Route::get('/create','CompanyController@create')->name('create');
+
+        Route::get('/create-test',function(){
+            return view('content.admin.company.test');
+        });
+
         Route::post('/store', 'CompanyController@store')->name('store');
         Route::get('edit/{id}','CompanyController@edit')->name('edit');
         Route::post('update/{id}','CompanyController@update')->name('update');
