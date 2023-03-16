@@ -10,7 +10,7 @@
                     }else{
                         errorToast(data.result.message);
                     }
-                }
+            }
         });
     }
 

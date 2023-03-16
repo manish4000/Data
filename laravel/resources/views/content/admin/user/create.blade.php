@@ -14,7 +14,6 @@
 <div>
 	<form action="{{ route('users.store')}}" method="POST">
 		@csrf
-
 		<div class="card card-primary">
 			<div class="card-header">
 				<h4 class="card-title">

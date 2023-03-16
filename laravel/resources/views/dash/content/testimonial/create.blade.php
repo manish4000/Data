@@ -22,6 +22,7 @@
 			<hr class="m-0 p-0">
 			<div class="card-body">
 				<div class="row">
+
                     <div class="col-md-4">
                         <div class="form-group">
                             <x-dash.form.inputs.text  for="person_name"  maxlength="100" tooltip="{{__('webCaption.person_name.caption')}}" label="{{__('webCaption.person_name.title')}}"  class="form-control" name="person_name"  placeholder="{{__('webCaption.person_name.title')}}" value="{{old('person_name', isset($data->person_name)?$data->person_name:'' )}}"  required="" />

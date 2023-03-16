@@ -109,6 +109,9 @@ class CompanyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
+
     public function create()
     {
 
@@ -370,7 +373,8 @@ class CompanyController extends Controller
 
                 if(!isset($request->id)){
                     $company_users_model =  new CompanyUsers;
-                    $status = ($request->status == 'Permitted')?'Permitted' : 'Blocked';                    $company_user_data = [
+                    $status = ($request->status == 'Permitted')?'Permitted' : 'Blocked';
+                    $company_user_data = [
                         'name' => $request->company_name,
                         'email' => $request->email,
                         'password' => Hash::make($request->password),

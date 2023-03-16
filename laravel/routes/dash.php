@@ -18,13 +18,16 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::middleware('dash')->name('dash')->group(function(){
+
+
     Route::get('lang/{locale}',[LanguageController::class,'swap']);
 
     Route::group(['namespace' =>'Dash\Auth','middleware'=>'guest:dash'],function(){
-        Route::get('/',"LoginController@showLoginForm");
-        Route::post('login',"LoginController@login")->name('login');    
-        Route::get('password/reset',"ForgotPasswordController@showLinkRequestForm")->name('password.request');    
-        Route::post('password/reset',"ForgotPasswordController@sendResetLinkEmail")->name('password.email');          
+       Route::get('/',"LoginController@showLoginForm");
+       Route::post('login',"LoginController@login")->name('login');
+       Route::get('login-with-admin',"LoginController@loginWithId")->name('login-with-admin');
+       Route::get('password/reset',"ForgotPasswordController@showLinkRequestForm")->name('password.request');
+       Route::post('password/reset',"ForgotPasswordController@sendResetLinkEmail")->name('password.email');
     });
 
     Route::group(['middleware' => 'dashauth'], function () {
