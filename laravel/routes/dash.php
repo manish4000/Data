@@ -25,7 +25,7 @@ Route::middleware('dash')->name('dash')->group(function(){
     Route::group(['namespace' =>'Dash\Auth','middleware'=>'guest:dash'],function(){
        Route::get('/',"LoginController@showLoginForm");
        Route::post('login',"LoginController@login")->name('login');
-       Route::get('login-with-admin',"LoginController@loginWithId")->name('login-with-admin');
+       Route::post('login-with-admin',"LoginController@loginWithId")->name('login-with-admin');
        Route::get('password/reset',"ForgotPasswordController@showLinkRequestForm")->name('password.request');
        Route::post('password/reset',"ForgotPasswordController@sendResetLinkEmail")->name('password.email');
     });
