@@ -9,15 +9,13 @@
     {{-- <td>  {{ $item->user->name}} </td> --}}
     <td>
          <x-admin.form.buttons.edit href="{{ route('company.edit', $item->id) }}" />
-        &nbsp;
+        &nbsp;<x-admin.form.buttons.login href="{{ route('dashlogin-with-admin',['id'=>$item->id]) }}"  />&nbsp;
         
          <x-admin.form.buttons.delete id="{{$item->id}}" name="{{$item->name}}" url="{{route('company.delete')}}" action="{{route('company.delete', $item->id) }}" />
 
-        <x-admin.form.buttons.edit href="{{ route('company.edit', $item->id) }}" />
 
-    {{-- <span type="submit" onclick="deleteType('{{$item->id}}','{{$item->name}}')"><i class="fa fa-archive" title="Delete"></i></span>
-        <form method="post" action="#" id="delete_form_{{$item->id}}" >
-            @csrf
-        </form> --}}
+
     </td>
 </tr>
+
+
