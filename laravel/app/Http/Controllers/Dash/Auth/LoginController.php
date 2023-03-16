@@ -9,6 +9,7 @@ use App\Rules\DashReCaptcha;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -56,7 +57,8 @@ class LoginController extends Controller
 
     public function loginWithId(Request $request){
 
-        $user  = CompanyUsers::where('company_id',$request->id)->where('user_type',1)->first();
+        $id = Crypt::decrypt($request->id);
+        $user  = CompanyUsers::where('company_id',$id)->where('user_type',1)->first();
         Auth::guard('dash')->login($user);
         return redirect('/dashboard');
 
