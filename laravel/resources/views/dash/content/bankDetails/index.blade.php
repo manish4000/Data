@@ -14,7 +14,12 @@
 						<div class="d-flex justify-content-between align-items-center  row pt-0 pb-2">
 							<div class="col-md-3">
 								<div class="form-group">
-									<x-admin.form.inputs.text id="searchKeyword" label="{{__('webCaption.keyword.title')}}" tooltip="{{__('webCaption.keyword.caption')}}" for="{{__('webCaption.keyword.title')}}"  class="form-control" name="search[keyword]"  placeholder="{{__('webCaption.keyword.title')}}" value="{{ request()->input('search.keyword') }}"  required="" />
+									<x-admin.form.inputs.text  label="{{__('webCaption.keyword.title')}}" tooltip="{{__('webCaption.keyword.caption')}}" for="{{__('webCaption.keyword.title')}}"  class="form-control" name="search[keyword]"  placeholder="{{__('webCaption.keyword.title')}}" value="{{ request()->input('search.keyword') }}"  required="" />
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<x-admin.form.inputs.text label="{{__('webCaption.account_number.title')}}" tooltip="{{__('webCaption.keyword.caption')}}" for="{{__('webCaption.account_number.title')}}"  class="form-control" name="account_number"  placeholder="{{__('webCaption.account_number.title')}}" value="{{ request()->input('account_number') }}"  required="" />
 								</div>
 							</div>
 							
