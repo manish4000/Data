@@ -101,7 +101,7 @@
 								}
 								
 								@endphp
-								<x-admin.form.inputs.multiple_select label="{{__('webCaption.department.title')}}" tooltip="{{__('webCaption.department.caption')}}"  for="department_id" id=""  name="department_id[]"  :oldValues="old('department_id')" value=""   :editSelected="$editSelected"  :optionData="$departments" required="required" />
+								<x-admin.form.inputs.multiple_select label="{{__('webCaption.department.title')}}" tooltip="{{__('webCaption.department.caption')}}"  for="department_id" id=""  name="department_id[]"  :oldValues="old('department_id')" value=""   :editSelected="$editSelected"  :optionData="$departments" required="" />
 								@if($errors->has('department_id'))
 									<x-admin.form.form_error_messages message="{{ $errors->first('department_id') }}" />
 								@endif
