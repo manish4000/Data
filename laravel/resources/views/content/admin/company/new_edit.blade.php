@@ -1,11 +1,8 @@
 @extends('layouts/contentLayoutMaster')
 
 {{-- @section('title', $pageConfigs['moduleName']) --}}
-@if(isset($data->id) && !empty($data->id))
-@section('title', 'Company Edit')
-@else
-@section('title', 'Company Add')
-@endif
+@section('title', __('webCaption.company_edit.title'))
+
 @section('vendor-style')
   <!-- vendor css files -->
   <link rel="stylesheet" href="{{ asset(mix('fonts/font-awesome/css/font-awesome.min.css'))}}">
@@ -37,7 +34,7 @@
           <div class="row">
               <div class="col-md-8">
                   <div class="form-group">
-                    <x-admin.form.inputs.text id="" for="company_name" tooltip="{{__('webCaption.company_name.caption')}}" label="Company Name" maxlength="100" class="form-control" name="company_name"  placeholder="{{__('webCaption.company_name.title')}}" value="{{old('company_name',$data->company_name)}}"  required="required" />
+                    <x-admin.form.inputs.text id="" for="company_name" tooltip="{{__('webCaption.company_name.caption')}}" label="{{__('webCaption.company_name.title')}}" maxlength="100" class="form-control" name="company_name"  placeholder="{{__('webCaption.company_name.title')}}" value="{{old('company_name',$data->company_name)}}"  required="required" />
                     @if($errors->has('company_name'))
                       <x-admin.form.form_error_messages message="{{ $errors->first('company_name') }}"  />
                     @endif

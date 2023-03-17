@@ -53,6 +53,9 @@ class BankDetailsController extends Controller
         if( $request->has('search.status')) {
             $data->StatusFilter($request->input('search.status')); 
         }
+        if( isset($request->account_number)) {
+            $data->AccountNumberFilter($request->account_number); 
+        }
         if($request->has('order_by') &&  $request->has('order') ){
             $data->orderBy($request->order_by, $request->order);
         }

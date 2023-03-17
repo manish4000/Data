@@ -1,12 +1,7 @@
 @extends('layouts/contentLayoutMaster')
 {{-- @section('title', $pageConfigs['moduleName']) --}}
-@if(isset($data->id) && !empty($data->id))
-   @section('title', __('webCaption.company_edit.title'))
-@else
-   @section('title', __('webCaption.company_add.title'))
-@endif
 
-
+@section('title', __('webCaption.company_add.title'))
 
 @section('content')
    <!-- users edit start -->
