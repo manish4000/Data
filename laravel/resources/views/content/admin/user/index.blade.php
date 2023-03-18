@@ -65,7 +65,7 @@
 											  $checked = ($user->status == 1) ? "checked" : "";
 											@endphp
 											
-											<td><x-admin.form.buttons.activeToggle   checked="{{$checked}}" /></td>
+											<td><x-admin.form.buttons.activeToggle href="{{route('users.update-status',$user->id)}}"  checked="{{$checked}}" /></td>
 											<td>
 												@can('settings-users-edit')
 												<x-admin.form.buttons.edit href="{{ route('users.edit', $user->id) }}" />&ensp;

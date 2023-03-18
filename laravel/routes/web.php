@@ -54,6 +54,7 @@ Route::group([ 'middleware' => 'auth', 'prefix' => 'admin' ], function() {
 
     Route::post('users/delete','Admin\UserController@destroy')->name('users.delete');
     Route::resource('users', 'Admin\UserController');
+    Route::get('users/update-status/{id}','Admin\UserController@updateStatus')->name('users.update-status');
 
     Route::resource('roles', 'Admin\RoleController');
     Route::resource('site-languages', 'Admin\SiteLanguageController');
