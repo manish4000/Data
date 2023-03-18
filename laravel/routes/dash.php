@@ -50,6 +50,9 @@ Route::middleware('dash')->name('dash')->group(function(){
             Route::get('/',function(){ return view('dash.content.blank',['message' => "Members listing Page "]);  });
             Route::get('/create',function(){ return view('dash.content.blank' ,['message' => " Add New Member Page "]); });
         });
+        Route::group(['prefix'=>'company','namespace'=>'Dash','as' => 'company.'],function(){
+            Route::get('/create',function(){ return view('dash.content.company.create'); });
+        });
 
         Route::get('/logout','Dash\Auth\LoginController@logout')->name('logout');
         Route::get('/dashboard',function(){return view('dash.content.dashboard');})->name('home');
