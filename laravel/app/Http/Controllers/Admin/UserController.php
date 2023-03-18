@@ -302,6 +302,37 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('success_message' ,$request->name .__('webCaption.alert_updated_successfully.title'));
     }
 
+
+    public function updateStatus($id){
+
+      
+        
+        // if (!Auth::user()->can('main-navigation-masters-vehicle-type-edit')) {
+        //     $result['status']     = false;
+        //     $result['message']    = __('webCaption.alert_update_access.title'); 
+        //     return response()->json(['result' => $result]);
+        //     abort(403);
+        // }
+
+    
+        $data = User::FindOrFail($id);
+
+        if(isset($data->status)){
+            $status =  ($data->status == 1)? 0 : 1;
+            $data->status = $status;
+            $data->save();  
+            $message    = __('webCaption.alert_updated_successfully.title'); 
+            return redirect()->back()->with('success_message' ,$message );
+        }else{
+
+            $message    = __('webCaption.alert_somthing_wrong.title'); 
+            return redirect()->back()->with('error_message' ,$message );
+        }
+
+    }
+
+
+
     /**
      * Remove the specified resource from storage.
      *
