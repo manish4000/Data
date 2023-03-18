@@ -75,7 +75,7 @@
 						<div class="row">
 							<div class="col-6">
 								<div class="form-group">
-									<x-admin.form.inputs.password  maxlength="15"  for="password" tooltip="{{__('webCaption.password.caption')}}"   label="{{__('webCaption.password.title')}}"  class="form-control" name="password"  placeholder="{{__('webCaption.password.title')}}" value=""  required="required" />
+									<x-admin.form.inputs.password  :passwordGenerator="true"  maxlength="15"  for="password" tooltip="{{__('webCaption.password.caption')}}"   label="{{__('webCaption.password.title')}}"  class="form-control" name="password"  placeholder="{{__('webCaption.password.title')}}" value=""  required="required" />
 									@if ($errors->has('password'))
 										<x-admin.form.form_error_messages message="{{ $errors->first('password') }}"  />
 									@endif
@@ -88,6 +88,7 @@
 										<x-admin.form.form_error_messages message="{{ $errors->first('password_confirmation') }}"  />
 									@endif
 								</div>
+								
 							</div>
 						</div>	
 					@endif
