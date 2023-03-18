@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Department;
 use App\Models\Menu;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -84,6 +85,8 @@ class UserController extends Controller
            //change for testing  
         $permissions = Menu::where('parent_id', 0)->get();
 
+        $departments =  Department::select('id as value','title as name')->get();
+    
         $pageConfigs = [
             'moduleName' => __('webCaption.users.title'), 
             'baseUrl' => $this->baseUrl, 
@@ -92,7 +95,7 @@ class UserController extends Controller
             'link' => $this->baseUrl,
             'name' => __('webCaption.list.title')
         ];
-        return view('content.admin.user.create', [ 'roles' => $roles ,'breadcrumbs' => $breadcrumbs ,'pageConfigs' => $pageConfigs, 'permissions' => $permissions ,'menuUrl' => $this->menuUrl ]);
+        return view('content.admin.user.create', [ 'roles' => $roles ,'breadcrumbs' => $breadcrumbs ,'pageConfigs' => $pageConfigs, 'permissions' => $permissions ,'menuUrl' => $this->menuUrl ,'departments' => $departments]);
     }
 
 
@@ -127,6 +130,9 @@ class UserController extends Controller
         }
 
         $user = User::with(['roles', 'permissions'])->find($id);
+        $user->department_id  = json_decode($user->department_id);
+
+        $departments =  Department::select('id as value','title as name')->get();
 
         $roles = Role::all();
         //change for testing
@@ -142,7 +148,8 @@ class UserController extends Controller
             'name' => __('webCaption.list.title')
         ];
 
-        return view('content.admin.user.create', ['pageConfigs' => $pageConfigs ,'breadcrumbs' =>$breadcrumbs ,'user' => $user ,'roles' => $roles,'permissions' => $permissions ,'menuUrl'=> $this->menuUrl]);
+        return view('content.admin.user.create', ['pageConfigs' => $pageConfigs ,'departments' => $departments ,'breadcrumbs' =>$breadcrumbs ,'user' => $user ,'roles' => $roles,'permissions' => $permissions ,'menuUrl'=> $this->menuUrl]);
+
     }
 
     /**
@@ -152,8 +159,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-
+    {     
 
         if($request->id){
             if (!Auth::user()->can('settings-users-edit')) {
@@ -182,16 +188,21 @@ class UserController extends Controller
         }    
         
         $request->validate([
-            'name'     => 'required',
-            'email'    => 'required|email|unique:users,email,'.$request->id,
-            'username' =>  'required|unique:users,username,'.$request->id,
+            'name'     => 'required|max:100',
+            'email'    => 'required|email|max:100|unique:users,email,'.$request->id,
+             'phone' =>  'required|max:15',
+            // 'username' =>  'required|unique:users,username,'.$request->id,
         ], [
             'name.required'=> __('webCaption.validation_required.title', ['field'=> "Name" ] ),
+            'name.max'=> __('webCaption.validation_max.title', ['field'=> 'Name' ,'min' => "100"] ),
             'email.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('email')] ),
             'email.required'=> __('webCaption.validation_required.title', ['field'=> "Email" ] ),
             'email.email'=> __('webCaption.validation_email.title', ['field'=> "Email" ] ),
-            'username.required'=> __('webCaption.validation_required.title', ['field'=> "Username" ] ),
-            'username.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('username')] ),
+            'email.max' => __('webCaption.validation_max.title', ['field'=> 'Email' ,'min' => "100"] ),
+            'phone.required'=> __('webCaption.validation_required.title', ['field'=> "Phone" ] ),
+            'phone.max'=> __('webCaption.validation_max.title', ['field'=> 'Phone' ,'min' => "15"] ),
+            // 'username.required'=> __('webCaption.validation_required.title', ['field'=> "Username" ] ),
+            // 'username.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('username')] ),
         ]);
 
         if(!isset($request->id)){
@@ -205,15 +216,21 @@ class UserController extends Controller
             ]);
         }
 
-        
-
-        // $validatedData['password'] = bcrypt($validatedData['password']);
 
         $userModel->email = $request->email;
         $userModel->name = $request->name;
-        $userModel->username = $request->username;
-       
-        //$user = User::create($validatedData);
+        $userModel->phone = $request->phone;
+
+        if($request->has('department_id')) {
+            if(is_array($request->department_id) && count($request->department_id) > 0){
+                 $department_id   = json_encode($request->department_id);
+            }    
+        } 
+
+        $userModel->department_id =   (isset($department_id)) ? $department_id : null; 
+
+        // $userModel->username = $request->username;
+
         if ( $userModel->save()) {
             if($request->id){
                 $userModel->roles()->sync($request->roles);
@@ -284,6 +301,37 @@ class UserController extends Controller
         }
         return redirect()->route('users.index')->with('success_message' ,$request->name .__('webCaption.alert_updated_successfully.title'));
     }
+
+
+    public function updateStatus($id){
+
+      
+        
+        // if (!Auth::user()->can('main-navigation-masters-vehicle-type-edit')) {
+        //     $result['status']     = false;
+        //     $result['message']    = __('webCaption.alert_update_access.title'); 
+        //     return response()->json(['result' => $result]);
+        //     abort(403);
+        // }
+
+    
+        $data = User::FindOrFail($id);
+
+        if(isset($data->status)){
+            $status =  ($data->status == 1)? 0 : 1;
+            $data->status = $status;
+            $data->save();  
+            $message    = __('webCaption.alert_updated_successfully.title'); 
+            return redirect()->back()->with('success_message' ,$message );
+        }else{
+
+            $message    = __('webCaption.alert_somthing_wrong.title'); 
+            return redirect()->back()->with('error_message' ,$message );
+        }
+
+    }
+
+
 
     /**
      * Remove the specified resource from storage.

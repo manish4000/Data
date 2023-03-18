@@ -21,17 +21,22 @@
 
         <h4 class="card-title mb-1">Welcome to GABS! 👋</h4>
         <p class="card-text mb-2">Please sign-in to your account and start the adventure</p>
-
+        @if (session('error'))
+          <div class="alert alert-danger py-1 text-center">
+              {{ session('error') }}
+          </div>
+        @endif
         <form class="auth-login-form mt-2" method="POST" action="{{ route('login') }}">
           @csrf
           <div class="form-group">
             <label for="login-email" class="form-label">Email</label>
             <input type="text" class="form-control @error('email') is-invalid @enderror" id="login-email" name="email" placeholder="john@example.com" aria-describedby="login-email" tabindex="1" autofocus value="{{ old('email') }}" />
-            @error('email')
-              <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-              </span>
-            @enderror
+
+              @error('email')
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+              @enderror
           </div>
 
           <div class="form-group">

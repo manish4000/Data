@@ -44,6 +44,8 @@
 											{{__('webCaption.email.title')}}
 											<x-admin.filter.order-by-filter-div orderBy="email" />
 										</th>
+										<th scope="col" class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.active.caption')}}">{{__('webCaption.active.title')}}
+										</th>
 										<th scope="col" data-toggle="tooltip" title="{{__('webCaption.actions.caption')}}"  > {{__('webCaption.actions.title')}}
 										</th>
 									</tr>
@@ -59,6 +61,11 @@
 											<th scope="row">{{$user->id}}</th>
 											<td>{{ $user->name; }}</td>
 											<td>{{ $user->email }}</td>
+											@php 
+											  $checked = ($user->status == 1) ? "checked" : "";
+											@endphp
+											
+											<td><x-admin.form.buttons.activeToggle href="{{route('users.update-status',$user->id)}}"  checked="{{$checked}}" /></td>
 											<td>
 												@can('settings-users-edit')
 												<x-admin.form.buttons.edit href="{{ route('users.edit', $user->id) }}" />&ensp;

@@ -27,7 +27,7 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-								<x-admin.form.inputs.text  for="name"  maxlength="255" tooltip="{{__('webCaption.name.caption')}}"  label="{{__('webCaption.name.title')}}"  class="form-control" name="name"  placeholder="{{__('webCaption.name.title')}}" value="{{old('name', isset($user->name)?$user->name:'' )}}"  required="required" />
+								<x-admin.form.inputs.text  for="name"  maxlength="100" tooltip="{{__('webCaption.name.caption')}}"  label="{{__('webCaption.name.title')}}"  class="form-control" name="name"  placeholder="{{__('webCaption.name.title')}}" value="{{old('name', isset($user->name)?$user->name:'' )}}"  required="required" />
 								@if ($errors->has('name'))
 									<x-admin.form.form_error_messages message="{{ $errors->first('name') }}"  />
 								@endif
@@ -35,7 +35,7 @@
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-								<x-admin.form.inputs.text  for="email" tooltip="{{__('webCaption.email.caption')}}"  maxlength="255" label="{{__('webCaption.email.title')}}"  class="form-control" name="email"  placeholder="{{__('webCaption.email.title')}}" value="{{old('email', isset($user->email)?$user->email:'' )}}"  required="required" />
+								<x-admin.form.inputs.text  for="email" tooltip="{{__('webCaption.email.caption')}}"  maxlength="100" label="{{__('webCaption.email.title')}}"  class="form-control" name="email"  placeholder="{{__('webCaption.email.title')}}" value="{{old('email', isset($user->email)?$user->email:'' )}}"  required="required" />
 								@if ($errors->has('email'))
 								  <x-admin.form.form_error_messages message="{{ $errors->first('email') }}"  />
 								@endif
@@ -43,20 +43,20 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-6">
+						{{-- <div class="col-md-6">
 							<div class="form-group">
 								<x-admin.form.inputs.text  for="username" tooltip="{{__('webCaption.username.caption')}}"   maxlength="50" label="{{__('webCaption.username.title')}}"  class="form-control" name="username"  placeholder="{{__('webCaption.username.title')}}" value="{{old('username', isset($user->username)?$user->username:'' )}}"  required="required" />
 								@if ($errors->has('username'))
 									<x-admin.form.form_error_messages message="{{ $errors->first('username') }}"  />
 								@endif
 							</div>
-						</div>
+						</div> --}}
 					</div>
 					@if(isset($user))
 						<div class="row">
 							<div class="col-6">
 								<div class="form-group">
-									<x-admin.form.inputs.password  maxlength="255"  for="password" tooltip="{{__('webCaption.password.caption')}}"   label="{{__('webCaption.password.title')}}"  class="form-control" name="password"  placeholder="{{__('webCaption.password.title')}}" value=""  required="" />
+									<x-admin.form.inputs.password  maxlength="15"  for="password" tooltip="{{__('webCaption.password.caption')}}"   label="{{__('webCaption.password.title')}}"  class="form-control" name="password"  placeholder="{{__('webCaption.password.title')}}" value=""  required="" />
 									@if ($errors->has('password'))
 									<x-admin.form.form_error_messages message="{{ $errors->first('password') }}"  />
 								    @endif
@@ -64,7 +64,7 @@
 							</div>
 							<div class="col-6">
 								<div class="form-group">
-									<x-admin.form.inputs.password tooltip="{{__('webCaption.password_confirm.caption')}}"   maxlength="255" for="password_confirmation"  label="{{__('webCaption.password_confirm.title')}}"  class="form-control" name="password_confirmation"  placeholder="{{__('webCaption.password_confirm.title')}}" value=""  required="" />
+									<x-admin.form.inputs.password tooltip="{{__('webCaption.password_confirm.caption')}}"   maxlength="15" for="password_confirmation"  label="{{__('webCaption.password_confirm.title')}}"  class="form-control" name="password_confirmation"  placeholder="{{__('webCaption.password_confirm.title')}}" value=""  required="" />
 									@if ($errors->has('password_confirmation'))
 									<x-admin.form.form_error_messages message="{{ $errors->first('password_confirmation') }}"  />
 								    @endif
@@ -75,7 +75,7 @@
 						<div class="row">
 							<div class="col-6">
 								<div class="form-group">
-									<x-admin.form.inputs.password  maxlength="255"  for="password" tooltip="{{__('webCaption.password.caption')}}"   label="{{__('webCaption.password.title')}}"  class="form-control" name="password"  placeholder="{{__('webCaption.password.title')}}" value=""  required="required" />
+									<x-admin.form.inputs.password  maxlength="15"  for="password" tooltip="{{__('webCaption.password.caption')}}"   label="{{__('webCaption.password.title')}}"  class="form-control" name="password"  placeholder="{{__('webCaption.password.title')}}" value=""  required="required" />
 									@if ($errors->has('password'))
 										<x-admin.form.form_error_messages message="{{ $errors->first('password') }}"  />
 									@endif
@@ -83,14 +83,40 @@
 							</div>
 							<div class="col-6">
 								<div class="form-group">
-									<x-admin.form.inputs.password tooltip="{{__('webCaption.password_confirm.caption')}}"   maxlength="255" for="password_confirmation"  label="{{__('webCaption.password_confirm.title')}}"  class="form-control" name="password_confirmation"  placeholder="{{__('webCaption.password_confirm.title')}}" value=""  required="required" />
+									<x-admin.form.inputs.password tooltip="{{__('webCaption.password_confirm.caption')}}"   maxlength="15" for="password_confirmation"  label="{{__('webCaption.password_confirm.title')}}"  class="form-control" name="password_confirmation"  placeholder="{{__('webCaption.password_confirm.title')}}" value=""  required="required" />
 									@if ($errors->has('password_confirmation'))
 										<x-admin.form.form_error_messages message="{{ $errors->first('password_confirmation') }}"  />
 									@endif
 								</div>
 							</div>
-						</div>
+						</div>	
 					@endif
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group"> 
+								@php if(isset($user->department_id)){
+									$editSelected = $user->department_id;
+								} else{
+									$editSelected = '';
+								}
+								
+								@endphp
+								<x-admin.form.inputs.multiple_select label="{{__('webCaption.department.title')}}" tooltip="{{__('webCaption.department.caption')}}"  for="department_id" id=""  name="department_id[]"  :oldValues="old('department_id')" value=""   :editSelected="$editSelected"  :optionData="$departments" required="" />
+								@if($errors->has('department_id'))
+									<x-admin.form.form_error_messages message="{{ $errors->first('department_id') }}" />
+								@endif
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<x-admin.form.inputs.text  for="phone"  maxlength="15" tooltip="{{__('webCaption.phone.caption')}}"  label="{{__('webCaption.phone.title')}}"  class="form-control" name="phone"  placeholder="{{__('webCaption.phone.title')}}" value="{{old('phone', isset($user->phone)?$user->phone:'' )}}"  required="required" />
+								@if ($errors->has('phone'))
+									<x-admin.form.form_error_messages message="{{ $errors->first('phone') }}"  />
+								@endif
+							</div>
+						</div>
+					</div>
+
 					<div class="row">
 						<div class="col-md-12">
 							<x-admin.form.label for="" tooltip="{{__('webCaption.roles.caption')}}" value="{{__('webCaption.roles.title')}}" class="" />

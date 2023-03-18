@@ -57,21 +57,23 @@
             <div class="row">
                   @foreach ( $local_translations as $language )
                     @php 
-                    $value = ""; 
+                    $value_title = ""; 
+                    $value_caption = "";
                     if ( isset($data->local_translations[$language->id]) ) {
-                      $value = $data->local_translations[$language->id]['title'];
+                      $value_title = $data->local_translations[$language->id]['title'];
+                      $value_caption = $data->local_translations[$language->id]['caption'];
                     }
                     @endphp
 
                     <div class="col-md-4">
                       <div class="form-group">
-                        <x-admin.form.inputs.text label="{{ $language->language_en }} {{__('webCaption.title.title')}}" for="local_translations{{$language->id}}title"  maxlength="250" class="form-control mb-1"  name="local_translations[{{$language->id}}][title]"  placeholder=" {{ $language->language_en }} {{__('webCaption.title.title')}}" value="{{old('local_translations.'.$language->id.'.title', $value)}}"  required="" />
+                        <x-admin.form.inputs.text label="{{ $language->language_en }} {{__('webCaption.title.title')}}" for="local_translations{{$language->id}}title"  maxlength="250" class="form-control mb-1"  name="local_translations[{{$language->id}}][title]"  placeholder=" {{ $language->language_en }} {{__('webCaption.title.title')}}" value="{{old('local_translations.'.$language->id.'.title', $value_title)}}"  required="" />
                         @if ($errors->has('local_translations[{{$language->id}}][title]'))
                         <x-admin.form.form_error_messages message="{{ $errors->first('local_translations[$language->id][title]') }}" />
                         @endif
                       </div>
                       <div class="form-group">
-                        <x-admin.form.inputs.textarea label="{{ $language->language_en }} {{__('webCaption.caption.title')}}" for="local_translations{{$language->id}}caption"  maxlength="250" class="form-control mb-1"  name="local_translations[{{$language->id}}][caption]"  placeholder="{{ $language->language_en }} {{__('webCaption.caption.title')}}" value="{{old('local_translations.'.$language->id.'.caption', $value)}}"  required="" />
+                        <x-admin.form.inputs.textarea label="{{ $language->language_en }} {{__('webCaption.caption.title')}}" for="local_translations{{$language->id}}caption"  maxlength="250" class="form-control mb-1"  name="local_translations[{{$language->id}}][caption]"  placeholder="{{ $language->language_en }} {{__('webCaption.caption.title')}}" value="{{old('local_translations.'.$language->id.'.caption', $value_caption)}}"  required="" />
                         @if ($errors->has('local_translations[{{$language->id}}][caption]'))
                         <x-admin.form.form_error_messages message="{{ $errors->first('local_translations[$language->id][caption]') }}" />
                         @endif
