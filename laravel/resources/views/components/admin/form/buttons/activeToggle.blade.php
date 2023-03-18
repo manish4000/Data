@@ -1,9 +1,12 @@
 @props([
     'checked',
+    'href'
 ])
+
 @php
 
 $checked = (isset($checked) && $checked == "checked") ? "checked" : "";
+
 @endphp
 
 <style>
@@ -68,6 +71,7 @@ $checked = (isset($checked) && $checked == "checked") ? "checked" : "";
     }
     </style>
 <label class="switch">
+  <a href="{{$href}}" > 
     <input type="checkbox" {{$checked}}>
-    <span class="slider round"></span>
+   <span class="slider round"></span></a>
 </label>
