@@ -77,7 +77,6 @@ class VechileMasterController extends Controller
 
         $data = $data->paginate(10);
 
-
         return view('content.admin.masters.vechiles.types.list', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $this->breadcrumbs, 'data'=>$data]);
     }
 
