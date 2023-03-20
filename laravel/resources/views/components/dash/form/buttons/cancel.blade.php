@@ -1,0 +1,1 @@
+<button   class="btn btn-danger mr-1">  {{__('webCaption.cancel.title')}}  </button>
