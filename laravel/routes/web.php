@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\MenuGroupController;
 use App\Http\Controllers\Admin\SiteLanguageController;
 use App\Http\Controllers\Admin\WebCaptionController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Models\Dash\CompanyUsers;
 use App\Models\User;
 
@@ -37,8 +38,15 @@ Route::get('google-v3-recaptcha', [GoogleV3CaptchaController::class, 'index']);
 Route::post('validate-g-recaptcha', [GoogleV3CaptchaController::class, 'validateGCaptch']);
 
 
+    Route::post('/2fa', function () {
+        return redirect(route('dashboard'));
+    })->name('2fa');
+
+
+Route::get('/complete-registration', [RegisterController::class, 'completeRegistration'])->name('complete.registration');
+
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('home');
-Route::get('dashboard', [StaterkitController::class, 'home'])->middleware('auth');
+Route::get('dashboard', [StaterkitController::class, 'home'])->name('dashboard')->middleware(['auth']);
 // Route Components
 Route::get('layouts/collapsed-menu', [StaterkitController::class, 'collapsed_menu'])->name('collapsed-menu');
 Route::get('layouts/boxed', [StaterkitController::class, 'layout_boxed'])->name('layout-boxed');
@@ -51,6 +59,7 @@ Route::get('layouts/blank', [StaterkitController::class, 'layout_blank'])->name(
 Route::get('lang/{locale}', [LanguageController::class, 'swap']);
 
 Route::group([ 'middleware' => 'auth', 'prefix' => 'admin' ], function() {
+
 
     Route::post('users/delete','Admin\UserController@destroy')->name('users.delete');
     Route::resource('users', 'Admin\UserController');
