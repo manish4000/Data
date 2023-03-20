@@ -22,6 +22,7 @@
                             </div>
                             <div class="col-md-3">
                                 <x-admin.form.buttons.search /> 
+                                <x-admin.form.buttons.reset href="{{route('language_translation.master_data_translation.index')}}" />
                             </div>
                         </div>
                     </form>

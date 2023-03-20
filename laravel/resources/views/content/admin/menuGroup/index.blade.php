@@ -10,7 +10,7 @@
 					<h4 class="card-title" title="{{__('webCaption.search_filter.caption')}}"   data-toggle="tooltip" > {{__('webCaption.search_filter.title')}} </h4>                    
 				</div>
 				<div class="card-body">
-					<form method="GET" action="{{route('menu-groups.index')}}">
+					<form method="GET" action="{{route('menu-groups.index')}}" id="myform" name="form">
 						<div class="d-flex justify-content-between align-items-center row pt-0 pb-2">
 							<div class="col-md-3">
 								<div class="form-group">		
@@ -19,6 +19,7 @@
 							</div>
 							<div class="col-md-3">
 								<x-admin.form.buttons.search />
+								<x-admin.form.buttons.reset href="{{route('menu-groups.index')}}" />
 							</div>
 						</div>
 					</form>

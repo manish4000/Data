@@ -25,6 +25,7 @@
 							
 							<div class="col-md-3">
 								<x-dash.form.buttons.search />
+								<x-dash.form.buttons.reset href="{{route('dashbank-details.index')}}" />
 							</div>
 						</div>
 					</form>

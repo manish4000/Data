@@ -20,6 +20,7 @@
                             </div>
                             <div class="col-md-3">
                                 <x-admin.form.buttons.search />
+                                <x-admin.form.buttons.reset href="{{route('company.module.index')}}" />
                             </div>
                         </div>
                     </form>
