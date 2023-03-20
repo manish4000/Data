@@ -42,7 +42,7 @@
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-								<x-dash.form.inputs.text  for="email"  maxlength="255" tooltip="{{__('webCaption.email.caption')}}" label="{{__('webCaption.email.title')}}"  class="form-control" name="email"  placeholder="{{__('webCaption.email.title')}}" value="{{old('email', isset($user->email)?$user->email:'' )}}"  required="required" />
+								<x-dash.form.inputs.email  for="email"  maxlength="255" tooltip="{{__('webCaption.email.caption')}}" label="{{__('webCaption.email.title')}}"  class="form-control" name="email"  placeholder="{{__('webCaption.email.title')}}" value="{{old('email', isset($user->email)?$user->email:'' )}}"  required="required" />
 								@if ($errors->has('email'))
 									<x-dash.form.form_error_messages message="{{ $errors->first('email') }}" />
 								@endif
