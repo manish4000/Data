@@ -39,6 +39,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\LocaleMiddleware::class,
             \App\Http\Middleware\AdminCheckBanned::class,
+            \PragmaRX\Google2FALaravel\Middleware::class,
         ],
 
         'api' => [
@@ -55,6 +56,7 @@ class Kernel extends HttpKernel
              \Illuminate\Routing\Middleware\SubstituteBindings::class,
              \App\Http\Middleware\LocaleMiddleware::class,
              \App\Http\Middleware\DashCheckBanned::class,
+            
         ],
     ];
 
@@ -76,6 +78,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'role' => \App\Http\Middleware\RoleMiddleware::class,
-        'dashauth' =>\App\Http\Middleware\DashAuthMiddleware::class
+        'dashauth' =>\App\Http\Middleware\DashAuthMiddleware::class,
+        // '2fa' => \PragmaRX\Google2FALaravel\Middleware::class,
     ];
 }
