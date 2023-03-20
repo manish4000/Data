@@ -34,7 +34,7 @@ class LoginController extends Controller
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
-            'g-recaptcha-response'  => ['required', new DashReCaptcha]
+            // 'g-recaptcha-response'  => ['required', new DashReCaptcha]
         ],[
             'email.required' => __('webCaption.validation_required.title', ['field'=> "Email" ] ),
             'email.email' => __('webCaption.validation_email.title', ['field'=> "Email" ] ),
