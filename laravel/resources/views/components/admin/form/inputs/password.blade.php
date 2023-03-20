@@ -15,7 +15,7 @@
     $charLength =  (isset($value))? strlen($value) : 0;
     $passwordGenerator =  (isset($passwordGenerator) && $passwordGenerator == "true"  ) ? "true" : "false";
 @endphp
-@if (isset($label)) <label @if (isset($tooltip)) title="{{$tooltip}}"  @endif   data-toggle="tooltip"  for='{{ $for }}'>{{ $label }} @if(isset($required) && !empty($required)) <span class="text-danger" style="font-size: 18px"> * </span>  @endif  </label> @endif
+@if (isset($label)) <label @if (isset($tooltip)) title="{{$tooltip}}"  @endif   data-toggle="tooltip"  for='{{ $for }}'>{{ $label }} @if(isset($required) && !empty($required)) <span class="text-danger" style="font-size: 14px;font-weight: bolder"> * </span>  @endif  </label> @endif
 
 @if($passwordGenerator == 'true')
     <div class="input-group">

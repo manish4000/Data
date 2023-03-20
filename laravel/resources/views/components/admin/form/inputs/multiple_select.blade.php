@@ -15,7 +15,7 @@
 
 
 <div class="form-group">
-    @if (isset($label)) <label  @if (isset($tooltip)) title="{{$tooltip}}"  @endif data-toggle="tooltip"    for='{{ $for }}'>{{ $label }} @if(isset($required) && !empty($required)) <span class="text-danger" style="font-size: 18px"> * </span>  @endif  </label> @endif
+    @if (isset($label)) <label  @if (isset($tooltip)) title="{{$tooltip}}"  @endif data-toggle="tooltip"    for='{{ $for }}'>{{ $label }} @if(isset($required) && !empty($required)) <span class="text-danger" style="font-size: 14px;font-weight: bolder"> * </span>  @endif  </label> @endif
     <select  class="select2-multiple"  data-autofill="true" multiple data-is-parent="false"  name="{{ $name }}" id="{{ $for }}" {{ $required }}>
         @if(isset($optionData) && count($optionData) > 0)
             @foreach($optionData as $option)
