@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 use function PHPUnit\Framework\isNull;
 
-class User extends Authenticatable
+class   User extends Authenticatable
 {
     use HasFactory, Notifiable, HasPermissionsTrait, SoftDeletes;
 
@@ -68,8 +68,8 @@ class User extends Authenticatable
     protected function google2faSecret(): Attribute
     {
         return new Attribute(
-            get: fn ($value) =>  decrypt($value),
-            set: fn ($value) =>  encrypt($value),
+            get: fn ($value) => isset($value)? decrypt($value) : null ,
+            set: fn ($value) => (isset($value) && ($value != null) ) ? encrypt($value) : null,
         );
     }
 
