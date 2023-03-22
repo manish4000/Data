@@ -117,8 +117,19 @@
 							</div>
 						</div>
 					</div>
-
 					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<x-admin.form.inputs.checkbox for="two_step_verification" tooltip="{{__('webCaption.required_two_step_verification.caption')}}" name="allow_2fa" label="{{__('webCaption.required_two_step_verification.title')}}" checked="{{ old('allow_2fa') == '1' ? 'checked' : '' }} {{ isset($user->allow_2fa) ? $user->allow_2fa == '1' ? 'checked=checked' :'' :'' }}"  value="1"  customClass="form-check-input"  />
+									@if($errors->has('allow_2fa'))
+									<x-admin.form.form_error_messages message="{{ $errors->first('allow_2fa') }}" />
+									@endif		
+							</div>
+						</div>
+						
+					</div>
+
+					{{-- <div class="row">
 						<div class="col-md-12">
 							<x-admin.form.label for="" tooltip="{{__('webCaption.roles.caption')}}" value="{{__('webCaption.roles.title')}}" class="" />
 							<br>
@@ -132,7 +143,7 @@
 								@endforeach
 							@endif
 						</div>
-					</div>
+					</div> --}}
 
 					{{-- <div class="row">
 						<div class="col-md-12">
@@ -162,7 +173,7 @@
 						</div>
 					</div> --}}
 
-					<div class="row">
+					<div class="row mt-2">
 						<div class="col-md-12">
 							<x-admin.form.label for="" tooltip="{{__('webCaption.permission.caption')}}" value="{{__('webCaption.permission.title')}}" class="" />
 							@if ($permissions)
