@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('phone',15);
             $table->text('department_id')->nullable();
             $table->boolean('status')->default(1);
+            $table->enum('allow_2fa',[0,1]);
         });
     }
 
@@ -34,7 +35,7 @@ return new class extends Migration
             $table->string('name')->change();
             $table->string('email')->change();
             $table->string("username", 50)->unique();
-            $table->dropColumn(['phone','status','department_id']);
+            $table->dropColumn(['phone','status','department_id','allow_2fa']);
         });
     }
 };
