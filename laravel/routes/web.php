@@ -16,6 +16,8 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Models\Dash\CompanyUsers;
 use App\Models\User;
 
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -39,7 +41,7 @@ Route::post('validate-g-recaptcha', [GoogleV3CaptchaController::class, 'validate
 
 
     Route::post('/2fa', function () {
-        return redirect(route('dashboard'));
+        return redirect()->route('dashboard');
     })->name('2fa');
 
 
@@ -58,12 +60,19 @@ Route::get('layouts/blank', [StaterkitController::class, 'layout_blank'])->name(
 // locale Route
 Route::get('lang/{locale}', [LanguageController::class, 'swap']);
 
-Route::group([ 'middleware' => 'auth', 'prefix' => 'admin' ], function() {
+Route::get('dashboard', [StaterkitController::class, 'home'])->name('dashboard')->middleware(['auth']);
+
+Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
 
 
     Route::post('users/delete','Admin\UserController@destroy')->name('users.delete');
     Route::resource('users', 'Admin\UserController');
     Route::get('users/update-status/{id}','Admin\UserController@updateStatus')->name('users.update-status');
+    Route::post('users/add-two-step-verification','Admin\UserController@addTwoStapVerification')->name('users.2fa');
+    Route::post('users/update-two-step-verification','Admin\UserController@updateTwoStapVerification')->name('users.2fa-update');
+    Route::post('users/verify-two-step-verification','Admin\UserController@verifyTwoStapVerification')->name('users.verify-2fa');
+    Route::post('users/update-verify-two-step-verification','Admin\UserController@updateverifyTwoStapVerification')->name('users.update-verify-2fa');
+
 
     Route::resource('roles', 'Admin\RoleController');
     Route::resource('site-languages', 'Admin\SiteLanguageController');
