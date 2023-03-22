@@ -303,7 +303,7 @@
 					generate(usrid);
 				}else{
 
-				
+					errorToast(data.result.message);
 				}
 
 			}
