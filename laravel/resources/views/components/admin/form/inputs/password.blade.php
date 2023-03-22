@@ -30,19 +30,24 @@
         >
         <div class="input-group-append">
             <button class="btn btn-outline-primary" title="{{__('webCaption.generate_password.caption')}}"  data-toggle="tooltip"  id="gen" type="button"><i class="fa fa-key" aria-hidden="true"></i></button>
-            <button class="btn btn-outline-primary" title="{{__('webCaption.show_password.caption')}}" data-toggle="tooltip"  onclick="pwdToggle()" type="button"><i class="fa fa-eye" aria-hidden="true"></i></button>
+            <button class="btn btn-outline-primary" title="{{__('webCaption.show_password.caption')}}" data-toggle="tooltip"  onclick="pwdToggle('{{$for}}')" type="button"><i class="fa fa-eye" aria-hidden="true"></i></button>
         </div>
     </div>
 @else
-    <input style=""
-        name='{{ $name }}'  
-        @if (isset($for)) id="{{$for}}" onkeyup="checkTextLimit('{{$for}}');"  @endif
-        @if (isset($maxlength))  maxlength="{{$maxlength}}" @endif 
-        type="password"  
-        class='{{$class}}' 
-        placeholder='{{ $placeholder }}' {{$attributes}}  
-        value='' {{ $required }}
-    >
+    <div class="input-group">
+        <input style=""
+            name='{{ $name }}'  
+            @if (isset($for)) id="{{$for}}" onkeyup="checkTextLimit('{{$for}}');"  @endif
+            @if (isset($maxlength))  maxlength="{{$maxlength}}" @endif 
+            type="password"  
+            class='{{$class}}' 
+            placeholder='{{ $placeholder }}' {{$attributes}}  
+            value='' {{ $required }}
+            >
+            <div class="input-group-append">
+                <button class="btn btn-outline-primary" title="{{__('webCaption.show_password.caption')}}" data-toggle="tooltip"  onclick="pwdToggle('{{$for}}')" type="button"><i class="fa fa-eye" aria-hidden="true"></i></button>
+            </div>
+    </div>        
 @endif
 
  @if (isset($maxlength) && isset($for) )(<span class="text-right" id="count_{{$for}}">{{$charLength}}</span>/{{$maxlength}}) @endif
@@ -74,8 +79,18 @@
 
     <script>
 
-        const pwd = document.getElementById("{{$for}}");
-        const gen = document.getElementById("gen");
+       
+        let gen = document.getElementById("gen");
+
+
+        /* To toggle password visibility*/
+        function pwdToggle(id) {
+            let pwd = document.getElementById(id);
+                if (pwd.type == "text") pwd.type = "password";
+                else pwd.type = "text";
+            }
+
+
 
         gen.addEventListener("click", getPassword);
 
@@ -99,12 +114,7 @@
                 pwd.value = generatePassword();
                 }
 
-            /* To toggle password visibility*/
-                function pwdToggle() {
-                if (pwd.type == "text") pwd.type = "password";
-                else pwd.type = "text";
-                }
-
+            
             /* To Generate the password*/
             function generatePassword() {
             let alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
