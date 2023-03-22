@@ -322,7 +322,7 @@ class UserController extends Controller
            
         }else{
             $result['status']     = false;
-            $result['message']    = "somthing wrong please retry"; 
+            $result['message']    = "Enter Correct OTP To Verify "; 
            
         }
 

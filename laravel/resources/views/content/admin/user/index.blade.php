@@ -113,7 +113,7 @@
 	<div class="modal-dialog modal-dialog-centered" role="document">
 	  <div class="modal-content">
 		<div class="modal-header">
-		  <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+		  <h5 class="modal-title" id="exampleModalLongTitle"></h5>
 		  <button type="button" class="close" onclick="resetForm()" data-dismiss="modal" aria-label="Close">
 			<span aria-hidden="true">&times;</span>
 		  </button>
@@ -184,7 +184,7 @@
 	<div class="modal-dialog modal-dialog-centered" role="document">
 	  <div class="modal-content">
 		<div class="modal-header">
-		  <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+		  <h5 class="modal-title" id="exampleModalLongTitle"></h5>
 		  <button type="button" class="close" onclick="resetForm()" data-dismiss="modal" aria-label="Close">
 			<span aria-hidden="true">&times;</span>
 		  </button>
@@ -325,8 +325,8 @@
 				if(data.result.status == true){
 					$('#exampleModalCenter').modal('hide');
 					successToast(data.result.message);
+					location.reload();
 				}else{
-
 					errorToast(data.result.message);
 				}
 
