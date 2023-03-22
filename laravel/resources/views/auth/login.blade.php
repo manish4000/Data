@@ -14,38 +14,33 @@
     <div class="card mb-0">
       <div class="card-body">
         <a href="javascript:void(0);" class="brand-logo ">
-          
           <img src="{{asset('assets/images/logo/logo.png')}}" height="50" alt="GABS Logo"> 
-  
         </a>
 
         <h4 class="card-title mb-1">Welcome to GABS! 👋</h4>
         <p class="card-text mb-2">Please sign-in to your account and start the adventure</p>
         @if (session('error'))
-          <div class="alert alert-danger py-1 text-center">
-              {{ session('error') }}
-          </div>
+          <x-admin.form.form_error_messages message="{{ session('error') }}" />
         @endif
         <form class="auth-login-form mt-2" method="POST" action="{{ route('login') }}">
           @csrf
           <div class="form-group">
-            <label for="login-email" class="form-label">Email</label>
-            <input type="text" class="form-control @error('email') is-invalid @enderror" id="login-email" name="email" placeholder="john@example.com" aria-describedby="login-email" tabindex="1" autofocus value="{{ old('email') }}" />
+            {{-- <label for="login-email" class="form-label">Email</label>
+            <input type="text" class="form-control @error('email') is-invalid @enderror" id="login-email" name="email" placeholder="john@example.com" aria-describedby="login-email" tabindex="1" autofocus value="{{ old('email') }}" /> --}}
 
-              @error('email')
-                <span class="invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
-                </span>
-              @enderror
+            <x-admin.form.inputs.email for="email" tooltip="{{__('webCaption.email.caption')}}"   label="{{__('webCaption.email.title')}}"  class="form-control" name="email"  placeholder="{{__('webCaption.email.title')}}" value="{{old('email')}}"  required="required" />
+              @if ($errors->has('email'))
+                <x-admin.form.form_error_messages message="{{ $errors->first('email') }}"  />
+              @endif
           </div>
 
           <div class="form-group">
-            <div class="d-flex justify-content-between">
+            {{-- <div class="d-flex justify-content-between">
               <label for="login-password">Password</label>
               @if (Route::has('password.request'))
-              {{-- <a href="{{ route('password.request') }}">
+              <a href="{{ route('password.request') }}">
                 <small>Forgot Password?</small>
-              </a> --}}
+              </a>
               @endif
             </div>
             <div class="input-group input-group-merge form-password-toggle">
@@ -53,6 +48,13 @@
               <div class="input-group-append">
                 <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
               </div>
+            </div> --}}
+
+            <div class="form-group">
+              <x-admin.form.inputs.password    for="login-password" tooltip="{{__('webCaption.password.caption')}}"   label="{{__('webCaption.password.title')}}"  class="form-control" name="password"  placeholder="{{__('webCaption.password.title')}}" value=""  required="" />
+              @if ($errors->has('password'))
+              <x-admin.form.form_error_messages message="{{ $errors->first('password') }}"  />
+                @endif
             </div>
           </div>
 
