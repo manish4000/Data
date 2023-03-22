@@ -17,7 +17,7 @@ $configData = Helper::applClasses();
 
   <title>@yield('title') - Vuexy Vuejs, HTML & Laravel Admin Dashboard Template</title>
   <link rel="shortcut icon" type="image/x-icon" href="{{asset('images/logo/favicon.ico')}}">
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   {{-- Include core + vendor Styles --}}
   @include('panels/styles')
 
@@ -53,6 +53,8 @@ $configData = Helper::applClasses();
     });
 
   </script>
+  @stack('script')
+
 </body>
 
 </html>
