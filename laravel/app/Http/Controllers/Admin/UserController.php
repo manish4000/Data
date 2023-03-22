@@ -12,9 +12,19 @@ use App\Models\Permission;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Foundation\Auth\RegistersUsers;
+use PragmaRX\Google2FAQRCode\Google2FA;
+
+
+
 
 class UserController extends Controller
 {   
+
+     //use RegistersUsers;
+     use RegistersUsers {
+        register as registration;
+     }
 
     protected $baseUrl = '';
     protected $url;
@@ -65,7 +75,7 @@ class UserController extends Controller
         $perPage =  (isset($request->perPage) && !empty($request->perPage)) ? $request->perPage : 500;
 
         $users = $users->paginate($perPage);
-
+        // dd($users);  
         return view('content.admin.user.index', compact('users','pageConfigs','breadcrumbs'));
     }
 
@@ -148,6 +158,8 @@ class UserController extends Controller
             'name' => __('webCaption.list.title')
         ];
 
+
+
         return view('content.admin.user.create', ['pageConfigs' => $pageConfigs ,'departments' => $departments ,'breadcrumbs' =>$breadcrumbs ,'user' => $user ,'roles' => $roles,'permissions' => $permissions ,'menuUrl'=> $this->menuUrl]);
 
     }
@@ -220,6 +232,11 @@ class UserController extends Controller
         $userModel->email = $request->email;
         $userModel->name = $request->name;
         $userModel->phone = $request->phone;
+        $userModel->allow_2fa = isset($request->allow_2fa) ? '1' : '0';
+
+        if(!isset($request->allow_2fa)){
+          $userModel->google2fa_secret = null;
+        }
 
         if($request->has('department_id')) {
             if(is_array($request->department_id) && count($request->department_id) > 0){
@@ -259,7 +276,84 @@ class UserController extends Controller
         //
     }
 
-   
+    public function addTwoStapVerification(Request $request){
+
+        $user =  User::find($request->id);
+
+        $google2fa = app('pragmarx.google2fa');
+
+        $google2fa_secret = $google2fa->generateSecretKey();
+
+        $user->last_auth_code = $google2fa_secret;
+
+        $user->save();   
+        
+        $twoFa = new Google2FA();
+        $key = $twoFa->generateSecretKey();
+        $qr_image = $twoFa->getQRCodeInline(
+            config('app.name'),
+            $user->email,
+            $google2fa_secret
+        );
+
+        return response()->json(['qr_image' => $qr_image ,'google2fa_secret' => $google2fa_secret ]);
+        
+    }
+
+
+    public function verifyTwoStapVerification(Request $request){
+
+        $user =  User::find($request->id);
+
+        $otp =  $request->one_time_password;
+    
+        $twoFa = new Google2FA();
+
+        if($twoFa->verifyKey($user->last_auth_code, $otp)){
+
+            $user =  User::find($request->id);
+            $user->google2fa_secret = $user->last_auth_code;
+            $user->allow_2fa = '1';
+            $user->last_auth_code = null;
+            $user->save();
+
+            $result['status']     = true;
+            $result['message']    = "verify successfully"; 
+           
+        }else{
+            $result['status']     = false;
+            $result['message']    = "somthing wrong please retry"; 
+           
+        }
+
+        return response()->json(['result' => $result]);
+         
+    }   
+
+
+    public function updateverifyTwoStapVerification(Request $request){
+
+        $user =  User::find($request->id);
+
+        $otp =  $request->one_time_password;
+    
+        $twoFa = new Google2FA();
+
+        if($twoFa->verifyKey($user->google2fa_secret, $otp)){
+
+            $result['status']     = true;
+            $result['message']    = "verify successfully"; 
+           
+        }else{
+            $result['status']     = false;
+            $result['message']    = "somthing wrong please retry"; 
+           
+        }
+
+        return response()->json(['result' => $result]);
+         
+    }  
+
 
     /**
      * Update the specified resource in storage.
@@ -274,7 +368,8 @@ class UserController extends Controller
         // if (!$user->can('update-user')) {
         //     abort(403);
         // }
-        
+
+      
         if (!Auth::user()->can('users-edit')) {
             abort(403);
         }
