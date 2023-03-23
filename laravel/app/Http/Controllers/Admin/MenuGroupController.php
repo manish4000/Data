@@ -257,7 +257,8 @@ class MenuGroupController extends Controller
         $selectableMenuData = $this->listSelectableMenuData($menusWithoutParent, $arrayData);
 
         $activeSiteLanguages = $this->activeSiteLanguages();
-        
+            
+
         return view('content.admin.menuGroup.listMenu', ['menu_group' => $menu_group,'breadcrumbs' => $breadcrumbs,'pageConfigs' => $pageConfigs,'data' => $data, 'permissionData' => $permissionData, 'activeSiteLanguages' => $activeSiteLanguages, 'selectableMenuData' => $selectableMenuData ,'menuUrl' =>$this->menuUrl]);
     }
 
@@ -315,6 +316,39 @@ class MenuGroupController extends Controller
             return redirect()->route('menu-groups.menus', $menu->menu_group_id )->with(['error_message' =>  __('webCaption.alert_somthing_wrong.title')]);
         }      
     }
+
+
+    function makeTree($arr=[]) 
+
+        {   
+                $tree=[];
+                
+                foreach($arr as $item) {
+
+                    $child_lev_2  = Menu::with('menuChild')->where('id',$item['id'])->first()->toArray();
+                    array_push($tree,$item['id']);
+                    
+                    if(count($child_lev_2['menu_child']) > 0) {
+                        $item =  $this->makeTree($child_lev_2['menu_child']);
+                        array_push($tree ,$item);
+                    }
+                }
+                    return $tree;
+        }
+
+    function array_flatten($array)
+        {
+            $result = [];
+            foreach ($array as $element) {
+            if (is_array($element)) {
+                $result = array_merge($result, $this->array_flatten($element));
+            } else {
+                $result[] = $element;
+            }
+            }
+            return $result;
+        }
+
     public function updateMenu(Request $request, $id) {
 
         // $user = auth()->user();
@@ -322,6 +356,11 @@ class MenuGroupController extends Controller
         //     abort(403);
         // }
 
+        //this code for get ids of all childs of given id 
+        $menu =  Menu::with('menuChild')->select('id','title')->find($id)->toArray();
+        $child_ids =  $this->makeTree($menu['menu_child']) ;
+        $child_ids =   $this->array_flatten($child_ids);
+        //end code 
 
         $request->validate([
             'menu_group_id' => 'required',
@@ -359,6 +398,9 @@ class MenuGroupController extends Controller
         // $menu->title_languages = $request->title_languages;
 
         if($menu->save()){
+
+            $menu->whereIn('id',$child_ids)->update(['menu_group_id' => $request->menu_group_id]);
+
             return redirect()->route('menu-groups.menus', $menu->menu_group_id )->with(['success_message' => $request->title." ". __('webCaption.alert_updated_successfully.title')]);
         }else{
             return redirect()->route('menu-groups.menus', $menu->menu_group_id )->with(['error_message' =>  __('webCaption.alert_somthing_wrong.title')]);
