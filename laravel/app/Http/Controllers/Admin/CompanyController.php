@@ -402,13 +402,13 @@ class CompanyController extends Controller
 
                         $conatct_data = [
                             'company_id' => $company_model->id,
-                            'name' =>  isset($request->contact_name[$i])? $request->contact_name[$i] : null,
-                            'email' => isset($request->contact_email[$i])? $request->contact_email[$i] : null ,
-                            'designation' => isset($request->designation[$i]) ? $request->designation[$i] : null,
-                            'phone' => isset($request->contact_phone[$i])? $request->contact_phone[$i]: null,
-                            'viber' => isset($request->contact_viber[$i])? $request->contact_viber[$i]: null,
-                            'line' => isset($request->contact_line[$i])? $request->contact_line[$i]: null,
-                            'whatsapp' => isset($request->contact_whatsapp[$i]) ?$request->contact_whatsapp[$i] : null,
+                            'name' => $request->contact_name[$i],
+                            'email' => $request->contact_email[$i],
+                            'designation' => $request->designation[$i],
+                            'phone' => $request->contact_phone[$i],
+                            'viber' => isset($request->contact_viber[$i])?? null,
+                            'line' => isset($request->contact_line[$i])?? null,
+                            'whatsapp' => isset($request->contact_whatsapp[$i]) ?? null,
                         ];
 
                         $company_contact_person_model->insert($conatct_data);  
