@@ -3,16 +3,6 @@
 {{-- @section('title', $pageConfigs['moduleName']) --}}
 @section('title', __('webCaption.company_edit.title'))
 
-@section('vendor-style')
-  <!-- vendor css files -->
-  <link rel="stylesheet" href="{{ asset(mix('fonts/font-awesome/css/font-awesome.min.css'))}}">
-  <link rel="stylesheet" href="{{ asset(mix('vendors/css/extensions/jstree.min.css'))}}">
-@endsection
-@section('page-style')
-  <!-- Page css files -->
-  <link rel="stylesheet" href="{{ asset(mix('css/base/plugins/extensions/ext-component-tree.css')) }}">
-@endsection
-
 @section('content')
 <!-- users edit start -->
 
@@ -461,29 +451,8 @@
   </form>
 @endsection
 
-
-@section('vendor-script')
-  <!-- vendor files -->
-  <script src="{{ asset(mix('vendors/js/extensions/jstree.min.js')) }}"></script>
-@endsection
 @push('script')
-  <!-- Page js files -->
-  <script src="{{ asset(mix('js/scripts/extensions/ext-component-tree.js')) }}"></script>
 
-  <script type="text/javascript">
-  	$(document).ready(function() {
-  		$(".jstree-basic ul li a, .jstree-basic ul li ul li a").each(function() {
-
-  		  var attributes = $.map(this.attributes, function(item) {
-		    return item.name;
-		  });
-		  var img = $(this);
-		  $.each(attributes, function(i, item) {
-		    img.removeAttr(item);
-		  });
-		});
-  	})
-  </script>
 
   @php
   $state_id = session()->getOldInput('state_id');

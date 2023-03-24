@@ -455,7 +455,7 @@
    </form>
 @endsection
 
-@push('script')
+{{-- @push('script')
 
    <script>
       $(document).ready(function() {
@@ -537,5 +537,5 @@
       }
    </script>
 
-@endpush
+@endpush --}}
 
