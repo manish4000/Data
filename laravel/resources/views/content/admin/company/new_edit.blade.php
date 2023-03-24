@@ -334,35 +334,6 @@
                         @endif
                     </div>
                 </div>
-                {{-- <div class="col-md-4">
-                    <x-admin.form.label for="" value="{{__('webCaption.contact_1_option.title')}}" class="" />
-                    <div class="form-group">
-
-                      @php  
-
-                          $contact_viber =  session()->getOldInput('contact_viber');
-                          $contact_line =  session()->getOldInput('contact_line');
-                          $contact_whatsapp =  session()->getOldInput('contact_whatsapp');
-
-                          $contact_viber_0 =   (isset($contact_viber[0])) ? 'checked' : ( empty(session()->getOldInput()) && isset($data->contcatPersonDetails[0]->viber)  &&  $data->contcatPersonDetails[0]->viber  == 1 ? 'checked' :'');
-
-                          $contact_viber_1 =   (isset($contact_viber[1])) ? 'checked' : ( empty(session()->getOldInput()) && isset($data->contcatPersonDetails[1]->viber)  &&  $data->contcatPersonDetails[1]->viber  == 1 ? 'checked' :'');
-
-                          $contact_line_0 =   (isset($contact_line[0])) ? 'checked' : ( empty(session()->getOldInput()) && isset($data->contcatPersonDetails[0]->line)  &&  $data->contcatPersonDetails[0]->line  == 1 ? 'checked' :'');
-
-                          $contact_line_1 =   (isset($contact_line[1])) ? 'checked' : ( empty(session()->getOldInput()) && isset($data->contcatPersonDetails[1]->line)  &&  $data->contcatPersonDetails[1]->line  == 1 ? 'checked' :'');
-
-                          $contact_whatsapp_0 =   (isset($contact_whatsapp[0])) ? 'checked' : ( empty(session()->getOldInput()) && isset($data->contcatPersonDetails[0]->whatsapp)  &&  $data->contcatPersonDetails[0]->whatsapp  == 1 ? 'checked' :'');
-
-                          $contact_whatsapp_1 =   (isset($contact_whatsapp[1])) ? 'checked' : ( empty(session()->getOldInput()) && isset($data->contcatPersonDetails[1]->whatsapp)  &&  $data->contcatPersonDetails[1]->whatsapp  == 1 ? 'checked' :'');
-                      
-                      @endphp
-
-                        <x-admin.form.inputs.checkbox id="" for="contact_1_option_viber" label="{{__('webCaption.viber.title')}}" tooltip="{{__('webCaption.viber.caption')}}"  class="form-control" name="contact_viber[0]"   value="1" checked="{{ $contact_viber_0 }}" /> &ensp;
-                        <x-admin.form.inputs.checkbox id="" for="contact_1_option_line" label="{{__('webCaption.line.title')}}" tooltip="{{__('webCaption.line.caption')}}" class="form-control" name="contact_line[0]"   value="1"  checked="{{ $contact_line_0 }}" />&ensp;
-                        <x-admin.form.inputs.checkbox id="" for="contact_1_option_whatsapp" label="{{__('webCaption.whatsapp.title')}}" label="{{__('webCaption.whatsapp.title')}}"  class="form-control" name="contact_whatsapp[0]"   value="1"  checked="{{ $contact_whatsapp_0 }}" />&ensp;
-                    </div>    
-                </div> --}}
             </div>  
     
           </div>
@@ -410,14 +381,6 @@
                         @endif
                     </div>
                 </div>
-                {{-- <div class="col-md-4">
-                    <x-admin.form.label for="" value="{{__('webCaption.contact_option.title')}}" class="" />
-                    <div class="form-group">
-                        <x-admin.form.inputs.checkbox id="" for="contact_2_option_viber" label="{{__('webCaption.viber.title')}}" tooltip="{{__('webCaption.viber.caption')}}"  class="form-control" name="contact_viber[1]"   value="1" checked="{{ $contact_viber_1 }}" /> &ensp;
-                        <x-admin.form.inputs.checkbox id="" for="contact_2_option_line" label="{{__('webCaption.line.title')}}" tooltip="{{__('webCaption.line.caption')}}" class="form-control" name="contact_line[1]"   value="1"  checked="{{ $contact_line_1 }}" />&ensp;
-                        <x-admin.form.inputs.checkbox id="" for="contact_2_option_whatsapp" label="{{__('webCaption.whatsapp.title')}}" label="{{__('webCaption.whatsapp.title')}}"  class="form-control" name="contact_whatsapp[1]"   value="1"  checked="{{ $contact_whatsapp_1 }}" />&ensp;
-                    </div>    
-                </div> --}}
             </div>  
     
           </div>
@@ -487,11 +450,8 @@
     </div>
 
     <div class="form-group">
-      {{-- <div class="custom-control custom-checkbox">
-        <input class="custom-control-input" type="checkbox" id="remember-me" name="remember-me" tabindex="3" {{ old('remember-me') ? 'checked' : '' }} />
-        <label class="custom-control-label" for="remember-me"></label>
-      </div> --}}
-      <x-admin.form.inputs.checkbox id="" for="terms_and_services"  tooltip="{{__('webCaption.accept_terms_and_services.caption')}}" label="{{__('webCaption.accept_terms_and_services.title')}}"  class="form-control" name="terms_and_services"   value="1" checked="{{ old('terms_and_services') == '1' ? 'checked' : '' }} {{ ($data->terms_and_services == '1') ? 'checked' :''}}" /> &ensp;
+
+      {{-- <x-admin.form.inputs.checkbox id="" for="terms_and_services"  tooltip="{{__('webCaption.accept_terms_and_services.caption')}}" label="{{__('webCaption.accept_terms_and_services.title')}}"  class="form-control" name="terms_and_services"   value="1" checked="{{ old('terms_and_services') == '1' ? 'checked' : '' }} {{ ($data->terms_and_services == '1') ? 'checked' :''}}" /> &ensp; --}}
     </div>
   </section>
   <div>

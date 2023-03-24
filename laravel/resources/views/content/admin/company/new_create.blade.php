@@ -444,9 +444,9 @@
             </div>
          </div>
 
-         <div class="form-group">
+         {{-- <div class="form-group">
             <x-admin.form.inputs.checkbox id="" for="terms_and_services"  tooltip="{{__('webCaption.accept_terms_and_services.caption')}}" label="{{__('webCaption.accept_terms_and_services.title')}}"  class="form-control" name="terms_and_services"   value="1" checked="{{ old('terms_and_services') == '1' ? 'checked' : '' }}" /> &ensp;
-         </div>
+         </div> --}}
       </section>
       <div class="text-center">
          <input type="hidden" name="id" value="@if(isset($data->id) && !empty($data->id)){{$data->id}}@endif" />
