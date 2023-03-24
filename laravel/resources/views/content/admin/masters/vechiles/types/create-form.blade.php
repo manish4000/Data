@@ -39,18 +39,36 @@
         </div>
 
         <div class="col-md-4">
-          <div class="form-group">
-          <x-admin.form.label for="" tooltip="{{__('webCaption.display.caption')}}" value="{{__('webCaption.display.title')}}" class="" />
+      
+            {{-- <div class="form-group">
+              <x-admin.form.label for="" tooltip="{{__('webCaption.display.caption')}}" value="{{__('webCaption.display.title')}}" class="" />
+                <div class="form-check form-check-inline">
+                
 
-            <x-admin.form.inputs.radio for="Yes" tooltip="{{__('webCaption.yes.caption')}}"  class="border border-danger" name="display" label="{{__('webCaption.yes.title')}}" placeholder="{{ __('locale.Vehicle_Type.name') }}" value="Yes"  required="required" checked="{{ old('display') == 'Yes' ? 'checked' : '' }} {{ isset($data->display) ? $data->display == 'Yes' ? 'checked=checked' :'' :'' }} " required="required" />
+                  <x-admin.form.inputs.radio for="Yes" tooltip="{{__('webCaption.yes.caption')}}"  class="border border-danger" name="display" label="{{__('webCaption.yes.title')}}" placeholder="{{ __('locale.Vehicle_Type.name') }}" value="Yes"  required="required" checked="{{ old('display') == 'Yes' ? 'checked' : '' }} {{ isset($data->display) ? $data->display == 'Yes' ? 'checked=checked' :'' :'' }} " required="required" />
 
-            <x-admin.form.inputs.radio for="No" class="border border-danger" name="display" tooltip="{{__('webCaption.no.caption')}}" label="{{__('webCaption.no.title')}}" placeholder="{{ __('locale.Vehicle_Type.name') }}" value="No"  required="required"  checked="{{ old('display') == 'No' ? 'checked' : '' }} {{ isset($data->display) ? $data->display == 'No' ? 'checked=checked' :'' :'' }} " required="required" />
+                  <x-admin.form.inputs.radio for="No" class="border border-danger" name="display" tooltip="{{__('webCaption.no.caption')}}" label="{{__('webCaption.no.title')}}" placeholder="{{ __('locale.Vehicle_Type.name') }}" value="No"  required="required"  checked="{{ old('display') == 'No' ? 'checked' : '' }} {{ isset($data->display) ? $data->display == 'No' ? 'checked=checked' :'' :'' }} " required="required" />
 
-            @if($errors->has('display'))
-            <x-admin.form.form_error_messages message="{{ $errors->first('display') }}"  />
-            @endif
-         
-          </div>
+                  @if($errors->has('display'))
+                  <x-admin.form.form_error_messages message="{{ $errors->first('display') }}"  />
+                  @endif
+              
+                </div>
+            </div>   --}}
+
+            <div class="form-group">
+              <x-admin.form.label for="" value="{{__('webCaption.display.title')}}" class="" tooltip="{{__('webCaption.display.caption')}}" />
+
+                   <div>
+                      <div class="form-check form-check-inline">
+                        <x-admin.form.inputs.radio for="Yes" tooltip="{{__('webCaption.yes.caption')}}"  class="border border-danger" name="display" label="{{__('webCaption.yes.title')}}" placeholder="{{ __('locale.Vehicle_Type.name') }}" value="Yes"  required="required" 
+                        checked="{{ (old('display') == 'Yes') || (!isset($data->id))  ? 'checked' : '' }} {{ isset($data->display) ? $data->display == 'Yes' ? 'checked=checked' :'' :'' }} " required="required" />&ensp;
+                          
+                        <x-admin.form.inputs.radio for="No" class="border border-danger" name="display" tooltip="{{__('webCaption.no.caption')}}" label="{{__('webCaption.no.title')}}" placeholder="{{ __('locale.Vehicle_Type.name') }}" value="No"  required="required"  checked="{{ old('display') == 'No' ? 'checked' : '' }} {{ isset($data->display) ? $data->display == 'No' ? 'checked=checked' :'' :'' }} " required="required" />&ensp;
+
+                  </div>
+              </div>
+            </div>
         </div>
       </div>       
     </div>
