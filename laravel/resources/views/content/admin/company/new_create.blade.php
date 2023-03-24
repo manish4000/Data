@@ -315,7 +315,7 @@
                            @endif
                         </div>
                      </div>
-                     <div class="col-md-4">
+                     {{-- <div class="col-md-4">
                          <x-admin.form.label for="" tooltip="{{__('webCaption.contact_option.caption')}}" value="{{__('webCaption.contact_option.title')}}" class="" />
                         <div class="form-group"> 
                            @php
@@ -343,7 +343,7 @@
 
                            <x-admin.form.inputs.checkbox id="" for="contact_1_option_whatsapp" tooltip="{{__('webCaption.whatsapp.caption')}}"  label="{{__('webCaption.whatsapp.title')}}"  class="form-control" name="contact_whatsapp[0]"   value="1"  checked="" />&ensp;
                          </div> 
-                        </div>
+                        </div> --}}
                   </div>
 
                </div>
