@@ -79,7 +79,7 @@
 											</td>
 											<td>
 												@if(isset($user->google2fa_secret))
-													<a  data-toggle="modal" data-id="{{$user->id}}"  class="2faModelUpdate"> <i class="fa fa-refresh fa-2x" aria-hidden="true"></i> &nbsp; <i class="fa fa-qrcode text-dark fa-2x"></i>
+													<a  data-toggle="modal" data-id="{{$user->id}}"  data-device_info="{{$user->device_description}}" class="2faModelUpdate"> <i class="fa fa-refresh fa-2x" aria-hidden="true"></i> &nbsp; <i class="fa fa-qrcode text-dark fa-2x"></i>
 													</a>
 												@else
 													<a  data-toggle="modal" data-id="{{$user->id}}"  class="2faModelCreate"> <i class="fa fa-plus fa-2x" aria-hidden="true"></i> &nbsp; <i class="fa fa-qrcode text-dark fa-2x"></i>
@@ -120,17 +120,20 @@
 		</div>
 		<div class="modal-body">
 			<div class="row">
-				<div class="col-md-12 mt-4">
+				<div class="col-md-12 ">
 					<div class="card card-default">
 						<h4 class="card-heading text-center mt-4">Set up Google Authenticator</h4>
 		
-						<div class="card-body" style="text-align: center;">
-							<p>Set up your two factor authentication by scanning the barcode below. Alternatively, you can use the code 
-						 	 <span id="2fa_secret"><strong></strong> </span> </p>
-							<div id="qr-image">
-							   
+						<div class="card-body">
+							<div class="text-center">
+								<p>Set up your two factor authentication by scanning the barcode below. Alternatively, you can use the code 
+								  <span id="2fa_secret"><strong></strong> </span> </p>
+								<div  id="qr-image">
+								   
+								</div>
+								
 							</div>
-							<p>You must set up your Google Authenticator app before continuing. You will be unable to login otherwise</p>
+							<p>You must set up your Google Authenticator app before continuing.</p>
 
 							@if($errors->any())
 								<div class="col-md-12">
@@ -143,22 +146,18 @@
 							<form class="" id="verify-form" method="POST" action="{{ route('users.verify-2fa') }}">
 								{{ csrf_field() }}
 
-								<div class="form-group">
-									
-									<label for="one_time_password" class=" control-label">One Time Password</label>
-
-									<input id="one_time_password" type="number" class="form-control" name="one_time_password" required autofocus>
+								<div class="form-group">							
+									<x-admin.form.inputs.text id="one_time_password" for="one_time_password" label="{{__('webCaption.one_time_password.title')}}" tooltip="{{__('webCaption.one_time_password.caption')}}" for="{{__('webCaption.one_time_password.title')}}"  class="form-control" name="one_time_password"  placeholder="{{__('webCaption.one_time_password.title')}}" value=""  required="" />
 									<input value="" id="id" type="hidden" class="form-control" name="id" value="" required >
-
-									<p>Please enter the  <strong>OTP</strong> generated on your Authenticator App. <br> Ensure you submit the current one because it refreshes every 30 seconds.</p>
-								</div>
-	
-								<div class="form-group">
-									
-									<button type="submit" class="btn btn-primary">
-										Verify 
-									</button>
-									
+							    </div>
+								<div class="form-group">							
+									<x-admin.form.inputs.textarea  for="device_description" label="{{__('webCaption.device_description.title')}}" class="form-control" tooltip="{{__('webCaption.device_description.caption')}}" name="device_description"  placeholder="{{ __('webCaption.device_description.title') }}" value="{{old('device_description')}}"   />
+										@if($errors->has('device_description'))
+										  <x-admin.form.form_error_messages message="{{ $errors->first('device_description') }}" />
+										@endif
+							    </div>
+								<div class="form-group text-center">
+									<x-admin.form.buttons.custom value="{{__('webCaption.verify.title')}}" iconClass="" color="btn-primary" />
 								</div>
 							</form>
 
@@ -194,10 +193,16 @@
 				<div class="col-md-12 mt-4">
 					<div class="card card-default">
 						<h4 class="card-heading text-center mt-4">Set up Google Authenticator</h4>
-		
-						<div class="card-body" style="text-align: center;">
-							<div id="qr-image">
-								<img src="{{asset('assets/images/qr-code.jpg')}}" alt="">
+						
+						<div class="card-body" >
+							<div class="text-center">
+								<p id="device_info" class="text-center">
+
+								</p>
+								<div id="qr-image">
+									<img src="{{asset('assets/images/qr-code.jpg')}}" alt="">
+								</div>
+
 							</div>
 							@if($errors->any())
 								<div class="col-md-12">
@@ -210,21 +215,20 @@
 							<form class="" id="update-verify-form" method="POST" action="{{ route('users.verify-2fa') }}">
 								{{ csrf_field() }}
 
-								<div class="form-group">
-									
-									<label for="one_time_password" class=" control-label">One Time Password</label>
-
-									<input id="one_time_password" type="number" class="form-control" name="one_time_password" required autofocus>
+								<div class="form-group">							
+									<x-admin.form.inputs.text id="one_time_password" for="one_time_password" label="{{__('webCaption.one_time_password.title')}}" tooltip="{{__('webCaption.one_time_password.caption')}}" for="{{__('webCaption.one_time_password.title')}}"  class="form-control" name="one_time_password"  placeholder="{{__('webCaption.one_time_password.title')}}" value=""  required="" />
 									<input value="" id="update-id" type="hidden" class="form-control" name="id" value="" required >
+									<p>Please enter the  <strong>OTP</strong> From last scanned device to update.</p>
+							    </div>
 
-									<p>Please enter the  <strong>OTP</strong> From last scanned device to update.<br> Ensure you submit the current one because it refreshes every 30 seconds.</p>
-								</div>
 	
-								<div class="form-group">
+								<div class="form-group text-center">
 									
-									<button type="submit" class="btn btn-primary">
+									{{-- <button type="submit" class="btn btn-primary">
 										Verify 
-									</button>
+									</button> --}}
+									<x-admin.form.buttons.update/>
+									<a href="" id="delete-2fa" class="btn btn-danger">Delete</a>
 									
 								</div>
 							</form>
@@ -277,7 +281,14 @@
 	$(".2faModelUpdate").click(function(){
 		
 		let id = $(this).attr("data-id");
+		let device_info = $(this).attr("data-device_info");
 		$('#update-id').val(id);
+
+		let url = '{{route('users.delete-2fa',":id")}}';
+		url = url.replace(':id', id);
+
+		$('#delete-2fa').attr("href",url)
+		$('#device_info').html("Device Details : "+ device_info);
 		$('#exampleModal').modal('show');
 
 	});
@@ -290,7 +301,6 @@
 		event.preventDefault();
 
          let usrid =	$('#update-verify-form #update-id').val();
-
 
 			$.ajax({
 			type: 'POST',
