@@ -228,59 +228,28 @@
                         </div>
                         <hr class="m-0 p-0">
                         <div class="row m-2">
-                           <div class="col-md-6">
+                           {{-- <div class="col-md-6">
                               <div class="form-group">
                                  <x-admin.form.inputs.file id="" caption="{{__('webCaption.document_upload.title')}}" for="document"  class="form-control" name="document[]"  placeholder="{{__('webCaption.document.title')}}" required=""   multiple="multiple" />
                                  @if($errors->has('document'))
                                     <x-admin.form.form_error_messages message="{{ $errors->first('document') }}"  />
                                  @endif
                               </div>
+                           </div> --}}
+
+                           
+                           <div class="col-md-6">
+                                 <div class="form-group">
+                                    <x-admin.form.inputs.file id="" caption="{{__('webCaption.document_upload.title')}}" for="document"  class="form-control" name="document[]"  placeholder="{{__('webCaption.document.title')}}" required=""  multiple="multiple" />
+                                    @if($errors->has('document'))
+                                    <x-admin.form.form_error_messages message="{{ $errors->first('document') }}"  />
+                                    @endif
+                                 </div>
                            </div>
-                            <div class="col-md-6">
-                               <div class="form-group">
-                                   <x-admin.form.inputs.file id="" caption="{{__('webCaption.document_upload.title')}}" for="document"  class="form-control" name="document[]"  placeholder="{{__('webCaption.logo.title')}}" required="" />
-                                   @if($errors->has('logo'))
-                                   <x-admin.form.form_error_messages message="{{ $errors->first('logo') }}"  />
-                                   @endif
-                               </div>
-                           </div>
+      
+                           
                         </div>
-                         <div class="row m-2">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <x-admin.form.inputs.file id="" caption="{{__('webCaption.document_upload.title')}}" for="document"  class="form-control" name="document[]"  placeholder="{{__('webCaption.logo.title')}}" required="" />
-                                    @if($errors->has('logo'))
-                                    <x-admin.form.form_error_messages message="{{ $errors->first('logo') }}"  />
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <x-admin.form.inputs.file id="" caption="{{__('webCaption.document_upload.title')}}" for="document"  class="form-control" name="document[]"  placeholder="{{__('webCaption.logo.title')}}" required="" />
-                                    @if($errors->has('logo'))
-                                    <x-admin.form.form_error_messages message="{{ $errors->first('logo') }}"  />
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row m-2">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <x-admin.form.inputs.file id="" caption="{{__('webCaption.document_upload.title')}}" for="document"  class="form-control" name="document[]"  placeholder="{{__('webCaption.logo.title')}}" required="" />
-                                    @if($errors->has('logo'))
-                                    <x-admin.form.form_error_messages message="{{ $errors->first('logo') }}"  />
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <x-admin.form.inputs.file id="" caption="{{__('webCaption.document_upload.title')}}" for="document"  class="form-control" name="document[]"  placeholder="{{__('webCaption.logo.title')}}" required="" />
-                                    @if($errors->has('logo'))
-                                    <x-admin.form.form_error_messages message="{{ $errors->first('logo') }}"  />
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
+
 
                      </div>
                   </div>
@@ -347,89 +316,89 @@
                         </div>
                      </div>
                      <div class="col-md-4">
-                        <x-admin.form.label for="" tooltip="{{__('webCaption.contact_option.caption')}}" value="{{__('webCaption.contact_option.title')}}" class="" />
-                        <div class="form-group">
-{{--                           @php--}}
+                         <x-admin.form.label for="" tooltip="{{__('webCaption.contact_option.caption')}}" value="{{__('webCaption.contact_option.title')}}" class="" />
+                        <div class="form-group"> 
+                           @php
 
-{{--                              $contact_viber =  session()->getOldInput('contact_viber');--}}
-{{--                              $contact_line =  session()->getOldInput('contact_line');--}}
-{{--                              $contact_whatsapp =  session()->getOldInput('contact_whatsapp');--}}
+                              $contact_viber =  session()->getOldInput('contact_viber');
+                              $contact_line =  session()->getOldInput('contact_line');
+                              $contact_whatsapp =  session()->getOldInput('contact_whatsapp');
 
-{{--                              $contact_viber_0 =   (isset($contact_viber[0]) && $contact_viber[0] == 1 ) ? 'checked' : '' ;--}}
+                              $contact_viber_0 =   (isset($contact_viber[0]) && $contact_viber[0] == 1 ) ? 'checked' : '' ;
 
-{{--                              $contact_viber_1 =   (isset($contact_viber[1]) && $contact_viber[1] == 1 ) ? 'checked' :'' ;--}}
+                              $contact_viber_1 =   (isset($contact_viber[1]) && $contact_viber[1] == 1 ) ? 'checked' :'' ;
 
-{{--                              $contact_line_0 =   (isset($contact_line[0]) && $contact_line[0] == 1 )  ? 'checked' : '';--}}
+                              $contact_line_0 =   (isset($contact_line[0]) && $contact_line[0] == 1 )  ? 'checked' : '';
 
-{{--                              $contact_line_1 =   (isset($contact_line[1]) && $contact_line[1] == 1 ) ? 'checked' :'';--}}
+                              $contact_line_1 =   (isset($contact_line[1]) && $contact_line[1] == 1 ) ? 'checked' :'';
 
-{{--                              $contact_whatsapp_0 =   (isset($contact_whatsapp[0]) && $contact_whatsapp[0] == 1 ) ? 'checked' : '' ;--}}
+                              $contact_whatsapp_0 =   (isset($contact_whatsapp[0]) && $contact_whatsapp[0] == 1 ) ? 'checked' : '' ;
 
-{{--                              $contact_whatsapp_1 =   (isset($contact_whatsapp[1]) && $contact_whatsapp[1] == 1 ) ? 'checked' : '';--}}
+                              $contact_whatsapp_1 =   (isset($contact_whatsapp[1]) && $contact_whatsapp[1] == 1 ) ? 'checked' : '';
 
-{{--                           @endphp--}}
-{{--                           <x-admin.form.inputs.checkbox id="" for="contact_1_option_viber" tooltip="{{__('webCaption.viber.caption')}}" label="{{__('webCaption.viber.title')}}"  class="form-control" name="contact_viber[0]"   value="1" checked="" />--}}
+                           @endphp
+                           <x-admin.form.inputs.checkbox id="" for="contact_1_option_viber" tooltip="{{__('webCaption.viber.caption')}}" label="{{__('webCaption.viber.title')}}"  class="form-control" name="contact_viber[0]"   value="1" checked="" />
 
-{{--                           <x-admin.form.inputs.checkbox id="" for="contact_1_option_line" tooltip="{{__('webCaption.line.caption')}}" label="{{__('webCaption.line.title')}}" class="form-control" name="contact_line[0]"   value="1"  checked="" />--}}
+                           <x-admin.form.inputs.checkbox id="" for="contact_1_option_line" tooltip="{{__('webCaption.line.caption')}}" label="{{__('webCaption.line.title')}}" class="form-control" name="contact_line[0]"   value="1"  checked="" />
 
-{{--                           <x-admin.form.inputs.checkbox id="" for="contact_1_option_whatsapp" tooltip="{{__('webCaption.whatsapp.caption')}}"  label="{{__('webCaption.whatsapp.title')}}"  class="form-control" name="contact_whatsapp[0]"   value="1"  checked="" />&ensp;--}}
-                        </div>
+                           <x-admin.form.inputs.checkbox id="" for="contact_1_option_whatsapp" tooltip="{{__('webCaption.whatsapp.caption')}}"  label="{{__('webCaption.whatsapp.title')}}"  class="form-control" name="contact_whatsapp[0]"   value="1"  checked="" />&ensp;
+                         </div> 
                         </div>
                   </div>
 
                </div>
                <hr class="m-0 p-0">
-{{--               <div class="card-body" >--}}
-{{--                  <h4 class="card-title">    {{__('webCaption.contact_person_2.title')}} </h4>--}}
-{{--                  <div class="row">--}}
-{{--                     <div class="col-md-4">--}}
-{{--                        <div class="form-group">--}}
-{{--                           <x-admin.form.inputs.text id="" for="contact_2_name" tooltip="{{__('webCaption.name.caption')}}" label="{{__('webCaption.name.title')}}" maxlength="100" class="form-control" name="contact_name[]"  placeholder="{{__('webCaption.name.title')}}" value=""  required="" />--}}
-{{--                           @if($errors->has('contact_name.1'))--}}
-{{--                              <x-admin.form.form_error_messages message="{{ $errors->first('contact_name.1') }}"  />--}}
-{{--                           @endif--}}
-{{--                        </div>--}}
-{{--                     </div>--}}
-{{--                     <div class="col-md-4">--}}
-{{--                        <div class="form-group">--}}
-{{--                           <x-admin.form.inputs.text id="" for="contact_2_designation" tooltip="{{__('webCaption.designation.caption')}}" label="{{__('webCaption.designation.title')}}" maxlength="50" class="form-control" name="contact_designation[]"  placeholder="{{__('webCaption.designation.title')}}" value=""  required="" />--}}
-{{--                           @if($errors->has('contact_designation.1'))--}}
-{{--                              <x-admin.form.form_error_messages message="{{ $errors->first('contact_designation.1') }}"  />--}}
-{{--                           @endif--}}
-{{--                        </div>--}}
-{{--                     </div>--}}
-{{--                     <div class="col-md-4">--}}
-{{--                        <div class="form-group">--}}
-{{--                           <x-admin.form.inputs.email id="" for="contact_2_email" tooltip="{{__('webCaption.email.caption')}}" label="{{__('webCaption.email.title')}}" maxlength="50" class="form-control" name="contact_email[]"  placeholder="{{__('webCaption.email.title')}}" value=""  required="" />--}}
-{{--                           @if($errors->has('contact_email.1'))--}}
-{{--                              <x-admin.form.form_error_messages message="{{ $errors->first('contact_email.1') }}"  />--}}
-{{--                           @endif--}}
-{{--                        </div>--}}
-{{--                     </div>--}}
-{{--                  </div>--}}
+               <div class="card-body" >
+                  <h4 class="card-title">    {{__('webCaption.contact_person_2.title')}} </h4>
+                  <div class="row">
+                     <div class="col-md-4">
+                        <div class="form-group">
+                           <x-admin.form.inputs.text id="" for="contact_2_name" tooltip="{{__('webCaption.name.caption')}}" label="{{__('webCaption.name.title')}}" maxlength="100" class="form-control" name="contact_name[]"  placeholder="{{__('webCaption.name.title')}}" value=""  required="" />
+                           @if($errors->has('contact_name.1'))
+                              <x-admin.form.form_error_messages message="{{ $errors->first('contact_name.1') }}"  />
+                           @endif
+                        </div> 
+                     </div>
+                     <div class="col-md-4">
+                        <div class="form-group">
+                           <x-admin.form.inputs.text id="" for="contact_2_designation" tooltip="{{__('webCaption.designation.caption')}}" label="{{__('webCaption.designation.title')}}" maxlength="50" class="form-control" name="contact_designation[]"  placeholder="{{__('webCaption.designation.title')}}" value=""  required="" />
+                           @if($errors->has('contact_designation.1'))
+                              <x-admin.form.form_error_messages message="{{ $errors->first('contact_designation.1') }}"  />
+                           @endif
+                        </div>
+                     </div>
+                     <div class="col-md-4">
+                        <div class="form-group">
+                           <x-admin.form.inputs.email id="" for="contact_2_email" tooltip="{{__('webCaption.email.caption')}}" label="{{__('webCaption.email.title')}}" maxlength="50" class="form-control" name="contact_email[]"  placeholder="{{__('webCaption.email.title')}}" value=""  required="" />
+                           @if($errors->has('contact_email.1'))
+                              <x-admin.form.form_error_messages message="{{ $errors->first('contact_email.1') }}"  />
+                           @endif
+                        </div>
+                     </div>
+                  </div>
 
-{{--                  <div class="row">--}}
-{{--                     <div class="col-md-4">--}}
-{{--                        <div class="form-group">--}}
-{{--                           <x-admin.form.inputs.text id="" for="contact_2_phone" tooltip="{{__('webCaption.phone.caption')}}" label="{{__('webCaption.phone.title')}}" maxlength="20" class="form-control" name="contact_phone[]"  placeholder="{{__('webCaption.phone.title')}}" value=""  required="" />--}}
-{{--                           @if($errors->has('contact_phone.1'))--}}
-{{--                              <x-admin.form.form_error_messages message="{{ $errors->first('contact_phone.1') }}"  />--}}
-{{--                           @endif--}}
-{{--                        </div>--}}
-{{--                     </div>--}}
-{{--                     <div class="col-md-4">--}}
-{{--                        <x-admin.form.label for="" tooltip="{{__('webCaption.contact_option.caption')}}" value="{{__('webCaption.contact_option.title')}}" class="" />--}}
-{{--                        <div class="form-group">--}}
-{{--                           <x-admin.form.inputs.checkbox id="" for="contact_2_option_viber" tooltip="{{__('webCaption.viber.caption')}}" label="{{__('webCaption.viber.title')}}"  class="form-control" name="contact_viber[1]"   value="1" checked="{{ ( old('contact_viber.1')  == 1 )? 'checked' :'' }}" /> &ensp;--}}
+                  <div class="row">
+                     <div class="col-md-4">
+                        <div class="form-group">
+                           <x-admin.form.inputs.text id="" for="contact_2_phone" tooltip="{{__('webCaption.phone.caption')}}" label="{{__('webCaption.phone.title')}}" maxlength="20" class="form-control" name="contact_phone[]"  placeholder="{{__('webCaption.phone.title')}}" value=""  required="" />
+                           @if($errors->has('contact_phone.1'))
+                              <x-admin.form.form_error_messages message="{{ $errors->first('contact_phone.1') }}"  />
+                           @endif
+                        </div>
+                     </div>
+                     <div class="col-md-4">
+                        <x-admin.form.label for="" tooltip="{{__('webCaption.contact_option.caption')}}" value="{{__('webCaption.contact_option.title')}}" class="" />
+                        <div class="form-group">
+                           <x-admin.form.inputs.checkbox id="" for="contact_2_option_viber" tooltip="{{__('webCaption.viber.caption')}}" label="{{__('webCaption.viber.title')}}"  class="form-control" name="contact_viber[1]"   value="1" checked="{{ ( old('contact_viber.1')  == 1 )? 'checked' :'' }}" /> &ensp;
 
-{{--                           <x-admin.form.inputs.checkbox id="" for="contact_2_option_line" tooltip="{{__('webCaption.line.caption')}}" label="{{__('webCaption.line.title')}}" class="form-control" name="contact_line[1]"   value="1"  checked="{{ ( old('contact_line.1')  == 1 )? 'checked' :'' }}" />&ensp;--}}
+                           <x-admin.form.inputs.checkbox id="" for="contact_2_option_line" tooltip="{{__('webCaption.line.caption')}}" label="{{__('webCaption.line.title')}}" class="form-control" name="contact_line[1]"   value="1"  checked="{{ ( old('contact_line.1')  == 1 )? 'checked' :'' }}" />&ensp;
 
-{{--                           <x-admin.form.inputs.checkbox id="" for="contact_2_option_whatsapp" tooltip="{{__('webCaption.whatsapp.caption')}}" label="{{__('webCaption.whatsapp.title')}}"  class="form-control" name="contact_whatsapp[1]"   value="1"  checked="{{ ( old('contact_whatsapp.1')  == 1 )? 'checked' :'' }}" />&ensp;--}}
-{{--                        </div>--}}
-{{--                     </div>--}}
-{{--                  </div>--}}
+                           <x-admin.form.inputs.checkbox id="" for="contact_2_option_whatsapp" tooltip="{{__('webCaption.whatsapp.caption')}}" label="{{__('webCaption.whatsapp.title')}}"  class="form-control" name="contact_whatsapp[1]"   value="1"  checked="{{ ( old('contact_whatsapp.1')  == 1 )? 'checked' :'' }}" />&ensp;
+                        </div>
+                     </div>
+                  </div>
 
-{{--               </div>--}}
+               </div>
             </div>
 
 
