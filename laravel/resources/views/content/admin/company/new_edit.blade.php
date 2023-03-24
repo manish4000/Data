@@ -164,7 +164,6 @@
             </div>
             <div class="col-md-4">
                   <div class="form-group">
-
                     <x-admin.form.inputs.file id="" editImageUrl="{{asset('company_data/'.$data->gabs_uuid.'/logo/'.$data->logo)}}" caption="{{__('webCaption.upload_logo.title')}}" for="logo"  ImageId="logo-preview"  class="form-control" name="logo"  placeholder="{{__('webCaption.logo.title')}}" required="required" />
                     @if($errors->has('logo'))
                       <x-admin.form.form_error_messages message="{{ $errors->first('logo') }}"  />
