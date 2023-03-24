@@ -410,14 +410,14 @@
                         @endif
                     </div>
                 </div>
-                <div class="col-md-4">
+                {{-- <div class="col-md-4">
                     <x-admin.form.label for="" value="{{__('webCaption.contact_option.title')}}" class="" />
                     <div class="form-group">
                         <x-admin.form.inputs.checkbox id="" for="contact_2_option_viber" label="{{__('webCaption.viber.title')}}" tooltip="{{__('webCaption.viber.caption')}}"  class="form-control" name="contact_viber[1]"   value="1" checked="{{ $contact_viber_1 }}" /> &ensp;
                         <x-admin.form.inputs.checkbox id="" for="contact_2_option_line" label="{{__('webCaption.line.title')}}" tooltip="{{__('webCaption.line.caption')}}" class="form-control" name="contact_line[1]"   value="1"  checked="{{ $contact_line_1 }}" />&ensp;
                         <x-admin.form.inputs.checkbox id="" for="contact_2_option_whatsapp" label="{{__('webCaption.whatsapp.title')}}" label="{{__('webCaption.whatsapp.title')}}"  class="form-control" name="contact_whatsapp[1]"   value="1"  checked="{{ $contact_whatsapp_1 }}" />&ensp;
                     </div>    
-                </div>
+                </div> --}}
             </div>  
     
           </div>
