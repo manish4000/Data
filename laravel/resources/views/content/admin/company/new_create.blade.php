@@ -348,7 +348,7 @@
 
                </div>
                <hr class="m-0 p-0">
-               <div class="card-body" >
+               {{-- <div class="card-body" >
                   <h4 class="card-title">    {{__('webCaption.contact_person_2.title')}} </h4>
                   <div class="row">
                      <div class="col-md-4">
@@ -385,7 +385,7 @@
                               <x-admin.form.form_error_messages message="{{ $errors->first('contact_phone.1') }}"  />
                            @endif
                         </div>
-                     </div>
+                     </div> --}}
                      {{-- <div class="col-md-4">
                         <x-admin.form.label for="" tooltip="{{__('webCaption.contact_option.caption')}}" value="{{__('webCaption.contact_option.title')}}" class="" />
                         <div class="form-group">
@@ -396,9 +396,9 @@
                            <x-admin.form.inputs.checkbox id="" for="contact_2_option_whatsapp" tooltip="{{__('webCaption.whatsapp.caption')}}" label="{{__('webCaption.whatsapp.title')}}"  class="form-control" name="contact_whatsapp[1]"   value="1"  checked="{{ ( old('contact_whatsapp.1')  == 1 )? 'checked' :'' }}" />&ensp;
                         </div>
                      </div> --}}
-                  </div>
+                  {{-- </div>
 
-               </div>
+               </div> --}}
             </div>
 
 
