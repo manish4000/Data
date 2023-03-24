@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('department_id')->nullable();
             $table->boolean('status')->default(1);
             $table->enum('allow_2fa',[0,1]);
+            $table->text('device_description')->nullable();
         });
     }
 
