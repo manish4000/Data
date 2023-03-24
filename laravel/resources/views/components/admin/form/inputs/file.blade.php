@@ -12,6 +12,13 @@
 @php
 $multiple = (isset($multiple))? $multiple :'';
 $imageId = (isset($imageId))? $imageId :'';
+
+if(isset($editImageUrl)){
+    if(!is_file($editImageUrl )){
+      $editImageUrl = '';
+    }
+}
+
 $editImageUrl = ((isset($editImageUrl)) &&  !empty($editImageUrl) )? $editImageUrl : asset('assets/images/portrait/small/no-photo.jpg');
 
 @endphp
