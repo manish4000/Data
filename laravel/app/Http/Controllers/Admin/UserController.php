@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Validator;
 use PragmaRX\Google2FAQRCode\Google2FA;
 
 
@@ -303,6 +304,23 @@ class UserController extends Controller
 
     public function verifyTwoStapVerification(Request $request){
 
+        $validator = Validator::make( $request->all(),[
+            'id' => 'required|numeric',
+            'one_time_password' => 'required|numeric',
+        ],
+        [
+                'id.required' => __('webCaption.validation_required.title', ['field'=> "Id" ] ),
+                'one_time_password.required' => __('webCaption.validation_required.title', ['field'=> 'OTP'] ),
+                'one_time_password.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "OTP"] ),
+
+        ]);
+
+        if ($validator->fails()) {
+            $result['status']     = false;
+            $result['message']    = $validator->errors()->all(); 
+            return response()->json(['result' => $result]);
+        }
+
         $user =  User::find($request->id);
 
         $otp =  $request->one_time_password;
@@ -315,6 +333,7 @@ class UserController extends Controller
             $user->google2fa_secret = $user->last_auth_code;
             $user->allow_2fa = '1';
             $user->last_auth_code = null;
+            $user->device_description = $request->device_description;
             $user->save();
 
             $result['status']     = true;
@@ -351,6 +370,30 @@ class UserController extends Controller
         }
 
         return response()->json(['result' => $result]);
+         
+    }  
+
+    public function deleteTwoStapVerification(Request $request){
+
+        $user =  User::find($request->id);
+
+        $user->google2fa_secret = null;
+        $user->last_auth_code = null;
+        $user->device_description = null;
+        $user->allow_2fa = '0';
+
+        if($user->save()){
+            $result['status']     = true;
+            $result['message']    = __('webCaption.alert_deleted_successfully.title'); 
+            return redirect()->back()->with('success_message' ,$result['message'] );
+           
+        }else{
+            $result['status']     = false;
+            $result['message']    = __('webCaption.alert_somthing_wrong.title'); 
+            return redirect()->back()->with('error_message' ,$result['message'] );
+           
+        }
+
          
     }  
 
