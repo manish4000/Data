@@ -16,7 +16,7 @@
 									<x-admin.form.inputs.text id="searchKeyword" label="{{__('webCaption.keyword.title')}}" tooltip="{{__('webCaption.keyword.caption')}}" for="{{__('webCaption.keyword.title')}}"  class="form-control" name="search[keyword]"  placeholder="{{__('webCaption.keyword.title')}}" value="{{ request()->input('search.keyword') }}"  required="" />
 								</div>
 							</div>
-							<div class="col-md-3">
+							<div class="col-md-6 offset-md-3 text-md-center">
 								<x-admin.form.buttons.search />
 								<x-admin.form.buttons.reset href="{{route('users.index')}}" />
 							</div>
