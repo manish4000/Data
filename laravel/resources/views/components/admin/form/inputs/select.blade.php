@@ -30,7 +30,7 @@
                 @php $sel = ''; @endphp
                 @if( old($name) == $option->value ) @php $sel = 'selected="selected"';  @endphp 
                 @elseif( isset($editSelected) && $editSelected == $option->value ) @php $sel = 'selected="selected"'; @endphp @endif
-                <option value="{{$option->value}}" {{$sel}} > {{$option->name}} </option>
+                <option value="{{$option->value}}" {{$sel}}  > {{$option->name}} </option>
             @endforeach
        @endif
     </select>

@@ -16,9 +16,9 @@
             @csrf
             <?php $id =  \Illuminate\Support\Facades\Crypt::encrypt($item->id); ?>
             <input type="hidden" name="id" value="{{$id}}">
-            <span type="submit"  onclick="submit('login-form-{{$item->id}}')"  title="{{__('webCaption.login.title')}}"  data-toggle="tooltip"  id="login"><i class="text-info fa fa-key" title="Delete"></i></span> &nbsp;
+            <span type="submit"  onclick="submit('login-form-{{$item->id}}')"  title="{{__('webCaption.login.title')}}"  data-toggle="tooltip"  id="login"><i class="text-info fa fa-key" ></i></span> 
         </form>
-
+        &nbsp;
         <x-admin.form.buttons.delete id="{{$item->id}}" name="{{$item->name}}" url="{{route('company.delete')}}" action="{{route('company.delete', $item->id) }}" />
 
     </td>
