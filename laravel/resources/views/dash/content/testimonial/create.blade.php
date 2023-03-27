@@ -65,7 +65,7 @@
 				<div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <x-dash.form.inputs.text  for="title"  maxlength="100" tooltip="{{__('webCaption.title.caption')}}" label="{{__('webCaption.title.title')}}"  class="form-control" name="title"  placeholder="{{__('webCaption.title.title')}}" value="{{old('title', isset($data->title)?$data->title:'' )}}"  required="required" />
+                            <x-dash.form.inputs.text  for="title"  maxlength="100" tooltip="{{__('webCaption.title.caption')}}" label="{{__('webCaption.title.title')}}"  class="form-control" name="title"  placeholder="{{__('webCaption.testimonial_title.title')}}" value="{{old('title', isset($data->title)?$data->title:'' )}}"  required="required" />
                             @if ($errors->has('title'))
                                 <x-dash.form.form_error_messages message="{{ $errors->first('title') }}" />
                             @endif
@@ -121,7 +121,7 @@
                     
                     <div class="col-md-4">
                         <div class="form-group">
-                            <x-dash.form.inputs.textarea id="" for="description" tooltip="{{__('webCaption.description.caption')}}"  label="{{__('webCaption.description.title')}}" maxlength="1000" class="form-control" name="description"  placeholder="{{__('webCaption.description.title')}}" value="{{old('description', isset($data->description)?$data->description:'' )}}"  required="required" />
+                            <x-dash.form.inputs.textarea id="" for="description" tooltip="{{__('webCaption.description.caption')}}"  label="{{__('webCaption.description.title')}}" maxlength="1000" class="form-control" name="description"  placeholder="{{__('webCaption.testimonial_description.title')}}" value="{{old('description', isset($data->description)?$data->description:'' )}}"  required="required" />
                             @if($errors->has('description'))
                                 <x-dash.form.form_error_messages message="{{ $errors->first('description') }}"  />
                             @endif
