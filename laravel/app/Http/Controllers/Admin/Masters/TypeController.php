@@ -260,6 +260,7 @@ class TypeController extends Controller
 
 
     public function updateStatus(Request $request){
+
         
         if (!Auth::user()->can('main-navigation-masters-vehicle-type-edit')) {
             $result['status']     = false;
@@ -272,8 +273,8 @@ class TypeController extends Controller
 
         if(isset($__data->display)){
             $display =  ($__data->display == "Yes")? "No" : "Yes";
-            $__data->display = $display;
-            $__data->save();  
+            // $__data->display = $display;
+            $__data->update(['dispaly' => $display]);  
             $result['status']     = true;
             $result['message']    = __('webCaption.alert_updated_successfully.title'); 
         }else{
