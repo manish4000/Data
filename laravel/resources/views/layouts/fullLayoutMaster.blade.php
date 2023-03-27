@@ -21,15 +21,13 @@ $configData = Helper::applClasses();
   {{-- Include core + vendor Styles --}}
   @include('panels/styles')
 
-  {{-- Include core + vendor Styles --}}
-  @include('panels/styles')
 </head>
 
 <body class="vertical-layout vertical-menu-modern {{ $configData['blankPageClass'] }} {{ $configData['bodyClass'] }} {{($configData['theme'] === 'dark') ? 'dark-layout' : 'light' }}
     data-menu=" vertical-menu-modern" data-layout="{{ ($configData['theme'] === 'light') ? '' : $configData['layoutTheme'] }}" style="{{ $configData['bodyStyle'] }}" data-framework="laravel" data-asset-path="{{ asset('/')}}">
 
   <!-- BEGIN: Content-->
-  <div class="app-content content {{ $configData['pageClass'] }}">
+  <div class="app-content content {{ $configData['pageClass'] }} p-0 m-0">
     <div class="content-wrapper {{ $configData['layoutWidth'] === 'boxed' ? 'container p-0' : '' }}">
       <div class="content-body">
         {{-- Include Startkit Content --}}
@@ -53,8 +51,6 @@ $configData = Helper::applClasses();
     });
 
   </script>
-  @stack('script')
-
 </body>
 
 </html>
