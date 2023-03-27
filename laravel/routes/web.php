@@ -67,6 +67,7 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
 
     Route::post('users/delete','Admin\UserController@destroy')->name('users.delete');
     Route::resource('users', 'Admin\UserController');
+    Route::get('users/edit/{id}', 'Admin\UserController@edit')->name('users.edit');
     Route::get('users/update-status/{id}','Admin\UserController@updateStatus')->name('users.update-status');
     Route::post('users/add-two-step-verification','Admin\UserController@addTwoStapVerification')->name('users.2fa');
     Route::get('users/delete-two-step-verification/{id}','Admin\UserController@deleteTwoStapVerification')->name('users.delete-2fa');
