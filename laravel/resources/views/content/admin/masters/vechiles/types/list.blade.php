@@ -146,7 +146,8 @@
 <script src="{{ asset('assets/js/gabs/master.js') }}"></script>
 {{--  --}}
 <script type="text/javascript">
-$('.load-child-records').click( function(){
+$('.load-child-records').click( function(event){
+    event.preventDefault();
     var eObject = this;
     var itemId = $(this).attr('data-itemId');
     var parent_tr = $(this).closest('tr');
