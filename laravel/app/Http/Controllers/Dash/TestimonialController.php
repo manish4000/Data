@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use App\Models\Masters\Country;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class TestimonialController extends Controller
 {   
@@ -82,8 +83,9 @@ class TestimonialController extends Controller
             'link' => $this->baseUrl,
             'name' => 'List'
         ];
+        $country_phone_code =  Country::select('phone_code as value' ,'country_code' ,DB::raw("CONCAT(country_code,' (',phone_code ,')' ) AS name"))->where('phone_code','!=' ,null)->where('country_code','!=' ,null)->get(['phone_code','country_code']);
 
-        return view('dash.content.testimonial.create',['country' => $country ,'pageConfigs' => $pageConfigs ,'breadcrumbs' => $breadcrumbs ]);
+        return view('dash.content.testimonial.create',['country' => $country ,'country_phone_code' => $country_phone_code ,'pageConfigs' => $pageConfigs ,'breadcrumbs' => $breadcrumbs ]);
     }
 
     /**
@@ -162,7 +164,7 @@ class TestimonialController extends Controller
             $testmonail_model->person_name = $request->person_name; 
             $testmonail_model->email = $request->email; 
             $testmonail_model->country_id = $request->country_id; 
-            $testmonail_model->phone = $request->phone; 
+            $testmonail_model->phone = $request->country_code."_".$request->phone; 
             $testmonail_model->testimonial_by = $request->testimonial_by; 
             $testmonail_model->show_person_name = ($request->has('show_person_name')) ? 1 :0; 
             $testmonail_model->jct_remark = $request->jct_remark; 
@@ -219,6 +221,11 @@ class TestimonialController extends Controller
     {
         $data =  CompanyTestimonial::find($id);
 
+        $phone                = (isset($data->phone)) ? explode('_',$data->phone) : null;
+        $data->phone = ($phone != null) ? $phone[1] : null;
+        $country_code = (isset($phone[0]))? $phone[0] :'';
+
+
         $pageConfigs = [
             'pageHeader' => true, 
             'baseUrl' => $this->baseUrl, 
@@ -233,8 +240,9 @@ class TestimonialController extends Controller
         $country = Country::get(['id as value' ,'name']);
         $user =   Auth::guard('dash')->user();
         $imageFolder =     Company::where('id',$user->company_id)->value('gabs_uuid'); 
+        $country_phone_code =  Country::select('phone_code as value' ,'country_code' ,DB::raw("CONCAT(country_code,' (',phone_code ,')' ) AS name"))->where('phone_code','!=' ,null)->where('country_code','!=' ,null)->get(['phone_code','country_code']);
 
-        return view('dash.content.testimonial.create',['pageConfigs' => $pageConfigs ,'imageFolder' => $imageFolder ,'breadcrumbs' => $breadcrumbs ,'data' => $data ,'country' => $country]);
+        return view('dash.content.testimonial.create',['pageConfigs' => $pageConfigs,'country_code' => $country_code,'country_phone_code' => $country_phone_code ,'imageFolder' => $imageFolder ,'breadcrumbs' => $breadcrumbs ,'data' => $data ,'country' => $country]);
     }
 
     /**
