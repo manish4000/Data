@@ -155,8 +155,9 @@ class CompanyController extends Controller
             $types[$key]['name'] =  ($type['language_name'] == null || $type['language_name'] == '' || $type['language_name'] == 'null' ) ?  $type['name'] : $type['language_name']  ;
 
         }
+        $country_phone_code =  Country::select('phone_code as value' ,'country_code' ,DB::raw("CONCAT(country_code,' (',phone_code ,')' ) AS name"))->where('phone_code','!=' ,null)->where('country_code','!=' ,null)->get(['phone_code','country_code']);
 
-        return view("content.admin.company.new_create",['types' => $types,'pageConfigs' => $pageConfigs ,'permissions' => $permissions,'country' => $country ,'breadcrumbs' => $breadcrumbs, 'status' =>$status,'BusinessTypes' => $BusinessTypes ]);
+        return view("content.admin.company.new_create",[ 'country_phone_code' => $country_phone_code, 'types' => $types,'pageConfigs' => $pageConfigs ,'permissions' => $permissions,'country' => $country ,'breadcrumbs' => $breadcrumbs, 'status' =>$status,'BusinessTypes' => $BusinessTypes ]);
     }
 
     /**
@@ -167,7 +168,7 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {   
-       
+
         if($request->id){
             if (!Auth::user()->can('main-navigation-company-edit')) {
                 abort(403);
@@ -341,7 +342,7 @@ class CompanyController extends Controller
               $company_model->country_id = $request->country_id;  
               $company_model->postcode = $request->postcode;  
               $company_model->region_id = $request->region_id;  
-              $company_model->telephone = $request->telephone;  
+              $company_model->telephone = $request->country_code."_".$request->telephone;  
               $company_model->skype_id = $request->skype_id;  
               $company_model->website = $request->website;  
               $company_model->package_id = $request->package_id;  
@@ -392,30 +393,30 @@ class CompanyController extends Controller
 
                 //this is for insert data company_contact_person_details 
 
-                if(($request->contact_name[0] != '') || ($request->contact_name[0] != null)  ){
+                // if(($request->contact_name[0] != '') || ($request->contact_name[0] != null)  ){
 
-                    $loop_time = count($request->contact_name);
+                //     $loop_time = count($request->contact_name);
 
-                    $company_contact_person_model =   new  CompanyContactPersonDetails;
+                //     $company_contact_person_model =   new  CompanyContactPersonDetails;
 
-                    for($i=0; $i < $loop_time; $i++){
+                //     for($i=0; $i < $loop_time; $i++){
 
-                        $conatct_data = [
-                            'company_id' => $company_model->id,
-                            'name' => $request->contact_name[$i],
-                            'email' => $request->contact_email[$i],
-                            'designation' => $request->designation[$i],
-                            'phone' => $request->contact_phone[$i],
-                            'viber' => isset($request->contact_viber[$i])?? null,
-                            'line' => isset($request->contact_line[$i])?? null,
-                            'whatsapp' => isset($request->contact_whatsapp[$i]) ?? null,
-                        ];
+                //         $conatct_data = [
+                //             'company_id' => $company_model->id,
+                //             'name' => $request->contact_name[$i],
+                //             'email' => $request->contact_email[$i],
+                //             'designation' => $request->designation[$i],
+                //             'phone' => $request->contact_phone[$i],
+                //             'viber' => isset($request->contact_viber[$i])?? null,
+                //             'line' => isset($request->contact_line[$i])?? null,
+                //             'whatsapp' => isset($request->contact_whatsapp[$i]) ?? null,
+                //         ];
 
-                        $company_contact_person_model->insert($conatct_data);  
+                //         $company_contact_person_model->insert($conatct_data);  
 
-                        $conatct_data = [];
-                    }
-                }
+                //         $conatct_data = [];
+                //     }
+                // }
 
                 //this is for upload multiple files  
 
@@ -610,12 +611,18 @@ class CompanyController extends Controller
         $status = json_decode(json_encode($this->status));
 
         $data = Company::with(['contcatPersonDetails','documents'])->find($id);
+
+        $telephone  = (isset($data->telephone)) ? explode('_',$data->telephone) : null;
+        $data->telephone = ($telephone != null) ? $telephone[1] : null;
+
+        $company_tel_country_code = (isset($telephone[0]))? $telephone[0] :'';
         $data->business_type_id  = json_decode($data->business_type_id);
         $permissions = CompanyMenuGroupMenu::where('parent_id', 0)->get();
         $types = Type::get(['id as value' ,'name']);  
         
+        $country_phone_code =  Country::select('phone_code as value' ,'country_code' ,DB::raw("CONCAT(country_code,' (',phone_code ,')' ) AS name"))->where('phone_code','!=' ,null)->where('country_code','!=' ,null)->get(['phone_code','country_code']);
 
-        return view('content.admin.company.new_edit',['types' => $types,'data' => $data,'permissions' =>$permissions ,'status' =>$status ,
+        return view('content.admin.company.new_edit',['country_phone_code' => $country_phone_code,'company_tel_country_code' => $company_tel_country_code ,'types' => $types,'data' => $data,'permissions' =>$permissions ,'status' =>$status ,
         'country' => $country , 'BusinessTypes' => $BusinessTypes , 'pageConfigs' => $pageConfigs ,'breadcrumbs' =>$breadcrumbs ]);
     }
 
@@ -745,31 +752,31 @@ class CompanyController extends Controller
 
             //this is for insert data company_contact_person_details 
 
-            if(($request->contact_name[0] != '') || ($request->contact_name[0] != null)  ){
+            // if(($request->contact_name[0] != '') || ($request->contact_name[0] != null)  ){
                 
-                $loop_time = count($request->contact_name);
+            //     $loop_time = count($request->contact_name);
 
-                $company_contact_person_model =   new  CompanyContactPersonDetails;
+            //     $company_contact_person_model =   new  CompanyContactPersonDetails;
 
-                $company_contact_person_model->where('company_id',$id)->delete();
+            //     $company_contact_person_model->where('company_id',$id)->delete();
 
-                for($i=0; $i < $loop_time; $i++){
+            //     for($i=0; $i < $loop_time; $i++){
 
-                    $conatct_data = [
-                        'company_id' => $id,
-                        'name' => $request->contact_name[$i],
-                        'email' => $request->contact_email[$i],
-                        'designation' => $request->contact_designation[$i],
-                        'phone' => $request->contact_phone[$i],
-                        'viber' => isset($request->contact_viber[$i])?? null,
-                        'line' => isset($request->contact_line[$i])?? null,
-                        'whatsapp' => isset($request->contact_whatsapp[$i]) ?? null,
-                    ];
+            //         $conatct_data = [
+            //             'company_id' => $id,
+            //             'name' => $request->contact_name[$i],
+            //             'email' => $request->contact_email[$i],
+            //             'designation' => $request->contact_designation[$i],
+            //             'phone' => $request->contact_phone[$i],
+            //             'viber' => isset($request->contact_viber[$i])?? null,
+            //             'line' => isset($request->contact_line[$i])?? null,
+            //             'whatsapp' => isset($request->contact_whatsapp[$i]) ?? null,
+            //         ];
 
-                    $company_contact_person_model->insert($conatct_data);  
-                    $conatct_data = [];
-                }
-            }
+            //         $company_contact_person_model->insert($conatct_data);  
+            //         $conatct_data = [];
+            //     }
+            // }
         
         //update the company user details 
         
