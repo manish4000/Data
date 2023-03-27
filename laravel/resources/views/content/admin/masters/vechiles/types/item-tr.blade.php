@@ -13,10 +13,10 @@
         <td>
             <x-admin.form.inputs.multiple_select_checkbox id="select{{$item->id}}"   value="{{$item->id}}"  customClass="checkbox"  />            
         </td>
-        <td class="{{$childTdColor}}">
+        <td @if($childTdColor != '') class="{{$childTdColor}}" @endif >
             <span style=" margin-left: {{$marginLeft}}">{{$item->id}}</span>
         </td>
-        <td class="{{$childTdColor}}">
+        <td @if($childTdColor != '') class="{{$childTdColor}}" @endif>
              @php echo  str_ireplace( request()->input('search.keyword'), '<span class="heighlight-string" >'. request()->input('search.keyword').'</span>',$item->name) @endphp
         </td>
 
