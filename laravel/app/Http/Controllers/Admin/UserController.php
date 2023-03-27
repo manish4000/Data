@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Department;
+use App\Models\Masters\Country;
 use App\Models\Menu;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -13,6 +14,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use PragmaRX\Google2FAQRCode\Google2FA;
 
@@ -97,7 +100,12 @@ class UserController extends Controller
         $permissions = Menu::where('parent_id', 0)->get();
 
         $departments =  Department::select('id as value','title as name')->get();
-    
+         
+        $country_phone_code =  Country::select('phone_code as value' ,'country_code' ,DB::raw("CONCAT(country_code,' (',phone_code ,')' ) AS name"))->where('phone_code','!=' ,null)->where('country_code','!=' ,null)->get(['phone_code','country_code']);
+
+        // dd($country_phone_code);
+
+
         $pageConfigs = [
             'moduleName' => __('webCaption.users.title'), 
             'baseUrl' => $this->baseUrl, 
@@ -106,7 +114,7 @@ class UserController extends Controller
             'link' => $this->baseUrl,
             'name' => __('webCaption.list.title')
         ];
-        return view('content.admin.user.create', [ 'roles' => $roles ,'breadcrumbs' => $breadcrumbs ,'pageConfigs' => $pageConfigs, 'permissions' => $permissions ,'menuUrl' => $this->menuUrl ,'departments' => $departments]);
+        return view('content.admin.user.create', ['country_phone_code' => $country_phone_code, 'roles' => $roles ,'breadcrumbs' => $breadcrumbs ,'pageConfigs' => $pageConfigs, 'permissions' => $permissions ,'menuUrl' => $this->menuUrl ,'departments' => $departments]);
     }
 
 
@@ -135,6 +143,7 @@ class UserController extends Controller
 
     public function edit($id)
     {   
+        // $id = base64_decode($id);
 
         if (!Auth::user()->can('settings-users-edit')) {
             abort(403);
@@ -142,8 +151,12 @@ class UserController extends Controller
 
         $user = User::with(['roles', 'permissions'])->find($id);
         $user->department_id  = json_decode($user->department_id);
+        $phone                = (isset($user->phone)) ? explode('_',$user->phone) : null;
 
+        $user->phone = ($phone != null) ? $phone[1] : null;
+        $country_code = (isset($phone[0]))? $phone[0] :'';
         $departments =  Department::select('id as value','title as name')->get();
+
 
         $roles = Role::all();
         //change for testing
@@ -159,9 +172,9 @@ class UserController extends Controller
             'name' => __('webCaption.list.title')
         ];
 
+        $country_phone_code =  Country::select('phone_code as value' ,'country_code' ,DB::raw("CONCAT(country_code,' (',phone_code ,')' ) AS name"))->where('phone_code','!=' ,null)->where('country_code','!=' ,null)->get(['phone_code','country_code']);
 
-
-        return view('content.admin.user.create', ['pageConfigs' => $pageConfigs ,'departments' => $departments ,'breadcrumbs' =>$breadcrumbs ,'user' => $user ,'roles' => $roles,'permissions' => $permissions ,'menuUrl'=> $this->menuUrl]);
+        return view('content.admin.user.create', ['country_phone_code' => $country_phone_code ,'country_code' => $country_code,'pageConfigs' => $pageConfigs ,'departments' => $departments ,'breadcrumbs' =>$breadcrumbs ,'user' => $user ,'roles' => $roles,'permissions' => $permissions ,'menuUrl'=> $this->menuUrl]);
 
     }
 
@@ -173,7 +186,6 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {     
-
         if($request->id){
             if (!Auth::user()->can('settings-users-edit')) {
                 abort(403);
@@ -204,6 +216,7 @@ class UserController extends Controller
             'name'     => 'required|max:100',
             'email'    => 'required|email|max:100|unique:users,email,'.$request->id,
              'phone' =>  'required|max:15',
+             'country_code' =>  'required',
             // 'username' =>  'required|unique:users,username,'.$request->id,
         ], [
             'name.required'=> __('webCaption.validation_required.title', ['field'=> "Name" ] ),
@@ -211,9 +224,10 @@ class UserController extends Controller
             'email.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('email')] ),
             'email.required'=> __('webCaption.validation_required.title', ['field'=> "Email" ] ),
             'email.email'=> __('webCaption.validation_email.title', ['field'=> "Email" ] ),
-            'email.max' => __('webCaption.validation_max.title', ['field'=> 'Email' ,'min' => "100"] ),
+            'email.max' => __('webCaption.validation_max.title', ['field'=> 'Email' ,'max' => "100"] ),
             'phone.required'=> __('webCaption.validation_required.title', ['field'=> "Phone" ] ),
-            'phone.max'=> __('webCaption.validation_max.title', ['field'=> 'Phone' ,'min' => "15"] ),
+            'country_code.required'=> __('webCaption.validation_required.title', ['field'=> "Country Code" ] ),
+            'phone.max'=> __('webCaption.validation_max.title', ['field'=> 'Phone' ,'max' => "15"] ),
             // 'username.required'=> __('webCaption.validation_required.title', ['field'=> "Username" ] ),
             // 'username.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('username')] ),
         ]);
@@ -232,7 +246,7 @@ class UserController extends Controller
 
         $userModel->email = $request->email;
         $userModel->name = $request->name;
-        $userModel->phone = $request->phone;
+        $userModel->phone = $request->country_code."_".$request->phone;
         $userModel->allow_2fa = isset($request->allow_2fa) ? '1' : '0';
 
         if(!isset($request->allow_2fa)){
