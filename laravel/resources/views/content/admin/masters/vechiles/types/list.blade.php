@@ -42,23 +42,12 @@
 
                                 <x-admin.form.inputs.checkbox for="searchParentOnlyShowAll"  name="search[parentOnlyShowAll]" tooltip="{{__('webCaption.show_all.caption')}}" label="{{__('webCaption.show_all.title')}}" checked="{{ (request()->input('search.parentOnlyShowAll') == 1)  ?'checked' :''; }}"  value="1"  customClass="form-check-input"  />
                                 
-                                {{-- <div class="">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" name="search[parentOnlyShowAll]" type="checkbox" id="searchParentOnlyShowAll" value="1"
-                                        @if(request()->input('search.parentOnlyShowAll') == 1)
-                                            checked 
-                                        @endif 
-                                            />
-                                        
-                                        <label class="form-check-label" for="searchParentOnlyShowAll">{{__('webCaption.show_all.title')}}</label>
-                                    </div>
-                                </div> --}}
                             </div>
                         </div>
                         
                     </div> 
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 ">
                     <x-admin.form.buttons.search />
                     <x-admin.form.buttons.reset href="{{route('masters-vehicle-type')}}" />
                 </div>
