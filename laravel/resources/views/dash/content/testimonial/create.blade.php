@@ -73,7 +73,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <x-dash.form.inputs.text  for="email"  maxlength="100" tooltip="{{__('webCaption.email.caption')}}" label="{{__('webCaption.email.title')}}"  class="form-control" name="email"  placeholder="{{__('webCaption.email.title')}}" value="{{old('email', isset($data->email)?$data->email:'' )}}"  required="" />
+                            <x-dash.form.inputs.email  for="email"  maxlength="100" tooltip="{{__('webCaption.email.caption')}}" label="{{__('webCaption.email.title')}}"  class="form-control" name="email"  placeholder="{{__('webCaption.email.title')}}" value="{{old('email', isset($data->email)?$data->email:'' )}}"  required="" />
                             @if ($errors->has('email'))
                                 <x-dash.form.form_error_messages message="{{ $errors->first('email') }}" />
                             @endif
@@ -99,11 +99,27 @@
                         </div>
                    </div>
                     <div class="col-md-4">
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <x-dash.form.inputs.text  for="phone"  maxlength="15" tooltip="{{__('webCaption.phone.caption')}}" label="{{__('webCaption.phone.title')}}"  class="form-control" name="phone"  placeholder="{{__('webCaption.phone.title')}}" value="{{old('phone', isset($data->phone)?$data->phone:'' )}}"  required="" />
                             @if ($errors->has('phone'))
                                 <x-dash.form.form_error_messages message="{{ $errors->first('phone') }}" />
                             @endif
+                        </div> --}}
+
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <x-admin.form.inputs.select  tooltip="{{__('webCaption.country_code.caption')}}"  label="{{__('webCaption.country_code.title')}}"  id="" for="country_code" name="country_code"  required="" :optionData="$country_phone_code"  editSelected="{{(isset($country_code) && ($country_code != null)) ? $country_code : ''; }}" />
+                                  </div>
+                            </div>
+                            <div class="col-8">
+                                <div class="form-group">
+                                    <x-admin.form.inputs.text id="" for="phone"  tooltip="{{__('webCaption.phone.caption')}}" label="{{__('webCaption.phone.title')}}" maxlength="20" class="form-control" name="phone"  placeholder="{{__('webCaption.phone.title')}}" value="{{old('phone', isset($data->phone)?$data->phone:'' )}}"  required="" />
+                                    @if($errors->has('phone'))
+                                        <x-admin.form.form_error_messages message="{{ $errors->first('phone') }}"  />
+                                    @endif
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -194,7 +210,7 @@
 				<div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                          <x-dash.form.inputs.file id="" caption="{{__('webCaption.user_image.title')}}" ImageId="user-image-preview" for="image"  class="form-control" name="image" editImageUrl="{{ isset($data->image)? asset('company_data/'.$imageFolder.'/testimonials/'.$data->image) :''}}"  placeholder="{{__('webCaption.user_image.title')}}" required="required" />
+                          <x-dash.form.inputs.file id="" caption="{{__('webCaption.user_image.title')}}" ImageId="user-image-preview" for="image"  class="form-control" name="image" editImageUrl="{{ isset($data->image)? asset('company_data/'.$imageFolder.'/testimonials/'.$data->image) :''}}"  placeholder="{{__('webCaption.user_image.title')}}" required="" />
                           @if($errors->has('user_image'))
                             <x-dash.form.form_error_messages message="{{ $errors->first('user_image') }}"  />
                           @endif
@@ -203,7 +219,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                         
-                          <x-dash.form.inputs.file id="" caption="{{__('webCaption.vehicle_image.title')}}" ImageId="vehicle-image-preview" for="vehicle_image" editImageUrl="{{ isset($data->vehicle_image)? asset('company_data/'.$imageFolder.'/testimonials/'.$data->vehicle_image) :''}}"  class="form-control"  name="vehicle_image"  placeholder="{{__('webCaption.vehicle_image.title')}}" required="required" />
+                          <x-dash.form.inputs.file id="" caption="{{__('webCaption.vehicle_image.title')}}" ImageId="vehicle-image-preview" for="vehicle_image" editImageUrl="{{ isset($data->vehicle_image)? asset('company_data/'.$imageFolder.'/testimonials/'.$data->vehicle_image) :''}}"  class="form-control"  name="vehicle_image"  placeholder="{{__('webCaption.vehicle_image.title')}}" required="" />
                           @if($errors->has('vehicle_image'))
                             <x-dash.form.form_error_messages message="{{ $errors->first('vehicle_image') }}"  />
                           @endif
@@ -235,3 +251,7 @@
     </form>
 </div>
 @endsection
+
+@push('script')
+<script src="{{ asset('assets/dash/assets/js/dash/master.js') }}"></script>
+@endpush

@@ -127,12 +127,29 @@
             </div>
 
             <div class="col-md-4">
-                  <div class="form-group">
+                  {{-- <div class="form-group">
                     <x-admin.form.inputs.text id="" for="telephone" label="{{__('webCaption.telephone.title')}}"  tooltip="{{__('webCaption.telephone.caption')}}" maxlength="20" class="form-control" name="telephone"  placeholder="{{__('webCaption.telephone.title')}}" value="{{old('telephone',$data->telephone)}}"  required="required" />
                     @if($errors->has('telephone'))
                       <x-admin.form.form_error_messages message="{{ $errors->first('telephone') }}"  />
                     @endif
+                  </div> --}}
+                  
+                  <div class="row">
+                    <div class="col-4">
+                      <div class="form-group">
+                        <x-admin.form.inputs.select  tooltip="{{__('webCaption.country_code.caption')}}"  label="{{__('webCaption.country_code.title')}}"  id="" for="country_code" name="country_code"  required="" :optionData="$country_phone_code"  editSelected="{{(isset($company_tel_country_code) && ($company_tel_country_code != null)) ? $company_tel_country_code : ''; }}" />
+                        </div>
+                    </div>
+                    <div class="col-8">
+                      <div class="form-group">
+                                  <x-admin.form.inputs.text id="" for="telephone"  tooltip="{{__('webCaption.telephone.caption')}}" label="{{__('webCaption.telephone.title')}}" maxlength="20" class="form-control" name="telephone"  placeholder="{{__('webCaption.telephone.title')}}" value="{{old('telephone', isset($data->telephone)?$data->telephone:'' )}}"  required="required" />
+                                  @if($errors->has('telephone'))
+                                     <x-admin.form.form_error_messages message="{{ $errors->first('telephone') }}"  />
+                                  @endif
+                      </div>
+                    </div>
                   </div>
+
             </div>
           </div>  
           <div class="row">

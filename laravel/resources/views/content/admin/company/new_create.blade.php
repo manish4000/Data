@@ -50,7 +50,7 @@
 
                   <div class="col-md-4">
                      <div class="form-group">
-                        <x-admin.form.inputs.password id="" tooltip="{{__('webCaption.password.caption')}}" label="{{__('webCaption.password.title')}}" for="password" class="form-control" maxlength="15" name="password"  placeholder="{{__('webCaption.password.title')}}" value=""  required="required" />
+                        <x-admin.form.inputs.password  :passwordGenerator="true" id="" tooltip="{{__('webCaption.password.caption')}}" label="{{__('webCaption.password.title')}}" for="password" class="form-control" maxlength="15" name="password"  placeholder="{{__('webCaption.password.title')}}" value=""  required="required" />
                         @if($errors->has('password'))
                            <x-admin.form.form_error_messages message="{{ $errors->first('password') }}"  />
                         @endif
@@ -124,12 +124,21 @@
                   </div>
 
                   <div class="col-md-4">
-                     <div class="form-group">
-                        <x-admin.form.inputs.text id="" for="telephone"  tooltip="{{__('webCaption.telephone.caption')}}" label="{{__('webCaption.telephone.title')}}" maxlength="20" class="form-control" name="telephone"  placeholder="{{__('webCaption.telephone.title')}}" value="{{old('telephone', isset($data->telephone)?$data->telephone:'' )}}"  required="required" />
-                        @if($errors->has('telephone'))
-                           <x-admin.form.form_error_messages message="{{ $errors->first('telephone') }}"  />
-                        @endif
-                     </div>
+                     <div class="row">
+								<div class="col-4">
+									<div class="form-group">
+										<x-admin.form.inputs.select  tooltip="{{__('webCaption.country_code.caption')}}"  label="{{__('webCaption.country_code.title')}}"  id="" for="country_code" name="country_code"  required="" :optionData="$country_phone_code"  editSelected="{{(isset($country_code) && ($country_code != null)) ? $country_code : ''; }}" />
+									  </div>
+								</div>
+								<div class="col-8">
+									<div class="form-group">
+                              <x-admin.form.inputs.text id="" for="telephone"  tooltip="{{__('webCaption.telephone.caption')}}" label="{{__('webCaption.telephone.title')}}" maxlength="20" class="form-control" name="telephone"  placeholder="{{__('webCaption.telephone.title')}}" value="{{old('telephone', isset($data->telephone)?$data->telephone:'' )}}"  required="required" />
+                              @if($errors->has('telephone'))
+                                 <x-admin.form.form_error_messages message="{{ $errors->first('telephone') }}"  />
+                              @endif
+                           </div>
+								</div>
+							</div>
                   </div>
                </div>
                <div class="row">
@@ -230,57 +239,14 @@
                         <div class="row m-2">
                            <div class="col-md-6">
                               <div class="form-group">
-                                 <x-admin.form.inputs.file id="" caption="{{__('webCaption.document_upload.title')}}" for="document"  class="form-control" name="document[]"  placeholder="{{__('webCaption.document.title')}}" required=""   multiple="multiple" />
+                                 <x-admin.form.inputs.file id="" caption="{{__('webCaption.document_upload.title')}}" for="document1"  class="form-control" name="document[]"  placeholder="{{__('webCaption.document.title')}}" required=""   multiple="multiple" />
                                  @if($errors->has('document'))
                                     <x-admin.form.form_error_messages message="{{ $errors->first('document') }}"  />
                                  @endif
                               </div>
                            </div>
-                            <div class="col-md-6">
-                               <div class="form-group">
-                                   <x-admin.form.inputs.file id="" caption="{{__('webCaption.document_upload.title')}}" for="document"  class="form-control" name="document[]"  placeholder="{{__('webCaption.logo.title')}}" required="" />
-                                   @if($errors->has('logo'))
-                                   <x-admin.form.form_error_messages message="{{ $errors->first('logo') }}"  />
-                                   @endif
-                               </div>
-                           </div>
                         </div>
-                         <div class="row m-2">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <x-admin.form.inputs.file id="" caption="{{__('webCaption.document_upload.title')}}" for="document"  class="form-control" name="document[]"  placeholder="{{__('webCaption.logo.title')}}" required="" />
-                                    @if($errors->has('logo'))
-                                    <x-admin.form.form_error_messages message="{{ $errors->first('logo') }}"  />
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <x-admin.form.inputs.file id="" caption="{{__('webCaption.document_upload.title')}}" for="document"  class="form-control" name="document[]"  placeholder="{{__('webCaption.logo.title')}}" required="" />
-                                    @if($errors->has('logo'))
-                                    <x-admin.form.form_error_messages message="{{ $errors->first('logo') }}"  />
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row m-2">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <x-admin.form.inputs.file id="" caption="{{__('webCaption.document_upload.title')}}" for="document"  class="form-control" name="document[]"  placeholder="{{__('webCaption.logo.title')}}" required="" />
-                                    @if($errors->has('logo'))
-                                    <x-admin.form.form_error_messages message="{{ $errors->first('logo') }}"  />
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <x-admin.form.inputs.file id="" caption="{{__('webCaption.document_upload.title')}}" for="document"  class="form-control" name="document[]"  placeholder="{{__('webCaption.logo.title')}}" required="" />
-                                    @if($errors->has('logo'))
-                                    <x-admin.form.form_error_messages message="{{ $errors->first('logo') }}"  />
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
+
 
                      </div>
                   </div>
@@ -455,7 +421,9 @@
    </form>
 @endsection
 
-{{-- @push('script')
+@push('script')
+
+<script src="{{ asset('assets/js/gabs/master.js') }}"></script>
 
    <script>
       $(document).ready(function() {
@@ -537,5 +505,5 @@
       }
    </script>
 
-@endpush --}}
+@endpush
 

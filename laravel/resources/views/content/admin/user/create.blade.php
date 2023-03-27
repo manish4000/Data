@@ -56,7 +56,7 @@
 						<div class="row">
 							<div class="col-6">
 								<div class="form-group">
-									<x-admin.form.inputs.password  maxlength="15"  for="password" tooltip="{{__('webCaption.password.caption')}}"   label="{{__('webCaption.password.title')}}"  class="form-control" name="password"  placeholder="{{__('webCaption.password.title')}}" value=""  required="" />
+									<x-admin.form.inputs.password  maxlength="15" :passwordGenerator="true"  for="password" tooltip="{{__('webCaption.password.caption')}}"   label="{{__('webCaption.password.title')}}"  class="form-control" name="password"  placeholder="{{__('webCaption.password.title')}}" value=""  required="" />
 									@if ($errors->has('password'))
 									<x-admin.form.form_error_messages message="{{ $errors->first('password') }}"  />
 								    @endif
@@ -109,11 +109,20 @@
 							</div>
 						</div>
 						<div class="col-md-6">
-							<div class="form-group">
-								<x-admin.form.inputs.text  for="phone"  maxlength="15" tooltip="{{__('webCaption.phone.caption')}}"  label="{{__('webCaption.phone.title')}}"  class="form-control" name="phone"  placeholder="{{__('webCaption.phone.title')}}" value="{{old('phone', isset($user->phone)?$user->phone:'' )}}"  required="required" />
-								@if ($errors->has('phone'))
-									<x-admin.form.form_error_messages message="{{ $errors->first('phone') }}"  />
-								@endif
+							<div class="row">
+								<div class="col-4">
+									<div class="form-group">
+										<x-admin.form.inputs.select  tooltip="{{__('webCaption.country_code.caption')}}"  label="{{__('webCaption.country_code.title')}}"  id="" for="country_code" name="country_code"  required="" :optionData="$country_phone_code"  editSelected="{{(isset($country_code) && ($country_code != null)) ? $country_code : ''; }}" />
+									  </div>
+								</div>
+								<div class="col-8">
+									<div class="form-group">
+										<x-admin.form.inputs.text  for="phone"  maxlength="15" tooltip="{{__('webCaption.phone.caption')}}"  label="{{__('webCaption.phone.title')}}"  class="form-control" name="phone"  placeholder="{{__('webCaption.phone.title')}}" value="{{old('phone', isset($user->phone)?$user->phone:'' )}}"  required="required" />
+										@if ($errors->has('phone'))
+											<x-admin.form.form_error_messages message="{{ $errors->first('phone') }}"  />
+										@endif
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -203,21 +212,20 @@
 			</div>
 		</div>
 		<div class="form-group text-center">
-			<input type="hidden" name="id" value="@if(isset($user->id) && !empty($user->id)){{$user->id}}@endif" />
+			<input type="hidden" name="id" value="@if(isset($user->hashid) && !empty($user->hashid)){{$user->hashid}}@endif" />
 			@if(isset($user->id)) 	<x-admin.form.buttons.update /> @else <x-admin.form.buttons.create/> @endif 
 		</div>
     </form>
 </div>
 @endsection
 
-@section('vendor-script')
-  <!-- vendor files -->
-  <script src="{{ asset(mix('vendors/js/extensions/jstree.min.js')) }}"></script>
-@endsection
-@section('page-script')
+@push('script')
+<script src="{{ asset(mix('vendors/js/extensions/jstree.min.js')) }}"></script>
   <!-- Page js files -->
   <script src="{{ asset(mix('js/scripts/extensions/ext-component-tree.js')) }}"></script>
 
+  <script src="{{ asset('assets/js/gabs/master.js') }}"></script>
+				
   <script type="text/javascript">
   	$(document).ready(function() {
   		$(".jstree-basic ul li a, .jstree-basic ul li ul li a").each(function() {
@@ -232,4 +240,4 @@
 		});
   	})
   </script>
-@endsection
+@endpush
