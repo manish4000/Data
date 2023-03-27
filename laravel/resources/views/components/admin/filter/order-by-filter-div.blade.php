@@ -22,9 +22,9 @@ if($orderBy_request == $orderBy ){
 }
 @endphp
 
-<div 
+{{-- <div 
     style="position: absolute;top: 1px;left: 3px;padding:10px;width:100%;height:100%"
     class="short-by-filter"
     @if(isset($orderBy)) data-orderBy="{{$orderBy}}"  @endif >
        <i class="{{$icon}}"></i> 
-</div>
+</div> --}}
