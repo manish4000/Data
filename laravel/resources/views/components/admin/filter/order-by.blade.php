@@ -8,7 +8,8 @@
 
 @push('script')
 <script>
-    $('.short-by-filter').click(function(){        
+    $('.short-by-filter').click(function(e){
+        e.preventDefault();        
         let eObject = this;
         let orderBy = $(this).attr('data-orderBy');
         let url = "{{$url}}&"+"order_by="+orderBy+"&order="+"{{$filter_order}}"; 
