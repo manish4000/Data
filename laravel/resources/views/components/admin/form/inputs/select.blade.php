@@ -36,12 +36,12 @@
     </select>
 </div>
 
+@if(isset($name)) 
 
-@push('script')
+<div class="m-0">
+    @if($errors->has($name))
+    <x-admin.form.form_error_messages message="{{ $errors->first($name) }}"  />
+    @endif
+</div>
 
-<script>
-    $(document ).ready(function() {
-        $('.select2').select2();
-    });
-</script>
-@endpush
+@endif 
