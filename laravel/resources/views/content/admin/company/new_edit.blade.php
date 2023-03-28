@@ -477,7 +477,7 @@
 @push('script')
   <!-- Page js files -->
   <script src="{{ asset(mix('js/scripts/extensions/ext-component-tree.js')) }}"></script>
-
+  <script src="{{ asset('assets/js/gabs/master.js') }}"></script>
   <script type="text/javascript">
   	$(document).ready(function() {
   		$(".jstree-basic ul li a, .jstree-basic ul li ul li a").each(function() {
