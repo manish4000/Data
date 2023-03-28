@@ -515,13 +515,13 @@
             cityList(state,city);
     }
           
-    $('.country').on('change', function(event){
-      event.preventDefault()
+    $('.country').on('change', function(){
+     
           var selectCountry  = $(this).val();  
           stateList(selectCountry);        
     });
-    $('.state').on('change', function (event) {
-      event.preventDefault()
+    $('.state').on('change', function () {
+      
           var selectState  = $(this).val();  
           cityList(selectState);
     });
@@ -560,7 +560,7 @@
                 url: "{{route('company.city-list')}}",
                 data: { id : state },
                 success : function(result) {
-                  //$('#city_id').html('<option value="">Select City</option>');
+                  $('#city_id').html('<option value="">Select City</option>');
                     $.each(result.cities, function (key, value) {
     
                       if(value.id == selected_city){
