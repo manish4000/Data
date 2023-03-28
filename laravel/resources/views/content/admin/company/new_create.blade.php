@@ -426,7 +426,8 @@
 <script src="{{ asset('assets/js/gabs/master.js') }}"></script>
 
    <script>
-      $(document).ready(function() {
+      $(document).ready(function(event) {
+         event.preventDefault();
          var  country  = $('.country').find(":selected").val();
          var  state  = "{{old('state_id')}}";
          var  city  = "{{old('city_id')}}";
@@ -455,11 +456,13 @@
             });
          }
 
-         $('.country').on('change', function(){
+         $('.country').on('change', function(event){
+            event.preventDefault();
             var selectCountry  = $(this).val();
             stateList(selectCountry);
          });
-         $('.state').on('change', function () {
+         $('.state').on('change', function (event) {
+            event.preventDefault();
             var selectState  = $(this).val();
             cityList(selectState);
          });

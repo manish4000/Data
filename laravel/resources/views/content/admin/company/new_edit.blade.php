@@ -501,7 +501,8 @@
 
 
 <script>
-  $(document).ready(function() {
+  $(document).ready(function(event) {
+    event.preventDefault()
     var  country  = $('.country').find(":selected").val();
     var  state  =   "<?php echo $state_id ; ?>";
     var  city  = "<?php echo $city_id; ?>";
@@ -514,11 +515,13 @@
             cityList(state,city);
     }
           
-    $('.country').on('change', function(){
+    $('.country').on('change', function(event){
+      event.preventDefault()
           var selectCountry  = $(this).val();  
           stateList(selectCountry);        
     });
-    $('.state').on('change', function () {
+    $('.state').on('change', function (event) {
+      event.preventDefault()
           var selectState  = $(this).val();  
           cityList(selectState);
     });
