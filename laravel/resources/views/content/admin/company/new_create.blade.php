@@ -426,8 +426,8 @@
 <script src="{{ asset('assets/js/gabs/master.js') }}"></script>
 
    <script>
-      $(document).ready(function(event) {
-         event.preventDefault();
+      $(document).ready(function() {
+        
          var  country  = $('.country').find(":selected").val();
          var  state  = "{{old('state_id')}}";
          var  city  = "{{old('city_id')}}";

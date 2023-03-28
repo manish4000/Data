@@ -501,8 +501,8 @@
 
 
 <script>
-  $(document).ready(function(event) {
-    event.preventDefault()
+  $(document).ready(function() {
+    
     var  country  = $('.country').find(":selected").val();
     var  state  =   "<?php echo $state_id ; ?>";
     var  city  = "<?php echo $city_id; ?>";
