@@ -10,12 +10,13 @@ use Illuminate\Notifications\Notifiable;
 use App\Permissions\HasPermissionsTrait;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Kayandra\Hashidable\Hashidable;
+//use Kayandra\Hashidable\Hashidable;
 
 
 class   User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasPermissionsTrait, SoftDeletes,Hashidable;
+    use HasFactory, Notifiable, HasPermissionsTrait, SoftDeletes;
+    //Hashidable;
 
     /**
      * The attributes that are mass assignable.
