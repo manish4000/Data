@@ -15,6 +15,46 @@
         });
     }
 
+    $(document ).ready(function() {
+        $('.select2').select2();
+    });
+
+
+    function imageValidation(id,maxFileSize,fileType ){
+
+  
+        selected = $('#'+id).val().replace(/C:\\fakepath\\/i, '');
+        $('#selected-file').html(selected);
+        
+        var ext = $('#'+id).val().split('.').pop().toLowerCase();
+        let fi = document.getElementById(id);
+
+        if ($.inArray(ext, fileType) == -1){
+            $('#image-ext-error').slideDown("slow");
+            $('#'+id).val("");
+            }else{                    
+                $('#image-ext-error').slideUp("slow");
+            }
+        
+            if (fi.files.length > 0) {
+                for (const i = 0; i <= fi.files.length - 1; i++) {
+          
+                    const fsize = fi.files.item(i).size;
+                    const file = Math.round((fsize / 1024));
+                    // The size of the file.
+                    if (file >= maxFileSize) {
+                        $('#image-size-error').slideDown("slow");
+                    }else{
+                        $('#image-size-error').slideUp("slow");
+                    } 
+                }
+            }
+            
+
+
+
+    }
+
     function checkTextLimit(id){
         let totalCount = $('#'+id).val();
         let len = 0;
