@@ -720,7 +720,7 @@ class CompanyController extends Controller
         $company_model->country_id = $request->country_id;  
         $company_model->postcode = $request->postcode;  
         $company_model->region_id = $request->region_id;  
-        $company_model->telephone = $request->telephone;  
+        $company_model->telephone =  $request->country_code."_".$request->telephone;   
         $company_model->skype_id = $request->skype_id;  
         $company_model->website = $request->website;  
         $company_model->package_id = $request->package_id;  
