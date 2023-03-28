@@ -560,7 +560,7 @@
                 url: "{{route('company.city-list')}}",
                 data: { id : state },
                 success : function(result) {
-                  $('#city_id').html('<option value="">Select City</option>');
+                  //$('#city_id').html('<option value="">Select City</option>');
                     $.each(result.cities, function (key, value) {
     
                       if(value.id == selected_city){
