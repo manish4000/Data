@@ -6,7 +6,7 @@
 @section('content')
    <!-- users edit start -->
 
-   <form action="{{route('company.store')}}" method="POST"  enctype="multipart/form-data">
+   <form action="{{route('company.store')}}" method="POST"   enctype="multipart/form-data">
       @csrf
       <section class="form-control-repeater">
          <div class="card">
@@ -128,11 +128,14 @@
 								<div class="col-4">
 									<div class="form-group">
 										<x-admin.form.inputs.select  tooltip="{{__('webCaption.country_code.caption')}}"  label="{{__('webCaption.country_code.title')}}"  id="" for="country_code" name="country_code"  required="" :optionData="$country_phone_code"  editSelected="{{(isset($country_code) && ($country_code != null)) ? $country_code : ''; }}" />
+                              @if($errors->has('country_code'))
+                                 <x-admin.form.form_error_messages message="{{ $errors->first('country_code') }}"  />
+                              @endif
 									  </div>
 								</div>
 								<div class="col-8">
 									<div class="form-group">
-                              <x-admin.form.inputs.text id="" for="telephone"  tooltip="{{__('webCaption.telephone.caption')}}" label="{{__('webCaption.telephone.title')}}" maxlength="20" class="form-control" name="telephone"  placeholder="{{__('webCaption.telephone.title')}}" value="{{old('telephone', isset($data->telephone)?$data->telephone:'' )}}"  required="required" />
+                              <x-admin.form.inputs.text id="" for="telephone"  tooltip="{{__('webCaption.telephone.caption')}}" label="{{__('webCaption.telephone.title')}}" maxlength="20" class="form-control" name="telephone"  placeholder="{{__('webCaption.telephone.title')}}" value="{{old('telephone', isset($data->telephone)?$data->telephone:'' )}}"  required="" />
                               @if($errors->has('telephone'))
                                  <x-admin.form.form_error_messages message="{{ $errors->first('telephone') }}"  />
                               @endif
@@ -159,8 +162,12 @@
                      </div>
                   </div>
                   <div class="col-md-4">
+
+                     @php 
+                     $fileType = ['jpg','png'];    
+                     @endphp 
                      <div class="form-group">
-                        <x-admin.form.inputs.file id="" caption="{{__('webCaption.upload_logo.title')}}" ImageId="logo-preview" for="logo"  class="form-control" name="logo"  placeholder="{{__('webCaption.logo.title')}}" required="required" />
+                        <x-admin.form.inputs.file id="" caption="{{__('webCaption.upload_logo.title')}}" ImageId="logo-preview" for="logo"  class="form-control" name="logo" :fileType="$fileType" maxFileSize="5000"  placeholder="{{__('webCaption.logo.title')}}" required="required" />
                         @if($errors->has('logo'))
                            <x-admin.form.form_error_messages message="{{ $errors->first('logo') }}"  />
                         @endif
