@@ -6,7 +6,10 @@
     'value',
     'multiple',
     'imageId',
-    'editImageUrl'
+    'editImageUrl',
+    'fileType',
+    'maxFileSize'
+
 ])
 
 @php
@@ -18,25 +21,32 @@ if(isset($editImageUrl)){
       $editImageUrl = '';
     }
 }
+$Types = isset($fileType) ?  $fileType : '';
+$maxFileSize = isset($maxFileSize) ?  $maxFileSize : '';
 
 $editImageUrl = ((isset($editImageUrl)) &&  !empty($editImageUrl) )? $editImageUrl : asset('assets/images/portrait/small/no-photo.jpg');
 
 @endphp
 
-<div class="media">
-    @php $logo_file = asset('assets/images/portrait/small/no-photo.jpg'); @endphp
-    {{-- @if(isset($data->logo_file) && !empty($data->logo_file))
-        @php $logo_file = 'https://www.japanesecartrade.com/logo/'.$data->logo_file;  @endphp
-    @endif --}}
-    <a href="javascript:void(0);" class="mr-25">
-        <img src="{{$editImageUrl}}" id="{{$imageId}}" class="rounded mr-50" alt="logo image" height="60" width="60" />
-    </a>
 
-    <div class="media-body mt-75 ml-1">
-        <label for="{{ $for }}" class="btn btn-sm btn-primary mb-75 mr-75">{{ $caption }}</label>
-        <input type="file" name="{{ $name }}" id="{{ $for }}" hidden accept="image/*"  {{$multiple}} />
-        <p>Allowed JPEG, JPG, PNG, GIF or BMP. Max size of 5MiB</p>
+
+<div>
+    <div class="media">
+        @php $logo_file = asset('assets/images/portrait/small/no-photo.jpg'); @endphp
+
+        <a href="javascript:void(0);" class="mr-25">
+            <img src="{{$editImageUrl}}" id="{{$imageId}}" class="rounded mr-50" alt="logo image" height="60" width="60" />
+        </a>
+    
+        <div class="media-body mt-75 ml-1">
+            <label for="{{ $for }}" class="btn btn-sm btn-primary mb-75 mr-75">{{ $caption }}</label>
+            <input type="file" name="{{ $name }}" id="{{ $for }}" hidden accept="image/*"  {{$multiple}} onchange='imageValidation("{{$for}}","{{$maxFileSize}}",<?php echo json_encode($Types); ?>)' />
+            <p>Allowed <?php echo  (isset($fileType))?implode(',',$fileType) : ''; ?>. Max size of <?php echo $maxFileSize ?> KB</p>
+        </div>
     </div>
+    <p id='selected-file' class="text-success"></p>
+    <span class="text-danger" style="display:none;" id="image-ext-error"> Invalid Image Format! Image Format Must Be <?php echo  (isset($fileType))?implode(',',$fileType) : ''; ?>. </span>
+    <span class="text-danger" id="image-size-error" style="display:none;"> Maximum File Size Limit is 1MB. </span>
 
 </div>
 
