@@ -37,14 +37,12 @@ $charLength =  (isset($value))? strlen($value) : 0;
 
 @if (isset($maxlength) && isset($for) )(<span class="text-right" id="count_{{$for}}">{{$charLength}}</span>/{{$maxlength}}) @endif
 
-@section('inner-script')
-<script>
-    function checkTextLimit(id){
-        let totalCount = $('#'+id).val();
-        let len = 0;
-        if(totalCount.length>0) len = totalCount.length;
-        $('#count_'+id).html(len);
-    }  
-</script>
+@if(isset($name)) 
 
-@endsection
+<div class="m-0">
+    @if($errors->has($name))
+    <x-admin.form.form_error_messages message="{{ $errors->first($name) }}"  />
+    @endif
+</div>
+
+@endif 
