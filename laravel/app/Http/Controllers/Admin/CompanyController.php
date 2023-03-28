@@ -612,7 +612,7 @@ class CompanyController extends Controller
 
         $data = Company::with(['contcatPersonDetails','documents'])->find($id);
 
-        $telephone  = (isset($data->telephone) && !empty($data->telephone) && ($data->telephone != null) ) ? explode('_',$data->telephone) : null;
+        $telephone  = (isset($data->telephone) && ($data->telephone != '') && ($data->telephone != null) ) ? explode('_',$data->telephone) : null;
         $data->telephone = ($telephone != null) ? $telephone[1] : null;
 
         $company_tel_country_code = (isset($telephone[0]))? $telephone[0] :'';

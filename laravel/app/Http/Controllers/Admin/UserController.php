@@ -151,7 +151,7 @@ class UserController extends Controller
 
         $user = User::with(['roles', 'permissions'])->find($id);
         $user->department_id  = json_decode($user->department_id);
-        $phone                = (isset($user->phone) && !empty($user->phone) && ($user->phone != null) ) ? explode('_',$user->phone) : null;
+        $phone                = (isset($user->phone) &&($user->phone != '') && ($user->phone != null) ) ? explode('_',$user->phone) : null;
 
         $user->phone = ($phone != null) ? $phone[1] : null;
         $country_code = (isset($phone[0]))? $phone[0] :'';
