@@ -101,14 +101,17 @@ class PlanController extends Controller
         $request->validate(
             [
              'title' => 'required|unique:company_plans,title,'.$request->id.',id,deleted_at,NULL',
-             'slug' => 'required|regex:/^\S*$/u|unique:company_plans,slug,'.$request->id.',id,deleted_at,NULL'  
+             'slug' => 'required|regex:/^\S*$/u|unique:company_plans,slug,'.$request->id.',id,deleted_at,NULL',
+             'order_by' => 'nullable|numeric'  
             ],
             [
+
              'title.required' => __('webCaption.validation_required.title', ['field'=> "title" ] ) ,
              'title.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('title')] )  ,
              'slug.required' => __('webCaption.validation_required.title', ['field'=> "slug" ] ) ,
              'slug.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('slug')] )  ,
              'slug.regex' => __('webCaption.validation_space.title', ['field'=> "slug" ,"use" => "(_)" ]  ),
+             'order_by.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "Order" ] ),
             ]
         );
 
