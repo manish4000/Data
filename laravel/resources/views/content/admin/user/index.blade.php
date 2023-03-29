@@ -49,7 +49,7 @@
 										</th>
 										<th scope="col" data-toggle="tooltip" title="{{__('webCaption.actions.caption')}}"  > {{__('webCaption.actions.title')}}
 										</th>
-										<th scope="col" data-toggle="tooltip" title="{{__('webCaption.qr_scan.caption')}}"  > OR SCAN
+										<th scope="col" data-toggle="tooltip" title="{{__('webCaption.qr_scan.caption')}}"  > {{__('webCaption.qr_scan.title')}}
 										</th>
 									</tr>
 								</thead>
