@@ -24,26 +24,20 @@
 				<div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <x-dash.form.inputs.text  for="bank_name"  maxlength="255" tooltip="{{__('webCaption.bank_name.caption')}}"  label="{{__('webCaption.bank_name.title')}}"  class="form-control" name="bank_name"  placeholder="{{__('webCaption.bank_name.title')}}" value="{{old('bank_name', isset($data->bank_name)?$data->bank_name:'' )}}"  required="required" />
-                            @if ($errors->has('bank_name'))
-                                <x-dash.form.form_error_messages message="{{ $errors->first('bank_name') }}" />
-                            @endif
+                            <x-dash.form.inputs.text  for="bank_name"  maxlength="255" tooltip="{{__('webCaption.bank_name.caption')}}"  label="{{__('webCaption.bank_name.title')}}"  name="bank_name"  placeholder="{{__('webCaption.bank_name.title')}}" value="{{old('bank_name', isset($data->bank_name)?$data->bank_name:'' )}}"  required="required" />
+                            
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <x-dash.form.inputs.text  for="dealer_name"  maxlength="255" tooltip="{{__('webCaption.dealer_name.caption')}}" label="{{__('webCaption.dealer_name.title')}}"  class="form-control" name="dealer_name"  placeholder="{{__('webCaption.dealer_name.title')}}" value="{{old('dealer_name', isset($data->dealer_name)?$data->dealer_name:'' )}}"  required="required" />
-                            @if ($errors->has('dealer_name'))
-                                <x-dash.form.form_error_messages message="{{ $errors->first('dealer_name') }}" />
-                            @endif
+                            <x-dash.form.inputs.text  for="dealer_name"  maxlength="255" tooltip="{{__('webCaption.dealer_name.caption')}}" label="{{__('webCaption.dealer_name.title')}}"  name="dealer_name"  placeholder="{{__('webCaption.dealer_name.title')}}" value="{{old('dealer_name', isset($data->dealer_name)?$data->dealer_name:'' )}}"  required="required" />
+                            
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <x-dash.form.inputs.text  for="branch_name"  maxlength="255" tooltip="{{__('webCaption.branch_name.caption')}}" label="{{__('webCaption.branch_name.title')}}"  class="form-control" name="branch_name"  placeholder="{{__('webCaption.branch_name.title')}}" value="{{old('branch_name', isset($data->branch_name)?$data->branch_name:'' )}}"  required="required" />
-                            @if ($errors->has('branch_name'))
-                                <x-dash.form.form_error_messages message="{{ $errors->first('branch_name') }}" />
-                            @endif
+                            <x-dash.form.inputs.text  for="branch_name"  maxlength="255" tooltip="{{__('webCaption.branch_name.caption')}}" label="{{__('webCaption.branch_name.title')}}"  name="branch_name"  placeholder="{{__('webCaption.branch_name.title')}}" value="{{old('branch_name', isset($data->branch_name)?$data->branch_name:'' )}}"  required="required" />
+                            
                         </div>
                     </div>
 				</div>
@@ -51,26 +45,21 @@
 				<div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <x-dash.form.inputs.text  for="branch_code"  maxlength="255" tooltip="{{__('webCaption.branch_code.caption')}}" label="{{__('webCaption.branch_code.title')}}"  class="form-control" name="branch_code"  placeholder="{{__('webCaption.branch_code.title')}}" value="{{old('branch_code', isset($data->branch_code)?$data->branch_code:'' )}}"  required="required" />
-                            @if ($errors->has('branch_code'))
-                                <x-dash.form.form_error_messages message="{{ $errors->first('branch_code') }}" />
-                            @endif
+                            <x-dash.form.inputs.text  for="branch_code"  maxlength="255" tooltip="{{__('webCaption.branch_code.caption')}}" label="{{__('webCaption.branch_code.title')}}"  name="branch_code"  placeholder="{{__('webCaption.branch_code.title')}}" value="{{old('branch_code', isset($data->branch_code)?$data->branch_code:'' )}}"  required="required" />
+                            
+                            
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <x-dash.form.inputs.text  for="account_name"  maxlength="255" tooltip="{{__('webCaption.account_name.caption')}}" label="{{__('webCaption.account_name.title')}}"  class="form-control" name="account_name"  placeholder="{{__('webCaption.account_name.title')}}" value="{{old('account_name', isset($data->account_name)?$data->account_name:'' )}}"  required="required" />
-                            @if ($errors->has('account_name'))
-                                <x-dash.form.form_error_messages message="{{ $errors->first('account_name') }}" />
-                            @endif
+                            <x-dash.form.inputs.text  for="account_name"  maxlength="100" tooltip="{{__('webCaption.account_name.caption')}}" label="{{__('webCaption.account_name.title')}}"  name="account_name"  placeholder="{{__('webCaption.account_name.title')}}" value="{{old('account_name', isset($data->account_name)?$data->account_name:'' )}}"  required="required" />
+                            
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <x-dash.form.inputs.text  for="account_number"  maxlength="255" tooltip="{{__('webCaption.account_number.caption')}}" label="{{__('webCaption.account_number.title')}}"  class="form-control" name="account_number"  placeholder="{{__('webCaption.account_number.title')}}" value="{{old('account_number', isset($data->account_number)?$data->account_number:'' )}}"  required="required" />
-                            @if ($errors->has('account_number'))
-                                <x-dash.form.form_error_messages message="{{ $errors->first('account_number') }}" />
-                            @endif
+                            <x-dash.form.inputs.text  for="account_number"  maxlength="255" tooltip="{{__('webCaption.account_number.caption')}}" label="{{__('webCaption.account_number.title')}}"  name="account_number"  placeholder="{{__('webCaption.account_number.title')}}" value="{{old('account_number', isset($data->account_number)?$data->account_number:'' )}}"  required="required" />
+                            
                         </div>
                     </div>
 				</div>
@@ -80,25 +69,19 @@
                         <div class="form-group">
                             <x-dash.form.inputs.select label="{{__('webCaption.country.title')}}"  tooltip="{{__('webCaption.country.caption')}}" for="country_id" name="country_id" 
                             placeholder="{{ __('locale.country.caption') }}" customClass="country"  editSelected="{{(isset($data->country_id) && ($data->country_id != null))?$data->country_id :''; }}"  required="required" :optionData="$country" />
-                            @if($errors->has('country_id'))
-                            <x-dash.form.form_error_messages message="{{ $errors->first('country_id') }}"  />
-                            @endif
+                           
                         </div>
                    </div>
                    <div class="col-md-4">
                         <div class="form-group">
                              <x-dash.form.inputs.select label="{{__('webCaption.state.title')}}"  tooltip="{{__('webCaption.state.caption')}}"  customClass="state" id="" for="state_id" name="state_id" placeholder="{{ __('locale.state.caption') }}" editSelected=""  required="required" :optionData="[]" />
-                            @if($errors->has('state_id'))
-                            <x-dash.form.form_error_messages message="{{ $errors->first('state_id') }}"  />
-                            @endif
+                            
                         </div>
                    </div>
                    <div class="col-md-4">
                         <div class="form-group">
                         <x-dash.form.inputs.select label="{{__('webCaption.city.title')}}"   tooltip="{{__('webCaption.city.caption')}}" id="" for="city_id" name="city_id" placeholder="{{ __('locale.city.caption') }}" editSelected=""  required="required" :optionData="[]" />
-                            @if($errors->has('city_id'))
-                            <x-dash.form.form_error_messages message="{{ $errors->first('city_id') }}"  />
-                            @endif
+                            
                         </div>
                    </div>                   
 				</div>
@@ -132,26 +115,20 @@
 				<div class="row">        
                     <div class="col-md-4">
                         <div class="form-group">
-                            <x-dash.form.inputs.text  for="iban_no"  maxlength="255" tooltip="{{__('webCaption.iban_no.caption')}}" label="{{__('webCaption.iban_no.title')}}"  class="form-control" name="iban_no"  placeholder="{{__('webCaption.iban_no.title')}}" value="{{old('iban_no', isset($data->iban_no)?$data->iban_no:'' )}}"  required="required" />
-                            @if ($errors->has('iban_no'))
-                                <x-dash.form.form_error_messages message="{{ $errors->first('iban_no') }}" />
-                            @endif
+                            <x-dash.form.inputs.text  for="iban_no"  maxlength="255" tooltip="{{__('webCaption.iban_no.caption')}}" label="{{__('webCaption.iban_no.title')}}"  name="iban_no"  placeholder="{{__('webCaption.iban_no.title')}}" value="{{old('iban_no', isset($data->iban_no)?$data->iban_no:'' )}}"  required="required" />
+                            
                         </div>
 					</div>            
                     <div class="col-md-4">
                         <div class="form-group">
-                            <x-dash.form.inputs.text  for="swift_code"  maxlength="255" tooltip="{{__('webCaption.swift_code.caption')}}" label="{{__('webCaption.swift_code.title')}}"  class="form-control" name="swift_code"  placeholder="{{__('webCaption.swift_code.title')}}" value="{{old('swift_code', isset($data->swift_code)?$data->swift_code:'' )}}"  required="required" />
-                            @if ($errors->has('swift_code'))
-                                <x-dash.form.form_error_messages message="{{ $errors->first('swift_code') }}" />
-                            @endif
+                            <x-dash.form.inputs.text  for="swift_code"  maxlength="100" tooltip="{{__('webCaption.swift_code.caption')}}" label="{{__('webCaption.swift_code.title')}}"   name="swift_code"  placeholder="{{__('webCaption.swift_code.title')}}" value="{{old('swift_code', isset($data->swift_code)?$data->swift_code:'' )}}"  required="required" />
+                            
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <x-dash.form.inputs.text  for="account_currency"  maxlength="255" tooltip="{{__('webCaption.account_currency.caption')}}" label="{{__('webCaption.account_currency.title')}}"  class="form-control" name="account_currency"  placeholder="{{__('webCaption.account_currency.title')}}" value="{{old('account_currency', isset($data->account_currency)?$data->account_currency:'' )}}"  required="required" />
-                            @if ($errors->has('account_currency'))
-                                <x-dash.form.form_error_messages message="{{ $errors->first('account_currency') }}" />
-                            @endif
+                            <x-dash.form.inputs.text  for="account_currency"  maxlength="255" tooltip="{{__('webCaption.account_currency.caption')}}" label="{{__('webCaption.account_currency.title')}}"   name="account_currency"  placeholder="{{__('webCaption.account_currency.title')}}" value="{{old('account_currency', isset($data->account_currency)?$data->account_currency:'' )}}"  required="required" />
+                            
                         </div>
                     </div>
 
@@ -159,10 +136,8 @@
 				<div class="row">        
                     <div class="col-md-4">
 							<div class="form-group">
-								<x-dash.form.inputs.text  for="display_order"  maxlength="255" tooltip="{{__('webCaption.display_order.caption')}}" label="{{__('webCaption.display_order.title')}}"  class="form-control" name="display_order"  placeholder="{{__('webCaption.display_order.title')}}" value="{{old('display_order', isset($data->display_order)?$data->display_order:'' )}}"  required="required" />
-								@if ($errors->has('display_order'))
-									<x-dash.form.form_error_messages message="{{ $errors->first('display_order') }}" />
-								@endif
+								<x-dash.form.inputs.text  for="display_order"  maxlength="255" tooltip="{{__('webCaption.display_order.caption')}}" label="{{__('webCaption.display_order.title')}}"   name="display_order"  placeholder="{{__('webCaption.display_order.title')}}" value="{{old('display_order', isset($data->display_order)?$data->display_order:'' )}}"  required="required" />
+							
 							</div>
 					</div>            
                     @php
@@ -198,8 +173,7 @@ $city_id =  (isset($city_id)) ? $city_id : ( (isset($data->city_id)) ? $data->ci
 
 @push('script')
   <!-- Page js files -->
-
-
+  <script src="{{ asset('assets/dash/assets/js/dash/master.js') }}"></script>
 <script>
 
     $(document).ready(function() {

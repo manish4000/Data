@@ -34,18 +34,14 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-								<x-dash.form.inputs.text  for="name"  maxlength="255" tooltip="{{__('webCaption.name.caption')}}"  label="{{__('webCaption.name.title')}}"  class="form-control" name="name"  placeholder="{{__('webCaption.name.title')}}" value="{{old('name', isset($user->name)?$user->name:'' )}}"  required="required" />
-								@if ($errors->has('name'))
-									<x-dash.form.form_error_messages message="{{ $errors->first('name') }}" />
-								@endif
+								<x-dash.form.inputs.text  for="name"  maxlength="255" tooltip="{{__('webCaption.name.caption')}}"  label="{{__('webCaption.name.title')}}"  name="name"  placeholder="{{__('webCaption.name.title')}}" value="{{old('name', isset($user->name)?$user->name:'' )}}"  required="required" />
+								
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-								<x-dash.form.inputs.email  for="email"  maxlength="255" tooltip="{{__('webCaption.email.caption')}}" label="{{__('webCaption.email.title')}}"  class="form-control" name="email"  placeholder="{{__('webCaption.email.title')}}" value="{{old('email', isset($user->email)?$user->email:'' )}}"  required="required" />
-								@if ($errors->has('email'))
-									<x-dash.form.form_error_messages message="{{ $errors->first('email') }}" />
-								@endif
+								<x-dash.form.inputs.email  for="email"  maxlength="255" tooltip="{{__('webCaption.email.caption')}}" label="{{__('webCaption.email.title')}}"  name="email"  placeholder="{{__('webCaption.email.title')}}" value="{{old('email', isset($user->email)?$user->email:'' )}}"  required="required" />
+								
 							</div>
 						</div>
 					</div>
@@ -53,18 +49,14 @@
 					<div class="row">
 						<div class="col-6">
 							<div class="form-group">
-								<x-dash.form.inputs.password  maxlength="255"  for="password" tooltip="{{__('webCaption.password.caption')}}" label="{{__('webCaption.password.title')}}"  class="form-control" name="password"  placeholder="{{__('webCaption.password.title')}}" value=""  required="<?php echo (!isset($user->id))? 'required' :''; ?>" />
-								@if ($errors->has('password'))
-									<x-dash.form.form_error_messages message="{{ $errors->first('password') }}" />
-								@endif
+								<x-dash.form.inputs.password  maxlength="255"  for="password" tooltip="{{__('webCaption.password.caption')}}" label="{{__('webCaption.password.title')}}"   name="password"  placeholder="{{__('webCaption.password.title')}}" value=""  required="<?php echo (!isset($user->id))? 'required' :''; ?>" />
+								
 							</div>
 						</div>
 						<div class="col-6">
 							<div class="form-group">
-								<x-dash.form.inputs.password  maxlength="255" for="password_confirmation" tooltip="{{__('webCaption.password_confirm.caption')}}"  label="{{__('webCaption.password_confirm.title')}}"  class="form-control" name="password_confirmation"  placeholder="{{__('webCaption.password_confirm.title')}}" value=""  required="<?php echo (!isset($user->id))? 'required' :''; ?>" />
-								@if ($errors->has('password_confirmation'))
-									<x-dash.form.form_error_messages message="{{ $errors->first('password_confirmation') }}" />
-								@endif
+								<x-dash.form.inputs.password  maxlength="255" for="password_confirmation" tooltip="{{__('webCaption.password_confirm.caption')}}"  label="{{__('webCaption.password_confirm.title')}}"   name="password_confirmation"  placeholder="{{__('webCaption.password_confirm.title')}}" value=""  required="<?php echo (!isset($user->id))? 'required' :''; ?>" />
+								
 							</div>
 						</div>
 					</div>
@@ -72,9 +64,7 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<x-dash.form.inputs.select tooltip="{{__('webCaption.status.caption')}}" label="{{__('webCaption.status.title')}}"  id="" for="status" name="status" placeholder="{{ __('locale.Parent.caption') }}" editSelected="{{(isset($user->status) && ($user->status != null))?$user->status :''; }}"  required="required" :optionData="$status" />
-								@if($errors->has('status'))
-								  <x-dash.form.form_error_messages message="{{ $errors->first('status') }}"  />
-								@endif
+								
 							</div>
 
 						</div>
@@ -156,7 +146,7 @@
 @push('script')
   <!-- Page js files -->
   <script src="{{ asset(mix('js/scripts/extensions/ext-component-tree.js')) }}"></script>
-
+  <script src="{{ asset('assets/dash/assets/js/dash/master.js') }}"></script>
   <script type="text/javascript">
   	$(document).ready(function() {
   		$(".jstree-basic ul li a, .jstree-basic ul li ul li a").each(function() {
