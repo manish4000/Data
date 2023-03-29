@@ -6,29 +6,53 @@
     'value',
     'required',
     'maxlength',
-    'class',
+    'attributes',
     'tooltip'
+  
 ])
-
 @php
+
 $charLength =  (isset($value))? strlen($value) : 0;
+$customClass = (isset($customClass)) ? $customClass : '';
 @endphp
 
+@if (isset($label) && isset($for)) <label  @if (isset($tooltip)) title="{{$tooltip}}"  @endif   data-toggle="tooltip" for='{{ $for }}'>{{ $label }}  @if(isset($required) && !empty($required)) <span class="text-danger" style="font-size: 14px;font-weight: bolder"> * </span>  @endif </label> @endif
 
-@if (isset($label)) <label for='{{ $for }}'>{{ $label }} @if(isset($required) && !empty($required)) <span class="text-danger" style="font-size:14px;font-weight:bolder"> * </span>  @endif  </label> @endif
 
 <div class="input-group">
 
-    <input style=""   @if (isset($for)) id="{{$for}}" onkeyup="checkTextLimit('{{$for}}');"  @endif  name='{{ $name }}' type="email"
+    <input
+    type="email" 
+    @if (isset($for)) id="{{$for}}" onkeyup="checkTextLimit('{{$for}}');"  @endif
+
     @if (isset($maxlength))  maxlength="{{$maxlength}}" @endif 
+    
+    @if(isset($name)) name='{{ $name }}' @endif 
+        
+     class="abc form-control {{$customClass}} " 
+
     @if(isset($placeholder )) placeholder='{{ $placeholder }}'  @endif    
-    @if(isset($required)) {{ $required }}  @endif 
-    class='form-control'  {{$attributes}} value='{{ old($name, $value) }}' {{ $required }} oninput="emailValidationChecker('{{$for}}')">
+    @if(isset($required)) {{ $required }}  @endif    
+    @if(isset($attributes)) {{$attributes}}  @endif            
+    @if(isset($value))   value="{{$value}}"  @endif oninput="emailValidationChecker('{{$for}}')"   >
 
     <div class="input-group-append">
       <span class="input-group-text" id="{{$for}}icon"></span>
     </div>
-
 </div>
+
+
+
+
 @if (isset($maxlength) && isset($for) )(<span class="text-right" id="count_{{$for}}">{{$charLength}}</span>/{{$maxlength}}) @endif
+
+@if(isset($name)) 
+
+<div class="m-0">
+    @if($errors->has($name))
+    <x-admin.form.form_error_messages message="{{ $errors->first($name) }}"  />
+    @endif
+</div>
+
+@endif 
 

@@ -70,7 +70,9 @@
             return arr.join("");
         }
 
-
+        $(document ).ready(function() {
+            $('.select2').select2();
+        });
 
 
     function emailValidationChecker(id){
