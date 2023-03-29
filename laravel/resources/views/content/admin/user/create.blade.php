@@ -27,18 +27,13 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-								<x-admin.form.inputs.text  for="name"  maxlength="100" tooltip="{{__('webCaption.name.caption')}}"  label="{{__('webCaption.name.title')}}"  class="form-control" name="name"  placeholder="{{__('webCaption.name.title')}}" value="{{old('name', isset($user->name)?$user->name:'' )}}"  required="required" />
-								@if ($errors->has('name'))
-									<x-admin.form.form_error_messages message="{{ $errors->first('name') }}"  />
-								@endif
+								<x-admin.form.inputs.text  for="name"  maxlength="100" tooltip="{{__('webCaption.name.caption')}}"  label="{{__('webCaption.name.title')}}"   name="name"  placeholder="{{__('webCaption.name.title')}}" value="{{old('name', isset($user->name)?$user->name:'' )}}"  required="required" />
+								
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-								<x-admin.form.inputs.email for="email" tooltip="{{__('webCaption.email.caption')}}"  maxlength="100" label="{{__('webCaption.email.title')}}"  class="form-control" name="email"  placeholder="{{__('webCaption.email.title')}}" value="{{old('email', isset($user->email)?$user->email:'' )}}"  required="required" />
-								@if ($errors->has('email'))
-								  <x-admin.form.form_error_messages message="{{ $errors->first('email') }}"  />
-								@endif
+								<x-admin.form.inputs.email for="email" tooltip="{{__('webCaption.email.caption')}}"  maxlength="100" label="{{__('webCaption.email.title')}}"   name="email"  placeholder="{{__('webCaption.email.title')}}" value="{{old('email', isset($user->email)?$user->email:'' )}}"  required="required" />
 							</div>
 						</div>
 					</div>
@@ -56,7 +51,7 @@
 						<div class="row">
 							<div class="col-6">
 								<div class="form-group">
-									<x-admin.form.inputs.password  maxlength="15" :passwordGenerator="true"  for="password" tooltip="{{__('webCaption.password.caption')}}"   label="{{__('webCaption.password.title')}}"  class="form-control" name="password"  placeholder="{{__('webCaption.password.title')}}" value=""  required="" />
+									<x-admin.form.inputs.password  maxlength="15" :passwordGenerator="true"  for="password" tooltip="{{__('webCaption.password.caption')}}"   label="{{__('webCaption.password.title')}}"   name="password"  placeholder="{{__('webCaption.password.title')}}" value=""  required="" />
 									@if ($errors->has('password'))
 									<x-admin.form.form_error_messages message="{{ $errors->first('password') }}"  />
 								    @endif
@@ -64,7 +59,7 @@
 							</div>
 							<div class="col-6">
 								<div class="form-group">
-									<x-admin.form.inputs.password tooltip="{{__('webCaption.password_confirm.caption')}}"   maxlength="15" for="password_confirmation"  label="{{__('webCaption.password_confirm.title')}}"  class="form-control" name="password_confirmation"  placeholder="{{__('webCaption.password_confirm.title')}}" value=""  required="" />
+									<x-admin.form.inputs.password tooltip="{{__('webCaption.password_confirm.caption')}}"   maxlength="15" for="password_confirmation"  label="{{__('webCaption.password_confirm.title')}}"   name="password_confirmation"  placeholder="{{__('webCaption.password_confirm.title')}}" value=""  required="" />
 									@if ($errors->has('password_confirmation'))
 									<x-admin.form.form_error_messages message="{{ $errors->first('password_confirmation') }}"  />
 								    @endif
@@ -75,7 +70,7 @@
 						<div class="row">
 							<div class="col-6">
 								<div class="form-group">
-									<x-admin.form.inputs.password  :passwordGenerator="true"  maxlength="15"  for="password" tooltip="{{__('webCaption.password.caption')}}"   label="{{__('webCaption.password.title')}}"  class="form-control" name="password"  placeholder="{{__('webCaption.password.title')}}" value=""  required="required" />
+									<x-admin.form.inputs.password  :passwordGenerator="true"  maxlength="15"  for="password" tooltip="{{__('webCaption.password.caption')}}"   label="{{__('webCaption.password.title')}}"   name="password"  placeholder="{{__('webCaption.password.title')}}" value=""  required="required" />
 									@if ($errors->has('password'))
 										<x-admin.form.form_error_messages message="{{ $errors->first('password') }}"  />
 									@endif
@@ -83,7 +78,7 @@
 							</div>
 							<div class="col-6">
 								<div class="form-group">
-									<x-admin.form.inputs.password tooltip="{{__('webCaption.password_confirm.caption')}}"   maxlength="15" for="password_confirmation"  label="{{__('webCaption.password_confirm.title')}}"  class="form-control" name="password_confirmation"  placeholder="{{__('webCaption.password_confirm.title')}}" value=""  required="required" />
+									<x-admin.form.inputs.password tooltip="{{__('webCaption.password_confirm.caption')}}"   maxlength="15" for="password_confirmation"  label="{{__('webCaption.password_confirm.title')}}"  name="password_confirmation"  placeholder="{{__('webCaption.password_confirm.title')}}" value=""  required="required" />
 									@if ($errors->has('password_confirmation'))
 										<x-admin.form.form_error_messages message="{{ $errors->first('password_confirmation') }}"  />
 									@endif
@@ -212,7 +207,7 @@
 			</div>
 		</div>
 		<div class="form-group text-center">
-			<input type="hidden" name="id" value="@if(isset($user->hashid) && !empty($user->hashid)){{$user->hashid}}@endif" />
+			<input type="hidden" name="id" value="@if(isset($user->id) && !empty($user->id)){{$user->id}}@endif" />
 			@if(isset($user->id)) 	<x-admin.form.buttons.update /> @else <x-admin.form.buttons.create/> @endif 
 		</div>
     </form>
