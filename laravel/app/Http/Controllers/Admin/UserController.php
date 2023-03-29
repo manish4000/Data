@@ -186,6 +186,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {     
+     
         if($request->id){
             if (!Auth::user()->can('settings-users-edit')) {
                 abort(403);
@@ -249,9 +250,6 @@ class UserController extends Controller
         $userModel->phone = $request->country_code."_".$request->phone;
         $userModel->allow_2fa = isset($request->allow_2fa) ? '1' : '0';
 
-        if(!isset($request->allow_2fa)){
-          $userModel->google2fa_secret = null;
-        }
 
         if($request->has('department_id')) {
             if(is_array($request->department_id) && count($request->department_id) > 0){
@@ -420,7 +418,8 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   
+        dd("update");
         // $user = Auth::user();
         // if (!$user->can('update-user')) {
         //     abort(403);
