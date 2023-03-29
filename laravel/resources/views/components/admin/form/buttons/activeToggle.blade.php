@@ -13,8 +13,8 @@ $checked = (isset($checked) && $checked == "checked") ? "checked" : "";
     .switch {
       position: relative;
       display: inline-block;
-      width: 60px;
-      height: 30px;
+      width: 55px;
+      height: 25px;
     }
     
     .switch input { 
@@ -38,8 +38,8 @@ $checked = (isset($checked) && $checked == "checked") ? "checked" : "";
     .slider:before {
       position: absolute;
       content: "";
-      height: 22px;
-      width: 22px;
+      height: 18px;
+      width: 18px;
       left: 4px;
       bottom: 4px;
       background-color: white;
