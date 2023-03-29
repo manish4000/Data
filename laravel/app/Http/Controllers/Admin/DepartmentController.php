@@ -71,7 +71,7 @@ class DepartmentController extends Controller
      */
     public function create()
     {   
-        if (!Auth::user()->can('settings-permissions-add')) {
+        if (!Auth::user()->can('main-navigation-master-department-add')) {
             abort(403);
         }
         $breadcrumbs[0] = [
