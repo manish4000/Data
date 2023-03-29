@@ -49,7 +49,7 @@
 										</th>
 										<th scope="col" data-toggle="tooltip" title="{{__('webCaption.actions.caption')}}"  > {{__('webCaption.actions.title')}}
 										</th>
-										<th scope="col" data-toggle="tooltip" title="{{__('webCaption.actions.caption')}}"  > OR SCAN
+										<th scope="col" data-toggle="tooltip" title="{{__('webCaption.qr_scan.caption')}}"  > OR SCAN
 										</th>
 									</tr>
 								</thead>
@@ -79,10 +79,10 @@
 											</td>
 											<td>
 												@if(isset($user->google2fa_secret))
-													<a  data-toggle="modal" data-id="{{$user->id}}"  data-device_info="{{$user->device_description}}" class="2faModelUpdate"> <i class="fa fa-refresh fa-2x" aria-hidden="true"></i> &nbsp; <i class="fa fa-qrcode text-dark fa-2x"></i>
+													<a   data-toggle="tooltip"  title="{{__('webCaption.update_qr_code.caption')}}" data-id="{{$user->id}}"  data-device_info="{{$user->device_description}}" class="2faModelUpdate"> <i class="fa fa-refresh fa-2x" aria-hidden="true"></i> &nbsp; <i class="fa fa-qrcode text-dark fa-2x"></i>
 													</a>
 												@else
-													<a  data-toggle="modal" data-id="{{$user->id}}"  class="2faModelCreate"> <i class="fa fa-plus fa-2x" aria-hidden="true"></i> &nbsp; <i class="fa fa-qrcode text-dark fa-2x"></i>
+													<a    data-toggle="tooltip"  title="{{__('webCaption.add_qr_code.caption')}}" data-id="{{$user->id}}"  class="2faModelCreate"> <i class="fa fa-plus fa-2x" aria-hidden="true"></i> &nbsp; <i class="fa fa-qrcode text-dark fa-2x"></i>
 													</a>
 												@endif
 											</td>
