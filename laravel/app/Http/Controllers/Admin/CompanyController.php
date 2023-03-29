@@ -54,6 +54,109 @@ class CompanyController extends Controller
         $this->baseUrl =  $this->url->to('/admin/company');
     }
 
+    public function importDataFromJct(){
+       
+
+
+       $old_company_users_data = DB::table('usertbl')->where('inserted','0')->get()->take(100);
+
+       foreach($old_company_users_data as $key => $value){
+
+        $city = DB::table('cities')->where('name','like','%'.$value->city.'%')->value('id');
+        $state = DB::table('states')->where('name','like','%'.$value->state.'%')->value('id');
+        $country = Country::where('name','like','%'.$value->country.'%')->value('id');
+
+        $city_id = isset($city) ? $city : null ;
+
+        $state_id = isset($state) ? $state : null ;
+        $country_id =isset($country) ? $country : null;
+
+        $telephone = (isset($value->phone) && ($value->phone != '') ) ? $value->phone : null ;
+        
+        $telephone = (($telephone != null) && (strpos($telephone,'+')  > 0 ) ) ? preg_replace("-", '_', ltrim($telephone,"+"), 1) : null;
+
+        $business_type_ids = (isset($value->business_type_ids) && ($value->business_type_ids != null) && ($value->business_type_ids != '')? explode(',',$value->business_type_ids) :'' );
+
+        $business_type_ids =  (isset($business_type_ids) &&  $business_type_ids != ''  ) ? json_encode($business_type_ids) : null;
+
+        $company_name = (isset($value->company) && ($value->company != '') && ($value->company != null) ) ? $value->company  :'text company';
+        
+        $shortName = (isset($value->shortName) && ($value->shortName != '') && ($value->shortName != null) ) ? $value->shortName  : null;
+        $address = (isset($value->address) && ($value->address != '') && ($value->address != null) ) ? $value->address  : null;
+        $postcode = (isset($value->zip) && ($value->zip != '') && ($value->zip != null) ) ? $value->zip  : null;
+        $website = (isset($value->website) && ($value->website != '') && ($value->website != null) ) ? $value->website  : null;
+        $logo = (isset($value->logo_name) && ($value->logo_name != '') && ($value->logo_name != null) ) ? $value->logo_name  : null;
+        $business_type = (isset($value->business_type) && ($value->business_type != '') && ($value->business_type != null) ) ? $value->business_type  : null;
+        $marketing_status = (isset($value->	marketing_status) && ($value->	marketing_status != '') && ($value->	marketing_status != null) ) ? $value->	marketing_status  : null;
+        $created_at = (isset($value->dateCreated) && ($value->dateCreated != '') && ($value->dateCreated != null) ) ? $value->dateCreated  : null; 
+        $updated_at = (isset($value->update_date) && ($value->update_date != '') && ($value->update_date != null) ) ? $value->update_date  : null; 
+        
+        $company_user_data = [
+            'company_name' => $company_name, 
+            'name' => $company_name, 
+            'email_id_1' => $value->emailOne, 
+            'gabs_uuid' => rand(111111,899999), 
+            'email' => $value->emailOne, 
+            'short_name' => $shortName ,
+            'password' => Hash::make($value->password),
+            'status' => $value->status,
+            'address' => $address,
+            'city_id' => $city_id,
+            'state_id' => $state_id,
+            'country_id' => $country_id,
+            'postcode' =>  $postcode,
+            'region_id' => null,
+            'telephone' => $telephone,
+            'skype_id'=> null,
+            'website'=> $website,
+            'logo'=> $logo,
+            'business_type_id' => $business_type_ids,
+            'business_type' => $business_type,
+            'permit_no' => null,
+            'admin_comment' => null,
+            'facebook' => null,
+            'instagram' => null,
+            'youtube' => null,
+            'twitter' => null,
+            'linkedin' => null,
+            'marketing_status' => $marketing_status,
+            'terms_and_services' => '1',
+            'created_at' => $created_at,
+            'updated_at' =>  $updated_at,
+            'deleted_at' => null,
+            ];
+
+            if( $inserted_id = Company::insertGetId($company_user_data)){
+
+                DB::table('usertbl')->where('userId',$value->userId)->update(['inserted' => '1']);
+                
+           
+                    $company_users_model =  new CompanyUsers;
+
+                    $data = [
+                        'name' => $company_name,
+                        'email' => $value->emailOne,
+                        'password' => Hash::make($value->password),
+                        'company_id' => $inserted_id,
+                        'user_type' => 1,
+                        'status' => $value->status,
+                        'created_at'=> $created_at,
+                        'updated_at'=> $updated_at,
+                        'inserted' => '1'
+                        ];
+                          $company_users_model->create($data);
+                        // $company_user_add_permission  = CompanyUsers::find($company_user->id);
+                        // $company_user_add_permission->permissions()->attach($request->permissions);
+
+       }
+
+
+    }
+}
+
+
+
+
 
     /**
      * Display a listing of the resource.
