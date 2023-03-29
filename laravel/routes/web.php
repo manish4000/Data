@@ -125,6 +125,7 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
     Route::group(['prefix' => 'company','as'=> 'company.' ,'namespace' => 'Admin'], function () {
 
         Route::get('/','CompanyController@index')->name('index');
+        Route::get('/import-company-data','CompanyController@importDataFromJct');
         Route::get('/create','CompanyController@create')->name('create');
 
         Route::get('/create-test',function(){
