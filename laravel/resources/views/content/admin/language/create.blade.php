@@ -18,18 +18,14 @@
 				<div class="row">
 					<div class="col-md-6">
 						<div class="form-group">
-							<x-admin.form.inputs.text for="language_en" tooltip="{{__('webCaption.title_english.caption')}}" label="{{__('webCaption.title_english.title')}}"  maxlength="50"  name="language_en" class="form-control" placeholder="{{__('webCaption.title_english.title')}}" id="language_en" value="{{ old('language_en',isset($data->language_en)?$data->language_en:'') }}" required="required"/>
-							@if($errors->has('language_en'))
-								<x-admin.form.form_error_messages message="{{ $errors->first('language_en') }}" />
-							@endif
+							<x-admin.form.inputs.text for="language_en" tooltip="{{__('webCaption.title_english.caption')}}" label="{{__('webCaption.title_english.title')}}"  maxlength="50"  name="language_en"  placeholder="{{__('webCaption.title_english.title')}}" id="language_en" value="{{ old('language_en',isset($data->language_en)?$data->language_en:'') }}" required="required"/>
+							
 						</div>
 					</div>
 					<div class="col-md-6">
 						<div class="form-group">
-							<x-admin.form.inputs.text for="language_text" tooltip="{{__('webCaption.title_language.caption')}}" label="{{__('webCaption.title_language.title')}}" maxlength="50"  name="language_text" class="form-control" placeholder="{{__('webCaption.title_language.title')}}" id="language_en" value="{{ old('language_text',isset($data->language_text)?$data->language_text:'') }}" required="required"/>
-							@if($errors->has('language_text'))
-								<x-admin.form.form_error_messages message="{{ $errors->first('language_text') }}" />
-							@endif
+							<x-admin.form.inputs.text for="language_text" tooltip="{{__('webCaption.title_language.caption')}}" label="{{__('webCaption.title_language.title')}}" maxlength="50"  name="language_text"  placeholder="{{__('webCaption.title_language.title')}}" id="language_en" value="{{ old('language_text',isset($data->language_text)?$data->language_text:'') }}" required="required"/>
+							
 						</div>
 					</div>
 					<div class="col-md-6">
@@ -50,17 +46,13 @@
 							@endphp
 
 							<x-admin.form.inputs.select  tooltip="{{__('webCaption.status.caption')}}" label="{{__('webCaption.status.title')}}"  for="status" name="status"  required="" :optionData="$status_options" editSelected="{{(isset($data->status) && ($data->status != null))?$data->status :''; }}" />
-							@if($errors->has('status'))
-								<x-admin.form.form_error_messages message="{{ $errors->first('status') }}" />
-							@endif
+							
 						</div>
 					</div>
 					<div class="col-md-6">
 						<div class="form-group">
-							<x-admin.form.inputs.text for="alias" maxlength="5" tooltip="{{__('webCaption.alias.caption')}}" label="{{__('webCaption.alias.title')}}"   name="alias" class="form-control" placeholder="{{__('webCaption.alias.title')}}" id="alias" value="{{ old('alias',isset($data->alias)?$data->alias:'') }}" required="required"/>
-								@if($errors->has('alias'))
-								<x-admin.form.form_error_messages message="{{ $errors->first('alias') }}" />
-								@endif
+							<x-admin.form.inputs.text for="alias" maxlength="5" tooltip="{{__('webCaption.alias.caption')}}" label="{{__('webCaption.alias.title')}}"   name="alias"  placeholder="{{__('webCaption.alias.title')}}" id="alias" value="{{ old('alias',isset($data->alias)?$data->alias:'') }}" required="required"/>
+							
 						</div>
 					</div>
 					<div class="col-md-6">
@@ -101,3 +93,8 @@
 	</div>
 </form>
 @endsection
+
+
+@push('script')
+  <script src="{{ asset('assets/js/gabs/master.js') }}"></script>	
+@endpush

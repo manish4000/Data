@@ -23,18 +23,12 @@
       <div class="row">
         <div class="col-md-4">
           <div class="form-group">
-            <x-admin.form.inputs.text tooltip="{{__('webCaption.title.caption')}}" label="{{__('webCaption.title.title')}}" maxlength="250" for="title" class="form-control" name="title"  placeholder="{{__('webCaption.title.title')}}" value="{{old('title', isset($data->title)?$data->title:'' )}}"  required="required" />
-            @if($errors->has('title'))
-            <x-admin.form.form_error_messages message="{{ $errors->first('title') }}" />
-            @endif
+            <x-admin.form.inputs.text tooltip="{{__('webCaption.title.caption')}}" label="{{__('webCaption.title.title')}}" maxlength="250" for="title"  name="title"  placeholder="{{__('webCaption.title.title')}}" value="{{old('title', isset($data->title)?$data->title:'' )}}"  required="required" />
           </div>    
         </div>
         <div class="col-md-4">
           <div class="form-group">
-            <x-admin.form.inputs.text tooltip="{{__('webCaption.locale_slug.caption')}}" label="{{__('webCaption.locale_slug.title')}}" maxlength="250" for="local_slug" class="form-control" name="local_slug"  placeholder="{{__('webCaption.locale_slug.title')}}" value="{{old('local_slug', isset($data->local_slug)?$data->local_slug:'' )}}"  required="required" />
-            @if($errors->has('local_slug'))
-            <x-admin.form.form_error_messages message="{{ $errors->first('local_slug') }}" />
-            @endif
+            <x-admin.form.inputs.text tooltip="{{__('webCaption.locale_slug.caption')}}" label="{{__('webCaption.locale_slug.title')}}" maxlength="250" for="local_slug"  name="local_slug"  placeholder="{{__('webCaption.locale_slug.title')}}" value="{{old('local_slug', isset($data->local_slug)?$data->local_slug:'' )}}"  required="required" />
           </div>    
         </div>
       </div>       
@@ -67,16 +61,10 @@
 
                     <div class="col-md-4">
                       <div class="form-group">
-                        <x-admin.form.inputs.text label="{{ $language->language_en }} {{__('webCaption.title.title')}}" for="local_translations{{$language->id}}title"  maxlength="250" class="form-control mb-1"  name="local_translations[{{$language->id}}][title]"  placeholder=" {{ $language->language_en }} {{__('webCaption.title.title')}}" value="{{old('local_translations.'.$language->id.'.title', $value_title)}}"  required="" />
-                        @if ($errors->has('local_translations[{{$language->id}}][title]'))
-                        <x-admin.form.form_error_messages message="{{ $errors->first('local_translations[$language->id][title]') }}" />
-                        @endif
+                        <x-admin.form.inputs.text label="{{ $language->language_en }} {{__('webCaption.title.title')}}" for="local_translations{{$language->id}}title"  maxlength="250" customClass="mb-1"  name="local_translations[{{$language->id}}][title]"  placeholder=" {{ $language->language_en }} {{__('webCaption.title.title')}}" value="{{old('local_translations.'.$language->id.'.title', $value_title)}}"  required="" />
                       </div>
                       <div class="form-group">
-                        <x-admin.form.inputs.textarea label="{{ $language->language_en }} {{__('webCaption.caption.title')}}" for="local_translations{{$language->id}}caption"  maxlength="250" class="form-control mb-1"  name="local_translations[{{$language->id}}][caption]"  placeholder="{{ $language->language_en }} {{__('webCaption.caption.title')}}" value="{{old('local_translations.'.$language->id.'.caption', $value_caption)}}"  required="" />
-                        @if ($errors->has('local_translations[{{$language->id}}][caption]'))
-                        <x-admin.form.form_error_messages message="{{ $errors->first('local_translations[$language->id][caption]') }}" />
-                        @endif
+                        <x-admin.form.inputs.textarea label="{{ $language->language_en }} {{__('webCaption.caption.title')}}" for="local_translations{{$language->id}}caption"  maxlength="250" customClass="mb-1"  name="local_translations[{{$language->id}}][caption]"  placeholder="{{ $language->language_en }} {{__('webCaption.caption.title')}}" value="{{old('local_translations.'.$language->id.'.caption', $value_caption)}}"  required="" />
                       </div>
                     </div>
                   @endforeach
@@ -93,3 +81,10 @@
 </section>
 </form>
 @endsection
+
+
+@push('script')
+  <script src="{{ asset('assets/js/gabs/master.js') }}"></script>
+@endpush
+
+

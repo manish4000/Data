@@ -21,19 +21,14 @@
                <div class="row">
                   <div class="col-md-8">
                      <div class="form-group">
-                        <x-admin.form.inputs.text id="" for="company_name" tooltip="{{__('webCaption.company_name.caption')}}" label="{{__('webCaption.company_name.title')}}" maxlength="100" class="form-control" name="company_name"  placeholder="{{__('webCaption.company_name.title')}}" value="{{old('company_name', isset($data->company_name)?$data->company_name:'' )}}"  required="required" />
-                        @if($errors->has('company_name'))
-                           <x-admin.form.form_error_messages message="{{ $errors->first('company_name') }}"  />
-                        @endif
+                        <x-admin.form.inputs.text id="" for="company_name" tooltip="{{__('webCaption.company_name.caption')}}" label="{{__('webCaption.company_name.title')}}" maxlength="100"  name="company_name"  placeholder="{{__('webCaption.company_name.title')}}" value="{{old('company_name', isset($data->company_name)?$data->company_name:'' )}}"  required="required" />
                      </div>
                   </div>
 
                   <div class="col-md-4">
                      <div class="form-group">
-                        <x-admin.form.inputs.text id="" label="{{__('webCaption.gabs_uuid.title')}}" tooltip="{{__('webCaption.gabs_uuid.caption')}}" for="gabs_uuid" class="form-control" maxlength="6" name="gabs_uuid"  placeholder="{{__('webCaption.gabs_uuid.title')}}" value="{{old('gabs_uuid', isset($data->gabs_uuid)?$data->gabs_uuid:'' )}}"  required="required" />
-                        @if($errors->has('gabs_uuid'))
-                           <x-admin.form.form_error_messages message="{{ $errors->first('gabs_uuid') }}"  />
-                        @endif
+                        <x-admin.form.inputs.text id="" label="{{__('webCaption.gabs_uuid.title')}}" tooltip="{{__('webCaption.gabs_uuid.caption')}}" for="gabs_uuid" maxlength="6" name="gabs_uuid"  placeholder="{{__('webCaption.gabs_uuid.title')}}" value="{{old('gabs_uuid', isset($data->gabs_uuid)?$data->gabs_uuid:'' )}}"  required="required" />
+                        
                      </div>
                   </div>
                </div>
@@ -41,38 +36,28 @@
                <div class="row">
                   <div class="col-md-4">
                      <div class="form-group">
-                        <x-admin.form.inputs.email id="" for="email" tooltip="{{__('webCaption.email.caption')}}" label="{{__('webCaption.email.title')}}" maxlength="45" class="form-control" name="email"  placeholder="{{__('webCaption.email.title')}}" value="{{old('email', isset($data->email)?$data->email:'' )}}"  required="required" />
-                        @if($errors->has('email'))
-                           <x-admin.form.form_error_messages message="{{ $errors->first('email') }}"  />
-                        @endif
+                        <x-admin.form.inputs.email id="" for="email" tooltip="{{__('webCaption.email.caption')}}" label="{{__('webCaption.email.title')}}" maxlength="45" name="email"  placeholder="{{__('webCaption.email.title')}}" value="{{old('email', isset($data->email)?$data->email:'' )}}"  required="required" />
+                        
                      </div>
                   </div>
 
                   <div class="col-md-4">
                      <div class="form-group">
-                        <x-admin.form.inputs.password  :passwordGenerator="true" id="" tooltip="{{__('webCaption.password.caption')}}" label="{{__('webCaption.password.title')}}" for="password" class="form-control" maxlength="15" name="password"  placeholder="{{__('webCaption.password.title')}}" value=""  required="required" />
-                        @if($errors->has('password'))
-                           <x-admin.form.form_error_messages message="{{ $errors->first('password') }}"  />
-                        @endif
+                        <x-admin.form.inputs.password  :passwordGenerator="true" id="" tooltip="{{__('webCaption.password.caption')}}" label="{{__('webCaption.password.title')}}" for="password"  maxlength="15" name="password"  placeholder="{{__('webCaption.password.title')}}" value=""  required="required" />
+                        
                      </div>
                   </div>
 
                   <div class="col-md-4">
                      <div class="form-group">
                         <x-admin.form.inputs.select label="{{__('webCaption.status.title')}}" tooltip="{{__('webCaption.status.caption')}}"  id="" for="status" name="status" placeholder="{{ __('locale.status.caption') }}" editSelected=""  required="" :optionData="$status" />
-                        @if($errors->has('status'))
-                           <x-admin.form.form_error_messages message="{{ $errors->first('status') }}"  />
-                        @endif
                      </div>
                   </div>
                </div>
                <div class="row">
                   <div class="col-md-12">
                      <div class="form-group">
-                        <x-admin.form.inputs.textarea id="" for="address" tooltip="{{__('webCaption.address.caption')}}" label="{{__('webCaption.address.title')}}" maxlength="250" class="form-control" name="address"  placeholder="{{__('webCaption.address.title')}}" value="{{old('address', isset($data->address)?$data->address:'' )}}"  required="" />
-                        @if($errors->has('address'))
-                           <x-admin.form.form_error_messages message="{{ $errors->first('address') }}"  />
-                        @endif
+                        <x-admin.form.inputs.textarea id="" for="address" tooltip="{{__('webCaption.address.caption')}}" label="{{__('webCaption.address.title')}}" maxlength="250" name="address"  placeholder="{{__('webCaption.address.title')}}" value="{{old('address', isset($data->address)?$data->address:'' )}}"  required="" />
                      </div>
                   </div>
                </div>
@@ -80,27 +65,21 @@
 
                   <div class="col-md-4">
                      <div class="form-group">
-                        <x-admin.form.inputs.select label="{{__('webCaption.country.title')}}"  tooltip="{{__('webCaption.country.caption')}}" for="country_id" name="country_id"
+                        <x-admin.form.inputs.select label="{{__('webCaption.country.title')}}"  tooltip="{{__('webCaption.country.caption')}}"           for="country_id" name="country_id"
                                                     placeholder="{{ __('locale.country.caption') }}" customClass="country"  editSelected="{{(isset($data->country_id) && ($data->country_id != null)) ? $data->country_id :'' }}"  required="required" :optionData="$country" />
-                        @if($errors->has('country_id'))
-                           <x-admin.form.form_error_messages message="{{ $errors->first('country_id') }}"  />
-                        @endif
+                        
                      </div>
                   </div>
                   <div class="col-md-4">
                      <div class="form-group">
                         <x-admin.form.inputs.select label="{{__('webCaption.state.title')}}"  tooltip="{{__('webCaption.state.caption')}}"  customClass="state" id="" for="state_id" name="state_id" placeholder="{{ __('locale.state.caption') }}" editSelected=""  required="" :optionData="[]" />
-                        @if($errors->has('state_id'))
-                           <x-admin.form.form_error_messages message="{{ $errors->first('state_id') }}"  />
-                        @endif
+                        
                      </div>
                   </div>
                   <div class="col-md-4">
                      <div class="form-group">
                         <x-admin.form.inputs.select label="{{__('webCaption.city.title')}}"   tooltip="{{__('webCaption.city.caption')}}" id="" for="city_id" name="city_id" placeholder="{{ __('locale.city.caption') }}" editSelected=""  required="" :optionData="[]" />
-                        @if($errors->has('city_id'))
-                           <x-admin.form.form_error_messages message="{{ $errors->first('city_id') }}"  />
-                        @endif
+                       
                      </div>
                   </div>
 
@@ -108,18 +87,14 @@
                <div class="row">
                   <div class="col-md-4">
                      <div class="form-group">
-                        <x-admin.form.inputs.text id="" for="postcode"  tooltip="{{__('webCaption.postcode.caption')}}" label="{{__('webCaption.postcode.title')}}" maxlength="15" class="form-control" name="postcode"  placeholder="{{__('webCaption.postcode.title')}}" value="{{old('postcode', isset($data->postcode)?$data->postcode:'' )}}"  required="" />
-                        @if($errors->has('postcode'))
-                           <x-admin.form.form_error_messages message="{{ $errors->first('postcode') }}"  />
-                        @endif
+                        <x-admin.form.inputs.text id="" for="postcode"  tooltip="{{__('webCaption.postcode.caption')}}" label="{{__('webCaption.postcode.title')}}" maxlength="15"  name="postcode"  placeholder="{{__('webCaption.postcode.title')}}" value="{{old('postcode', isset($data->postcode)?$data->postcode:'' )}}"  required="" />
+                        
                      </div>
                   </div>
                   <div class="col-md-4">
                      <div class="form-group">
                         <x-admin.form.inputs.select label="{{__('webCaption.region.title')}}"   tooltip="{{__('webCaption.region.caption')}}" id="" for="region_id" name="region_id" placeholder="{{ __('locale.region.caption') }}" editSelected=""  required="" :optionData="[]" />
-                        @if($errors->has('region_id'))
-                           <x-admin.form.form_error_messages message="{{ $errors->first('region_id') }}"  />
-                        @endif
+                       
                      </div>
                   </div>
 
@@ -128,17 +103,13 @@
 								<div class="col-4">
 									<div class="form-group">
 										<x-admin.form.inputs.select  tooltip="{{__('webCaption.country_code.caption')}}"  label="{{__('webCaption.country_code.title')}}"  id="" for="country_code" name="country_code"  required="" :optionData="$country_phone_code"  editSelected="{{(isset($country_code) && ($country_code != null)) ? $country_code : ''; }}" />
-                              @if($errors->has('country_code'))
-                                 <x-admin.form.form_error_messages message="{{ $errors->first('country_code') }}"  />
-                              @endif
+                              
 									  </div>
 								</div>
 								<div class="col-8">
 									<div class="form-group">
-                              <x-admin.form.inputs.text id="" for="telephone"  tooltip="{{__('webCaption.telephone.caption')}}" label="{{__('webCaption.telephone.title')}}" maxlength="20" class="form-control" name="telephone"  placeholder="{{__('webCaption.telephone.title')}}" value="{{old('telephone', isset($data->telephone)?$data->telephone:'' )}}"  required="" />
-                              @if($errors->has('telephone'))
-                                 <x-admin.form.form_error_messages message="{{ $errors->first('telephone') }}"  />
-                              @endif
+                              <x-admin.form.inputs.text id="" for="telephone"  tooltip="{{__('webCaption.telephone.caption')}}" label="{{__('webCaption.telephone.title')}}" maxlength="20"  name="telephone"  placeholder="{{__('webCaption.telephone.title')}}" value="{{old('telephone', isset($data->telephone)?$data->telephone:'' )}}"  required="" />
+                              
                            </div>
 								</div>
 							</div>
@@ -147,18 +118,14 @@
                <div class="row">
                   <div class="col-md-4">
                      <div class="form-group">
-                        <x-admin.form.inputs.text id="" for="skype"  tooltip="{{__('webCaption.skype.caption')}}" label="{{__('webCaption.skype.title')}}" maxlength="50" class="form-control" name="skype_id"  placeholder="{{__('webCaption.skype.title')}}" value="{{old('skype_id', isset($data->skype_id)?$data->skype_id:'' )}}"  required="" />
-                        @if($errors->has('skype_id'))
-                           <x-admin.form.form_error_messages message="{{ $errors->first('skype_id') }}"  />
-                        @endif
+                        <x-admin.form.inputs.text id="" for="skype"  tooltip="{{__('webCaption.skype.caption')}}" label="{{__('webCaption.skype.title')}}" maxlength="50"  name="skype_id"  placeholder="{{__('webCaption.skype.title')}}" value="{{old('skype_id', isset($data->skype_id)?$data->skype_id:'' )}}"  required="" />
+                        
                      </div>
                   </div>
                   <div class="col-md-4">
                      <div class="form-group">
-                        <x-admin.form.inputs.text id="" for="website" tooltip="{{__('webCaption.website.caption')}}" label="{{__('webCaption.website.title')}}" maxlength="75" class="form-control" name="website"  placeholder="{{__('webCaption.website.title')}}" value="{{old('website', isset($data->website)?$data->website:'' )}}"  required="" />
-                        @if($errors->has('website'))
-                           <x-admin.form.form_error_messages message="{{ $errors->first('website') }}"  />
-                        @endif
+                        <x-admin.form.inputs.text id="" for="website" tooltip="{{__('webCaption.website.caption')}}" label="{{__('webCaption.website.title')}}" maxlength="75" name="website"  placeholder="{{__('webCaption.website.title')}}" value="{{old('website', isset($data->website)?$data->website:'' )}}"  required="" />
+                        
                      </div>
                   </div>
                   <div class="col-md-4">
@@ -167,10 +134,8 @@
                      $fileType = ['jpg','png'];    
                      @endphp 
                      <div class="form-group">
-                        <x-admin.form.inputs.file id="" caption="{{__('webCaption.upload_logo.title')}}" ImageId="logo-preview" for="logo"  class="form-control" name="logo" :fileType="$fileType" maxFileSize="5000"  placeholder="{{__('webCaption.logo.title')}}" required="required" />
-                        @if($errors->has('logo'))
-                           <x-admin.form.form_error_messages message="{{ $errors->first('logo') }}"  />
-                        @endif
+                        <x-admin.form.inputs.file id="" caption="{{__('webCaption.upload_logo.title')}}" ImageId="logo-preview" for="logo"   name="logo" :fileType="$fileType" maxFileSize="5000"  placeholder="{{__('webCaption.logo.title')}}" required="required" />
+                        
                      </div>
                   </div>
                </div>
@@ -191,25 +156,18 @@
                   <div class="col-md-4">
                      <div class="form-group">
                         <x-admin.form.inputs.select  tooltip="{{__('webCaption.package.caption')}}" label="{{__('webCaption.package.title')}}"  id="" for="package_id" name="package_id" placeholder="{{__('webCaption.package_id.title')}}" editSelected=""  required="" :optionData="[]" />
-                        @if($errors->has('package_id'))
-                           <x-admin.form.form_error_messages message="{{ $errors->first('package_id') }}"  />
-                        @endif
                      </div>
                   </div>
                   <div class="col-md-4">
                      <div class="form-group">
                         <x-admin.form.inputs.select tooltip="{{__('webCaption.business_type.caption')}}" label="{{__('webCaption.business_type.title')}}"  id="" for="business_type_id" name="business_type_id" placeholder="{{__('webCaption.business_type_id.title')}}" editSelected=""  required="" :optionData="$BusinessTypes" />
-                        @if($errors->has('business_type_id'))
-                           <x-admin.form.form_error_messages message="{{ $errors->first('business_type_id') }}"  />
-                        @endif
+                        
                      </div>
                   </div>
                   <div class="col-md-4">
                      <div class="form-group">
                         <x-admin.form.inputs.select label="{{__('webCaption.association_member.title')}}" tooltip="{{__('webCaption.association_member.caption')}}"  id="" for="association_member_id" name="association_member_id"  editSelected=""  required="" :optionData="[]" />
-                        @if($errors->has('association_member_id'))
-                           <x-admin.form.form_error_messages message="{{ $errors->first('association_member_id') }}"  />
-                        @endif
+                        
                      </div>
                   </div>
                </div>
@@ -217,18 +175,14 @@
                <div class="row">
                   <div class="col-md-6">
                      <div class="form-group">
-                        <x-admin.form.inputs.textarea id="" for="permit_number" tooltip="{{__('webCaption.permit_number.caption')}}"  label="{{__('webCaption.permit_number.title')}}" maxlength="250" class="form-control" name="permit_no"  placeholder="{{__('webCaption.permit_no.title')}}" value="{{old('permit_no', isset($data->permit_no)?$data->permit_no:'' )}}"  required="" />
-                        @if($errors->has('permit_no'))
-                           <x-admin.form.form_error_messages message="{{ $errors->first('permit_no') }}"  />
-                        @endif
+                        <x-admin.form.inputs.textarea id="" for="permit_number" tooltip="{{__('webCaption.permit_number.caption')}}"  label="{{__('webCaption.permit_number.title')}}" maxlength="250"  name="permit_no"  placeholder="{{__('webCaption.permit_no.title')}}" value="{{old('permit_no', isset($data->permit_no)?$data->permit_no:'' )}}"  required="" />
+                        
                      </div>
                   </div>
                   <div class="col-md-6">
                      <div class="form-group">
-                        <x-admin.form.inputs.textarea id="" for="admin_comment" tooltip="{{__('webCaption.admin_comment.caption')}}" label="{{__('webCaption.admin_comment.title')}}" maxlength="250" class="form-control" name="admin_comment"  placeholder="{{__('webCaption.admin_comment.title')}}" value="{{old('admin_comment', isset($data->admin_comment)?$data->admin_comment:'' )}}"  required="" />
-                        @if($errors->has('admin_comment'))
-                           <x-admin.form.form_error_messages message="{{ $errors->first('admin_comment') }}"  />
-                        @endif
+                        <x-admin.form.inputs.textarea id="" for="admin_comment" tooltip="{{__('webCaption.admin_comment.caption')}}" label="{{__('webCaption.admin_comment.title')}}" maxlength="250"  name="admin_comment"  placeholder="{{__('webCaption.admin_comment.title')}}" value="{{old('admin_comment', isset($data->admin_comment)?$data->admin_comment:'' )}}"  required="" />
+                        
                      </div>
                   </div>
 
@@ -247,9 +201,7 @@
                            <div class="col-md-6">
                               <div class="form-group">
                                  <x-admin.form.inputs.file id="" caption="{{__('webCaption.document_upload.title')}}" for="document1"  class="form-control" name="document[]"  placeholder="{{__('webCaption.document.title')}}" required=""   multiple="multiple" />
-                                 @if($errors->has('document'))
-                                    <x-admin.form.form_error_messages message="{{ $errors->first('document') }}"  />
-                                 @endif
+                                 
                               </div>
                            </div>
                         </div>

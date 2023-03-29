@@ -39,14 +39,12 @@
 						<input type="hidden" name="company_menu_group_id" id="company_menu_group_id" value="{{ $menu_group->id }}">
 						
 						<div class="form-group">
-							<x-admin.form.inputs.text tooltip="{{__('webCaption.select_parent.caption')}}" label="{{__('webCaption.select_parent.title')}}"  for="justAnInputBox2" class="form-control" name="sel_parent"  placeholder="{{__('webCaption.select_parent.title')}}" value="{{old('sel_parent', isset($data->sel_parent)?$data->sel_parent:'' )}}"  required="" />
+							<x-admin.form.inputs.text tooltip="{{__('webCaption.select_parent.caption')}}" label="{{__('webCaption.select_parent.title')}}"  for="justAnInputBox2"  name="sel_parent"  placeholder="{{__('webCaption.select_parent.title')}}" value="{{old('sel_parent', isset($data->sel_parent)?$data->sel_parent:'' )}}"  required="" />
 					    </div>
 
 						<div class="form-group">
-							<x-admin.form.inputs.text tooltip="{{__('webCaption.title.caption')}}" label="{{__('webCaption.title.title')}}"  for="title" class="form-control" maxlength="50" name="title"  placeholder="{{__('webCaption.title.title')}}" value="{{old('title', isset($data->title)?$data->title:'' )}}"  required="required" />
-							@if ($errors->has('title'))
-								<x-admin.form.form_error_messages message="{{ $errors->first('title') }}"  />
-			                @endif
+							<x-admin.form.inputs.text tooltip="{{__('webCaption.title.caption')}}" label="{{__('webCaption.title.title')}}"  for="title"  maxlength="50" name="title"  placeholder="{{__('webCaption.title.title')}}" value="{{old('title', isset($data->title)?$data->title:'' )}}"  required="required" />
+							
 						</div>
 						<div class="form-group">
 							<x-admin.form.label for="" tooltip="{{__('webCaption.icon.caption')}}"  value="{{__('webCaption.icon.title')}}" class="" />
@@ -56,37 +54,27 @@
 								<x-admin.form.inputs.text   class="form-control icp icp-auto" name="icon" maxlength="50" placeholder="{{__('webCaption.icon.title')}}" value="{{old('icon', isset($data->icon)?$data->icon:'' )}}"  required="" />
 	                            <span class="input-group-addon input-group-text"></span> 
 	                        </div>
-							@if ($errors->has('icon'))
-								<x-admin.form.form_error_messages message="{{ $errors->first('icon') }}"  />
-							@endif
+							
 	                    </div>
 					  	<div class="form-group">
-							<x-admin.form.inputs.text tooltip="{{__('webCaption.uri.caption')}}" label="{{__('webCaption.uri.title')}}"  for="uri" maxlength="255" class="form-control" name="uri"  placeholder="{{__('webCaption.uri.title')}}" value="{{old('uri', isset($data->uri)?$data->uri:'' )}}"  required="" />
-					    	@if ($errors->has('uri'))
-								<x-admin.form.form_error_messages message="{{ $errors->first('uri') }}"  />
-			                @endif
+							<x-admin.form.inputs.text tooltip="{{__('webCaption.uri.caption')}}" label="{{__('webCaption.uri.title')}}"  for="uri" maxlength="255"  name="uri"  placeholder="{{__('webCaption.uri.title')}}" value="{{old('uri', isset($data->uri)?$data->uri:'' )}}"  required="" />
+					    	
 					  	</div>
 
 					  	<div class="form-group">
-							<x-admin.form.inputs.text tooltip="{{__('webCaption.permission.caption')}}" label="{{__('webCaption.permission.title')}}"  for="justAnInputBox1" class="form-control" name="sel_permission"  placeholder="{{__('webCaption.permission.title')}}" value="{{old('sel_permission', isset($data->sel_permission)?$data->sel_permission:'' )}}"  required="" />
+							<x-admin.form.inputs.text tooltip="{{__('webCaption.permission.caption')}}" label="{{__('webCaption.permission.title')}}"  for="justAnInputBox1"  name="sel_permission"  placeholder="{{__('webCaption.permission.title')}}" value="{{old('sel_permission', isset($data->sel_permission)?$data->sel_permission:'' )}}"  required="" />
 					    </div>
 					  	<div class="form-group">
-							<x-admin.form.inputs.text tooltip="{{__('webCaption.order.caption')}}" label="{{__('webCaption.order.title')}}"  for="order" class="form-control" name="order"  placeholder="{{__('webCaption.order.title')}}" value="{{old('order', isset($data->order)?$data->order:'' )}}"  required="" />
-							  @if ($errors->has('order'))
-							  <x-admin.form.form_error_messages message="{{ $errors->first('order') }}"  />
-						  	  @endif
+							<x-admin.form.inputs.text tooltip="{{__('webCaption.order.caption')}}" label="{{__('webCaption.order.title')}}"  for="order"  name="order"  placeholder="{{__('webCaption.order.title')}}" value="{{old('order', isset($data->order)?$data->order:'' )}}"  required="" />
+							  
 					    </div>
 					  	<div class="form-group">
-							<x-admin.form.inputs.text tooltip="{{__('webCaption.slug.caption')}}"  label="{{__('webCaption.slug.title')}}"  for="slug"  maxlength="255" class="form-control" name="slug"  placeholder="{{__('webCaption.slug.title')}}" value="{{old('slug', isset($data->slug)?$data->slug:'' )}}"  required="" />
-							@if ($errors->has('slug'))
-								<x-admin.form.form_error_messages message="{{ $errors->first('slug') }}"  />
-						 	@endif
+							<x-admin.form.inputs.text tooltip="{{__('webCaption.slug.caption')}}"  label="{{__('webCaption.slug.title')}}"  for="slug"  maxlength="255"  name="slug"  placeholder="{{__('webCaption.slug.title')}}" value="{{old('slug', isset($data->slug)?$data->slug:'' )}}"  required="" />
+							
 					    </div>
 						<div class="form-group">
-							<x-admin.form.inputs.text tooltip="{{__('webCaption.permission_slug.caption')}}" label="{{__('webCaption.permission_slug.title')}}" maxlength="255"  for="permission_slug" class="form-control" name="permission_slug"  placeholder="{{__('webCaption.permission_slug.title')}}" value="{{old('permission_slug', isset($data->permission_slug)?$data->permission_slug:'' )}}"  required="required" />
-							@if ($errors->has('permission_slug'))
-								<x-admin.form.form_error_messages message="{{ $errors->first('permission_slug') }}"  />
-							@endif
+							<x-admin.form.inputs.text tooltip="{{__('webCaption.permission_slug.caption')}}" label="{{__('webCaption.permission_slug.title')}}" maxlength="255"  for="permission_slug"  name="permission_slug"  placeholder="{{__('webCaption.permission_slug.title')}}" value="{{old('permission_slug', isset($data->permission_slug)?$data->permission_slug:'' )}}"  required="required" />
+							
 						</div>
 						<div class="form-group">
 							<x-admin.form.label for="" tooltip="{{__('webCaption.type.caption')}}"  value="{{__('webCaption.type.title')}}" class="" />
@@ -118,6 +106,10 @@
 </div>
 @include('components.admin.alerts.delete-alert-box')
 @endsection
+
+@push('script')
+  <script src="{{ asset('assets/js/gabs/master.js') }}"></script>
+@endpush
 
 @section('page-script')
 

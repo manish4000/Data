@@ -27,26 +27,20 @@
         <div class="row">
             <div class="col-md-4">
               <div class="form-group">
-                <x-admin.form.inputs.text tooltip="{{__('webCaption.title.caption')}}" label="{{__('webCaption.title.title')}}" maxlength="150" for="title" class="form-control" name="title"  placeholder="{{ __('webCaption.title.title') }}" value="{{old('title', isset($data->title)?$data->title:'' )}}"  required="required" />
-                @if($errors->has('title'))
-                <x-admin.form.form_error_messages message="{{ $errors->first('title') }}"  />
-                @endif
+                <x-admin.form.inputs.text tooltip="{{__('webCaption.title.caption')}}" label="{{__('webCaption.title.title')}}" maxlength="150" for="title"  name="title"  placeholder="{{ __('webCaption.title.title') }}" value="{{old('title', isset($data->title)?$data->title:'' )}}"  required="required" />
+                
               </div>    
             </div>
             <div class="col-md-4">
               <div class="form-group">
-                <x-admin.form.inputs.text tooltip="{{__('webCaption.slug.caption')}}"  label="{{__('webCaption.slug.title')}}" maxlength="150" for="slug" class="form-control" name="slug"  placeholder="{{ __('webCaption.slug.title') }}" value="{{old('slug', isset($data->slug)?$data->slug:'' )}}"  required="required" />
-                @if($errors->has('slug'))
-                <x-admin.form.form_error_messages message="{{ $errors->first('slug') }}"  />
-                @endif
+                <x-admin.form.inputs.text tooltip="{{__('webCaption.slug.caption')}}"  label="{{__('webCaption.slug.title')}}" maxlength="150" for="slug"  name="slug"  placeholder="{{ __('webCaption.slug.title') }}" value="{{old('slug', isset($data->slug)?$data->slug:'' )}}"  required="required" />
+                
               </div>    
             </div>
             <div class="col-md-4">
               <div class="form-group">
-                <x-admin.form.inputs.text tooltip="{{__('webCaption.order.caption')}}"  label="{{__('webCaption.order.title')}}"  for="order_by" class="form-control" name="order_by"  placeholder="{{ __('webCaption.order.title') }}" value="{{old('order_by', isset($data->order_by)?$data->order_by:'' )}}"  required="" />
-                @if($errors->has('order_by'))
-                <x-admin.form.form_error_messages message="{{ $errors->first('order_by') }}"  />
-                @endif
+                <x-admin.form.inputs.text tooltip="{{__('webCaption.order.caption')}}"  label="{{__('webCaption.order.title')}}"  for="order_by"  name="order_by"  placeholder="{{ __('webCaption.order.title') }}" value="{{old('order_by', isset($data->order_by)?$data->order_by:'' )}}"  required="" />
+                
               </div>    
             </div>
         </div>       
@@ -60,3 +54,6 @@
   </section>
 </form>
 @endsection
+@push('script')
+  <script src="{{ asset('assets/js/gabs/master.js') }}"></script>
+@endpush

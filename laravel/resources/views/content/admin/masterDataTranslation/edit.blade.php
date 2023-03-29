@@ -22,10 +22,8 @@
               <div class="row">
                 <div class="col-md-4">
                   <div class="form-group">
-                      <x-admin.form.inputs.text tooltip="{{__('webCaption.value.caption')}}" label="{{__('webCaption.value.title')}}" for="value"  maxlength="255" class="form-control" name="value"  placeholder="{{ __('webCaption.value.title') }}" value="{{old('value', isset($data->value)?$data->value:'' )}}"  required="required" readonly />
-                      @if($errors->has('value'))
-                      <x-admin.form.form_error_messages message="{{ $errors->first('value') }}"  />
-                      @endif
+                      <x-admin.form.inputs.text tooltip="{{__('webCaption.value.caption')}}" label="{{__('webCaption.value.title')}}" for="value"  maxlength="255"  name="value"  placeholder="{{ __('webCaption.value.title') }}" value="{{old('value', isset($data->value)?$data->value:'' )}}"  required="required" readonly />
+                    
                   </div>    
                 </div>
               </div>       
@@ -54,10 +52,8 @@
 
                         <div class="col-md-4">
                           <div class="form-group">
-                            <x-admin.form.inputs.text label="{{ $language->language_en }} {{__('webCaption.title.title')}} " for="title_languages{{$language->id}}title"  maxlength="80" class="form-control"  name="title_languages[{{$language->id}}][title]"  placeholder="{{ $language->language_en }} {{__('webCaption.title.title')}}" value="{{old('title_languages.'.$language->id.'.title', $value)}}"  required="" />
-                            @if ($errors->has('title_languages[{{$language->id}}][title]'))
-                            <x-admin.form.form_error_messages message="{{ $errors->first('title_languages[$language->id][title]') }}"  />
-                            @endif
+                            <x-admin.form.inputs.text label="{{ $language->language_en }} {{__('webCaption.title.title')}} " for="title_languages{{$language->id}}title"  maxlength="80"   name="title_languages[{{$language->id}}][title]"  placeholder="{{ $language->language_en }} {{__('webCaption.title.title')}}" value="{{old('title_languages.'.$language->id.'.title', $value)}}"  required="" />
+                            
                           </div>
                         </div>
                       @endforeach
@@ -83,10 +79,8 @@
                         @foreach ( $data->db_models as $key=> $modal )
                           <div class="col-md-4">
                             <div class="form-group">
-                              <x-admin.form.inputs.text label="{{__('webCaption.db_models.title')}} [{{$key}}]" for="" class="form-control"   name="db_models[{{$key}}]"  placeholder="{{__('webCaption.db_models.title')}}" value="{{old('db_models.'.$key,$modal)}}"  required=""  readonly/>
-                              @if ($errors->has('db_models[{{$key}}]'))
-                              <x-admin.form.form_error_messages message="{{ $errors->first('db_models[$key]') }}"  />
-                              @endif
+                              <x-admin.form.inputs.text label="{{__('webCaption.db_models.title')}} [{{$key}}]" for=""   name="db_models[{{$key}}]"  placeholder="{{__('webCaption.db_models.title')}}" value="{{old('db_models.'.$key,$modal)}}"  required=""  readonly/>
+                              
                             </div>
                           </div>
                         @endforeach

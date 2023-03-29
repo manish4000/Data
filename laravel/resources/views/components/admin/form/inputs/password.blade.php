@@ -6,7 +6,7 @@
     'value',
     'required',
     'maxlength',
-    'class',
+    'customClass',
     'tooltip',
     'passwordGenerator'
 ])
@@ -14,6 +14,7 @@
 
     $charLength =  (isset($value))? strlen($value) : 0;
     $passwordGenerator =  (isset($passwordGenerator) && $passwordGenerator == "true"  ) ? "true" : "false";
+    $customClass = (isset($customClass))? $customClass : '';
 @endphp
 @if (isset($label)) <label @if (isset($tooltip)) title="{{$tooltip}}"  @endif   data-toggle="tooltip"  for='{{ $for }}'>{{ $label }} @if(isset($required) && !empty($required)) <span class="text-danger" style="font-size: 14px;font-weight: bolder"> * </span>  @endif  </label> @endif
 
@@ -24,7 +25,7 @@
             @if (isset($for)) id="{{$for}}" onkeyup="checkTextLimit('{{$for}}');"  @endif
             @if (isset($maxlength))  maxlength="{{$maxlength}}" @endif 
             type="password"  
-            class='{{$class}}' 
+            class='form-control {{$customClass}}' 
             placeholder='{{ $placeholder }}' {{$attributes}}  
             value='' {{ $required }}
         >
@@ -40,7 +41,7 @@
             @if (isset($for)) id="{{$for}}" onkeyup="checkTextLimit('{{$for}}');"  @endif
             @if (isset($maxlength))  maxlength="{{$maxlength}}" @endif 
             type="password"  
-            class='{{$class}}' 
+            class='form-control {{$customClass}}' 
             placeholder='{{ $placeholder }}' {{$attributes}}  
             value='' {{ $required }}
             >
@@ -51,4 +52,14 @@
 @endif
 
  @if (isset($maxlength) && isset($for) )(<span class="text-right" id="count_{{$for}}">{{$charLength}}</span>/{{$maxlength}}) @endif
+
+@if(isset($name)) 
+
+    <div class="m-0">
+        @if($errors->has($name))
+        <x-admin.form.form_error_messages message="{{ $errors->first($name) }}"  />
+        @endif
+    </div>
+
+@endif 
 

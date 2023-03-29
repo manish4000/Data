@@ -24,77 +24,63 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-								<x-admin.form.inputs.select  class="form-control" tooltip="{{__('webCaption.group.caption')}}" label="{{__('webCaption.group.title')}}"  for="company_menu_group_id" name="company_menu_group_id"   required="required" :optionData="$groups" editSelected="{{(isset($menu->company_menu_group_id) && ($menu->company_menu_group_id != null))?$menu->company_menu_group_id :''; }}" />
-								@if ($errors->has('company_menu_group_id'))
-									<x-admin.form.form_error_messages message="{{ $errors->first('company_menu_group_id') }}"  />
-								@endif
+								<x-admin.form.inputs.select  tooltip="{{__('webCaption.group.caption')}}" label="{{__('webCaption.group.title')}}"  for="company_menu_group_id" name="company_menu_group_id"   required="required" :optionData="$groups" editSelected="{{(isset($menu->company_menu_group_id) && ($menu->company_menu_group_id != null))?$menu->company_menu_group_id :''; }}" />
+								
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-								<x-admin.form.inputs.text maxlength="50" tooltip="{{__('webCaption.title.caption')}}" label="{{__('webCaption.title.title')}}"  for="title" class="form-control" name="title"  placeholder="{{__('webCaption.title.title')}}" value="{{old('title', isset($menu->title)?$menu->title:'' )}}"  required="required" />
-								@if ($errors->has('title'))
-								    <x-admin.form.form_error_messages message="{{ $errors->first('title') }}"  />
-								@endif
+								<x-admin.form.inputs.text maxlength="50" tooltip="{{__('webCaption.title.caption')}}" label="{{__('webCaption.title.title')}}"  for="title"  name="title"  placeholder="{{__('webCaption.title.title')}}" value="{{old('title', isset($menu->title)?$menu->title:'' )}}"  required="required" />
+								
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-								<x-admin.form.inputs.text tooltip="{{__('webCaption.select_parent.caption')}}" label="{{__('webCaption.select_parent.title')}}"  for="justAnInputBox2" class="form-control" name="sel_parent"  placeholder="{{__('webCaption.select_parent.title')}}" value="{{old('sel_parent')}}"  required="" />
+								<x-admin.form.inputs.text tooltip="{{__('webCaption.select_parent.caption')}}" label="{{__('webCaption.select_parent.title')}}"  for="justAnInputBox2"  name="sel_parent"  placeholder="{{__('webCaption.select_parent.title')}}" value="{{old('sel_parent')}}"  required="" />
 							</div>
 
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-								<x-admin.form.inputs.text tooltip="{{__('webCaption.uri.caption')}}" label="{{__('webCaption.uri.title')}}" maxlength="255"  for="uri" class="form-control" name="uri"  placeholder="{{__('webCaption.uri.title')}}" value="{{old('uri', isset($menu->uri)?$menu->uri:'' )}}"  required="" />				
-									@if($errors->has('uri'))
-									<x-admin.form.form_error_messages message="{{ $errors->first('uri') }}"  />
-									@endif
+								<x-admin.form.inputs.text tooltip="{{__('webCaption.uri.caption')}}" label="{{__('webCaption.uri.title')}}" maxlength="255"  for="uri"  name="uri"  placeholder="{{__('webCaption.uri.title')}}" value="{{old('uri', isset($menu->uri)?$menu->uri:'' )}}"  required="" />				
+									
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-								<x-admin.form.inputs.text tooltip="{{__('webCaption.permission.caption')}}" label="{{__('webCaption.permission.title')}}"  for="justAnInputBox1" class="form-control" name="sel_permission"  placeholder="{{__('webCaption.select_permission.title')}}" value="{{old('sel_permission', isset($menu->sel_permission)?$menu->sel_permission:'' )}}"  required="" />
+								<x-admin.form.inputs.text tooltip="{{__('webCaption.permission.caption')}}" label="{{__('webCaption.permission.title')}}"  for="justAnInputBox1"  name="sel_permission"  placeholder="{{__('webCaption.select_permission.title')}}" value="{{old('sel_permission', isset($menu->sel_permission)?$menu->sel_permission:'' )}}"  required="" />
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-							<x-admin.form.inputs.text tooltip="{{__('webCaption.order.caption')}}" label="{{__('webCaption.order.title')}}"  for="order" class="form-control" name="order"  placeholder="{{__('webCaption.order.title')}}" value="{{old('order')}}"  required="" />						
-									@if ($errors->has('order'))
-									<x-admin.form.form_error_messages message="{{ $errors->first('order') }}"  />
-									@endif
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<x-admin.form.inputs.text  tooltip="{{__('webCaption.slug.caption')}}" label="{{__('webCaption.slug.title')}}" maxlength="255" for="slug" class="form-control" name="slug"  placeholder="{{__('webCaption.slug.title')}}" value="{{old('slug', isset($menu->slug)?$menu->slug:'' )}}"  required="" />		
-								@if ($errors->has('slug'))
-								<x-admin.form.form_error_messages message="{{ $errors->first('slug') }}"  />
-								@endif
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<x-admin.form.inputs.text tooltip="{{__('webCaption.icon.caption')}}" label="{{__('webCaption.icon.title')}}" maxlength="50" for="icon" class="form-control" name="icon"  placeholder="{{__('webCaption.icon.title')}}" value="{{old('icon', isset($menu->icon)?$menu->icon:'' )}}"  required="" />
-								@if ($errors->has('icon'))
-								<x-admin.form.form_error_messages message="{{ $errors->first('icon') }}"  />
-								@endif
+							<x-admin.form.inputs.text tooltip="{{__('webCaption.order.caption')}}" label="{{__('webCaption.order.title')}}"  for="order"  name="order"  placeholder="{{__('webCaption.order.title')}}" value="{{old('order')}}"  required="" />						
+									
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-								<x-admin.form.inputs.text tooltip="{{__('webCaption.permission_slug.caption')}}"  label="{{__('webCaption.permission_slug.title')}}" maxlength="255"  for="permission_slug" class="form-control" name="permission_slug"  placeholder="{{__('webCaption.permission_slug.title')}}" value="{{old('permission_slug', isset($menu->permission_slug)?$menu->permission_slug:'' )}}"  required="required" />
-								@if($errors->has('permission_slug'))
-								<x-admin.form.form_error_messages message="{{ $errors->first('permission_slug') }}"  />
-								@endif	
+								<x-admin.form.inputs.text  tooltip="{{__('webCaption.slug.caption')}}" label="{{__('webCaption.slug.title')}}" maxlength="255" for="slug"  name="slug"  placeholder="{{__('webCaption.slug.title')}}" value="{{old('slug', isset($menu->slug)?$menu->slug:'' )}}"  required="" />		
+								
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<x-admin.form.inputs.text tooltip="{{__('webCaption.icon.caption')}}" label="{{__('webCaption.icon.title')}}" maxlength="50" for="icon"  name="icon"  placeholder="{{__('webCaption.icon.title')}}" value="{{old('icon', isset($menu->icon)?$menu->icon:'' )}}"  required="" />
+								
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<x-admin.form.inputs.text tooltip="{{__('webCaption.permission_slug.caption')}}"  label="{{__('webCaption.permission_slug.title')}}" maxlength="255"  for="permission_slug"  name="permission_slug"  placeholder="{{__('webCaption.permission_slug.title')}}" value="{{old('permission_slug', isset($menu->permission_slug)?$menu->permission_slug:'' )}}"  required="required" />
+								
 							</div>
 						</div>
 						<div class="col-md-6">
@@ -133,6 +119,9 @@
 <link href="{{ asset('css/tree-select.css') }}" rel="stylesheet" />
 @endsection
 
+@push('script')
+  <script src="{{ asset('assets/js/gabs/master.js') }}"></script>
+@endpush
 
 @section('script')
 

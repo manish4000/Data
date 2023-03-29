@@ -5,7 +5,7 @@
     'placeholder',
     'value',
     'required',
-    'class',
+    'customClass',
     'maxlength',
     'attributes',
     'tooltip'
@@ -14,7 +14,7 @@
 @php
 
 $charLength =  (isset($value))? strlen($value) : 0;
-
+$customClass = isset($customClass) ? $customClass : '';
 @endphp
 
 @if (isset($label) && isset($for)) 
@@ -28,7 +28,7 @@ $charLength =  (isset($value))? strlen($value) : 0;
     
     @if(isset($name)) name='{{ $name }}' @endif 
         
-    @if(isset($class)) class="abc {{$class}} "  @endif    
+     class="form-control abc {{$customClass}}"     
 
     @if(isset($placeholder )) placeholder='{{ $placeholder }}'  @endif    
     @if(isset($required)) {{ $required }}  @endif    

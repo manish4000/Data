@@ -26,7 +26,7 @@
       <div class="row">
         <div class="col-md-4">
           <div class="form-group">
-            <x-admin.form.inputs.text tooltip="{{__('webCaption.name.caption')}}" label="{{__('webCaption.name.title')}}" maxlength="80" for="name" class="form-control" name="name"  placeholder="{{ __('webCaption.name.title') }}" value="{{old('name', isset($data->name)?$data->name:'' )}}"  required="required" />
+            <x-admin.form.inputs.text tooltip="{{__('webCaption.name.caption')}}" label="{{__('webCaption.name.title')}}" maxlength="80" for="name"   name="name"  placeholder="{{ __('webCaption.name.title') }}" value="{{old('name', isset($data->name)?$data->name:'' )}}"  required="required" />
           </div>    
         </div>
         
@@ -79,9 +79,7 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <x-admin.form.inputs.text label="{{ $language->language_en }} {{__('webCaption.title.title')}}" for="title_languages{{$language->id}}title"  maxlength="80" class="form-control"  name="title_languages[{{$language->id}}][title]"  placeholder="{{ $language->language_en }} {{__('webCaption.title.title')}}" value="{{old('title_languages.'.$language->id.'.title', $value)}}"  required="" readonly/>
-                          @if ($errors->has('title_languages[{{$language->id}}][title]'))
-                          <x-admin.form.form_error_messages message="{{ $errors->first('title_languages[$language->id][title]') }}"  />
-                          @endif
+                         
                         </div>
                       </div>
                     @endforeach

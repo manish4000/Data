@@ -27,10 +27,8 @@
         <div class="row">
           <div class="col-md-4">
             <div class="form-group">
-              <x-admin.form.inputs.text  tooltip="{{__('webCaption.title.caption')}}" label="{{__('webCaption.title.title')}}" maxlength="80" for="title" class="form-control" name="title"  placeholder="{{ __('webCaption.title.title') }}" value="{{old('title', isset($data->title)?$data->title:'' )}}"  required="required" />
-              @if($errors->has('title'))
-              <x-admin.form.form_error_messages message="{{ $errors->first('title') }}" />
-              @endif
+              <x-admin.form.inputs.text  tooltip="{{__('webCaption.title.caption')}}" label="{{__('webCaption.title.title')}}" maxlength="80" for="title"  name="title"  placeholder="{{ __('webCaption.title.title') }}" value="{{old('title', isset($data->title)?$data->title:'' )}}"  required="required" />
+              
             </div>    
           </div>
         </div>       

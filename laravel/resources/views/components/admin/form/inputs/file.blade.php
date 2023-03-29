@@ -50,6 +50,17 @@ $editImageUrl = ((isset($editImageUrl)) &&  !empty($editImageUrl) )? $editImageU
 
 </div>
 
+@if(isset($name)) 
+
+<div class="m-0">
+    @if($errors->has($name))
+    <x-admin.form.form_error_messages message="{{ $errors->first($name) }}"  />
+    @endif
+</div>
+
+@endif 
+
+
 @push('script')
 
 <script type="text/javascript">
