@@ -57,7 +57,7 @@ class LoginController extends Controller
 
     public function loginWithId(Request $request){
 
-        if(Auth::guard('dash')->check()) {
+        if(Auth::guard('dash')->user()) {
 
             dd("here");
             auth()->guard('dash')->logout();
