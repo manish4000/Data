@@ -82,7 +82,7 @@
                                         <th class="position-for-filter-heading"># 
                                             <x-admin.filter.order-by-filter-div orderBy="id" />
 
-                                        <th data-toggle="tooltip" title="{{__('webCaption.name.caption')}}" class="position-for-filter-heading"> {{__('webCaption.name.title')}}   <x-admin.filter.order-by-filter-div orderBy="name" /> 
+                                        {{-- <th data-toggle="tooltip" title="{{__('webCaption.name.caption')}}" class="position-for-filter-heading"> {{__('webCaption.name.title')}}   <x-admin.filter.order-by-filter-div orderBy="name" />  --}}
                                          
                                         <th data-toggle="tooltip" title="{{__('webCaption.company_name.caption')}}" class="position-for-filter-heading"> {{__('webCaption.company_name.title')}}   <x-admin.filter.order-by-filter-div orderBy="company_name" />    
 
