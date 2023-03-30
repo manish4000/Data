@@ -71,6 +71,7 @@ class CompanyController extends Controller
         $country_id =isset($country) ? $country : null;
 
         $telephone = (isset($value->phone) && ($value->phone != '') ) ? $value->phone : null ;
+        $telephone =  trim($telephone);
         
         $telephone = (($telephone != null) && (strpos($telephone,'+')  > 0 ) ) ? preg_replace("-", '_', ltrim($telephone,"+"), 1) : null;
 
