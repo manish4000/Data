@@ -56,7 +56,7 @@ class CompanyController extends Controller
 
     public function importDataFromJct(){
        
-       $old_company_users_data = DB::table('usertbl')->where('inserted','0')->get()->take(100);
+       $old_company_users_data = DB::table('usertbl')->where('inserted','0')->get()->take(10);
 
         dd($old_company_users_data);
 
