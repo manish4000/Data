@@ -709,25 +709,33 @@ class CompanyController extends Controller
 
         $country = Country::get(['id as value' ,'name']);
 
+        
 
         $BusinessTypes = BusinessType::whereNotNull('name')->where('is_service', 'No')->get([ "id as value", "name"]);
+        
 
         $status = json_decode(json_encode($this->status));
 
+       
         $data = Company::with(['contcatPersonDetails','documents'])->find($id);
-
+     
         $telephone  = (isset($data->telephone) && ($data->telephone != '') && ($data->telephone != null) ) ? explode('_',$data->telephone) : null;
         $data->telephone = ($telephone != null) ? $telephone[1] : null;
 
-        $company_tel_country_code = (isset($telephone[0]))? $telephone[0] :'';
-        $data->business_type_id  = json_decode($data->business_type_id);
-        $permissions = CompanyMenuGroupMenu::where('parent_id', 0)->get();
-        $types = Type::get(['id as value' ,'name']);  
-        
-        $country_phone_code =  Country::select('phone_code as value' ,'country_code' ,DB::raw("CONCAT(country_code,' (',phone_code ,')' ) AS name"))->where('phone_code','!=' ,null)->where('country_code','!=' ,null)->get(['phone_code','country_code']);
+      // dd($telephone);
 
-        return view('content.admin.company.new_edit',['country_phone_code' => $country_phone_code,'company_tel_country_code' => $company_tel_country_code ,'types' => $types,'data' => $data,'permissions' =>$permissions ,'status' =>$status ,
-        'country' => $country , 'BusinessTypes' => $BusinessTypes , 'pageConfigs' => $pageConfigs ,'breadcrumbs' =>$breadcrumbs ]);
+        $company_tel_country_code = (isset($telephone[0]))? $telephone[0] :null;  
+
+        
+        $data->business_type_id  = $data->business_type_id;
+
+        $permissions = CompanyMenuGroupMenu::where('parent_id', 0)->get();
+        
+        $types = Type::get(['id as value' ,'name']);  
+       
+        $country_phone_code =  Country::select('phone_code as value' ,'country_code' ,DB::raw("CONCAT(country_code,' (',phone_code ,')' ) AS name"))->where('phone_code','!=' ,null)->where('country_code','!=' ,null)->get(['phone_code','country_code']);
+        
+        return view('content.admin.company.new_edit',['country_phone_code' => $country_phone_code,'company_tel_country_code' => $company_tel_country_code ,'types' => $types,'data' => $data,'permissions' =>$permissions ,'status' =>$status ,'country' => $country , 'BusinessTypes' => $BusinessTypes , 'pageConfigs' => $pageConfigs ,'breadcrumbs' =>$breadcrumbs ]);
     }
 
     /**

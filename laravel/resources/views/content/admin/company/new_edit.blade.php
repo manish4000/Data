@@ -104,12 +104,6 @@
             </div>
 
             <div class="col-md-4">
-                  {{-- <div class="form-group">
-                    <x-admin.form.inputs.text id="" for="telephone" label="{{__('webCaption.telephone.title')}}"  tooltip="{{__('webCaption.telephone.caption')}}" maxlength="20" class="form-control" name="telephone"  placeholder="{{__('webCaption.telephone.title')}}" value="{{old('telephone',$data->telephone)}}"  required="required" />
-                    @if($errors->has('telephone'))
-                      <x-admin.form.form_error_messages message="{{ $errors->first('telephone') }}"  />
-                    @endif
-                  </div> --}}
                   
                   <div class="row">
                     <div class="col-4">
