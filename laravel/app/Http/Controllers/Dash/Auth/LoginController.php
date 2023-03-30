@@ -57,8 +57,12 @@ class LoginController extends Controller
 
     public function loginWithId(Request $request){
 
+        if(Auth::guard('dash')->check()) {
+            auth()->guard('dash')->logout();
+            Session::flush();
+        }
+
         $id = Crypt::decrypt($request->id);
-       
         $user  = CompanyUsers::where('company_id',$id)->where('user_type',1)->first();
         
         Auth::guard('dash')->login($user);
