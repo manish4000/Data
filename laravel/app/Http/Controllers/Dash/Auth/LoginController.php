@@ -59,6 +59,7 @@ class LoginController extends Controller
 
         $id = Crypt::decrypt($request->id);
         $user  = CompanyUsers::where('company_id',$id)->where('user_type',1)->first();
+        dd($user);
         Auth::guard('dash')->login($user);
         return redirect('/dashboard');
 
