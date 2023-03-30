@@ -59,7 +59,6 @@ class LoginController extends Controller
 
         auth()->guard('dash')->logout();
         Session::flush();
-                    
         $id = Crypt::decrypt($request->id);
         $user  = CompanyUsers::where('company_id',$id)->where('user_type',1)->first();
         
