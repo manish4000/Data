@@ -15,9 +15,6 @@
         });
     }
 
-    $(document ).ready(function() {
-        $('.select2').select2();
-    });
 
 
     function imageValidation(id,maxFileSize,fileType ){

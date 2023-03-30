@@ -419,7 +419,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {   
-        dd("update");
+       
         // $user = Auth::user();
         // if (!$user->can('update-user')) {
         //     abort(403);
