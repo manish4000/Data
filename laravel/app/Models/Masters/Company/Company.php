@@ -36,7 +36,7 @@ class Company extends Model
     public function scopeKeywordFilter($query, $keyword)
     {
         return $query->where( function($query) use ($keyword) {
-            $query->where('name', 'like', '%'.$keyword.'%')->orWhere( 'company_name', 'like', '%'.$keyword.'%');
+            $query->where('name', 'like', '%'.$keyword.'%')->orWhere( 'company_name', 'like', '%'.$keyword.'%')->orWhere('email','like','%'.$keyword.'%');
         });
     }
     
