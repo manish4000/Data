@@ -271,6 +271,7 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {   
+       
 
         if($request->id){
             if (!Auth::user()->can('main-navigation-company-edit')) {
@@ -300,7 +301,7 @@ class CompanyController extends Controller
             'postcode' => 'nullable|string|max:15',
             'region_id' => 'nullable|numeric',
             'telephone' => 'nullable|string|max:20',
-            'country_code' => 'required_if:telephone ,!=,null',
+            'country_code' => 'required_with:telephone',
             'skype_id'=> 'nullable|string|max:25',
             'website'=> 'nullable|string|max:20',
             'logo'=> 'nullable|image|mimes:jpeg,png,jpg,gif|max:6120',
@@ -353,6 +354,7 @@ class CompanyController extends Controller
 
                 'telephone.string'=> __('webCaption.validation_string.title', ['field'=> "Telephone"] ),
                 'telephone.max'=> __('webCaption.validation_max.title', ['field'=> "Telephone" ,"max" => "20"] ),
+                'country_code.required_with' => __('webCaption.validation_required.title', ['field'=> "Country Code" ] ),
 
                 'skype_id.string'=> __('webCaption.validation_string.title', ['field'=> "Skype"] ),
                 'skype_id.max'=> __('webCaption.validation_max.title', ['field'=> "Skype" ,"max" => "25"] ),
@@ -722,19 +724,19 @@ class CompanyController extends Controller
         $telephone  = (isset($data->telephone) && ($data->telephone != '') && ($data->telephone != null) ) ? explode('_',$data->telephone) : null;
         $data->telephone = ($telephone != null) ? $telephone[1] : null;
 
-      // dd($telephone);
-
+ 
         $company_tel_country_code = (isset($telephone[0]))? $telephone[0] :null;  
 
         
-        $data->business_type_id  = $data->business_type_id;
+        $data->business_type_id  = json_decode($data->business_type_id);
 
         $permissions = CompanyMenuGroupMenu::where('parent_id', 0)->get();
         
         $types = Type::get(['id as value' ,'name']);  
        
         $country_phone_code =  Country::select('phone_code as value' ,'country_code' ,DB::raw("CONCAT(country_code,' (',phone_code ,')' ) AS name"))->where('phone_code','!=' ,null)->where('country_code','!=' ,null)->get(['phone_code','country_code']);
-        
+
+
         return view('content.admin.company.new_edit',['country_phone_code' => $country_phone_code,'company_tel_country_code' => $company_tel_country_code ,'types' => $types,'data' => $data,'permissions' =>$permissions ,'status' =>$status ,'country' => $country , 'BusinessTypes' => $BusinessTypes , 'pageConfigs' => $pageConfigs ,'breadcrumbs' =>$breadcrumbs ]);
     }
 
@@ -748,7 +750,7 @@ class CompanyController extends Controller
     public function update(Request $request, $id)
     {   
      
-
+      
         $request->validate(
             [
             'company_name' => 'required|max:255|unique:companies,company_name,'.$request->id, 
@@ -763,7 +765,7 @@ class CompanyController extends Controller
             'postcode' => 'nullable|string|max:15',
             'region_id' => 'nullable|numeric',
             'telephone' => 'required|string|max:20',
-          
+            'country_code' => 'required_with:telephone',
             'skype_id'=> 'nullable|string|max:25',
             'website'=> 'nullable|string|max:75',
             'logo'=> 'nullable|image|mimes:jpeg,png,jpg,gif|max:6120',
@@ -823,7 +825,7 @@ class CompanyController extends Controller
 
                 'telephone.string'=> __('webCaption.validation_string.title', ['field'=> "Telephone"] ),
                 'telephone.max'=> __('webCaption.validation_max.title', ['field'=> "Telephone" ,"max" => "20"] ),
-
+                'country_code.required_with' => __('webCaption.validation_required.title', ['field'=> "Country Code" ] ),
                 'skype_id.string'=> __('webCaption.validation_string.title', ['field'=> "Skype"] ),
                 'skype_id.max'=> __('webCaption.validation_max.title', ['field'=> "Skype" ,"max" => "25"] ),
 
