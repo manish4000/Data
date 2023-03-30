@@ -99,7 +99,7 @@ class CompanyController extends Controller
             'email' => $value->emailOne, 
             'short_name' => $shortName ,
             'password' => Hash::make($value->password),
-            'status' => $value->status,
+            'status' => ucwords($value->status),
             'address' => $address,
             'city_id' => $city_id,
             'state_id' => $state_id,
