@@ -29,6 +29,7 @@ $(function () {
 
   // Custom Icons
   if (customIconsTree.length) {
+   
     customIconsTree.jstree({
       core: {
         data: [
@@ -116,8 +117,12 @@ $(function () {
     });
   }
 
+
+
+  
   // Context Menu
   if (contextMenu.length) {
+  
     contextMenu.jstree({
       core: {
         check_callback: true,
@@ -208,6 +213,7 @@ $(function () {
 
   // Drag Drop
   if (dragDrop.length) {
+  
     dragDrop.jstree({
       core: {
         check_callback: true,
@@ -298,6 +304,8 @@ $(function () {
 
   // Checkbox
   if (checkboxTree.length) {
+
+
     checkboxTree.jstree({
       core: {
         data: [
