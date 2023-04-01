@@ -9,6 +9,8 @@ use App\Models\Company\CompanyContactPersonDetails;
 use App\Models\Company\CompanyDocument;
 use App\Models\Company\CompanyMenuGroupMenu;
 use App\Models\Company\CompanyPermission;
+use App\Models\Company\CompanyPlanModel;
+use App\Models\Company\CompanyPlanPermissionModel;
 use App\Models\Dash\CompanyUsers;
 use App\Models\Masters\Company\BusinessType;
 use App\Models\Masters\Company\Company;
@@ -248,7 +250,8 @@ class CompanyController extends Controller
         $defaultLang = SiteLanguage::where('alias',app()->getLocale())->value('id');    
         //return self::select(DB:raw('sum("json_extract('json_details', '$.salary')") ('title_languages->'.$siteLang->id.'->title as name')
 
-
+        $plans = CompanyPlanModel::select('id as value','title as name')->get();
+    
         $types = Type::Select('id as value','name','title_languages->'.$siteLang->id.'->title as language_name')->get();        
  
 
@@ -260,7 +263,7 @@ class CompanyController extends Controller
         }
         $country_phone_code =  Country::select('phone_code as value' ,'country_code' ,DB::raw("CONCAT(country_code,' (',phone_code ,')' ) AS name"))->where('phone_code','!=' ,null)->where('country_code','!=' ,null)->get(['phone_code','country_code']);
 
-        return view("content.admin.company.new_create",[ 'country_phone_code' => $country_phone_code, 'types' => $types,'pageConfigs' => $pageConfigs ,'permissions' => $permissions,'country' => $country ,'breadcrumbs' => $breadcrumbs, 'status' =>$status,'BusinessTypes' => $BusinessTypes ]);
+        return view("content.admin.company.new_create",[ 'country_phone_code' => $country_phone_code,'plans' => $plans, 'types' => $types,'pageConfigs' => $pageConfigs ,'permissions' => $permissions,'country' => $country ,'breadcrumbs' => $breadcrumbs, 'status' =>$status,'BusinessTypes' => $BusinessTypes ]);
     }
 
     /**
@@ -306,8 +309,8 @@ class CompanyController extends Controller
             'website'=> 'nullable|string|max:20',
             'logo'=> 'nullable|image|mimes:jpeg,png,jpg,gif|max:6120',
             'document.*'=> 'nullable|mimes:jpeg,png,jpg,gif,pdf|max:6120',
-            'package_id' => 'nullable|numeric',
-            'business_type_id' => 'nullable|numeric',
+            'plan_id' => 'nullable|numeric',
+            'business_type_id.*' => 'nullable|numeric',
             'association_member_id' => 'nullable|numeric',
             'permit_no' => "nullable|string|max:250",
             'admin_comment' => 'nullable|string|max:250',
@@ -370,9 +373,9 @@ class CompanyController extends Controller
                 'document.*.mimes'=> __('webCaption.validation_mimes.title', ['field'=> "Document","fileTypes" => "jpeg,png,jpg,gif"] ),
                 'document.*.max'=> __('webCaption.validation_max_file.title', ['field'=> "Document","max" => "6120"] ),
 
-                'package_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "Package Id"] ),
+                'plan_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "Plan"] ),
 
-                'business_type_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "business Type"] ),
+                'business_type_id.*.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "business Type"] ),
 
                 'association_member_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "Association Member Id"] ),
 
@@ -451,7 +454,7 @@ class CompanyController extends Controller
               $company_model->telephone = $request->country_code."_".$request->telephone;  
               $company_model->skype_id = $request->skype_id;  
               $company_model->website = $request->website;  
-              $company_model->package_id = $request->package_id;  
+              $company_model->plan_id = $request->plan_id;  
               $company_model->association_member_id = $request->association_member_id;  
               $company_model->permit_no = $request->permit_no;  
               $company_model->admin_comment = $request->admin_comment;  
@@ -478,6 +481,9 @@ class CompanyController extends Controller
               if($company_model->save()){
 
                 if(!isset($request->id)){
+
+                    $company_user_permissions =   CompanyPlanPermissionModel::where('company_plan_id',$request->plan_id)->value('permissions');
+
                     $company_users_model =  new CompanyUsers;
                     $status = ($request->status == 'Permitted')?'Permitted' : 'Blocked';
                     $company_user_data = [
@@ -490,9 +496,10 @@ class CompanyController extends Controller
                         'created_at'=> \Carbon\Carbon::now()->toDateTimeString(),
                         'updated_at'=> \Carbon\Carbon::now()->toDateTimeString(),
                         ];
-                          $company_users_model->create($company_user_data);
-                        // $company_user_add_permission  = CompanyUsers::find($company_user->id);
-                        // $company_user_add_permission->permissions()->attach($request->permissions);
+                        $company_user_id =  $company_users_model->insertGetId($company_user_data);
+
+                        $company_user_add_permission  = CompanyUsers::find($company_user_id);
+                        $company_user_add_permission->permissions()->attach($company_user_permissions);
 
                 }
   
@@ -728,6 +735,7 @@ class CompanyController extends Controller
         $company_tel_country_code = (isset($telephone[0]))? $telephone[0] :null;  
 
         
+        $plans = CompanyPlanModel::select('id as value','title as name')->get();
         $data->business_type_id  = json_decode($data->business_type_id);
 
         $permissions = CompanyMenuGroupMenu::where('parent_id', 0)->get();
@@ -737,7 +745,7 @@ class CompanyController extends Controller
         $country_phone_code =  Country::select('phone_code as value' ,'country_code' ,DB::raw("CONCAT(country_code,' (',phone_code ,')' ) AS name"))->where('phone_code','!=' ,null)->where('country_code','!=' ,null)->get(['phone_code','country_code']);
 
 
-        return view('content.admin.company.new_edit',['country_phone_code' => $country_phone_code,'company_tel_country_code' => $company_tel_country_code ,'types' => $types,'data' => $data,'permissions' =>$permissions ,'status' =>$status ,'country' => $country , 'BusinessTypes' => $BusinessTypes , 'pageConfigs' => $pageConfigs ,'breadcrumbs' =>$breadcrumbs ]);
+        return view('content.admin.company.new_edit',['country_phone_code' => $country_phone_code,'plans' => $plans,'company_tel_country_code' => $company_tel_country_code ,'types' => $types,'data' => $data,'permissions' =>$permissions ,'status' =>$status ,'country' => $country , 'BusinessTypes' => $BusinessTypes , 'pageConfigs' => $pageConfigs ,'breadcrumbs' =>$breadcrumbs ]);
     }
 
     /**
@@ -750,7 +758,6 @@ class CompanyController extends Controller
     public function update(Request $request, $id)
     {   
      
-      
         $request->validate(
             [
             'company_name' => 'required|max:255|unique:companies,company_name,'.$request->id, 
@@ -764,14 +771,14 @@ class CompanyController extends Controller
             'country_id' => 'nullable|numeric',
             'postcode' => 'nullable|string|max:15',
             'region_id' => 'nullable|numeric',
-            'telephone' => 'required|string|max:20',
+            'telephone' => 'nullable|string|max:20',
             'country_code' => 'required_with:telephone',
             'skype_id'=> 'nullable|string|max:25',
             'website'=> 'nullable|string|max:75',
             'logo'=> 'nullable|image|mimes:jpeg,png,jpg,gif|max:6120',
             'document.*'=> 'nullable|mimes:jpeg,png,jpg,gif,pdf|max:6120',
-            'package_id' => 'nullable|numeric',
-            'business_type_id' => 'nullable|numeric',
+            'plan_id' => 'nullable|numeric',
+            'business_type_id.*' => 'nullable|numeric',
             'association_member_id' => 'nullable|numeric',
             'permit_no' => "nullable|string|max:250",
             'admin_comment' => 'nullable|string|max:250',
@@ -840,9 +847,9 @@ class CompanyController extends Controller
                 'document.*.mimes'=> __('webCaption.validation_mimes.title', ['field'=> "Document","fileTypes" => "jpeg,png,jpg,gif,pdf"] ),
                 'document.*.max'=> __('webCaption.validation_max_file.title', ['field'=> "Document","max" => "6120"] ),
 
-                'package_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "Package Id"] ),
+                'plan_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "Plan"] ),
 
-                'business_type_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "business Type"] ),
+                'business_type_id.*.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "business Type"] ),
 
                 'association_member_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "Association Member Id"] ),
 
@@ -924,10 +931,10 @@ class CompanyController extends Controller
         $company_model->country_id = $request->country_id;  
         $company_model->postcode = $request->postcode;  
         $company_model->region_id = $request->region_id;  
-        $company_model->telephone =  $request->country_code."_".$request->telephone;   
+        $company_model->telephone =  ($request->telephone)? $request->country_code."_".$request->telephone : null;   
         $company_model->skype_id = $request->skype_id;  
         $company_model->website = $request->website;  
-        $company_model->package_id = $request->package_id;  
+        $company_model->plan_id = $request->plan_id;  
         $company_model->association_member_id = $request->association_member_id;  
         $company_model->permit_no = $request->permit_no;  
         $company_model->admin_comment = $request->admin_comment;  
@@ -991,6 +998,7 @@ class CompanyController extends Controller
             
             $status = ($request->status == 'Permitted')?'Permitted' : 'Blocked';               
 
+            $company_user_permissions =   CompanyPlanPermissionModel::where('company_plan_id',$request->plan_id)->value('permissions');
 
             if($request->has('password')){
 
@@ -1013,10 +1021,10 @@ class CompanyController extends Controller
             }
 
 
+                $company_users_model->update($company_user_data);
 
-                $company_user  =  $company_users_model->update($company_user_data);
-                // $company_user_add_permission  = CompanyUsers::find($company_user->id);
-                // $company_user_add_permission->permissions()->attach($request->permissions);
+                $company_user_add_permission  = CompanyUsers::find($company_users_model->id);
+                $company_user_add_permission->permissions()->sync($company_user_permissions);
 
         }
 
