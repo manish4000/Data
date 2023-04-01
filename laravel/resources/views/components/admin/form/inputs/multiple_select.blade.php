@@ -9,7 +9,7 @@
     'optionData',
     'oldValues',
     'required',
-    'editSelected'
+    'editSelected',
 ])
 
 
