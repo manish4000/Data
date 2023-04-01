@@ -5,6 +5,17 @@
 @section('title', __('webCaption.add_department.title'))
 @endif
 
+
+@section('vendor-style')
+  <!-- vendor css files -->
+  <link rel="stylesheet" href="{{ asset(mix('fonts/font-awesome/css/font-awesome.min.css'))}}">
+  <link rel="stylesheet" href="{{ asset(mix('vendors/css/extensions/jstree.min.css'))}}">
+@endsection
+@section('page-style')
+  <!-- Page css files -->
+  <link rel="stylesheet" href="{{ asset(mix('css/base/plugins/extensions/ext-component-tree.css')) }}">
+@endsection
+
 @section('content')
 <form action="{{ route('department.store')}}" method="POST">
 @csrf
@@ -31,7 +42,56 @@
               <x-admin.form.inputs.text tooltip="{{__('webCaption.slug.caption')}}" label="{{__('webCaption.slug.title')}}" maxlength="150" for="slug" name="slug"  placeholder="{{ __('webCaption.slug.title') }}" value="{{old('slug', isset($data->slug)?$data->slug:'' )}}"  required="required" />
             </div>    
           </div>
-      </div>       
+      </div>  
+      <div class="row">
+        <div class="row mt-2">
+          <div class=" m-2 col-md-12">
+
+            <x-admin.form.label for="" tooltip="{{__('webCaption.permission.caption')}}" value="{{__('webCaption.permission.title')}}" class="" />
+            <div>             
+              @if ($permissions)
+                @foreach($permissions as $key => $per_data)
+
+                <?php 
+                $group_name =  DB::table('menu_groups')->where('id', $key)->value('title');
+                ?>
+                  <div class="m-1 ">   <h4 class="text-primary">{{$group_name}} </h4>  </div>
+                  
+                  
+                    <div class="jstree-basic"> 
+                      @foreach ( $per_data as $permission )
+                          <ul>
+                            <?php
+                              $checked_permission =  ( isset($data->permissions) && in_array($permission->id ,$data->permissions))? 'checked' : '';
+                            ?>
+                              @if(count($permission->menuChild) > 0)
+  
+                                <li class="jstree-open" data-jstree='{ "icon" : "fa fa-key"}'>
+                                  <label class="form-check-label">
+                                  
+                                    <x-admin.form.inputs.checkbox  for="{{$permission->id}}permission" name="permissions[]" label="{{ $permission->title }}" checked="{{$checked_permission}}"  value="{{ $permission->id }}"  customClass="form-check-input"  />													
+                                  </label>
+                                  @include('content.admin.department.child_list',['items' => $permission->menuChild ]) 												
+                                </li>
+                              @else
+                                <li>
+                                  <label class="form-check-label">
+                                    <x-admin.form.inputs.checkbox  for="{{$permission->id}}permission" name="permissions[]" label="{{ $permission->title }}" checked="{{$checked_permission}}"  value="{{ $permission->id }}"  customClass="form-check-input"  />
+                                  </label>
+                                </li>
+                              @endif
+                          
+                          </ul>
+                      @endforeach
+                    </div>
+                  
+                @endforeach    
+
+              @endif
+            </div>
+          </div>
+        </div>
+      </div>     
     </div>
   </div>
   
@@ -44,5 +104,28 @@
 @endsection
 
 @push('script')
+<script src="{{ asset(mix('vendors/js/extensions/jstree.min.js')) }}"></script>
+  <!-- Page js files -->
+  <script src="{{ asset(mix('js/scripts/extensions/ext-component-tree.js')) }}"></script>
+
   <script src="{{ asset('assets/js/gabs/master.js') }}"></script>
+				
+  <script type="text/javascript">
+  	$(document).ready(function() {
+  		$(".jstree-basic ul li a, .jstree-basic ul li ul li a").each(function() {
+        
+
+  		  var attributes = $.map(this.attributes, function(item) {
+		    return item.name;
+
+		  });
+
+      
+		  var img = $(this);
+		  $.each(attributes, function(i, item) {
+		    img.removeAttr(item);
+		  });
+		});
+  	})
+  </script>
 @endpush
