@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Department;
+use App\Models\DepartmentPermission;
 use App\Models\Masters\Country;
 use App\Models\Menu;
 use Illuminate\Http\Request;
@@ -97,7 +98,7 @@ class UserController extends Controller
         $roles = Role::all();
       //  $permissions = Permission::where('parent_id', 0)->get();
            //change for testing  
-        $permissions = Menu::where('parent_id', 0)->get();
+        $permissions = Menu::with('menuGroup')->where('parent_id', 0)->get()->groupBy('menu_group_id');
 
         $departments =  Department::select('id as value','title as name')->get();
          
@@ -161,7 +162,7 @@ class UserController extends Controller
         $roles = Role::all();
         //change for testing
 
-        $permissions = Menu::where('parent_id', 0)->get();
+        $permissions = Menu::with('menuGroup')->where('parent_id', 0)->get()->groupBy('menu_group_id');
 
         $pageConfigs = [
             'moduleName' => __('webCaption.users.title'), 
@@ -178,6 +179,38 @@ class UserController extends Controller
 
     }
 
+
+    public function showPermission($id){
+
+        $pageConfigs = [
+            'moduleName' => __('webCaption.users.title'), 
+            'baseUrl' => $this->baseUrl, 
+        ];
+        $breadcrumbs[0] = [
+            'link' => $this->baseUrl,
+            'name' => __('webCaption.list.title')
+        ];
+
+        $user = User::with(['roles', 'permissions'])->find($id);
+        $permissions = Menu::with('menuGroup')->where('parent_id', 0)->get()->groupBy('menu_group_id');
+
+        return view('content.admin.user.permission',['breadcrumbs' =>$breadcrumbs,'user' => $user,'menuUrl' => $this->menuUrl,'pageConfigs' => $pageConfigs ,'permissions' => $permissions ]);
+    }
+
+    public function updatePermission(Request $request){
+
+        $userModel =    User::find($request->id);
+        
+        if($userModel->permissions()->sync($request->permissions)){
+            $message =  __('webCaption.alert_updated_successfully.title');
+            return redirect()->route('users.index')->with('success_message' ,$message );
+        }else{
+
+        }
+
+
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -186,7 +219,6 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {     
-     
         if($request->id){
             if (!Auth::user()->can('settings-users-edit')) {
                 abort(403);
@@ -209,6 +241,8 @@ class UserController extends Controller
             if (!Auth::user()->can('settings-users-add')) {
                 abort(403);
             }
+
+
             $userModel = new User();
             $userModel->password = bcrypt($request->password);
         }    
@@ -244,6 +278,11 @@ class UserController extends Controller
             ]);
         }
 
+        $requestDepartments =  ($request->department_id == null || $request->department_id == '') ? [] : $request->department_id;
+        
+        $permissions =  DepartmentPermission::whereIn('department_id',$requestDepartments)->get(['menu_id']);
+
+        $userPermissions = (!empty($permissions) ) ? (array_column( json_decode(json_encode($permissions), true),'menu_id')) : [];
 
         $userModel->email = $request->email;
         $userModel->name = $request->name;
@@ -256,19 +295,19 @@ class UserController extends Controller
                  $department_id   = json_encode($request->department_id);
             }    
         } 
-
         $userModel->department_id =   (isset($department_id)) ? $department_id : null; 
+
 
         // $userModel->username = $request->username;
 
         if ( $userModel->save()) {
             if($request->id){
                 $userModel->roles()->sync($request->roles);
-                $userModel->permissions()->sync($request->permissions);
+                $userModel->permissions()->sync($userPermissions);
                 $message =  $request->name." ". __('webCaption.alert_updated_successfully.title');
             }else{
                 $userModel->roles()->attach($request->roles);
-                $userModel->permissions()->attach($request->permissions);
+                $userModel->permissions()->attach($userPermissions);
                 $message =  $request->name." ". __('webCaption.alert_added_successfully.title');
             }
             return redirect()->route('users.index')->with('success_message' ,$message );
@@ -420,10 +459,10 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {   
        
-        // $user = Auth::user();
-        // if (!$user->can('update-user')) {
-        //     abort(403);
-        // }
+        $user = Auth::user();
+        if (!$user->can('update-user')) {
+            abort(403);
+        }
 
       
         if (!Auth::user()->can('users-edit')) {
