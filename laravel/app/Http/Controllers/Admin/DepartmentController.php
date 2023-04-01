@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Department;
+use App\Models\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Facades\Auth;
@@ -78,7 +79,9 @@ class DepartmentController extends Controller
             'link' => $this->baseUrl,
             'name' => __('webCaption.list.title')
         ];
-        return view('content.admin.department.create',['breadcrumbs' => $breadcrumbs ,'menuUrl' =>$this->menuUrl]);
+
+        $permissions = Menu::with('menuGroup')->where('parent_id', 0)->get()->groupBy('menu_group_id');
+        return view('content.admin.department.create',['breadcrumbs' => $breadcrumbs ,'menuUrl' =>$this->menuUrl,'permissions' => $permissions]);
     }
 
     /**
@@ -88,7 +91,8 @@ class DepartmentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
+
         if($request->id){
             if (!Auth::user()->can('main-navigation-master-department-edit')) {
                 abort(403);
@@ -117,7 +121,15 @@ class DepartmentController extends Controller
         $departmentModel->slug = $request->slug;
 
         if($departmentModel->save()){
-            $message = (isset($request->id)) ? $request->title ." ". __('webCaption.alert_updated_successfully.title') : $request->title." ".__('webCaption.alert_added_successfully.title') ;
+            
+            if($request->id){
+                $departmentModel->permissions()->sync($request->permissions);
+                $message =  $request->title." ". __('webCaption.alert_updated_successfully.title');
+            }else{
+                $departmentModel->permissions()->attach($request->permissions);
+                $message =  $request->title." ". __('webCaption.alert_added_successfully.title');
+            }
+
             return redirect()->route('department.index')->with('success_message' ,$message );
         }else{
             return redirect()->route('department.index')->with(['error_message' => __('webCaption.alert_somthing_wrong.title') ]);
@@ -147,13 +159,19 @@ class DepartmentController extends Controller
         if (!Auth::user()->can('main-navigation-master-department-edit')) {
             abort(403);
         }
-        $data =  Department::find($id);
+        $data =  Department::with(['permissions' => function($x){
+            $x->select('menu_id');
+        }])->find($id);
+
+        $data->permissions =   array_column($data->permissions->toArray() ,'menu_id');
         $breadcrumbs[0] = [
             'link' => $this->baseUrl,
             'name' => __('webCaption.list.title')
-         ];
-
-        return view('content.admin.department.create',['data' => $data,'breadcrumbs' => $breadcrumbs ,'menuUrl' =>$this->menuUrl]); 
+        ];
+        $permissions = Menu::with('menuGroup')->where('parent_id', 0)->get()->groupBy('menu_group_id');
+      
+        // dd($permissions);
+        return view('content.admin.department.create',['data' => $data,'permissions' => $permissions ,'breadcrumbs' => $breadcrumbs ,'menuUrl' =>$this->menuUrl]); 
     }
 
 
