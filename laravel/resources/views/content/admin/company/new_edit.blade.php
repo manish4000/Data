@@ -7,7 +7,6 @@
 <!-- users edit start -->
 
 
-
 <form action="{{route('company.update',$data->id)}}" method="POST"  enctype="multipart/form-data">
 
   @csrf
@@ -113,7 +112,7 @@
                     </div>
                     <div class="col-8">
                       <div class="form-group">
-                                  <x-admin.form.inputs.text id="" for="telephone"  tooltip="{{__('webCaption.telephone.caption')}}" label="{{__('webCaption.telephone.title')}}" maxlength="20"  name="telephone"  placeholder="{{__('webCaption.telephone.title')}}" value="{{old('telephone', isset($data->telephone)?$data->telephone:'' )}}"  required="required" />
+                                  <x-admin.form.inputs.text id="" for="telephone"  tooltip="{{__('webCaption.telephone.caption')}}" label="{{__('webCaption.telephone.title')}}" maxlength="20"  name="telephone"  placeholder="{{__('webCaption.telephone.title')}}" value="{{old('telephone', isset($data->telephone)?$data->telephone:'' )}}"  required="" />
                                   
                       </div>
                     </div>
@@ -158,7 +157,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
-                  <x-admin.form.inputs.select tooltip="{{__('webCaption.package.caption')}}" label="{{__('webCaption.package.title')}}"  id="" for="package_id" name="package_id" placeholder="{{__('webCaption.package_id.title')}}" editSelected="{{old('package_id',$data->package_id)}}"  required="" :optionData="[]" />
+                  <x-admin.form.inputs.select tooltip="{{__('webCaption.plan.caption')}}" label="{{__('webCaption.plan.title')}}"  id="" for="plan_id" name="plan_id" placeholder="{{__('webCaption.plan_id.title')}}" editSelected="{{old('plan_id',$data->plan_id)}}"  required="" :optionData="$plans" />
                 </div>
             </div>
             @php if(isset($data->business_type_id)){

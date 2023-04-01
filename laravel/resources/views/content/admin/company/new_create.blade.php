@@ -155,13 +155,13 @@
                <div class="row">
                   <div class="col-md-4">
                      <div class="form-group">
-                        <x-admin.form.inputs.select  tooltip="{{__('webCaption.package.caption')}}" label="{{__('webCaption.package.title')}}"  id="" for="package_id" name="package_id" placeholder="{{__('webCaption.package_id.title')}}" editSelected=""  required="" :optionData="[]" />
+                        <x-admin.form.inputs.select  tooltip="{{__('webCaption.plan.caption')}}" label="{{__('webCaption.plan.title')}}"  id="" for="package_id" name="plan_id" placeholder="{{__('webCaption.plan_id.title')}}" editSelected=""  required="" :optionData="$plans" />
                      </div>
                   </div>
                   
                   <div class="col-md-4">
                      <div class="form-group">
-                        <x-admin.form.inputs.multiple_select tooltip="{{__('webCaption.business_type.caption')}}" label="{{__('webCaption.business_type.title')}}"  id="" for="business_type_id" name="business_type_id[]" placeholder="{{__('webCaption.business_type_id.title')}}" :oldValues="old('business_type_id')" :editSelected=" "  required="" :optionData="$BusinessTypes" />
+                        <x-admin.form.inputs.multiple_select tooltip="{{__('webCaption.business_type.caption')}}" label="{{__('webCaption.business_type.title')}}"  id="" for="business_type_id" name="business_type_id[]" placeholder="{{__('webCaption.business_type_id.title')}}" :oldValues="old('business_type_id')" :editSelected="[]"  required="" :optionData="$BusinessTypes" />
                         
                      </div>
                   </div>
