@@ -51,6 +51,8 @@
 										</th>
 										<th scope="col" data-toggle="tooltip" title="{{__('webCaption.qr_scan.caption')}}"  > {{__('webCaption.qr_scan.title')}}
 										</th>
+										<th scope="col" data-toggle="tooltip" title="{{__('webCaption.permission.caption')}}"  > {{__('webCaption.permission.title')}}
+										</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -76,6 +78,7 @@
 												@can('settings-users-delete')
 													<x-admin.form.buttons.delete id="{{$user->id}}" name="{{$user->name}}" url="{{route('users.delete')}}" action="{{route('users.delete', $user->id) }}" />   
 												@endcan
+												
 											</td>
 											<td>
 												@if(isset($user->google2fa_secret))
@@ -85,6 +88,9 @@
 													<a    data-toggle="tooltip"  title="{{__('webCaption.add_qr_code.caption')}}" data-id="{{$user->id}}"  class="2faModelCreate"> <i class="fa fa-plus " aria-hidden="true"></i> &nbsp; <i class="fa fa-qrcode text-dark "></i>
 													</a>
 												@endif
+											</td>
+											<td>
+												<x-admin.form.buttons.permission href="{{ route('users.permission', $user->id) }}" />&ensp;
 											</td>
 										</tr>
 									@endforeach
