@@ -209,8 +209,44 @@ class MenuGroupController extends Controller
         $selectableMenuData = $this->listSelectableMenuData($menusWithoutParent, $arrayData);
         $modules = CompanyModule::select('id as value' ,'title as name')->get();
 
-        return view('content.admin.company.menuGroup.listMenu', ['breadcrumbs'=>$breadcrumbs,'pageConfigs' => $pageConfigs,'menu_group' => $menu_group,'modules' => $modules,'data' => $data, 'permissionData' => $permissionData, 'selectableMenuData' => $selectableMenuData ,'menuUrl' => $this->menuUrl]);
+        return view('content.admin.company.menuGroup.listMenu', ['breadcrumbs'=>$breadcrumbs,'menuGroupId' => $id,'pageConfigs' => $pageConfigs,'menu_group' => $menu_group,'modules' => $modules,'data' => $data, 'permissionData' => $permissionData, 'selectableMenuData' => $selectableMenuData ,'menuUrl' => $this->menuUrl]);
     }
+
+            function makeTree($arr=[]) 
+
+            {   
+                $tree=[];
+                
+                foreach($arr as $item) {
+
+                    $child_lev_2  = CompanyMenuGroupMenu::with('menuChild')->where('id',$item['id'])->first()->toArray();
+                    array_push($tree,$item['id']);
+                    
+                    if(count($child_lev_2['menu_child']) > 0) {
+                        $item =  $this->makeTree($child_lev_2['menu_child']);
+                        array_push($tree ,$item);
+                    }
+                }
+                        return $tree;
+            }
+
+        function array_flatten($array)
+            {
+                $result = [];
+                foreach ($array as $element) {
+                if (is_array($element)) {
+                    $result = array_merge($result, $this->array_flatten($element));
+                } else {
+                    $result[] = $element;
+                }
+                }
+                return $result;
+            }
+
+
+
+
+
 
     //addMenu and updateMenu with single method  
 
@@ -226,12 +262,13 @@ class MenuGroupController extends Controller
             [
                 'title' => 'required|string',
                 // 'title' => 'required|string|unique:company_menu_groups_menu,title,'.$request->id.',id,deleted_at,NULL',
-                'slug' => 'required_if:type,==,menu|nullable|sometimes|unique:company_menu_groups_menu|regex:/^\S*$/u',
+                'slug' => 'required_if:type,==,menu|nullable|sometimes|regex:/^\S*$/u|unique:company_menu_groups_menu,slug,'.$request->id,
                 'icon' => 'required_if:type,==,menu',
                 'uri' => 'required_if:type,==,menu',
                 'company_menu_group_id' => 'required',
-                'permission_slug' =>'required|unique:menu',
-                'type' =>'required|in:permission,menu'
+                'permission_slug' =>'required|regex:/^\S*$/u|unique:company_menu_groups_menu,permission_slug,'.$request->id,
+                'type' =>'required|in:permission,menu',
+                'order' => 'nullable|numeric',
             ],
             [
                 'title.required'=> __('webCaption.validation_required.title', ['field'=> "title" ] ),
@@ -252,7 +289,20 @@ class MenuGroupController extends Controller
             ]
         );
 
-        $menu = new CompanyMenuGroupMenu();
+        if($request->id){
+            $menu = CompanyMenuGroupMenu::findOrFail($request->id);
+            
+             //this code for get ids of all childs of given id 
+             $menudata =  CompanyMenuGroupMenu::with('menuChild')->select('id','title')->find($request->id)->toArray();
+             $child_ids =  $this->makeTree($menudata['menu_child']) ;
+             $child_ids =   $this->array_flatten($child_ids);
+             //end code  
+        }else{
+            $menu = new CompanyMenuGroupMenu;
+        } 
+
+
+      
         $menu->title = $request->title;
         $menu->slug= $request->slug;
         $menu->uri = $request->uri;
@@ -264,8 +314,19 @@ class MenuGroupController extends Controller
         $menu->permissions = $request->items;
         $menu->company_module_id = $request->company_module_id;
         $menu->parent_id = isset($request->item_id) ? $request->item_id : 0;
+
         if($menu->save()){
-            return redirect()->route('company.menu-groups.menus', $menu->company_menu_group_id )->with(['success_message' => $request->title." ".__('webCaption.alert_added_successfully.title')]);
+
+            if($request->id){
+
+                $menu->whereIn('id',$child_ids)->update(['company_menu_group_id' => $request->company_menu_group_id]);
+
+                return redirect()->route('company.menu-groups.menus', $menu->company_menu_group_id )->with(['success_message' => $request->title." ".__('webCaption.alert_updated_successfully.title')]);
+            }else{
+
+                return redirect()->route('company.menu-groups.menus', $menu->company_menu_group_id )->with(['success_message' => $request->title." ".__('webCaption.alert_added_successfully.title')]);
+            }
+
         }else{
             return redirect()->route('company.menu-groups.menus', $menu->company_menu_group_id )->with(['error_message' =>  __('webCaption.alert_somthing_wrong.title')]);
         }      
@@ -345,6 +406,10 @@ class MenuGroupController extends Controller
             'name' => 'List'
         ]; 
 
+        $data = [];
+        $menuOrderData = $this->orderMenuData(0, 1, $data, $menu->company_menu_group_id);
+        $data = $menuOrderData;
+
         $menuList = CompanyMenuGroupMenu::select('id','title')->where(['parent_id' => 0, 'company_menu_group_id' => $menu->company_menu_group_id])->get();
 
         $groups = CompanyMenuGroup::select('id as value','title as name')->get();
@@ -353,7 +418,9 @@ class MenuGroupController extends Controller
         $permissionData = $this->listSelectableTreeData($permissions, $arrayData);
         $selectableMenuData = $this->listSelectableMenuData($menuList, $arrayData);
         $modules = CompanyModule::select('id as value' ,'title as name')->get();
-        return view('content.admin.company.menuGroup.editMenu', ['menu' => $menu,'modules' => $modules, 'selectableMenuData' => $selectableMenuData,'menuList' => $menuList, 'groups' => $groups, 'permissionData' => $permissionData,'pageConfigs' => $pageConfigs ,'breadcrumbs' => $breadcrumbs ,'menuUrl' => $this->menuUrl]);
+
+
+        return view('content.admin.company.menuGroup.listMenu', ['data' => $data,'menu' => $menu,'menuGroupId' => $menu->menu_group_id,'modules' => $modules, 'selectableMenuData' => $selectableMenuData,'menuList' => $menuList, 'groups' => $groups, 'permissionData' => $permissionData,'pageConfigs' => $pageConfigs ,'breadcrumbs' => $breadcrumbs ,'menuUrl' => $this->menuUrl]);
     }
 
 
