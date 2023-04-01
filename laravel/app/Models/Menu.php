@@ -30,6 +30,10 @@ class Menu extends Model
         return $this->belongsTo(static::class, 'parent_id');
     }
 
+    public function menuGroup(){
+        return $this->belongsTo(MenuGroup::class,'menu_group_id','id');
+    }
+
     //this is for testing purpose only
     public function users() {
         return $this->belongsToMany(User::class,'user_permissions');
