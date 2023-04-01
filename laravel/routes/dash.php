@@ -15,8 +15,6 @@ use Illuminate\Support\Facades\Route;
 
 
 
-
-
 Route::middleware('dash')->name('dash')->group(function(){
 
     Route::post('login-with-admin',"Dash\Auth\LoginController@loginWithId")->name('login-with-admin');
@@ -39,6 +37,12 @@ Route::middleware('dash')->name('dash')->group(function(){
 
         Route::group(['prefix'=>'inquries','namespace'=>'Dash','as' => 'inquries.'],function(){
             Route::get('/',function(){ return view('dash.content.blank',['message' => "Inquries listing Page "]); });
+        });
+
+        Route::group(['prefix'=>'company','namespace'=>'Dash','as' => 'company.'],function(){
+            Route::group(['prefix'=>'profile','as' => 'profile.'],function(){
+                Route::get('/',function(){ return view('dash.content.company.profile'); });
+            });
         });
 
         Route::group(['prefix'=>'proforma-manager','namespace'=>'Dash','as' => 'proforma-manager.'],function(){
