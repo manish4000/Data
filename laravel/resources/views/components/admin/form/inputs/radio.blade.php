@@ -6,18 +6,17 @@
     'value',
     'checked',
     'required',
-    'tooltip'
+    'tooltip',
+    'customClass'
 ])
 
 @php
-$border ="";
-    if($required == "required"){
-        $border ="border-color:red";
-    }
+$customClass = (isset($customClass)) ? $customClass : '';
 @endphp
 
+
 <div class="custom-control custom-checkbox">
-    <input style="{{$border}}"  type="radio" name='{{ $name }}' class="custom-control-input" id="{{ $for }}" value="{{ $value }}" {{$checked}} >
-    <label style="{{$border}}"  @if (isset($tooltip)) title="{{$tooltip}}"  @endif   data-toggle="tooltip"  class="custom-control-label" for="{{ $for }}">
+    <input   type="radio" name='{{ $name }}' class="custom-control-input {{$customClass}}" id="{{ $for }}" value="{{ $value }}" {{$checked}} >
+    <label   @if (isset($tooltip)) title="{{$tooltip}}"  @endif   data-toggle="tooltip"  class="custom-control-label" for="{{ $for }}">
         {{ $label }}</label>
 </div>
