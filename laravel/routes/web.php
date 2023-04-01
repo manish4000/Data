@@ -68,6 +68,8 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
     Route::post('users/delete','Admin\UserController@destroy')->name('users.delete');
     Route::resource('users', 'Admin\UserController');
     Route::get('users/edit/{id}', 'Admin\UserController@edit')->name('users.edit');
+    Route::get('users/permission/{id}', 'Admin\UserController@showPermission')->name('users.permission');
+    Route::post('users/permission/update', 'Admin\UserController@updatePermission')->name('users.update-permission');
     Route::get('users/update-status/{id}','Admin\UserController@updateStatus')->name('users.update-status');
     Route::post('users/add-two-step-verification','Admin\UserController@addTwoStapVerification')->name('users.2fa');
     Route::get('users/delete-two-step-verification/{id}','Admin\UserController@deleteTwoStapVerification')->name('users.delete-2fa');
@@ -87,6 +89,11 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
     Route::resource('menu-groups', 'Admin\MenuGroupController');
     Route::post('menu-groups/delete', [MenuGroupController::class, 'destroy'])->name('menu-groups.destroy');
     Route::resource('vehicle-type', 'Admin\Masters\TypeController');
+
+
+    Route::group(['prefix' =>'masters/company/marketing-status' ,'as' => 'marketing-status.','namespace' => 'Admin' ],function(){
+        Route::get('/', 'MarketingStatus@index')->name('index');
+    });
 
     Route::group(['prefix' =>'department' ,'as' => 'department.','namespace' => 'Admin' ],function(){
         Route::get('/', 'DepartmentController@index')->name('index');
