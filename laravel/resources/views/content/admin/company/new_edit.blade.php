@@ -406,7 +406,7 @@
       {{-- <x-admin.form.inputs.checkbox id="" for="terms_and_services"  tooltip="{{__('webCaption.accept_terms_and_services.caption')}}" label="{{__('webCaption.accept_terms_and_services.title')}}"  class="form-control" name="terms_and_services"   value="1" checked="{{ old('terms_and_services') == '1' ? 'checked' : '' }} {{ ($data->terms_and_services == '1') ? 'checked' :''}}" /> &ensp; --}}
     </div>
   </section>
-  <div>
+  <div class="text-center">
     <input type="hidden" name="id" value="{{$data->id}}" />
       <x-admin.form.buttons.update />  
   </div>
