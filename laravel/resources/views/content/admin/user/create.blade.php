@@ -177,13 +177,21 @@
 						</div>
 					</div> --}}
 
-					<div class="row mt-2">
+					{{-- <div class="row mt-2">
 						<div class="col-md-12">
 							<x-admin.form.label for="" tooltip="{{__('webCaption.permission.caption')}}" value="{{__('webCaption.permission.title')}}" class="" />
-							@if ($permissions)
+							@if ($permissions )
+
+							 @foreach($permissions as $key => $per_data)
+
+							 <?php 
+							//  $group_name =  DB::table('menu_groups')->where('id', $key)->value('title');
+							 ?>
+							   <div class="m-1 ">   <h4 class="text-primary">{{$group_name}} </h4>  </div>
+							   
 								<div class="jstree-basic">
 									<ul>
-										@foreach ( $permissions as $permission )
+										@foreach ( $per_data as $permission )
 											@if(count($permission->menuChild) > 0)
 												<li class="jstree-open">
 													<label class="form-check-label">
@@ -201,9 +209,10 @@
 										@endforeach
 									</ul>
 								</div>
+							 @endforeach	
 							@endif
 						</div>
-					</div>
+					</div> --}}
 			</div>
 		</div>
 		<div class="form-group text-center">
