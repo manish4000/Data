@@ -246,7 +246,7 @@ class MenuGroupController extends Controller
         $data = $menuOrderData;
         
           
-        $menu_group = MenuGroup::find($id);
+        // $menu_group = MenuGroup::find($id);
 
         $permissions = Permission::where('parent_id', 0)->get();
         $arrayData = [];
@@ -259,25 +259,26 @@ class MenuGroupController extends Controller
         $activeSiteLanguages = $this->activeSiteLanguages();
             
 
-        return view('content.admin.menuGroup.listMenu', ['menu_group' => $menu_group,'breadcrumbs' => $breadcrumbs,'pageConfigs' => $pageConfigs,'data' => $data, 'permissionData' => $permissionData, 'activeSiteLanguages' => $activeSiteLanguages, 'selectableMenuData' => $selectableMenuData ,'menuUrl' =>$this->menuUrl]);
+        return view('content.admin.menuGroup.listMenu', ['menuGroupId' => $id,'breadcrumbs' => $breadcrumbs,'pageConfigs' => $pageConfigs,'data' => $data, 'permissionData' => $permissionData, 'activeSiteLanguages' => $activeSiteLanguages, 'selectableMenuData' => $selectableMenuData ,'menuUrl' =>$this->menuUrl]);
     }
 
     //addMenu and updateMenu with single method  
 
     public function addMenu(Request $request)
     {   
-      
+        
         // if (!Auth::user()->can('menu-group-add')) {
         //     abort(403);
         // } 
 
         $request->validate(
-            [
+            [   
+                'menu_group_id' => 'required',
                 'title' => 'required',
-                'slug' => 'required_if:type,==,menu|nullable|sometimes|unique:menu',
+                'slug' => 'required_if:type,==,menu|nullable|sometimes|unique:menu,slug,'.$request->id,
                 'icon' => 'required_if:type,==,menu',
                 'uri' => 'required_if:type,==,menu',
-                'permission_slug' =>'required|regex:/^\S*$/u|unique:menu',
+                'permission_slug' =>'required|regex:/^\S*$/u|unique:menu,permission_slug,'.$request->id,
                 'type' =>'required|in:permission,menu',
                 'order' => 'nullable|numeric',
             ],
@@ -297,7 +298,21 @@ class MenuGroupController extends Controller
             ]
          );
 
-        $menu = new Menu;
+
+        if($request->id){
+            $menu = Menu::findOrFail($request->id);
+            
+             //this code for get ids of all childs of given id 
+             $menudata =  Menu::with('menuChild')->select('id','title')->find($request->id)->toArray();
+             $child_ids =  $this->makeTree($menudata['menu_child']) ;
+             $child_ids =   $this->array_flatten($child_ids);
+             //end code  
+         
+        }else{
+            $menu = new Menu;
+        } 
+
+      
         $menu->title = $request->title;
         $menu->slug= $request->slug;
         $menu->uri = $request->uri;
@@ -312,6 +327,11 @@ class MenuGroupController extends Controller
         // $menu->title_languages = $request->title_languages;
 
         if($menu->save()){
+            if($request->id){
+
+                $menu->whereIn('id',$child_ids)->update(['menu_group_id' => $request->menu_group_id]);
+            }
+
             return redirect()->route('menu-groups.menus', $menu->menu_group_id )->with(['success_message' => $request->title." ".__('webCaption.alert_added_successfully.title')]);
         }else{
             return redirect()->route('menu-groups.menus', $menu->menu_group_id )->with(['error_message' =>  __('webCaption.alert_somthing_wrong.title')]);
@@ -417,6 +437,7 @@ class MenuGroupController extends Controller
         //     abort(403);
         // }
 
+
         $pageConfigs = [
             'moduleName' => __('webCaption.menu_group.title'), 
             'baseUrl' => $this->baseUrl, 
@@ -429,6 +450,10 @@ class MenuGroupController extends Controller
             'name' => 'List'
         ]; 
 
+        $data = [];
+        $menuOrderData = $this->orderMenuData(0, 1, $data, $menu->menu_group_id);
+        $data = $menuOrderData;
+
         $menuList = Menu::select('id','title')->where(['parent_id' => 0, 'menu_group_id' => $menu->menu_group_id])->get();
 
         $groups = MenuGroup::select('id as value','title as name')->get();
@@ -439,9 +464,9 @@ class MenuGroupController extends Controller
 
         $selectableMenuData = $this->listSelectableMenuData($menuList, $arrayData);
 
-        $activeSiteLanguages = $this->activeSiteLanguages();
 
-        return view('content.admin.menuGroup.editMenu', ['menu' => $menu ,'selectableMenuData' => $selectableMenuData ,'menuList' =>$menuList , 'groups' => $groups , 'permissionData' => $permissionData , 'pageConfigs' =>$pageConfigs ,'breadcrumbs' => $breadcrumbs ,'menuUrl' => $this->menuUrl]);
+       
+        return view('content.admin.menuGroup.listMenu', ['menu' => $menu ,'data'=> $data,'menuGroupId' => $menu->menu_group_id,'selectableMenuData' => $selectableMenuData ,'menuList' =>$menuList , 'groups' => $groups , 'permissionData' => $permissionData , 'pageConfigs' =>$pageConfigs ,'breadcrumbs' => $breadcrumbs ,'menuUrl' => $this->menuUrl]);
     }
 
 
