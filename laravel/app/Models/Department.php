@@ -19,4 +19,11 @@ class Department extends Model
             ->orWhere('slug','like', '%'.$keyword.'%');
         });
     }
+
+    public function permissions()
+    {   
+        return $this->belongsToMany(Menu::class, 'department_permission','department_id','menu_id');
+    }
+
+
 }
