@@ -60,9 +60,9 @@ class TypeController extends Controller
             $data->displayStatusFilter($request->input('search.displayStatus')); 
         }   
         
-        if(  !$request->has('search.parentOnlyShowAll')) {
+       // if(  !$request->has('search.parentOnlyShowAll')) {
             $data->parentOnlyFilter();
-        }
+        //}
         if($request->has('order_by') &&  $request->has('order') ){
             $data->orderBy($request->order_by, $request->order);
         }
@@ -237,7 +237,7 @@ class TypeController extends Controller
 
     public function deleteMultiple( Request $request){
 
-        if (!Auth::user()->can('masters-vehicle-type-delete')) {
+        if (!Auth::user()->can('main-navigation-masters-vehicle-type-delete')) {
             $result['status']     = false;
             $result['message']    = __('webCaption.alert_delete_access.title'); 
             return response()->json(['result' => $result]);
@@ -274,7 +274,7 @@ class TypeController extends Controller
         if(isset($__data->display)){
             $display =  ($__data->display == "Yes")? "No" : "Yes";
             // $__data->display = $display;
-            $__data->update(['dispaly' => $display]);  
+            $__data->update(['display' => $display]);  
             $result['status']     = true;
             $result['message']    = __('webCaption.alert_updated_successfully.title'); 
         }else{
