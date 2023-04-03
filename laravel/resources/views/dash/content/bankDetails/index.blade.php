@@ -53,10 +53,7 @@
 										{{__('webCaption.bank_name.title')}}
 										<x-dash.filter.order-by-filter-div orderBy="bank_name" />
 									</th>
-									<th scope="col" class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.dealer_name.caption')}}" >
-										{{__('webCaption.dealer_name.title')}}
-										<x-dash.filter.order-by-filter-div orderBy="dealer_name" />
-									</th>
+									
 									<th scope="col" class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.branch_name.caption')}}" >
 										{{__('webCaption.branch_name.title')}}
 										<x-dash.filter.order-by-filter-div orderBy="branch_name" />

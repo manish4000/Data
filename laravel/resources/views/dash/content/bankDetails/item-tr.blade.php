@@ -10,7 +10,7 @@
     <td >
         @php echo  str_ireplace( request()->input('search.keyword'), '<span class="heighlight-string" >'. request()->input('search.keyword').'</span>',$item->bank_name) @endphp
     </td>
-    <td >{{$item->dealer_name}}    </td>
+
     <td >{{$item->branch_name}}    </td>
     <td >{{$item->account_name}}    </td>
     <td >{{$item->account_number}}    </td>
