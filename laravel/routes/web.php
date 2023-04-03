@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\Masters\VechileMasterController;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\GoogleV3CaptchaController;
 use App\Http\Controllers\Admin\MasterDataTranslationController;
+use App\Http\Controllers\Admin\Masters\MakeController;
 use App\Http\Controllers\Admin\MenuGroupController;
 use App\Http\Controllers\Admin\SiteLanguageController;
 use App\Http\Controllers\Admin\WebCaptionController;
@@ -62,10 +63,13 @@ Route::get('lang/{locale}', [LanguageController::class, 'swap']);
 
 Route::get('dashboard', [StaterkitController::class, 'home'])->name('dashboard')->middleware(['auth']);
 
+
 Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
 
 
+    Route::post('users/login-from-admin','Admin\UserController@loginFromAdmin')->name('users.login-form-admin');
     Route::post('users/delete','Admin\UserController@destroy')->name('users.delete');
+   
     Route::resource('users', 'Admin\UserController');
     Route::get('users/edit/{id}', 'Admin\UserController@edit')->name('users.edit');
     Route::get('users/permission/{id}', 'Admin\UserController@showPermission')->name('users.permission');
@@ -210,12 +214,9 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
         });
 
         Route::group(['prefix' => 'master-data-translation','as'=> 'master_data_translation.'], function () {
-
             Route::get('/', [MasterDataTranslationController::class, 'index'])->name('index');
-
             Route::get('/edit/{id}', [MasterDataTranslationController::class, 'edit'])->name('edit');
             Route::post('/update/{id}', [MasterDataTranslationController::class, 'update'])->name('update');
-
             });
 
         });
@@ -236,6 +237,7 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
 
 
         Route::group(['prefix' => 'vehicle'],function(){
+            //routes of type module 
             Route::group(['prefix' => 'type'],function(){
                 Route::get('/', [TypeController::class, 'index'])->name('masters-vehicle-type'); 
                 Route::post('/store', [TypeController::class, 'store'])->name('masters-vehicle-type-store');
@@ -247,7 +249,23 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
                 Route::post('/getChildList', [TypeController::class,'getChildList']);
                 Route::post('/delete-multiple', [TypeController::class,'deleteMultiple'])->name('masters-vehicle-type-delete-multiple');
             });
+
+            //routes of make module 
+
+            Route::group(['prefix' => 'make'],function(){
+                Route::get('/', [MakeController::class, 'index'])->name('masters-vehicle-make'); 
+                Route::post('/store', [MakeController::class, 'store'])->name('masters-vehicle-make-store');
+                Route::post('/update-status', [MakeController::class, 'updateStatus'])->name('masters-vehicle-make-update-status');      
+                Route::post('/delete', [MakeController::class, 'destroy'])->name('masters-vehicle-make-delete');
+                Route::get('/edit/{id}', [MakeController::class, 'edit'])->name('masters-vehicle-make-edit');
+                Route::get('/add', [MakeController::class, 'add'])->name('masters-vehicle-make-add');
+                Route::get('/create', [MakeController::class, 'create'])->name('masters-vehicle-make-create');
+                Route::post('/getChildList', [MakeController::class,'getChildList']);
+                Route::post('/delete-multiple', [MakeController::class,'deleteMultiple'])->name('masters-vehicle-make-delete-multiple');
+            });
         });
+
+       
     });
 
 });
