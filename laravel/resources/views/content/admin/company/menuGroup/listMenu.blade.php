@@ -43,10 +43,7 @@
 							<x-admin.form.inputs.text tooltip="{{__('webCaption.title.caption')}}" label="{{__('webCaption.title.title')}}"  for="title"  maxlength="50" name="title"  placeholder="{{__('webCaption.title.title')}}" value="{{old('title', isset($menu->title)?$menu->title:'' )}}"  required="required" />
 							
 						</div>
-						<div class="form-group">
-							<x-admin.form.inputs.text tooltip="{{__('webCaption.order.caption')}}" label="{{__('webCaption.order.title')}}"  for="order"  name="order"  placeholder="{{__('webCaption.order.title')}}" value="{{old('order', isset($menu->order)?$menu->order:'' )}}"  required="" />
-							  
-					    </div>
+						
 						<div class="form-group">
 							<x-admin.form.inputs.text tooltip="{{__('webCaption.permission_slug.caption')}}" label="{{__('webCaption.permission_slug.title')}}" maxlength="255"  for="permission_slug"  name="permission_slug"  placeholder="{{__('webCaption.permission_slug.title')}}" value="{{old('permission_slug', isset($menu->permission_slug)?$menu->permission_slug:'' )}}"  required="required" />
 							
@@ -64,6 +61,11 @@
 				  
 						</div>
 						<div id="dib" style="display: none" >
+
+							<div class="form-group">
+								<x-admin.form.inputs.text tooltip="{{__('webCaption.order.caption')}}" label="{{__('webCaption.order.title')}}"  for="order"  name="order"  placeholder="{{__('webCaption.order.title')}}" value="{{old('order', isset($menu->order)?$menu->order:'' )}}"  required="" />
+								  
+							</div>
 
 							<div class="form-group">
 								<x-admin.form.label for="" tooltip="{{__('webCaption.icon.caption')}}"  value="{{__('webCaption.icon.title')}}" class="" />

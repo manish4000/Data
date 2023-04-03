@@ -36,10 +36,7 @@
 							<div class="form-group">
 								<x-admin.form.inputs.text tooltip="{{__('webCaption.title.caption')}}" label="{{__('webCaption.title.title')}}" maxlength="50"  for="title"  name="title"  placeholder="{{__('webCaption.title.title')}}" value="{{old('title', isset($menu->title)?$menu->title:'' )}}"  required="required" />
 							</div>
-							<div class="form-group">
-								<x-admin.form.inputs.text tooltip="{{__('webCaption.order.caption')}}"  label="{{__('webCaption.order.title')}}"  for="order"  name="order"  placeholder="{{__('webCaption.order.title')}}" value="{{old('order', isset($menu->order)?$menu->order:'' )}}"  required="" />
-								
-							</div>
+							
 
 							<div class="form-group">
 								<x-admin.form.inputs.text tooltip="{{__('webCaption.permission_slug.caption')}}"  label="{{__('webCaption.permission_slug.title')}}" maxlength="255"  for="permission_slug"  name="permission_slug"  placeholder="{{__('webCaption.permission_slug.title')}}" value="{{old('permission_slug', isset($menu->permission_slug)?$menu->permission_slug:'' )}}"  required="required" />
@@ -62,15 +59,18 @@
 					
 						  	</div>
 
-							<div id="dib" style="display: none">
+							<div id="extra-fields" style="display: none">
 
+								<div class="form-group">
+									<x-admin.form.inputs.text tooltip="{{__('webCaption.order.caption')}}"  label="{{__('webCaption.order.title')}}"  for="order"  name="order"  placeholder="{{__('webCaption.order.title')}}" value="{{old('order', isset($menu->order)?$menu->order:'' )}}"  required="" />
+									
+								</div>
 								<div class="form-group">
 									<x-admin.form.label for="" tooltip="{{__('webCaption.icon.caption')}}"  value="{{__('webCaption.icon.title')}}" class="" />
 									<div class="input-group">
 										<x-admin.form.inputs.text   maxlength="50" name="icon"  placeholder="{{__('webCaption.icon.title')}}" value="{{old('icon', isset($menu->icon)?$menu->icon:'' )}}"  required="" />
 										<span class="input-group-addon input-group-text"></span> 
 									</div>
-									
 								</div>
 								<div class="form-group">
 									<x-admin.form.inputs.text tooltip="{{__('webCaption.uri.caption')}}"  label="{{__('webCaption.uri.title')}}" maxlength="255" for="uri" class="form-control" name="uri"  placeholder="{{__('webCaption.uri.title')}}" value="{{old('uri', isset($menu->uri)?$menu->uri:'' )}}"  required="" />
@@ -119,16 +119,16 @@
 	var checkedRadio = 	$(".type:checked").val();
 
 	if(checkedRadio == 'menu'){
-		$("#dib").css("display", "block");
+		$("#extra-fields").css("display", "block");
 	}
 
 	$(".type").change(function(){
         var val = $(".type:checked").val();
 
 		if(val == 'permission'){
-			$("#dib").css("display", "none");
+			$("#extra-fields").css("display", "none");
 		}else{
-			$("#dib").css("display", "block");
+			$("#extra-fields").css("display", "block");
 		}
     });
 
