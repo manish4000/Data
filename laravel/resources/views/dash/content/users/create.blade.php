@@ -49,7 +49,7 @@
 					<div class="row">
 						<div class="col-6">
 							<div class="form-group">
-								<x-dash.form.inputs.password  maxlength="255"  for="password" tooltip="{{__('webCaption.password.caption')}}" label="{{__('webCaption.password.title')}}"   name="password"  placeholder="{{__('webCaption.password.title')}}" value=""  required="<?php echo (!isset($user->id))? 'required' :''; ?>" />
+								<x-dash.form.inputs.password  maxlength="255" :passwordGenerator="true"   for="password" tooltip="{{__('webCaption.password.caption')}}" label="{{__('webCaption.password.title')}}"   name="password"  placeholder="{{__('webCaption.password.title')}}" value=""  required="<?php echo (!isset($user->id))? 'required' :''; ?>" />
 								
 							</div>
 						</div>
