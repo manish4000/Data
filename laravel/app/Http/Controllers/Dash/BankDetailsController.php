@@ -80,7 +80,7 @@ class BankDetailsController extends Controller
         $request->validate(
             [
             'bank_name' => 'required|string|max:255', 
-            'dealer_name' => 'required|string|max:255', 
+            'dealer_name' => 'nullable|string|max:255', 
             'branch_name' => 'required|string|max:255', 
             'branch_code' => 'required|string|max:255', 
             'country_id' => 'required|numeric', 
@@ -101,7 +101,7 @@ class BankDetailsController extends Controller
                 'bank_name.string' => __('webCaption.validation_string.title', ['field'=> "Bank Name" ] ),
                 'bank_name.max' => __('webCaption.validation_max.title', ['field'=> "Bank Name" ,'max' =>"255" ] ),
 
-                'dealer_name.required' => __('webCaption.validation_required.title', ['field'=> "Dealer Name" ] ),
+
                 'dealer_name.string' => __('webCaption.validation_string.title', ['field'=> "Dealer Name" ] ),
                 'dealer_name.max' => __('webCaption.validation_max.title', ['field'=> "Dealer Name" ,'max' =>"255" ] ),
 
