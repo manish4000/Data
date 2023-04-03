@@ -30,8 +30,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <x-dash.form.inputs.text  for="dealer_name"  maxlength="255" tooltip="{{__('webCaption.dealer_name.caption')}}" label="{{__('webCaption.dealer_name.title')}}"  name="dealer_name"  placeholder="{{__('webCaption.dealer_name.title')}}" value="{{old('dealer_name', isset($data->dealer_name)?$data->dealer_name:'' )}}"  required="required" />
-                            
+                            <x-dash.form.inputs.text  for="dealer_name"  maxlength="255" tooltip="{{__('webCaption.dealer_name.caption')}}" label="{{__('webCaption.dealer_name.title')}}"  name="dealer_name"  placeholder="{{__('webCaption.dealer_name.title')}}" value="{{old('dealer_name', isset($data->dealer_name)?$data->dealer_name:'' )}}"  required="" />
                         </div>
                     </div>
                     <div class="col-md-4">
