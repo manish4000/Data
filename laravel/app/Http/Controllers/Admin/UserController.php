@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use PragmaRX\Google2FAQRCode\Google2FA;
 
@@ -83,6 +84,21 @@ class UserController extends Controller
         // dd($users);  
         return view('content.admin.user.index', compact('users','pageConfigs','breadcrumbs'));
     }
+
+
+
+    public function loginFromAdmin(Request $request){
+
+        auth()->logout();
+        Session::flush();
+        $id = Crypt::decrypt($request->id);
+        $user  = User::where('id',$id)->first();
+        
+        Auth::login($user);
+        return redirect('/dashboard');
+    }
+
+
 
     /**
      * Show the form for creating a new resource.
