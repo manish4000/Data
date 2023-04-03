@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\MasterDataTranslation;
+use Illuminate\Database\Eloquent\Model;
 
 class MasterDataTranslationObserver
 {
@@ -226,8 +227,28 @@ class MasterDataTranslationObserver
      * @return void
      */
     public function deleted($modal)
-    {
-        //
+    {   
+        
+        $master_data_trans =  new MasterDataTranslation;
+        $modalNamespace = get_class($modal);
+            if($master_data_value_exist =  $master_data_trans->where('value', $modal->name)->first())
+            {   
+
+                $db_models_array = $master_data_value_exist->db_models;
+
+                if(in_array($modalNamespace , $db_models_array) ){
+
+                    if(count($db_models_array) == 1){
+                        $master_data_value_exist->delete();
+                    }else{
+                        if (($key = array_search($modalNamespace, $db_models_array)) !== false) {
+                            unset($db_models_array[$key]);
+
+                            $master_data_value_exist->update(['db_models' => $db_models_array]);
+                        }
+                    }
+                }
+            }
     }
 
     /**
