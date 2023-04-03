@@ -42,7 +42,7 @@ class Type extends Model
 
     public function scopeParentIdFilter($query, $parent_id)
     {
-        return $query->where( 'parent_id', $parent_id);
+        return $query->where('parent_id', $parent_id);
     }
 
     public function scopeDisplayStatusFilter($query, $displayStatus)
