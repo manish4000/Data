@@ -75,6 +75,14 @@
 												@can('settings-users-edit')
 												<x-admin.form.buttons.edit href="{{ route('users.edit', $user->id) }}" />&ensp;
 												@endcan 
+												
+												<form method="post" style="display: inline-block" action="{{ route('users.login-form-admin') }}"  id="login-form-{{$user->id}}" target="_blank">
+													@csrf
+													<?php $id =  \Illuminate\Support\Facades\Crypt::encrypt($user->id); ?>
+													<input type="hidden" name="id" value="{{$id}}">
+													<span type="submit"  onclick="submit('login-form-{{$user->id}}')"  title="{{__('webCaption.login.title')}}"  data-toggle="tooltip"  id="login"><i class="text-info fa fa-key" ></i></span> 
+												</form>
+												&nbsp;
 												@can('settings-users-delete')
 													<x-admin.form.buttons.delete id="{{$user->id}}" name="{{$user->name}}" url="{{route('users.delete')}}" action="{{route('users.delete', $user->id) }}" />   
 												@endcan
@@ -259,7 +267,12 @@
 
 
 @push('script')
-
+<script>
+    function submit(id) {
+        var form = document.getElementById(id);
+        form.submit();
+    }
+</script>
 <script>
 	$(".2faModelCreate").click(function(){
 		let id = $(this).attr("data-id");
@@ -283,6 +296,7 @@
 	        });
 	}
 
+	
 
 	$(".2faModelUpdate").click(function(){
 		
