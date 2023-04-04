@@ -7,6 +7,8 @@ use App\Models\Company\CompanyMenuGroupMenu;
 use App\Models\Dash\CompanyUsers;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -71,6 +73,25 @@ class UserController extends Controller
         $status = json_decode(json_encode($this->status));
         return view('dash.content.users.index',['status' => $status,'users' => $users,'pageConfigs' =>$pageConfigs ,'breadcrumbs' => $breadcrumbs]);
     }
+
+
+    public function loginFromAdmin(Request $request){
+     
+        $id = Crypt::decrypt($request->id);
+        $user  = CompanyUsers::where('id',$id)->first();
+        
+        if($user){
+            auth()->guard('dash')->logout();
+            Session::flush();
+            Auth::guard('dash')->login($user);
+            return redirect('/dashboard');
+        }else{
+            $message = __('webCaption.user_not_found.title'); 
+            return redirect()->back()->with(['error_message' => $message ]);
+        }
+    }
+
+
 
     /**
      * Show the form for creating a new resource.
