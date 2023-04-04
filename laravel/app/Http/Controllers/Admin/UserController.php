@@ -89,13 +89,20 @@ class UserController extends Controller
 
     public function loginFromAdmin(Request $request){
 
-        auth()->logout();
-        Session::flush();
+        
         $id = Crypt::decrypt($request->id);
         $user  = User::where('id',$id)->first();
         
-        Auth::login($user);
-        return redirect('/dashboard');
+        if($user){
+            auth()->logout();
+            Session::flush();
+            Auth::login($user);
+            return redirect('/dashboard');
+        }else{
+            $message = __('webCaption.user_not_found.title'); 
+            return redirect()->back()->with('success_message' ,$message );
+        }
+       
     }
 
 
