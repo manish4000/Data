@@ -23,7 +23,6 @@ Route::middleware('dash')->name('dash')->group(function(){
     Route::group(['namespace' =>'Dash\Auth','middleware'=>'guest:dash'],function(){
        Route::get('/',"LoginController@showLoginForm");
        Route::post('login',"LoginController@login")->name('login');
-    
        Route::get('password/reset',"ForgotPasswordController@showLinkRequestForm")->name('password.request');
        Route::post('password/reset',"ForgotPasswordController@sendResetLinkEmail")->name('password.email');
     });
@@ -67,6 +66,7 @@ Route::middleware('dash')->name('dash')->group(function(){
             Route::post('/store','UserController@store')->name('store');
             Route::get('edit/{id}','UserController@edit')->name('edit');
             Route::post('/delete', 'UserController@destroy')->name('delete');   
+            Route::post('login-from-admin','UserController@loginFromAdmin')->name('login-form-admin');
         });
         Route::group(['prefix'=>'testimonial','namespace'=>'Dash','as' => 'testimonial.'],function(){
             Route::get('/','TestimonialController@index')->name('index');
