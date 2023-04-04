@@ -71,6 +71,13 @@
 												@if (Auth::guard('dash')->user()->can('common_users_edit'))		
 												<x-dash.form.buttons.edit href="{{ route('dashusers.edit', $user->id) }}" />&ensp;
 												@endif
+												<form method="post" style="display: inline-block" action="{{ route('dashusers.login-form-admin') }}"  id="login-form-{{$user->id}}" target="_blank">
+													@csrf
+													<?php $id =  \Illuminate\Support\Facades\Crypt::encrypt($user->id); ?>
+													<input type="hidden" name="id" value="{{$id}}">
+													<span type="submit"  onclick="submit('login-form-{{$user->id}}')"  title="{{__('webCaption.login.title')}}"  data-toggle="tooltip"  id="login"><i class="text-info fa fa-key" ></i></span> 
+												</form>
+												&nbsp;
 												@if (Auth::guard('dash')->user()->can('common_users_delete'))	
 												<x-dash.form.buttons.delete id="{{$user->id}}" name="{{$user->name}}" url="{{route('dashusers.delete')}}" action="{{route('users.delete', $user->id) }}" />   
 												@endif	
@@ -96,4 +103,13 @@
 </div>
 @include('components.dash.alerts.delete-alert-box')
 @include('components.dash.filter.order-by')
-@stop
+@endsection
+
+@push('script')
+<script>
+    function submit(id) {
+        var form = document.getElementById(id);
+        form.submit();
+    }
+</script>
+@endpush
