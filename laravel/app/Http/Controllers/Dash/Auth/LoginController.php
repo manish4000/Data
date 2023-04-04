@@ -57,13 +57,24 @@ class LoginController extends Controller
 
     public function loginWithId(Request $request){
 
-        auth()->guard('dash')->logout();
-        Session::flush();
+        $request->validate([
+            'id' => 'required'
+        ],[
+            'id.required' => 'please enter valid detils'
+        ]);
+
         $id = Crypt::decrypt($request->id);
         $user  = CompanyUsers::where('company_id',$id)->where('user_type',1)->first();
-        
-        Auth::guard('dash')->login($user);
-        return redirect('/dashboard');
+
+        if($user){
+            auth()->guard('dash')->logout();
+            Session::flush();
+            Auth::guard('dash')->login($user);
+            return redirect('/dashboard');
+        }else{
+            $message = __('webCaption.user_not_found.title');  
+            return redirect()->back()->with(['error_message' => $message]);
+        }
 
     }
 
