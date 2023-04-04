@@ -3,14 +3,17 @@
 namespace App\Http\Controllers\Dash;
 
 use App\Http\Controllers\Controller;
+use App\Mail\CompanyBankDetailsOtpVerifyMail;
 use App\Models\CityModel;
 use App\Models\Dash\BankDetails;
+use App\Models\Dash\ComapnyBankDetailsOtpVerify;
 use App\Models\Dash\CompanyBankDetails;
 use App\Models\Masters\Country;
 use App\Models\StateModel;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class BankDetailsController extends Controller
 {   
@@ -76,7 +79,44 @@ class BankDetailsController extends Controller
         return view('dash.content.bankDetails.create',['country' => $country,'breadcrumbs' => $breadcrumbs]);
     }
 
+    public function sendOtp(){
+
+        $user = Auth::guard('dash')->user();
+        $otp = rand(100000,999999); 
+        
+        $verify_otp_model =   new ComapnyBankDetailsOtpVerify();
+
+        $verify_otp_model->otp = $otp;
+        $verify_otp_model->company_user_id = $user->id;
+        $verify_otp_model->create_time = date("Y-m-d H:i:s",strtotime(date("Y-m-d H:i:s")));
+        $verify_otp_model->expire_time = date("Y-m-d H:i:s",strtotime(date("Y-m-d H:i:s")." +10 minutes"));
+        
+        if($verify_otp_model->save()){
+
+            $mailData = [
+                'title' => 'Mail from gabs.biz',
+                'body' => 'This is for testing email using smtp.your otp is'.$otp
+            ];
+
+            if( true || Mail::to($user->email)->send(new CompanyBankDetailsOtpVerifyMail($mailData))){
+
+                $result['status']     = true;
+                $result['message']    = __('webCaption.otp_send_successfully.title'); 
+                return response()->json(['result' => $result]);
+            }else{
+                $result['status']     = false;
+                $result['message']    = __('webCaption.error_in_otp_send.title'); 
+                return response()->json(['result' => $result]);
+            }
+        }
+
+
+    }
+
     public function store(Request $request){
+
+
+
         $request->validate(
             [
             'bank_name' => 'required|string|max:255', 
