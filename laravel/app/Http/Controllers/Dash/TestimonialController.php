@@ -179,13 +179,13 @@ class TestimonialController extends Controller
             $testmonail_model->operator = 0; 
 
             if($request->has('image')){
-                $image = time().'.'.$request->image->extension();  
+                $image = time().rand(11111,99999).'.'.$request->image->extension();  
                 $request->image->move(public_path('company_data').'/'.$folder.'/testimonials', $image);
                 $testmonail_model->image = $image;
             }
 
             if($request->has('vehicle_image')){
-                $vehicle_image = time().'.'.$request->vehicle_image->extension();  
+                $vehicle_image = time().rand(11111,99999).'.'.$request->vehicle_image->extension();  
                 $request->vehicle_image->move(public_path('company_data').'/'.$folder.'/testimonials', $vehicle_image);
                 $testmonail_model->vehicle_image = $vehicle_image;
             }
