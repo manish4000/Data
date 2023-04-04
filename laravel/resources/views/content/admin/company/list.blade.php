@@ -4,9 +4,9 @@
 
 @section('content')
 <!-- users list start -->
+
+
 <section class="app-user-list">
-{{--  
-    @include('components.admin.alerts.success-error-message-display') --}}
 
     <div class="row">
         <div class="col-12">
@@ -131,3 +131,12 @@
 @endsection
 
 
+@push('script')
+<script>
+    function submitLogin(id) {
+        var form = document.getElementById(id);
+        form.submit();
+    }
+</script>
+
+@endpush
