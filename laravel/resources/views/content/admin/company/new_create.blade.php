@@ -50,7 +50,7 @@
 
                   <div class="col-md-4">
                      <div class="form-group">
-                        <x-admin.form.inputs.select label="{{__('webCaption.status.title')}}" tooltip="{{__('webCaption.status.caption')}}"  id="" for="status" name="status" placeholder="{{ __('locale.status.caption') }}" editSelected=""  required="" :optionData="$status" />
+                        <x-admin.form.inputs.select label="{{__('webCaption.status.title')}}" tooltip="{{__('webCaption.status.caption')}}"  id="" for="status" name="status" placeholder="{{ __('locale.status.caption') }}" editSelected=""  required="required" :optionData="$status" />
                      </div>
                   </div>
                </div>
