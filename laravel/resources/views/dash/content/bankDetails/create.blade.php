@@ -136,7 +136,7 @@
                              $banks =   json_decode(json_encode($banks)) ;
                             @endphp
 
-                            <x-dash.form.inputs.select label="{{__('webCaption.bank_name.title')}}"   tooltip="{{__('webCaption.bank_name.caption')}}" id="" for="bank_name" name="bank_name"  editSelected=""  required="" :optionData="$banks" />    
+                            <x-dash.form.inputs.select label="{{__('webCaption.bank_name.title')}}"   tooltip="{{__('webCaption.bank_name.caption')}}" id="" for="bank_name" name="bank_name"  editSelected=""  required="required" :optionData="$banks" />    
                             
                         </div>
                     </div>
