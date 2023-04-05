@@ -10,10 +10,13 @@ use App\Models\Dash\ComapnyBankDetailsOtpVerify;
 use App\Models\Dash\CompanyBankDetails;
 use App\Models\Masters\Country;
 use App\Models\StateModel;
+use Carbon\Carbon;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
+use Symfony\Component\Console\Input\Input;
 
 class BankDetailsController extends Controller
 {   
@@ -82,7 +85,8 @@ class BankDetailsController extends Controller
     public function sendOtp(){
 
         $user = Auth::guard('dash')->user();
-        $otp = rand(100000,999999); 
+        //$otp = rand(100000,999999); 
+        $otp = 123456; 
         
         $verify_otp_model =   new ComapnyBankDetailsOtpVerify();
 
@@ -115,26 +119,30 @@ class BankDetailsController extends Controller
 
     public function store(Request $request){
 
+        $request->validate([
+            'otp' => 'required|numeric',
+        ]);
+    
 
-
-        $request->validate(
-            [
+        $validator = Validator::make(request()->all(),
+        [
             'bank_name' => 'required|string|max:255', 
-            'dealer_name' => 'nullable|string|max:255', 
-            'branch_name' => 'required|string|max:255', 
-            'branch_code' => 'required|string|max:255', 
-            'country_id' => 'required|numeric', 
-            'account_name' => 'required|string|max:255', 
+            // 'dealer_name' => 'nullable|string|max:255', 
+            // 'branch_name' => 'required|string|max:255', 
+            // 'branch_code' => 'required|string|max:255', 
+            // 'country_id' => 'required|numeric', 
+            // 'account_name' => 'required|string|max:255', 
             'account_number' => 'required|string|max:255', 
-            'account_address' => 'required|string|max:255', 
-            'bank_address' => 'required|string|max:255', 
-            'city_id' => 'required|numeric', 
-            'state_id' => 'required|numeric', 
+            // 'account_address' => 'required|string|max:255', 
+            // 'bank_address' => 'required|string|max:255', 
+            // 'city_id' => 'required|numeric', 
+            // 'state_id' => 'required|numeric', 
             'swift_code' => 'required|max:100', 
-            'iban_no' => 'required|string|max:255', 
-            'account_currency' => 'required|string|max:255', 
-            'reason_for_remittance' => 'required|string|max:255', 
-            'display_order' => 'required|integer' 
+            // 'iban_no' => 'required|string|max:255', 
+            // 'account_currency' => 'required|string|max:255', 
+            // 'reason_for_remittance' => 'required|string|max:255', 
+            // 'display_order' => 'required|integer'
+            
             ],
             [
                 'bank_name.required' => __('webCaption.validation_required.title', ['field'=> "Bank Name" ] ),
@@ -142,61 +150,89 @@ class BankDetailsController extends Controller
                 'bank_name.max' => __('webCaption.validation_max.title', ['field'=> "Bank Name" ,'max' =>"255" ] ),
 
 
-                'dealer_name.string' => __('webCaption.validation_string.title', ['field'=> "Dealer Name" ] ),
-                'dealer_name.max' => __('webCaption.validation_max.title', ['field'=> "Dealer Name" ,'max' =>"255" ] ),
+                // 'dealer_name.string' => __('webCaption.validation_string.title', ['field'=> "Dealer Name" ] ),
+                // 'dealer_name.max' => __('webCaption.validation_max.title', ['field'=> "Dealer Name" ,'max' =>"255" ] ),
 
-                'branch_name.required' => __('webCaption.validation_required.title', ['field'=> "Branch Name" ] ),
-                'branch_name.string' => __('webCaption.validation_string.title', ['field'=> "Branch Name" ] ),
-                'branch_name.max' => __('webCaption.validation_max.title', ['field'=> "Branch Name" ,'max' =>"255" ] ),
+                // 'branch_name.required' => __('webCaption.validation_required.title', ['field'=> "Branch Name" ] ),
+                // 'branch_name.string' => __('webCaption.validation_string.title', ['field'=> "Branch Name" ] ),
+                // 'branch_name.max' => __('webCaption.validation_max.title', ['field'=> "Branch Name" ,'max' =>"255" ] ),
 
-                'branch_code.required' => __('webCaption.validation_required.title', ['field'=> "Branch Code" ] ),
-                'branch_code.string' => __('webCaption.validation_string.title', ['field'=> "Branch Code" ] ),
-                'branch_code.max' => __('webCaption.validation_max.title', ['field'=> "Branch Code" ,'max' => '255' ] ),
+                // 'branch_code.required' => __('webCaption.validation_required.title', ['field'=> "Branch Code" ] ),
+                // 'branch_code.string' => __('webCaption.validation_string.title', ['field'=> "Branch Code" ] ),
+                // 'branch_code.max' => __('webCaption.validation_max.title', ['field'=> "Branch Code" ,'max' => '255' ] ),
 
-                'country_id.required' => __('webCaption.validation_required.title', ['field'=> "Country" ] ),
-                'country_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "Country" ] ),
+                // 'country_id.required' => __('webCaption.validation_required.title', ['field'=> "Country" ] ),
+                // 'country_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "Country" ] ),
            
 
-                'account_name.required' => __('webCaption.validation_required.title', ['field'=> "Account Name" ] ),
-                'account_name.string' => __('webCaption.validation_string.title', ['field'=> "Account Name" ] ),
-                'account_name.max' => __('webCaption.validation_max.title', ['field'=> "Account Name" ,"max" => "255" ] ),
+                // 'account_name.required' => __('webCaption.validation_required.title', ['field'=> "Account Name" ] ),
+                // 'account_name.string' => __('webCaption.validation_string.title', ['field'=> "Account Name" ] ),
+                // 'account_name.max' => __('webCaption.validation_max.title', ['field'=> "Account Name" ,"max" => "255" ] ),
 
                 'account_number.required' => __('webCaption.validation_required.title', ['field'=> "Account Number" ] ),
                 'account_number.string' => __('webCaption.validation_string.title', ['field'=> "Account Number" ] ),
                 'account_number.max' => __('webCaption.validation_max.title', ['field'=> "Account Number" ,"max" => "255" ] ),
 
-                'account_address.required' => __('webCaption.validation_required.title', ['field'=> "Account Address" ] ),
-                'account_address.string' => __('webCaption.validation_string.title', ['field'=> "Account Address" ] ),
-                'account_address.max' => __('webCaption.validation_max.title', ['field'=> "Account Address" ,"max" => "255" ] ),
+                // 'account_address.required' => __('webCaption.validation_required.title', ['field'=> "Account Address" ] ),
+                // 'account_address.string' => __('webCaption.validation_string.title', ['field'=> "Account Address" ] ),
+                // 'account_address.max' => __('webCaption.validation_max.title', ['field'=> "Account Address" ,"max" => "255" ] ),
 
-                'bank_address.required' => __('webCaption.validation_required.title', ['field'=> "Bank Address" ] ),
-                'bank_address.string' => __('webCaption.validation_string.title', ['field'=> "Bank Address" ] ),
-                'bank_address.max' => __('webCaption.validation_max.title', ['field'=> "Bank Address"  ,"max" => "255"] ),
+                // 'bank_address.required' => __('webCaption.validation_required.title', ['field'=> "Bank Address" ] ),
+                // 'bank_address.string' => __('webCaption.validation_string.title', ['field'=> "Bank Address" ] ),
+                // 'bank_address.max' => __('webCaption.validation_max.title', ['field'=> "Bank Address"  ,"max" => "255"] ),
 
-                'city_id.required' => __('webCaption.validation_required.title', ['field'=> "City" ] ),
-                'city_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "City" ] ),
+                // 'city_id.required' => __('webCaption.validation_required.title', ['field'=> "City" ] ),
+                // 'city_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "City" ] ),
 
-                'state_id.required' => __('webCaption.validation_required.title', ['field'=> "State" ] ),
-                'state_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "State" ] ),
+                // 'state_id.required' => __('webCaption.validation_required.title', ['field'=> "State" ] ),
+                // 'state_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "State" ] ),
 
                 'swift_code.required' => __('webCaption.validation_required.title', ['field'=> "Swift Code" ] ),
                 'swift_code.max' => __('webCaption.validation_max.title', ['field'=> "Swift Code" ,"max" => "100" ] ),
 
-                'iban_no.required' => __('webCaption.validation_required.title', ['field'=> "Iban Number" ] ),
-                'iban_no.string' => __('webCaption.validation_string.title', ['field'=> "Iban Number" ] ),
-                'iban_no.max' => __('webCaption.validation_max.title', ['field'=> "Iban Number" ,"max" =>"255" ] ),
+                // 'iban_no.required' => __('webCaption.validation_required.title', ['field'=> "Iban Number" ] ),
+                // 'iban_no.string' => __('webCaption.validation_string.title', ['field'=> "Iban Number" ] ),
+                // 'iban_no.max' => __('webCaption.validation_max.title', ['field'=> "Iban Number" ,"max" =>"255" ] ),
 
-                'account_currency.required' => __('webCaption.validation_required.title', ['field'=> "Account Currency" ] ),
-                'account_currency.string' => __('webCaption.validation_string.title', ['field'=> "Account Currency" ] ),
+                // 'account_currency.required' => __('webCaption.validation_required.title', ['field'=> "Account Currency" ] ),
+                // 'account_currency.string' => __('webCaption.validation_string.title', ['field'=> "Account Currency" ] ),
 
-                'reason_for_remittance.required' => __('webCaption.validation_required.title', ['field'=> "Reason For Remittance" ] ),
-                'reason_for_remittance.string' => __('webCaption.validation_string.title', ['field'=> "Reason For Remittance" ] ),
+                // 'reason_for_remittance.required' => __('webCaption.validation_required.title', ['field'=> "Reason For Remittance" ] ),
+                // 'reason_for_remittance.string' => __('webCaption.validation_string.title', ['field'=> "Reason For Remittance" ] ),
 
-                'display_order.required' => __('webCaption.validation_required.title', ['field'=> "Display Order" ] ),
-                'display_order.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "Display Order" ] ),
+                // 'display_order.required' => __('webCaption.validation_required.title', ['field'=> "Display Order" ] ),
+                // 'display_order.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "Display Order" ] )
+
+                // 'otp.required' => __('webCaption.validation_required.title', ['field'=> "OTP" ] ),
+                // 'otp.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "OTP" ] ),
                 
             ]
         );
+
+        $user = Auth::guard('dash')->user();
+        $otp_details = ComapnyBankDetailsOtpVerify::where('company_user_id',$user->id)->orderBy('created_at','DESC')->first();
+
+     
+
+
+        if ($request->otp != $otp_details->otp) {
+            $validator->errors()->add('otp', 'enter correct otp');
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+       
+        $date1 = Carbon::now();
+        $date2 = Carbon::createFromFormat('Y-m-d H:i:s',$otp_details->expire_time);
+       
+        if ($date1->gt($date2)) {
+            $validator->errors()->add('otp', 'your otp has been expire');
+            $validator->errors()->add('otp_expire', 'your otp has been expire ');
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
 
         if($request->id){
            $bank_detail_model =   CompanyBankDetails::find($request->id);
