@@ -84,8 +84,8 @@ Route::middleware('dash')->name('dash')->group(function(){
             Route::get('edit/{id}','BankDetailsController@edit')->name('edit');
             Route::post('/delete', 'BankDetailsController@destroy')->name('delete');   
             Route::post('/status', 'BankDetailsController@updateStatus')->name('status');   
-            Route::post('/delete-multiple','BankDetailsController@deleteMultiple')->name('delete-multiple');
-
+            Route::post('/delete-multiple','BankDetailsController@deleteMultiple')->name('delete-multiple');    
+            Route::get('send-otp','BankDetailsController@sendOtp')->name('send-otp');
         });
 
         Route::post('state-list','Dash\BankDetailsController@stateList')->name('state-list');
