@@ -160,7 +160,7 @@
           <div class="row">
             <div class="col-md-4">
               <div class="form-group">
-                <x-admin.form.inputs.select label="Status"  id="" for="status" name="status" placeholder="{{ __('locale.Parent.caption') }}" editSelected="{{(isset($data->status) && ($data->status != null))?$data->status :''; }}"  required="" :optionData="$status" />
+                <x-admin.form.inputs.select label="Status"  id="" for="status" name="status" placeholder="{{ __('locale.Parent.caption') }}" editSelected="{{(isset($data->status) && ($data->status != null))?$data->status :''; }}"  required="required" :optionData="$status" />
                 @if($errors->has('status'))
                   <x-admin.form.form_error_messages message="{{ $errors->first('status') }}" />
                 @endif
