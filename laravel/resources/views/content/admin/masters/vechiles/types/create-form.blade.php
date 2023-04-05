@@ -29,6 +29,7 @@
             <x-admin.form.inputs.text tooltip="{{__('webCaption.type.caption')}}" label="{{__('webCaption.type.title')}}" maxlength="80" for="name"   name="name"  placeholder="{{ __('webCaption.type.title') }}" value="{{old('name', isset($data->name)?$data->name:'' )}}"  required="required" />
           </div>    
         </div>
+
         
         <div class="col-md-4">
           <div class="form-group">

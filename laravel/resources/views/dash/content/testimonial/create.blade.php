@@ -29,6 +29,7 @@
                             
                         </div>
                     </div>
+                    
 
                     @php
                     $old_show_person_name =  session()->getOldInput('show_person_name');
@@ -215,6 +216,7 @@
     </form>
 </div>
 @endsection
+
 
 @push('script')
 <script src="{{ asset('assets/dash/assets/js/dash/master.js') }}"></script>

@@ -3,6 +3,7 @@
     {{-- <link rel="stylesheet" type="text/css" href="{{asset('assets/dash/assets/vendors/css/vendors.min.css')}}"> --}}
     <link rel="stylesheet" href="{{ asset(mix('vendors/css/vendors.min.css')) }}" />
     <link rel="stylesheet" href="{{ asset(mix('vendors/css/ui/prism.min.css')) }}" />
+   
     <!-- END: Vendor CSS-->
     @yield('vendor-style')
     <link rel="stylesheet" href="{{ asset(mix('css/core.css')) }}" />
@@ -16,6 +17,8 @@
 
     <!-- BEGIN: Page CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('assets/dash/assets/css/core/menu/menu-types/vertical-menu.css')}}">
+
+
     <!-- END: Page CSS-->
     @yield('page-style')
 

@@ -16,6 +16,7 @@
 {{-- <script src="{{ asset(mix('vendors/js/forms/select/select2.full.min.js')) }}"></script>  --}}
 
 <script src="{{ asset('assets/js/scripts/select2.min.js')}}"></script>
+
 {{-- <script src="{{ asset('assets/js/scripts/lang/'.session()->get('locale').'/locale.js?v=2022005112') }}"></script> --}}
 @yield('vendor-script')
 {{-- Theme Scripts --}}

@@ -1,6 +1,7 @@
 <!-- BEGIN: Vendor JS-->
 <script src="{{asset('assets/dash/assets/vendors/js/vendors.min.js')}}"></script>
 <script src="{{ asset(mix('vendors/js/vendors.min.js')) }}"></script>
+
 <!-- BEGIN Vendor JS-->
 @yield('vendor-script')
 <script src="{{ asset(mix('vendors/js/extensions/sweetalert2.all.min.js')) }}"></script>
