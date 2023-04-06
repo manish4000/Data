@@ -730,12 +730,12 @@ class CompanyController extends Controller
 
         $permissions = CompanyMenuGroupMenu::where('parent_id', 0)->get();
         
-        $types = Type::get(['id as value' ,'name']);  
+        // $types = Type::get(['id as value' ,'name']);  
        
         $country_phone_code =  Country::select('phone_code as value' ,'country_code' ,DB::raw("CONCAT(country_code,' (',phone_code ,')' ) AS name"))->where('phone_code','!=' ,null)->where('country_code','!=' ,null)->get(['phone_code','country_code']);
 
 
-        return view('content.admin.company.new_edit',['country_phone_code' => $country_phone_code,'plans' => $plans,'company_tel_country_code' => $company_tel_country_code ,'types' => $types,'data' => $data,'permissions' =>$permissions ,'status' =>$status ,'country' => $country , 'BusinessTypes' => $BusinessTypes , 'pageConfigs' => $pageConfigs ,'breadcrumbs' =>$breadcrumbs ]);
+        return view('content.admin.company.new_edit',['country_phone_code' => $country_phone_code,'plans' => $plans,'company_tel_country_code' => $company_tel_country_code ,'data' => $data,'permissions' =>$permissions ,'status' =>$status ,'country' => $country , 'BusinessTypes' => $BusinessTypes , 'pageConfigs' => $pageConfigs ,'breadcrumbs' =>$breadcrumbs ]);
     }
 
     /**
