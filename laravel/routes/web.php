@@ -66,6 +66,7 @@ Route::get('dashboard', [StaterkitController::class, 'home'])->name('dashboard')
 
 Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
 
+    Route::get('data-migrate','Admin\DataImportController@importData');
 
     Route::post('users/login-from-admin','Admin\UserController@loginFromAdmin')->name('users.login-form-admin');
     Route::post('users/delete','Admin\UserController@destroy')->name('users.delete');
