@@ -246,18 +246,18 @@ class CompanyController extends Controller
 
         $plans = CompanyPlanModel::select('id as value','title as name')->get();
     
-        $types = Type::Select('id as value','name','title_languages->'.$siteLang->id.'->title as language_name')->get();        
+        // $types = Type::Select('id as value','name','title_languages->'.$siteLang->id.'->title as language_name')->get();        
  
 
-        foreach($types as $key => $type){
+        // foreach($types as $key => $type){
 
-            $types[$key]['value'] = $type['value'];
-            $types[$key]['name'] =  ($type['language_name'] == null || $type['language_name'] == '' || $type['language_name'] == 'null' ) ?  $type['name'] : $type['language_name']  ;
+        //     $types[$key]['value'] = $type['value'];
+        //     $types[$key]['name'] =  ($type['language_name'] == null || $type['language_name'] == '' || $type['language_name'] == 'null' ) ?  $type['name'] : $type['language_name']  ;
 
-        }
+        // }
         $country_phone_code =  Country::select('phone_code as value' ,'country_code' ,DB::raw("CONCAT(country_code,' (',phone_code ,')' ) AS name"))->where('phone_code','!=' ,null)->where('country_code','!=' ,null)->get();
 
-        return view("content.admin.company.new_create",[ 'country_phone_code' => $country_phone_code,'plans' => $plans, 'types' => $types,'pageConfigs' => $pageConfigs ,'permissions' => $permissions,'country' => $country ,'breadcrumbs' => $breadcrumbs, 'status' =>$status,'BusinessTypes' => $BusinessTypes ]);
+        return view("content.admin.company.new_create",[ 'country_phone_code' => $country_phone_code,'plans' => $plans,'pageConfigs' => $pageConfigs ,'permissions' => $permissions,'country' => $country ,'breadcrumbs' => $breadcrumbs, 'status' =>$status,'BusinessTypes' => $BusinessTypes ]);
     }
 
     /**
