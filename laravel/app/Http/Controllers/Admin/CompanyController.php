@@ -132,8 +132,9 @@ class CompanyController extends Controller
 
                 DB::table('usertbl')->where('userId',$value->userId)->update(['inserted' => '1']);
                 
-           
-                    $company_users_model =  new CompanyUsers;
+                $company_users_model =  new CompanyUsers;
+
+          
 
                     $data = [
                         'name' => $company_name,
@@ -261,7 +262,7 @@ class CompanyController extends Controller
             $types[$key]['name'] =  ($type['language_name'] == null || $type['language_name'] == '' || $type['language_name'] == 'null' ) ?  $type['name'] : $type['language_name']  ;
 
         }
-        $country_phone_code =  Country::select('phone_code as value' ,'country_code' ,DB::raw("CONCAT(country_code,' (',phone_code ,')' ) AS name"))->where('phone_code','!=' ,null)->where('country_code','!=' ,null)->get(['phone_code','country_code']);
+        $country_phone_code =  Country::select('phone_code as value' ,'country_code' ,DB::raw("CONCAT(country_code,' (',phone_code ,')' ) AS name"))->where('phone_code','!=' ,null)->where('country_code','!=' ,null)->get();
 
         return view("content.admin.company.new_create",[ 'country_phone_code' => $country_phone_code,'plans' => $plans, 'types' => $types,'pageConfigs' => $pageConfigs ,'permissions' => $permissions,'country' => $country ,'breadcrumbs' => $breadcrumbs, 'status' =>$status,'BusinessTypes' => $BusinessTypes ]);
     }
@@ -420,17 +421,13 @@ class CompanyController extends Controller
     
                 if(is_array($request->business_type_id) && count($request->business_type_id) > 0){
                 
-                        $business_type_id   = json_encode($request->business_type_id);
-                    
-                        $business_type = Helper::__getValueFromId('Company\BusinessType', $request->business_type_id); 
+                    $business_type_id   = json_encode($request->business_type_id);
+                    $business_type = BusinessType::select('name')->where('name','!=',null)->whereIn('id',$request->business_type_id)->get()->toArray();
+
+                    $business_type = (empty($business_type))? null: implode(',', array_column( $business_type,'name' ));
                     }    
             }  
-            
-            // if($request->has('country_id') && $request->country_id > 0){
-            //     $country = Helper::__getDataValueFromDataId('Country', $request->country_id);   
-            // }
-        
-                
+                            
 
               $company_model->company_name = $request->company_name;  
               //old field
@@ -757,7 +754,11 @@ class CompanyController extends Controller
      */
     public function update(Request $request, $id)
     {   
-     
+        
+        if (!Auth::user()->can('main-navigation-company-edit')) {
+            abort(403);
+        } 
+
         $request->validate(
             [
             'company_name' => 'required|max:255|unique:companies,company_name,'.$request->id, 
@@ -896,13 +897,13 @@ class CompanyController extends Controller
             
                     $business_type_id   = json_encode($request->business_type_id);
                 
-                    $business_type = Helper::__getValueFromId('Company\BusinessType', $request->business_type_id); 
+                    $business_type = BusinessType::select('name')->where('name','!=',null)->whereIn('id',$request->business_type_id)->get()->toArray();
+
+                    $business_type = (empty($business_type))? null: implode(',', array_column( $business_type,'name' ));
                 }    
         }
 
-        if (!Auth::user()->can('main-navigation-company-edit')) {
-            abort(403);
-        } 
+        
         $company_model = Company::find($request->id);
 
         $old_logo_name = $company_model->logo;
@@ -996,7 +997,7 @@ class CompanyController extends Controller
 
             $company_users_model =  CompanyUsers::where('company_id',$id)->where('user_type',1)->first();
             
-            $status = ($request->status == 'Permitted')?'Permitted' : 'Blocked';               
+            $status = ($request->status == 'Permitted') ? 'Permitted' : 'Blocked';               
 
             $company_user_permissions =   CompanyPlanPermissionModel::where('company_plan_id',$request->plan_id)->value('permissions');
 
