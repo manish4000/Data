@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
 use App\Models\CityModel;
-use App\Models\Company\CompanyContactPersonDetails;
 use App\Models\Company\CompanyDocument;
 use App\Models\Company\CompanyMenuGroupMenu;
-use App\Models\Company\CompanyPermission;
 use App\Models\Company\CompanyPlanModel;
 use App\Models\Company\CompanyPlanPermissionModel;
 use App\Models\Dash\CompanyUsers;
@@ -21,13 +18,8 @@ use App\Models\StateModel;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
-use Carbon\Carbon;
-use Hamcrest\Core\IsNull;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
-use NunoMaduro\Collision\Adapters\Phpunit\State;
 
 class CompanyController extends Controller
 {       
@@ -172,7 +164,8 @@ class CompanyController extends Controller
             abort(403);
         } 
 
-        $data = Company::with('user')->select(['id','name','company_name','email' ,'status','updated_at','updated_by']);
+        $data = Company::select(['id','name','company_name','email' ,'status','updated_at','updated_by']);
+
         
         if(  !empty($request->input('search.keyword') ) ) {
             $data->keywordFilter($request->input('search.keyword')); 
@@ -241,7 +234,7 @@ class CompanyController extends Controller
 
         //$cities = DB::select('SELECT  id as value ,name FROM cities');
 
-        $BusinessTypes = BusinessType::whereNotNull('name')->where('is_service', 'No')->get([ "id as value", "name"]);
+        $BusinessTypes = BusinessType::select('id as value','name')->whereNotNull('name')->where('is_service', 'No')->get();
 
         $status = json_decode(json_encode($this->status));
 
