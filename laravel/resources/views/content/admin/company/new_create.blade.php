@@ -200,7 +200,7 @@
                         <div class="row m-2">
                            <div class="col-md-6">
                               <div class="form-group">
-                                 <x-admin.form.inputs.file id="" caption="{{__('webCaption.document_upload.title')}}" for="document1"  class="form-control" name="document[]"  placeholder="{{__('webCaption.document.title')}}" required=""   multiple="multiple" />
+                                 <x-admin.form.inputs.multiple_file lable="{{__('webCaption.document_upload.title')}}"  id="" caption="{{__('webCaption.document_upload.title')}}" for="document1"  class="form-control" name="document[]"  placeholder="{{__('webCaption.document.title')}}" required=""   multiple="multiple" />
                                  
                               </div>
                            </div>
@@ -280,26 +280,24 @@
                               $contact_line =  session()->getOldInput('contact_line');
                               $contact_whatsapp =  session()->getOldInput('contact_whatsapp');
 
-                              $contact_viber_0 =   ( isset($contact_viber) && isset($contact_viber[0]) && $contact_viber[0] == 1 ) ? 'checked' : '' ;
+                           $contact_1_option_viber = (isset($contact_viber) && in_array('contact_viber[0]' , $contact_viber) ) ? 'checked' : '';
+                           $contact_1_option_line = (isset($contact_line) && in_array('contact_line[0]' , $contact_line) ) ? 'checked' : ''; 
+                           $contact_1_option_whatsapp =(isset($contact_whatsapp) && in_array('contact_whatsapp[0]' , $contact_whatsapp) ) ? 'checked' : '';
 
-                              $contact_viber_1 =   (isset($contact_viber) && isset($contact_viber[1]) && $contact_viber[1] == 1 ) ? 'checked' :'' ;
-
-                              $contact_line_0 =   (isset($contact_line) && isset($contact_line[0]) && $contact_line[0] == 1 )  ? 'checked' : '';
-
-                              $contact_line_1 =   (isset($contact_line) && isset($contact_line[1]) && $contact_line[1] == 1 ) ? 'checked' :'';
-
-                              $contact_whatsapp_0 =   (isset($contact_whatsapp) && isset($contact_whatsapp[0]) && $contact_whatsapp[0] == 1 ) ? 'checked' : '' ;
-
-                              $contact_whatsapp_1 =   (isset($contact_whatsapp) && isset($contact_whatsapp[1]) && $contact_whatsapp[1] == 1 ) ? 'checked' : '';
+                           $contact_2_option_viber = (isset($contact_viber) && in_array('contact_viber[1]' , $contact_viber) ) ? 'checked' : '';
+                           $contact_2_option_line = (isset($contact_line) && in_array('contact_line[1]' , $contact_line) ) ? 'checked' : ''; 
+                           $contact_2_option_whatsapp =(isset($contact_whatsapp) && in_array('contact_whatsapp[1]' , $contact_whatsapp) ) ? 'checked' : '';
 
                            @endphp
-                           <x-admin.form.inputs.checkbox id="" for="contact_1_option_viber" tooltip="{{__('webCaption.viber.caption')}}" label="{{__('webCaption.viber.title')}}"  class="form-control" name="contact_viber[]"   value="1" checked="{{$contact_viber_0}}" />
+                           <x-admin.form.inputs.checkbox id="" for="contact_1_option_viber" tooltip="{{__('webCaption.viber.caption')}}" label="{{__('webCaption.viber.title')}}"  class="form-control" name="contact_viber[]"   value="contact_viber[0]" checked="{{$contact_1_option_viber}}" />
 
-                           <x-admin.form.inputs.checkbox id="" for="contact_1_option_line" tooltip="{{__('webCaption.line.caption')}}" label="{{__('webCaption.line.title')}}" class="form-control" name="contact_line[]"   value="1"  checked="{{$contact_line_0}}" />
+                           <x-admin.form.inputs.checkbox id="" for="contact_1_option_line" tooltip="{{__('webCaption.line.caption')}}" label="{{__('webCaption.line.title')}}" class="form-control" name="contact_line[]"   value="contact_line[0]" 
+                           checked="{{$contact_1_option_line}}" />
 
-                           <x-admin.form.inputs.checkbox id="" for="contact_1_option_whatsapp" tooltip="{{__('webCaption.whatsapp.caption')}}"  label="{{__('webCaption.whatsapp.title')}}"  class="form-control" name="contact_whatsapp[]"   value="1"  checked="{{$contact_whatsapp_0}}" />&ensp; 
+                           <x-admin.form.inputs.checkbox id="" for="contact_1_option_whatsapp" tooltip="{{__('webCaption.whatsapp.caption')}}"  label="{{__('webCaption.whatsapp.title')}}"  class="form-control" name="contact_whatsapp[]"   value="contact_whatsapp[0]"
+                             checked="{{$contact_1_option_whatsapp}}" />&ensp; 
                         </div>
-                        </div>
+                     </div>
                   </div>
 
                </div>
@@ -346,11 +344,13 @@
                       <div class="col-md-4">
                           <x-admin.form.label for="" tooltip="{{__('webCaption.contact_option.caption')}}" value="{{__('webCaption.contact_option.title')}}" class="" />
                           <div class="form-group">
-                              <x-admin.form.inputs.checkbox id="" for="contact_2_option_viber" tooltip="{{__('webCaption.viber.caption')}}" label="{{__('webCaption.viber.title')}}"  class="form-control" name="contact_viber[]"   value="1" checked="{{$contact_viber_1}}" /> &ensp;
+                              <x-admin.form.inputs.checkbox id="" for="contact_2_option_viber" tooltip="{{__('webCaption.viber.caption')}}" label="{{__('webCaption.viber.title')}}"  class="form-control" name="contact_viber[]"   value="contact_viber[1]" checked="{{$contact_2_option_viber}}" /> &ensp;
       
-                              <x-admin.form.inputs.checkbox id="" for="contact_2_option_line" tooltip="{{__('webCaption.line.caption')}}" label="{{__('webCaption.line.title')}}" class="form-control" name="contact_line[]"   value="1"  checked="{{$contact_line_1}}" />&ensp;
+                              <x-admin.form.inputs.checkbox id="" for="contact_2_option_line" tooltip="{{__('webCaption.line.caption')}}" label="{{__('webCaption.line.title')}}" class="form-control" name="contact_line[]"   value="contact_line[1]" 
+                               checked="{{$contact_2_option_line}}" />&ensp;
       
-                              <x-admin.form.inputs.checkbox id="" for="contact_2_option_whatsapp" tooltip="{{__('webCaption.whatsapp.caption')}}" label="{{__('webCaption.whatsapp.title')}}"  class="form-control" name="contact_whatsapp[]"   value="1"  checked="{{$contact_whatsapp_1}}" />&ensp;
+                              <x-admin.form.inputs.checkbox id="" for="contact_2_option_whatsapp" tooltip="{{__('webCaption.whatsapp.caption')}}" label="{{__('webCaption.whatsapp.title')}}"  class="form-control" name="contact_whatsapp[]"   value="contact_whatsapp[1]" 
+                               checked="{{$contact_2_option_whatsapp}}" />&ensp;
                           </div>    
                       </div>
                   </div>  

@@ -211,18 +211,22 @@
                     <div class="row m-2">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <x-admin.form.inputs.file id="" caption="{{__('webCaption.document_upload.title')}}" for="document"  name="document[]"  placeholder="{{__('webCaption.logo.title')}}" required=""  multiple="multiple" />
+                              <x-admin.form.inputs.multiple_file lable="{{__('webCaption.document_upload.title')}}"  id="" caption="{{__('webCaption.document_upload.title')}}" for="document1"  class="form-control" name="document[]"  placeholder="{{__('webCaption.document.title')}}" required=""   multiple="multiple" />
                                 
                             </div>
                         </div>
 
                     </div>
-                    <div class="d-flex justify-content-around">
+                    <div class="d-flex">
 
                         @foreach($data->documents as $document)
-                            <div>
-                              <img src="{{asset('company_data/'.$data->gabs_uuid.'/document/'.$document->name)}}" class="img-fluid p-2" alt="" height="70" width="80">
+
+                          @if(is_file(public_path('company_data/').$data->gabs_uuid.'/document/'.$document->name ))
+                            <div class=" mx-2">
+                              <img src="{{asset('company_data/'.$data->gabs_uuid.'/document/'.$document->name)}}" class="img-fluid p-2" alt="" height="100" width="100">
                             </div>
+                          @endif
+
                         @endforeach
 
                     </div>
@@ -241,7 +245,7 @@
 
       </div>
     </div>
-    {{-- <div class="card">
+    <div class="card">
         <div class="card-header">
             <h4 class="card-title">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info font-medium-3 mr-1"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
@@ -283,6 +287,7 @@
                     </div>
                 </div>
             </div>  
+            
     
             <div class="row">
                 <div class="col-md-4">
@@ -294,6 +299,37 @@
                         @endif
                     </div>
                 </div>
+                <div class="col-md-4">
+                  <x-admin.form.label for="" tooltip="{{__('webCaption.contact_option.caption')}}" value="{{__('webCaption.contact_option.title')}}" class="" />
+                  <div class="form-group">
+                     @php
+
+                        $contact_viber =  session()->getOldInput('contact_viber');
+                        $contact_line =  session()->getOldInput('contact_line');
+                        $contact_whatsapp =  session()->getOldInput('contact_whatsapp');
+
+                     $contact_1_option_viber = ((isset($contact_viber) && in_array('contact_viber[0]' , $contact_viber) )  || ( isset    ($data->contcatPersonDetails[0]->viber) ) && $data->contcatPersonDetails[0]->viber == '1' ) ? 'checked' : '';
+
+                     $contact_1_option_line = (isset($contact_line) && in_array('contact_line[0]' , $contact_line) || ( isset    ($data->contcatPersonDetails[0]->line) ) && $data->contcatPersonDetails[0]->line == '1' ) ? 'checked' : ''; 
+
+                     $contact_1_option_whatsapp =(isset($contact_whatsapp) && in_array('contact_whatsapp[0]' , $contact_whatsapp) || ( isset    ($data->contcatPersonDetails[0]->whatsapp) ) && $data->contcatPersonDetails[0]->whatsapp == '1' ) ? 'checked' : '';
+
+                     $contact_2_option_viber = (isset($contact_viber) && in_array('contact_viber[1]' , $contact_viber) || ( isset    ($data->contcatPersonDetails[1]->viber) ) && $data->contcatPersonDetails[1]->viber == '1' ) ? 'checked' : '';
+
+                     $contact_2_option_line = (isset($contact_line) && in_array('contact_line[1]' , $contact_line) || ( isset    ($data->contcatPersonDetails[1]->line) ) && $data->contcatPersonDetails[1]->line == '1' ) ? 'checked' : '';
+
+                     $contact_2_option_whatsapp =(isset($contact_whatsapp) && in_array('contact_whatsapp[1]' , $contact_whatsapp) || ( isset    ($data->contcatPersonDetails[1]->whatsapp) ) && $data->contcatPersonDetails[1]->whatsapp == '1' ) ? 'checked' : '';
+
+                     @endphp
+                     <x-admin.form.inputs.checkbox id="" for="contact_1_option_viber" tooltip="{{__('webCaption.viber.caption')}}" label="{{__('webCaption.viber.title')}}"  class="form-control" name="contact_viber[]"   value="contact_viber[0]" checked="{{$contact_1_option_viber}}" />
+
+                     <x-admin.form.inputs.checkbox id="" for="contact_1_option_line" tooltip="{{__('webCaption.line.caption')}}" label="{{__('webCaption.line.title')}}" class="form-control" name="contact_line[]"   value="contact_line[0]" 
+                     checked="{{$contact_1_option_line}}" />
+
+                     <x-admin.form.inputs.checkbox id="" for="contact_1_option_whatsapp" tooltip="{{__('webCaption.whatsapp.caption')}}"  label="{{__('webCaption.whatsapp.title')}}"  class="form-control" name="contact_whatsapp[]"   value="contact_whatsapp[0]"
+                       checked="{{$contact_1_option_whatsapp}}" />&ensp; 
+                  </div>
+               </div>
             </div>  
     
           </div>
@@ -341,13 +377,25 @@
                         @endif
                     </div>
                 </div>
+                <div class="col-md-4">
+                  <x-admin.form.label for="" tooltip="{{__('webCaption.contact_option.caption')}}" value="{{__('webCaption.contact_option.title')}}" class="" />
+                  <div class="form-group">
+                      <x-admin.form.inputs.checkbox id="" for="contact_2_option_viber" tooltip="{{__('webCaption.viber.caption')}}" label="{{__('webCaption.viber.title')}}"  class="form-control" name="contact_viber[]"   value="contact_viber[1]" checked="{{$contact_2_option_viber}}" /> &ensp;
+
+                      <x-admin.form.inputs.checkbox id="" for="contact_2_option_line" tooltip="{{__('webCaption.line.caption')}}" label="{{__('webCaption.line.title')}}" class="form-control" name="contact_line[]"   value="contact_line[1]" 
+                       checked="{{$contact_2_option_line}}" />&ensp;
+
+                      <x-admin.form.inputs.checkbox id="" for="contact_2_option_whatsapp" tooltip="{{__('webCaption.whatsapp.caption')}}" label="{{__('webCaption.whatsapp.title')}}"  class="form-control" name="contact_whatsapp[]"   value="contact_whatsapp[1]" 
+                       checked="{{$contact_2_option_whatsapp}}" />&ensp;
+                  </div>    
+              </div>
             </div>  
     
           </div>
         </div>
  
 
-    </div> --}}
+    </div>
 
 
     <div class="card">
@@ -403,7 +451,7 @@
 
     <div class="form-group">
 
-      {{-- <x-admin.form.inputs.checkbox id="" for="terms_and_services"  tooltip="{{__('webCaption.accept_terms_and_services.caption')}}" label="{{__('webCaption.accept_terms_and_services.title')}}"  class="form-control" name="terms_and_services"   value="1" checked="{{ old('terms_and_services') == '1' ? 'checked' : '' }} {{ ($data->terms_and_services == '1') ? 'checked' :''}}" /> &ensp; --}}
+      <x-admin.form.inputs.checkbox id="" for="terms_and_services"  tooltip="{{__('webCaption.accept_terms_and_services.caption')}}" label="{{__('webCaption.accept_terms_and_services.title')}}"  class="form-control" name="terms_and_services"   value="1" checked="{{ old('terms_and_services') == '1' ? 'checked' : '' }} {{ ($data->terms_and_services == '1') ? 'checked' :''}}" /> &ensp;
     </div>
   </section>
   <div class="text-center">
