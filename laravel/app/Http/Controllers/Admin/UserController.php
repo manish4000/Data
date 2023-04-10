@@ -222,6 +222,9 @@ class UserController extends Controller
 
     public function updatePermission(Request $request){
 
+
+        dd($request->all());
+
         $userModel =    User::find($request->id);
         
         if($userModel->permissions()->sync($request->permissions)){
