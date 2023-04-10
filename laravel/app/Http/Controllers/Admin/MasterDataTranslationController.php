@@ -122,6 +122,7 @@ class MasterDataTranslationController extends Controller
         if (!Auth::user()->can('main-navigation-masters-language-translation-master-edit')) {
             abort(403);
         }
+
         $validator = Validator::make($request->all(),
             [
                 'value' => 'required|unique:master_data_translations,value,'.$request->id
@@ -136,9 +137,8 @@ class MasterDataTranslationController extends Controller
         }
 
         $master_data_trans_modal =   MasterDataTranslation::find($id);
-        $master_data_trans_modal->language_data     = $request->title_languages;
 
-        if($master_data_trans_modal->save()){
+        if($master_data_trans_modal->update(['language_data' => $request->language_data])){
             return redirect()->route('language_translation.master_data_translation.index')->with('success_message' ,$request->value." " .__('webCaption.alert_updated_successfully.title') );
         }else{
             return redirect()->route('language_translation.master_data_translation.index')->with(['error_message' => __('webCaption.alert_somthing_wrong.title') ]);
