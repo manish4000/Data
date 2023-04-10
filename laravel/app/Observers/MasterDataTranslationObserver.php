@@ -17,16 +17,18 @@ class MasterDataTranslationObserver
     {   
         $modalNamespace = get_class($modal);
         
-        if($modal->parent_id == "0"){
+        if(($modal->parent_id == "0") || $modal->parent_id == null ){
 
             $master_data_trans =  new MasterDataTranslation;
     
             if($master_data_value_exist =  $master_data_trans->where('value', $modal->name)->first())
             {
                 $db_models =   $master_data_value_exist->db_models;
-                array_push($db_models,$modalNamespace);
-                $master_data_value_exist->db_models = $db_models;
-                $master_data_value_exist->save();
+                if(!in_array($modalNamespace ,$db_models)){
+                    array_push($db_models,$modalNamespace);
+                    $master_data_value_exist->db_models = $db_models;
+                    $master_data_value_exist->save();
+                }
             }else{
                 $master_data_trans->value = $modal->name;
                 $master_data_trans->db_models = [$modalNamespace];
@@ -44,7 +46,9 @@ class MasterDataTranslationObserver
      * @return void
      */
     public function updated($modal)
-    {   
+    {  
+       
+        
         $modalNamespace = get_class($modal);
 
         $masterDataTransModal  =  new MasterDataTranslation;
