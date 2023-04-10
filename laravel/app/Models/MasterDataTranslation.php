@@ -23,6 +23,27 @@ class MasterDataTranslation extends Model
         });
     }
 
+
+    // public static function boot() {
+  
+    //     parent::boot();
+        
+    //     static::updated(function($model) {  
+
+           
+    //         /*
+    //             Write Logic Here
+    //         */    
+    //         foreach ($model->db_models as $modelName) {
+
+    //             $modelClass = new $modelName;
+    //             $modelObject =   $modelClass->where('name',$model->value)->first();
+    //             $modelObject->update(['title_languages' => $model->language_data]);
+    //         } 
+    //     });
+
+    // }
+
     protected static function booted()
     {   
         static::updated(function($model){ 
@@ -30,7 +51,8 @@ class MasterDataTranslation extends Model
 
                 $modelClass = new $modelName;
                 $modelObject =   $modelClass->where('name',$model->value)->first();
-                $modelObject->update(['title_languages' => $model->language_data]);
+
+                $modelObject->where('id', $modelObject->id)->update(['title_languages' => $model->language_data]);
             } 
         });
         
