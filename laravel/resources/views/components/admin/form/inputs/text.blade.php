@@ -8,13 +8,15 @@
     'customClass',
     'maxlength',
     'attributes',
-    'tooltip'
+    'tooltip',
+    'readonly'
   
 ])
 @php
 
 $charLength =  (isset($value))? strlen($value) : 0;
 $customClass = isset($customClass) ? $customClass : '';
+$readonly = isset($readonly) ? $readonly : '';
 @endphp
 
 @if (isset($label) && isset($for)) 
@@ -33,7 +35,7 @@ $customClass = isset($customClass) ? $customClass : '';
     @if(isset($placeholder )) placeholder='{{ $placeholder }}'  @endif    
     @if(isset($required)) {{ $required }}  @endif    
     @if(isset($attributes)) {{$attributes}}  @endif            
-    @if(isset($value))   value="{{$value}}"  @endif  >
+    @if(isset($value))   value="{{$value}}"  @endif {{$readonly}}  >
 
 @if (isset($maxlength) && isset($for) )(<span class="text-right" id="count_{{$for}}">{{$charLength}}</span>/{{$maxlength}}) @endif
 
