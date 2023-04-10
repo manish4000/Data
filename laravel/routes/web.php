@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Common\CountryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StaterkitController;
 use App\Http\Controllers\Admin\LanguageController;
@@ -222,7 +223,19 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
 
         });
 
-
+     
+        //route Common
+        
+        Route::group(['prefix' => 'common','as' => 'common.'],function(){
+            //routes of country module 
+            Route::group(['prefix' => 'country' ,'as' => 'country.'],function(){
+                Route::get('/', [CountryController::class, 'index'])->name('index'); 
+                Route::get('/create', [CountryController::class, 'create'])->name('create');
+                Route::post('/store', [CountryController::class, 'store'])->name('store');
+                Route::post('/delete', [CountryController::class, 'destroy'])->name('delete');
+                Route::get('/edit/{id}', [CountryController::class, 'edit'])->name('edit');
+            });
+        });
 
 
     /* Route Masters */
