@@ -51,7 +51,7 @@ class CompanyController extends Controller
 
     public function importDataFromJct(){
        
-       $old_company_users_data = DB::table('usertbl')->where('inserted','0')->take(100)->get();
+       $old_company_users_data = DB::table('usertbl')->where('inserted','0')->take(80)->get();
 
 
        foreach($old_company_users_data as $key => $value){
@@ -119,6 +119,7 @@ class CompanyController extends Controller
             'created_at' => $created_at,
             'updated_at' =>  $updated_at,
             'deleted_at' => null,
+            'plan_id' => '2'
             ];
 
             if( $inserted_id = Company::insertGetId($company_user_data)){
@@ -127,7 +128,7 @@ class CompanyController extends Controller
                 
                 $company_users_model =  new CompanyUsers;
 
-          
+                $company_user_permissions =   CompanyPlanPermissionModel::where('company_plan_id','2')->value('permissions');
 
                     $data = [
                         'name' => $company_name,
@@ -140,7 +141,10 @@ class CompanyController extends Controller
                         'updated_at'=> $updated_at,
                         'inserted' => '1'
                         ];
-                          $company_users_model->create($data);
+                        
+                        $company_user_id =  $company_users_model->insertGetId($data);
+                        $company_user_add_permission  = CompanyUsers::find($company_user_id);
+                        $company_user_add_permission->permissions()->attach($company_user_permissions);
                         // $company_user_add_permission  = CompanyUsers::find($company_user->id);
                         // $company_user_add_permission->permissions()->attach($request->permissions);
 
