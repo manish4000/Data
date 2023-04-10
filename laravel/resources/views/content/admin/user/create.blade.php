@@ -52,17 +52,13 @@
 							<div class="col-6">
 								<div class="form-group">
 									<x-admin.form.inputs.password  maxlength="15" :passwordGenerator="true"  for="password" tooltip="{{__('webCaption.password.caption')}}"   label="{{__('webCaption.password.title')}}"   name="password"  placeholder="{{__('webCaption.password.title')}}" value=""  required="" />
-									@if ($errors->has('password'))
-									<x-admin.form.form_error_messages message="{{ $errors->first('password') }}"  />
-								    @endif
+									
 								</div>
 							</div>
 							<div class="col-6">
 								<div class="form-group">
 									<x-admin.form.inputs.password tooltip="{{__('webCaption.password_confirm.caption')}}"   maxlength="15" for="password_confirmation"  label="{{__('webCaption.password_confirm.title')}}"   name="password_confirmation"  placeholder="{{__('webCaption.password_confirm.title')}}" value=""  required="" />
-									@if ($errors->has('password_confirmation'))
-									<x-admin.form.form_error_messages message="{{ $errors->first('password_confirmation') }}"  />
-								    @endif
+									
 								</div>
 							</div>
 						</div>
@@ -71,17 +67,13 @@
 							<div class="col-6">
 								<div class="form-group">
 									<x-admin.form.inputs.password  :passwordGenerator="true"  maxlength="15"  for="password" tooltip="{{__('webCaption.password.caption')}}"   label="{{__('webCaption.password.title')}}"   name="password"  placeholder="{{__('webCaption.password.title')}}" value=""  required="required" />
-									@if ($errors->has('password'))
-										<x-admin.form.form_error_messages message="{{ $errors->first('password') }}"  />
-									@endif
+									
 								</div>
 							</div>
 							<div class="col-6">
 								<div class="form-group">
 									<x-admin.form.inputs.password tooltip="{{__('webCaption.password_confirm.caption')}}"   maxlength="15" for="password_confirmation"  label="{{__('webCaption.password_confirm.title')}}"  name="password_confirmation"  placeholder="{{__('webCaption.password_confirm.title')}}" value=""  required="required" />
-									@if ($errors->has('password_confirmation'))
-										<x-admin.form.form_error_messages message="{{ $errors->first('password_confirmation') }}"  />
-									@endif
+									
 								</div>
 								
 							</div>
@@ -98,9 +90,7 @@
 								
 								@endphp
 								<x-admin.form.inputs.multiple_select label="{{__('webCaption.department.title')}}" tooltip="{{__('webCaption.department.caption')}}"  for="department_id" id=""  name="department_id[]"  :oldValues="old('department_id')" value=""   :editSelected="$editSelected"  :optionData="$departments" required="" />
-								@if($errors->has('department_id'))
-									<x-admin.form.form_error_messages message="{{ $errors->first('department_id') }}" />
-								@endif
+								
 							</div>
 						</div>
 						<div class="col-md-6">
@@ -113,9 +103,7 @@
 								<div class="col-8">
 									<div class="form-group">
 										<x-admin.form.inputs.text  for="phone"  maxlength="15" tooltip="{{__('webCaption.phone.caption')}}"  label="{{__('webCaption.phone.title')}}"  class="form-control" name="phone"  placeholder="{{__('webCaption.phone.title')}}" value="{{old('phone', isset($user->phone)?$user->phone:'' )}}"  required="required" />
-										@if ($errors->has('phone'))
-											<x-admin.form.form_error_messages message="{{ $errors->first('phone') }}"  />
-										@endif
+										
 									</div>
 								</div>
 							</div>
@@ -125,9 +113,7 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<x-admin.form.inputs.checkbox for="two_step_verification" tooltip="{{__('webCaption.required_two_step_verification.caption')}}" name="allow_2fa" label="{{__('webCaption.required_two_step_verification.title')}}" checked="{{ old('allow_2fa') == '1' ? 'checked' : '' }} {{ isset($user->allow_2fa) ? $user->allow_2fa == '1' ? 'checked=checked' :'' :'' }}"  value="1"  customClass="form-check-input"  />
-									@if($errors->has('allow_2fa'))
-									<x-admin.form.form_error_messages message="{{ $errors->first('allow_2fa') }}" />
-									@endif		
+											
 							</div>
 						</div>
 						
