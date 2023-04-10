@@ -14,7 +14,7 @@
     <div class="d-flex justify-content-between mx-2 row">
         <div class="col-sm-4 col-md-4">
             <div class="mb-1">
-                <span class="mr-2">Record Per Page </span> 
+                <span class="mr-2">{{__('webCaption.record_per_page.title')}}</span> 
                 <a class="btn btn-secondary btn-sm dropdown-toggle"  data-toggle="dropdown" aria-expanded="false">
                    <span id="selected"> @if($selected_per_page != '') {{$selected_per_page}} @else {{__('webCaption.record_per_page.title')}} @endif</span>
                 </a>
