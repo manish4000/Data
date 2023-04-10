@@ -30,7 +30,7 @@
             </div>
           </div>
     
-          @if ( isset($activeSiteLanguages) && count($activeSiteLanguages) > 0 )
+          {{-- @if ( isset($activeSiteLanguages) && count($activeSiteLanguages) > 0 )
           <div class="card">
             <div class="card-header">
               <h4 class="card-title">
@@ -59,9 +59,15 @@
                       @endforeach
                   </div>
               </div>
-          </div>    
-          @endif
+          </div>  
+            
+          @endif --}}
 
+          @php
+          $activeSiteLanguages = (isset($activeSiteLanguages)) ? $activeSiteLanguages : null;
+        @endphp
+        {{-- //this is showing for data form master data translation  --}}
+        <x-admin.site-language :activeSiteLanguages="$activeSiteLanguages" :data="$data->language_data" name="language_data" />
 
           @if ( isset($data->db_models) && count($data->db_models) > 0 )
           <div class="card">
@@ -79,7 +85,7 @@
                         @foreach ( $data->db_models as $key=> $modal )
                           <div class="col-md-4">
                             <div class="form-group">
-                              <x-admin.form.inputs.text label="{{__('webCaption.db_models.title')}} [{{$key}}]" for=""   name="db_models[{{$key}}]"  placeholder="{{__('webCaption.db_models.title')}}" value="{{old('db_models.'.$key,$modal)}}"  required=""  readonly/>
+                              <x-admin.form.inputs.text label="{{__('webCaption.db_models.title')}} [{{$key}}]" for=""   name="db_models[{{$key}}]"  placeholder="{{__('webCaption.db_models.title')}}" value="{{old('db_models.'.$key,$modal)}}"  required=""  readonly="readonly"/>
                               
                             </div>
                           </div>
