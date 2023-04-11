@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Laravel\Ui\Presets\React;
 use PragmaRX\Google2FAQRCode\Google2FA;
 
 
@@ -259,50 +260,7 @@ class UserController extends Controller
 
             
 
-            if($old_departments != null){
-                
-              $user_old_permissions = UserPermission::where('user_id',$request->id)->get(['menu_id']);
-              $user_old_permissions = (!empty($user_old_permissions) ) ? (array_column( json_decode(json_encode($user_old_permissions), true),'menu_id')):[];
-
-              if(count($differance_array_new_remove) > 0){
-                $permission_remove =  DepartmentPermission::whereIn('department_id',$differance_array_new_remove)->get(['menu_id']);
-                $permission_remove = (array_column( json_decode(json_encode($permission_remove), true),'menu_id'));
-
-                foreach($permission_remove as $val){
-                    $key = array_search($val, $user_old_permissions, true);
-                    if ($key !== false) {
-                        array_splice($user_old_permissions, $key, 1);
-                    }
-                }
-
-              }
-
-              if(count($differance_array_new_added) > 0){
-
-                $permission_add =  DepartmentPermission::whereIn('department_id',$differance_array_new_added)->get(['menu_id']);
-
-                $permission_add = (array_column( json_decode(json_encode($permission_add), true),'menu_id'));
-
-                 
-                $user_old_permissions = array_merge($user_old_permissions,$permission_add);
-
-              }
            
-               $user_permission_to_sync =  (array_unique($user_old_permissions));
-           
-
-                // $new_permissions = '';
-                // foreach($request->department_id as $department){
-                //     if(!in_array($department , $old_departments)){
-                //         $permission =  DepartmentPermission::where('department_id',$department)->get(['menu_id']);
-                //         $permission = (array_column( json_decode(json_encode($permission), true),'menu_id'));
-                //         $new_permissions.=  implode(',',$permission).',' ;
-                //     }
-                // }
-                // $new_permissions = array_unique( explode(',',$new_permissions));
-                // //this is for remove last element of array  
-                // array_pop ($new_permissions);
-            }
 
             if(isset($request->password)){
                 $request->validate([
@@ -361,6 +319,42 @@ class UserController extends Controller
                 'password.confirmed'=> __('webCaption.validation_confirmed.title', ['field'=> "Password" ] ),
             ]);
         }
+
+
+        if($request->id){
+            if($old_departments != null){
+                
+                $user_old_permissions = UserPermission::where('user_id',$request->id)->get(['menu_id']);
+                $user_old_permissions = (!empty($user_old_permissions) ) ? (array_column( json_decode(json_encode($user_old_permissions), true),'menu_id')):[];
+  
+                if(count($differance_array_new_remove) > 0){
+                  $permission_remove =  DepartmentPermission::whereIn('department_id',$differance_array_new_remove)->get(['menu_id']);
+                  $permission_remove = (array_column( json_decode(json_encode($permission_remove), true),'menu_id'));
+  
+                  foreach($permission_remove as $val){
+                      $key = array_search($val, $user_old_permissions, true);
+                      if ($key !== false) {
+                          array_splice($user_old_permissions, $key, 1);
+                      }
+                  }
+  
+                }
+  
+                if(count($differance_array_new_added) > 0){
+  
+                  $permission_add =  DepartmentPermission::whereIn('department_id',$differance_array_new_added)->get(['menu_id']);
+  
+                  $permission_add = (array_column( json_decode(json_encode($permission_add), true),'menu_id'));
+  
+                   
+                  $user_old_permissions = array_merge($user_old_permissions,$permission_add);
+  
+                }
+             
+                 $user_permission_to_sync =  (array_unique($user_old_permissions));
+              }
+        }
+
 
         $requestDepartments =  ($request->department_id == null || $request->department_id == '') ? [] : $request->department_id;
         
