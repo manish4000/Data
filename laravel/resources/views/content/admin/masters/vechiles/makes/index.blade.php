@@ -66,13 +66,18 @@
             @can('main-navigation-masters-vehicle-make') 
                 @if(count($data) > 0 )
                     <div class="table-responsive">
-                        <div class="mt-2">
-                            {{ $data->onEachSide(5)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
-                        </div>
-                        <div class="px-2 my-2">
-                            {{-- deleteMultiple() for delete multiple data pass url here  --}}
-                            <x-admin.form.buttons.multipleDelete url="{{route('masters-vehicle-make-delete-multiple')}}" />
-                        </div>
+                      
+                            <div class="mt-2">
+                                {{ $data->onEachSide(5)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
+                            </div>
+                         {{--check delete permission  --}}
+                       
+                        @can('main-navigation-masters-vehicle-make-delete')
+                            <div class="px-2 my-2">
+                                {{-- deleteMultiple() for delete multiple data pass url here  --}}
+                                <x-admin.form.buttons.multipleDelete url="{{route('masters-vehicle-make-delete-multiple')}}" />
+                            </div>
+                        @endcan
                         <table class="table" id="master-list">
                             <thead>
                                 <tr>

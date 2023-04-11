@@ -39,10 +39,12 @@
                     <div class="mt-2">
                         {{ $data->onEachSide(5)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
                     </div>
-                    <div class="px-2 my-2">
-                        {{-- deleteMultiple() for delete multiple data pass url here  --}}
-                        <x-admin.form.buttons.multipleDelete url="{{route('department.delete-multiple')}}" />
-                    </div>
+                    @can('main-navigation-master-department-delete')
+                        <div class="px-2 my-2">
+                            {{-- deleteMultiple() for delete multiple data pass url here  --}}
+                            <x-admin.form.buttons.multipleDelete url="{{route('department.delete-multiple')}}" />
+                        </div>
+                    @endcan    
                     <table class="table" id="master-list">
                         <thead>
                             <tr>
