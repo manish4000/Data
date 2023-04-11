@@ -282,11 +282,7 @@ class UserController extends Controller
             $old_departments = json_decode( $userModel->department_id);
             $new_departments = $request->department_id;
 
-      
-
-        
-           
-
+    
             if(isset($request->password)){
                 $request->validate([
                     'password' => 'required|confirmed|min:5',
@@ -297,7 +293,6 @@ class UserController extends Controller
                         'password.confirmed'=> __('webCaption.validation_confirmed.title', ['field'=> "Password" ] ),
                 ]);
                 $userModel->password = bcrypt($request->password);
-              
             }
 
         }else{
@@ -305,13 +300,6 @@ class UserController extends Controller
                 abort(403);
             }
 
-
-            $userModel = new User();
-            $userModel->password = bcrypt($request->password);
-        }    
-        
-       
-        if(!isset($request->id)){
             $request->validate([
                 'password' => 'required|confirmed|min:5',   
             ],
@@ -320,8 +308,12 @@ class UserController extends Controller
                 'password.min' => __('webCaption.validation_min.title', ['field'=> 'password' ,'min' => "5"] ),
                 'password.confirmed'=> __('webCaption.validation_confirmed.title', ['field'=> "Password" ] ),
             ]);
-        }
 
+            $userModel = new User();
+            $userModel->password = bcrypt($request->password);
+        }    
+        
+    
 
         if($request->id){
             if($old_departments != null){
@@ -329,12 +321,27 @@ class UserController extends Controller
                 $differance_array_new_added =  array_diff($new_departments, $old_departments);
                 $differance_array_new_remove =  array_diff( $old_departments, $new_departments);
 
+                $common_department = array_intersect($new_departments,$old_departments);
+
                 $user_old_permissions = UserPermission::where('user_id',$request->id)->get(['menu_id']);
                 $user_old_permissions = (!empty($user_old_permissions) ) ? (array_column( json_decode(json_encode($user_old_permissions), true),'menu_id')):[];
   
                 if(count($differance_array_new_remove) > 0){
+
+                  $common_permission =    DepartmentPermission::whereIn('department_id',$common_department)->get(['menu_id']);
+                  $common_permission = (array_column( json_decode(json_encode($common_permission), true),'menu_id'));
+
                   $permission_remove =  DepartmentPermission::whereIn('department_id',$differance_array_new_remove)->get(['menu_id']);
                   $permission_remove = (array_column( json_decode(json_encode($permission_remove), true),'menu_id'));
+
+
+
+                  foreach($common_permission as $common_val){
+                    $key = array_search($common_val, $permission_remove, true);
+                    if ($key !== false) {
+                        array_splice($permission_remove, $key, 1);
+                    }
+                }
   
                   foreach($permission_remove as $val){
                       $key = array_search($val, $user_old_permissions, true);
