@@ -229,7 +229,7 @@ class UserController extends Controller
             $message =  __('webCaption.alert_updated_successfully.title');
             return redirect()->route('users.index')->with('success_message' ,$message );
         }else{
-
+            return redirect()->route('users.index')->with(['error_message' => __('webCaption.alert_somthing_wrong.title') ]);
         }
 
 
