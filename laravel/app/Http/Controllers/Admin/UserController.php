@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Permission;
+use App\Models\UserPermission;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Facades\Gate;
@@ -222,9 +223,6 @@ class UserController extends Controller
 
     public function updatePermission(Request $request){
 
-
-        dd($request->all());
-
         $userModel =    User::find($request->id);
         
         if($userModel->permissions()->sync($request->permissions)){
@@ -244,13 +242,68 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {     
+    {       
+    
         if($request->id){
             if (!Auth::user()->can('settings-users-edit')) {
                 abort(403);
             }
 
             $userModel =    User::find($request->id);
+
+            $old_departments = json_decode( $userModel->department_id);
+            $new_departments = $request->department_id;
+
+            $differance_array_new_added =  array_diff($new_departments, $old_departments);
+            $differance_array_new_remove =  array_diff( $old_departments, $new_departments);
+
+            
+
+            if($old_departments != null){
+                
+              $user_old_permissions = UserPermission::where('user_id',$request->id)->get(['menu_id']);
+              $user_old_permissions = (!empty($user_old_permissions) ) ? (array_column( json_decode(json_encode($user_old_permissions), true),'menu_id')):[];
+
+              if(count($differance_array_new_remove) > 0){
+                $permission_remove =  DepartmentPermission::whereIn('department_id',$differance_array_new_remove)->get(['menu_id']);
+                $permission_remove = (array_column( json_decode(json_encode($permission_remove), true),'menu_id'));
+
+                foreach($permission_remove as $val){
+                    $key = array_search($val, $user_old_permissions, true);
+                    if ($key !== false) {
+                        array_splice($user_old_permissions, $key, 1);
+                    }
+                }
+
+              }
+
+              if(count($differance_array_new_added) > 0){
+
+                $permission_add =  DepartmentPermission::whereIn('department_id',$differance_array_new_added)->get(['menu_id']);
+
+                $permission_add = (array_column( json_decode(json_encode($permission_add), true),'menu_id'));
+
+                 
+                $user_old_permissions = array_merge($user_old_permissions,$permission_add);
+
+              }
+           
+               $user_permission_to_sync =  (array_unique($user_old_permissions));
+           
+
+                // $new_permissions = '';
+                // foreach($request->department_id as $department){
+                //     if(!in_array($department , $old_departments)){
+                //         $permission =  DepartmentPermission::where('department_id',$department)->get(['menu_id']);
+                //         $permission = (array_column( json_decode(json_encode($permission), true),'menu_id'));
+                //         $new_permissions.=  implode(',',$permission).',' ;
+                //     }
+                // }
+                // $new_permissions = array_unique( explode(',',$new_permissions));
+                // //this is for remove last element of array  
+                // array_pop ($new_permissions);
+            }
+
             if(isset($request->password)){
                 $request->validate([
                     'password' => 'required|confirmed|min:5',
@@ -261,6 +314,7 @@ class UserController extends Controller
                         'password.confirmed'=> __('webCaption.validation_confirmed.title', ['field'=> "Password" ] ),
                 ]);
                 $userModel->password = bcrypt($request->password);
+              
             }
 
         }else{
@@ -276,8 +330,10 @@ class UserController extends Controller
         $request->validate([
             'name'     => 'required|max:100',
             'email'    => 'required|email|max:100|unique:users,email,'.$request->id,
-             'phone' =>  'required|max:15',
-             'country_code' =>  'required',
+            'phone' =>  'required|max:12',
+            'country_code' =>  'required',
+            'department_id'    => 'required|array',
+            "department_id.*"  => "required|numeric|min:1",
             // 'username' =>  'required|unique:users,username,'.$request->id,
         ], [
             'name.required'=> __('webCaption.validation_required.title', ['field'=> "Name" ] ),
@@ -288,7 +344,9 @@ class UserController extends Controller
             'email.max' => __('webCaption.validation_max.title', ['field'=> 'Email' ,'max' => "100"] ),
             'phone.required'=> __('webCaption.validation_required.title', ['field'=> "Phone" ] ),
             'country_code.required'=> __('webCaption.validation_required.title', ['field'=> "Country Code" ] ),
-            'phone.max'=> __('webCaption.validation_max.title', ['field'=> 'Phone' ,'max' => "15"] ),
+            'phone.max'=> __('webCaption.validation_max.title', ['field'=> 'Phone' ,'max' => "12"] ),
+            'department_id.required'=> __('webCaption.validation_required.title', ['field'=> "Department" ] ),
+            'department_id.*.numeric'=> __('webCaption.validation_nemuric.title', ['field'=> "Department" ] ),
             // 'username.required'=> __('webCaption.validation_required.title', ['field'=> "Username" ] ),
             // 'username.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('username')] ),
         ]);
@@ -316,20 +374,29 @@ class UserController extends Controller
         $userModel->allow_2fa = isset($request->allow_2fa) ? '1' : '0';
 
 
+     
+
         if($request->has('department_id')) {
             if(is_array($request->department_id) && count($request->department_id) > 0){
                  $department_id   = json_encode($request->department_id);
             }    
         } 
+
         $userModel->department_id =   (isset($department_id)) ? $department_id : null; 
-
-
-        // $userModel->username = $request->username;
 
         if ( $userModel->save()) {
             if($request->id){
-                $userModel->roles()->sync($request->roles);
+                 
+             //code for permission on time of update the user        
+
+             if($old_departments == null){
                 $userModel->permissions()->sync($userPermissions);
+             }else{
+                $userModel->permissions()->sync($user_permission_to_sync);
+             }
+             
+                $userModel->roles()->sync($request->roles);  
+               
                 $message =  $request->name." ". __('webCaption.alert_updated_successfully.title');
             }else{
                 $userModel->roles()->attach($request->roles);
