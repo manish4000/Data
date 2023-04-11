@@ -282,11 +282,9 @@ class UserController extends Controller
             $old_departments = json_decode( $userModel->department_id);
             $new_departments = $request->department_id;
 
-            $differance_array_new_added =  array_diff($new_departments, $old_departments);
-            $differance_array_new_remove =  array_diff( $old_departments, $new_departments);
+      
 
-            
-
+        
            
 
             if(isset($request->password)){
@@ -328,6 +326,9 @@ class UserController extends Controller
         if($request->id){
             if($old_departments != null){
                 
+                $differance_array_new_added =  array_diff($new_departments, $old_departments);
+                $differance_array_new_remove =  array_diff( $old_departments, $new_departments);
+
                 $user_old_permissions = UserPermission::where('user_id',$request->id)->get(['menu_id']);
                 $user_old_permissions = (!empty($user_old_permissions) ) ? (array_column( json_decode(json_encode($user_old_permissions), true),'menu_id')):[];
   
