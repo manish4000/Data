@@ -243,7 +243,34 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {       
+    {      
+        
+        $request->validate([
+            'name'     => 'required|max:100',
+            'email'    => 'required|email|max:100|unique:users,email,'.$request->id,
+            'phone' =>  'required|max:12',
+            'country_code' =>  'required',
+            'department_id'    => 'required|array',
+            "department_id.*"  => "required|numeric|min:1",
+            // 'username' =>  'required|unique:users,username,'.$request->id,
+        ], [
+            'name.required'=> __('webCaption.validation_required.title', ['field'=> "Name" ] ),
+            'name.max'=> __('webCaption.validation_max.title', ['field'=> 'Name' ,'min' => "100"] ),
+            'email.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('email')] ),
+            'email.required'=> __('webCaption.validation_required.title', ['field'=> "Email" ] ),
+            'email.email'=> __('webCaption.validation_email.title', ['field'=> "Email" ] ),
+            'email.max' => __('webCaption.validation_max.title', ['field'=> 'Email' ,'max' => "100"] ),
+            'phone.required'=> __('webCaption.validation_required.title', ['field'=> "Phone" ] ),
+            'country_code.required'=> __('webCaption.validation_required.title', ['field'=> "Country Code" ] ),
+            'phone.max'=> __('webCaption.validation_max.title', ['field'=> 'Phone' ,'max' => "12"] ),
+            'department_id.required'=> __('webCaption.validation_required.title', ['field'=> "Department" ] ),
+            'department_id.*.numeric'=> __('webCaption.validation_nemuric.title', ['field'=> "Department" ] ),
+            // 'username.required'=> __('webCaption.validation_required.title', ['field'=> "Username" ] ),
+            // 'username.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('username')] ),
+        ]);
+
+
+
     
         if($request->id){
             if (!Auth::user()->can('settings-users-edit')) {
@@ -285,30 +312,7 @@ class UserController extends Controller
             $userModel->password = bcrypt($request->password);
         }    
         
-        $request->validate([
-            'name'     => 'required|max:100',
-            'email'    => 'required|email|max:100|unique:users,email,'.$request->id,
-            'phone' =>  'required|max:12',
-            'country_code' =>  'required',
-            'department_id'    => 'required|array',
-            "department_id.*"  => "required|numeric|min:1",
-            // 'username' =>  'required|unique:users,username,'.$request->id,
-        ], [
-            'name.required'=> __('webCaption.validation_required.title', ['field'=> "Name" ] ),
-            'name.max'=> __('webCaption.validation_max.title', ['field'=> 'Name' ,'min' => "100"] ),
-            'email.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('email')] ),
-            'email.required'=> __('webCaption.validation_required.title', ['field'=> "Email" ] ),
-            'email.email'=> __('webCaption.validation_email.title', ['field'=> "Email" ] ),
-            'email.max' => __('webCaption.validation_max.title', ['field'=> 'Email' ,'max' => "100"] ),
-            'phone.required'=> __('webCaption.validation_required.title', ['field'=> "Phone" ] ),
-            'country_code.required'=> __('webCaption.validation_required.title', ['field'=> "Country Code" ] ),
-            'phone.max'=> __('webCaption.validation_max.title', ['field'=> 'Phone' ,'max' => "12"] ),
-            'department_id.required'=> __('webCaption.validation_required.title', ['field'=> "Department" ] ),
-            'department_id.*.numeric'=> __('webCaption.validation_nemuric.title', ['field'=> "Department" ] ),
-            // 'username.required'=> __('webCaption.validation_required.title', ['field'=> "Username" ] ),
-            // 'username.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('username')] ),
-        ]);
-
+       
         if(!isset($request->id)){
             $request->validate([
                 'password' => 'required|confirmed|min:5',   
