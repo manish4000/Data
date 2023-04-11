@@ -232,7 +232,7 @@ class MakeController extends Controller
  
      public function deleteMultiple( Request $request){
  
-         if (!Auth::user()->can('masters-vehicle-make-delete')) {
+         if (!Auth::user()->can('main-navigation-masters-vehicle-make-delete')) {
              $result['status']     = false;
              $result['message']    = __('webCaption.alert_delete_access.title'); 
              return response()->json(['result' => $result]);
