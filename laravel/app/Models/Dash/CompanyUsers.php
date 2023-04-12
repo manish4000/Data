@@ -4,6 +4,7 @@ namespace App\Models\Dash;
 
 use App\Models\Company\CompanyMenuGroupMenu;
 use App\Models\Company\CompanyPermission;
+use App\Models\CompanyGabsModel;
 use App\Models\Masters\Company\Company;
 use App\Permissions\HasDashPermissionsTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -63,7 +64,7 @@ class CompanyUsers extends Authenticatable
     //     return $this->hasOne('App\Models\Companies', 'ref_id', 'id')->select();
     // }
     public function company(){
-        return $this->belongsTo(Company::class,'company_id','id');
+        return $this->belongsTo(CompanyGabsModel::class,'company_id','id');
     }
 
 

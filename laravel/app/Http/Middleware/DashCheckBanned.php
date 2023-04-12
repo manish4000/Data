@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\CompanyGabsModel;
 use App\Models\Masters\Company\Company;
 use Closure;
 use Illuminate\Http\Request;
@@ -21,7 +22,7 @@ class DashCheckBanned
 
         //this is for check the user`s company is block or not  
         if(auth()->guard('dash')->check()){
-            $companyStatus = Company::where('id',auth()->guard('dash')->user()->company_id)->value('status');
+            $companyStatus = CompanyGabsModel::where('id',auth()->guard('dash')->user()->company_id)->value('status');
             if($companyStatus  === 'Blocked'){
                 Auth::logout();
                 $request->session()->invalidate();

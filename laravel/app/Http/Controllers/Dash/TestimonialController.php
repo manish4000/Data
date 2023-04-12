@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dash;
 
 use App\Http\Controllers\Controller;
+use App\Models\CompanyGabsModel;
 use App\Models\Dash\CompanyTestimonial;
 use App\Models\Masters\Company\Company;
 use Illuminate\Http\Request;
@@ -171,7 +172,7 @@ class TestimonialController extends Controller
         }
 
             $user =   Auth::guard('dash')->user();
-            $folder =     Company::where('id',$user->company_id)->value('gabs_uuid');   
+            $folder =     CompanyGabsModel::where('id',$user->company_id)->value('gabs_uuid');   
 
             $testmonail_model->title = $request->title; 
             $testmonail_model->company_user_id = $user->company_id; 
