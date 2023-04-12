@@ -1,5 +1,4 @@
 
-
 <tr>
     <td>
      <x-dash.form.inputs.multiple_select_checkbox id="select{{$item->id}}"   value="{{$item->id}}"  customClass="checkbox"  />            
@@ -22,15 +21,15 @@
             value="{{$item->id}}" checked="{{($item->status == 1)? 'checked' :''}}"  /> 
     </td>
 <td>
-  
-    <x-dash.form.buttons.edit href="{{ route('dashbank-details.edit', $item->id) }}" />
-
+    @if (Auth::guard('dash')->user()->can('common-bank-details-edit'))	
+     <x-dash.form.buttons.edit href="{{ route('dashbank-details.edit', $item->id) }}" />
+    @endif    
    &nbsp;
 
   {{-- pass in  deleteSingleData(id , name ,url ) for delete  --}}
 
-
-   <x-dash.form.buttons.delete id="{{$item->id}}" name="{{$item->bank_name}}" url="{{route('dashbank-details.delete')}}" action="{{route('dashbank-details.delete',$item->id)}}" /> 
-
+  @if (Auth::guard('dash')->user()->can('common-bank-details-delete'))	
+     <x-dash.form.buttons.delete id="{{$item->id}}" name="{{$item->bank_name}}" url="{{route('dashbank-details.delete')}}" action="{{route('dashbank-details.delete',$item->id)}}" /> 
+  @endif
 </td>
 </tr>

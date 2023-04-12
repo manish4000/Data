@@ -32,24 +32,23 @@ class BankDetailsController extends Controller
 
     public function index(Request $request){
 
+        if (!Auth::guard('dash')->user()->can('common-bank-details')) {
+            abort(403);
+        }
+
         $pageConfigs = [
             'moduleName' => __('webCaption.bank_details.title'), 
             'baseUrl' => $this->baseUrl, 
         ];
 
-        // if (Auth::guard('dash')->user()->can('common_users_add')) {
-        //     $breadcrumbs[0] = [
-        //         'link' => $this->baseUrl.'/create',
-        //         'name' => __('webCaption.add.title')
-        //     ];
-        // }else{
-        //     $breadcrumbs[0] = [ ];
-        // }
-
+        if (Auth::guard('dash')->user()->can('common-bank-details-add')) {
             $breadcrumbs[0] = [
-                                'link' => $this->baseUrl.'/create',
-                                'name' => __('webCaption.add.title')
-                              ];
+                'link' => $this->baseUrl.'/create',
+                'name' => __('webCaption.add.title')
+            ];
+        }else{
+            $breadcrumbs[0] = [ ];
+        }
 
         $data = CompanyBankDetails::select('*');
 
@@ -73,6 +72,10 @@ class BankDetailsController extends Controller
     }
 
     public function create(){
+
+        if (!Auth::guard('dash')->user()->can('common-bank-details-add')) {
+            abort(403);
+        }
 
         $breadcrumbs[0] = [
             'link' => $this->baseUrl,
@@ -118,6 +121,10 @@ class BankDetailsController extends Controller
     }
 
     public function store(Request $request){
+
+        if (!Auth::guard('dash')->user()->can('common-bank-details-add')) {
+            abort(403);
+        }
 
         $request->validate([
             'otp' => 'required|numeric',
@@ -270,6 +277,10 @@ class BankDetailsController extends Controller
 
     public function edit($id){
 
+        if (!Auth::guard('dash')->user()->can('common-bank-details-edit')) {
+            abort(403);
+        }
+
         $data = CompanyBankDetails::find($id);
         $breadcrumbs[0] = [
             'link' => $this->baseUrl,
@@ -281,12 +292,9 @@ class BankDetailsController extends Controller
     }
 
     public function destroy(Request $request){
-        // if (!Auth::user()->can('main-navigation-masters-vehicle-type-delete')) {
-        //     $result['status']     = false;
-        //     $result['message']    = __('webCaption.alert_delete_access.title'); 
-        //     return response()->json(['result' => $result]);
-        //     abort(403);
-        // }
+        if (!Auth::guard('dash')->user()->can('common-bank-details-delete')) {
+            abort(403);
+        }
 
         if(CompanyBankDetails::where('id', $request->id)->firstorfail()->delete()){
             $result['status']     = true;
@@ -303,12 +311,9 @@ class BankDetailsController extends Controller
 
     public function deleteMultiple(Request $request){
 
-        // if (!Auth::user()->can('masters-vehicle-type-delete')) {
-        //     $result['status']     = false;
-        //     $result['message']    = __('webCaption.alert_delete_access.title'); 
-        //     return response()->json(['result' => $result]);
-        //     abort(403);
-        // }
+        if (!Auth::guard('dash')->user()->can('common-bank-details-delete')) {
+            abort(403);
+        }
 
         if(CompanyBankDetails::whereIn('id', $request->delete_ids)->delete()){
             $result['status']     = true;

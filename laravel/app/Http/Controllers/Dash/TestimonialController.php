@@ -38,16 +38,25 @@ class TestimonialController extends Controller
      */
     public function index(Request $request)
     {   
+        if (!Auth::guard('dash')->user()->can('common-testimonial')) {
+            abort(403);
+        }
 
         $pageConfigs = [
             'pageHeader' => true, 
             'baseUrl' => $this->baseUrl, 
             'moduleName' => $this->moduleName, 
         ];
-        $breadcrumbs[0] = [
-            'link' => $this->baseUrl.'/create',
-            'name' => 'Add'
-        ];
+
+
+        if (Auth::guard('dash')->user()->can('common-testimonial-add')) {
+            $breadcrumbs[0] = [
+                'link' => $this->baseUrl.'/create',
+                'name' => __('webCaption.add.title')
+            ];
+        }else{
+            $breadcrumbs[0] = [ ];
+        } 
 
         $data = CompanyTestimonial::with('country')->select('*');
 
@@ -72,6 +81,10 @@ class TestimonialController extends Controller
      */
     public function create()
     {   
+        
+        if (!Auth::guard('dash')->user()->can('common-testimonial-add')) {
+            abort(403);
+        }
         $country = Country::get(['id as value' ,'name']);
         $pageConfigs = [
             'pageHeader' => true, 
@@ -96,7 +109,10 @@ class TestimonialController extends Controller
      */
     public function store(Request $request)
     {
-
+        
+        if (!Auth::guard('dash')->user()->can('common-testimonial-add')) {
+            abort(403);
+        }
     
         $request->validate([
             'title' => 'string|nullable',
@@ -218,7 +234,12 @@ class TestimonialController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
+    {   
+        
+        if (!Auth::guard('dash')->user()->can('common-testimonial-edit')) {
+            abort(403);
+        }
+
         $data =  CompanyTestimonial::find($id);
 
         $phone                = (isset($data->phone)) ? explode('_',$data->phone) : null;
@@ -265,6 +286,12 @@ class TestimonialController extends Controller
      */
     public function destroy(Request $request)
     {
+
+        
+        if (!Auth::guard('dash')->user()->can('common-testimonial-delete')) {
+            abort(403);
+        }
+
             if(CompanyTestimonial::where('id', $request->id)->firstorfail()->delete()){
             $result['status']     = true;
             $result['message']    = __('webCaption.alert_deleted_successfully.title'); 
@@ -280,12 +307,9 @@ class TestimonialController extends Controller
 
     public function deleteMultiple(Request $request){
 
-        // if (!Auth::user()->can('masters-vehicle-type-delete')) {
-        //     $result['status']     = false;
-        //     $result['message']    = __('webCaption.alert_delete_access.title'); 
-        //     return response()->json(['result' => $result]);
-        //     abort(403);
-        // }
+        if (!Auth::guard('dash')->user()->can('common-testimonial-delete')) {
+            abort(403);
+        }
 
         if(CompanyTestimonial::whereIn('id', $request->delete_ids)->delete()){
             $result['status']     = true;

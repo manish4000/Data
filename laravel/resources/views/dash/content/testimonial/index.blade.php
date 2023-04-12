@@ -33,10 +33,12 @@
 							<div class="mt-2">
 								{{ $data->onEachSide(5)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
 							</div>
-                            <div class="px-2 my-2">
-                                {{-- deleteMultiple() for delete multiple data pass url here  --}}
-                                <x-dash.form.buttons.multipleDelete url="{{route('dashtestimonial.delete-multiple')}}" />
-                            </div>
+							@if (Auth::guard('dash')->user()->can('common-testimonial-delete'))	
+								<div class="px-2 my-2">
+									{{-- deleteMultiple() for delete multiple data pass url here  --}}
+									<x-dash.form.buttons.multipleDelete url="{{route('dashtestimonial.delete-multiple')}}" />
+								</div>
+							@endif	
 							<table class="table">
 								<thead>
 								<tr>

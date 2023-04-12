@@ -37,7 +37,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {   
-        if (!Auth::guard('dash')->user()->can('common_users')) {
+        if (!Auth::guard('dash')->user()->can('common-users')) {
             abort(403);
         }
         
@@ -47,7 +47,7 @@ class UserController extends Controller
             'baseUrl' => $this->baseUrl, 
         ];
 
-        if (Auth::guard('dash')->user()->can('common_users_add')) {
+        if (Auth::guard('dash')->user()->can('common-users-add')) {
             $breadcrumbs[0] = [
                 'link' => $this->baseUrl.'/create',
                 'name' => __('webCaption.add.title')
@@ -100,7 +100,7 @@ class UserController extends Controller
      */
     public function create()
     {   
-        if (!Auth::guard('dash')->user()->can('common_users_add')) {
+        if (!Auth::guard('dash')->user()->can('common-users-add')) {
             abort(403);
         }
         $breadcrumbs[0] = [
@@ -125,12 +125,12 @@ class UserController extends Controller
     {   
 
         if($request->id){
-            if (!Auth::guard('dash')->user()->can('common_users_edit')) {
+            if (!Auth::guard('dash')->user()->can('common-users-edit')) {
                 abort(403);
             }
             $companyUserModel =    CompanyUsers::find($request->id);
         }else{
-            if (!Auth::guard('dash')->user()->can('common_users_add')) {
+            if (!Auth::guard('dash')->user()->can('common-users-add')) {
                 abort(403);
             }
             $companyUserModel = new CompanyUsers();
@@ -227,7 +227,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {       
-        if (!Auth::guard('dash')->user()->can('common_users_edit')) {
+        if (!Auth::guard('dash')->user()->can('common-users-edit')) {
             abort(403);
         }
 
@@ -266,7 +266,7 @@ class UserController extends Controller
     {
      
 
-        if (!Auth::guard('dash')->user()->can('common_users_delete')) {
+        if (!Auth::guard('dash')->user()->can('common-users-delete')) {
             $result['status']     = false;
             $result['message']    = __('webCaption.alert_delete_access.title'); 
             return response()->json(['result' => $result]);

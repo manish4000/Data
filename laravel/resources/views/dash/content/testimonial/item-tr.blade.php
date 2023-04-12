@@ -15,13 +15,15 @@
     <td >{{$item->country->name}}    </td>
     <td >{{$item->posted_date}}    </td>
     <td>
+        @if (Auth::guard('dash')->user()->can('common-bank-details-edit'))	
         <x-dash.form.buttons.edit href="{{ route('dashtestimonial.edit', $item->id) }}" />
+        @endif    
     &nbsp;
 
     {{-- pass in  deleteSingleData(id , name ,url ) for delete  --}}
 
-
-    <x-dash.form.buttons.delete id="{{$item->id}}" name="{{$item->bank_name}}" url="{{route('dashtestimonial.delete')}}" action="{{route('dashtestimonial.delete',$item->id)}}" /> 
-
+    @if (Auth::guard('dash')->user()->can('common-testimonial-delete'))	
+        <x-dash.form.buttons.delete id="{{$item->id}}" name="{{$item->bank_name}}" url="{{route('dashtestimonial.delete')}}" action="{{route('dashtestimonial.delete',$item->id)}}" /> 
+    @endif    
     </td>
 </tr>
