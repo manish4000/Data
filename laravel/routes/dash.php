@@ -11,6 +11,7 @@
 
 use App\Http\Controllers\Dash\Auth\LoginController;
 use App\Http\Controllers\Dash\LanguageController;
+use App\Http\Controllers\Dash\StateCityController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -29,6 +30,10 @@ Route::middleware('dash')->name('dash')->group(function(){
 
     Route::group(['middleware' => 'dashauth'], function () {
 
+
+        Route::post('state-list','Dash/StateCityController@stateList')->name('state-list');
+        Route::post('city-list','Dash/StateCityController@cityList')->name('city-list');
+
         Route::group(['prefix'=>'stock-manager','namespace'=>'Dash','as' => 'stock-manager.'],function(){
             Route::get('/',function(){ return view('dash.content.blank',['message' => " Stock Manager listing Page "]); });
             Route::get('/create',function(){ return view('dash.content.blank' ,['message' => " Add New Stock Manager  Page "]);  });
@@ -38,11 +43,18 @@ Route::middleware('dash')->name('dash')->group(function(){
             Route::get('/',function(){ return view('dash.content.blank',['message' => "Inquries listing Page "]); });
         });
 
-        Route::group(['prefix'=>'company','namespace'=>'Dash','as' => 'company.'],function(){
-            Route::group(['prefix'=>'profile','as' => 'profile.'],function(){
-                Route::get('/',function(){ return view('dash.content.company.profile'); });
-            });
+      
+        Route::group(['prefix'=>'profile','as' => 'profile.','namespace'=>'Dash'],function(){
+            // Route::get('/','ProfileController@edit')->name('index');
+            // Route::post('update','ProfileController@updateProfile')->name('update');
+
+             Route::get('/',function(){
+                return view('dash.content.profile');
+             })->name('index');
         });
+        
+        
+
 
         Route::group(['prefix'=>'proforma-manager','namespace'=>'Dash','as' => 'proforma-manager.'],function(){
             Route::get('/',function(){ return view('dash.content.blank',['message' => "Proforma Manager listing Page "]);  });
