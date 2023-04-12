@@ -261,7 +261,7 @@ class TestimonialController extends Controller
 
         $country = Country::get(['id as value' ,'name']);
         $user =   Auth::guard('dash')->user();
-        $imageFolder =     Company::where('id',$user->company_id)->value('gabs_uuid'); 
+        $imageFolder =     CompanyGabsModel::where('id',$user->company_id)->value('gabs_uuid'); 
         $country_phone_code =  Country::select('phone_code as value' ,'country_code' ,DB::raw("CONCAT(country_code,' (',phone_code ,')' ) AS name"))->where('phone_code','!=' ,null)->where('country_code','!=' ,null)->get(['phone_code','country_code']);
 
         return view('dash.content.testimonial.create',['pageConfigs' => $pageConfigs,'country_code' => $country_code,'country_phone_code' => $country_phone_code ,'imageFolder' => $imageFolder ,'breadcrumbs' => $breadcrumbs ,'data' => $data ,'country' => $country]);
