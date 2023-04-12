@@ -9,6 +9,8 @@ use App\Models\Company\CompanyDocument;
 use App\Models\Company\CompanyMenuGroupMenu;
 use App\Models\Company\CompanyPlanModel;
 use App\Models\Company\CompanyPlanPermissionModel;
+use App\Models\CompanyGabsModel;
+use App\Models\CompanyModel;
 use App\Models\Dash\CompanyUsers;
 use App\Models\Masters\Company\BusinessType;
 use App\Models\Masters\Company\Company;
@@ -51,7 +53,8 @@ class CompanyController extends Controller
 
     public function importDataFromJct(){
        
-       $old_company_users_data = DB::table('usertbl')->where('inserted','0')->take(80)->get();
+        ini_set('max_execution_time', 300);
+       $old_company_users_data = DB::table('usertbl')->where('inserted','0')->take(42)->get();
 
 
        foreach($old_company_users_data as $key => $value){
@@ -86,11 +89,13 @@ class CompanyController extends Controller
         $created_at = (isset($value->dateCreated) && ($value->dateCreated != '') && ($value->dateCreated != null) ) ? $value->dateCreated  : null; 
         $updated_at = (isset($value->update_date) && ($value->update_date != '') && ($value->update_date != null) ) ? $value->update_date  : null; 
         
+        $gabs_uuid = rand(111111,899999);
+
         $company_user_data = [
             'company_name' => $company_name, 
             'name' => $company_name, 
             'email_id_1' => $value->emailOne, 
-            'gabs_uuid' => rand(111111,899999), 
+            'gabs_uuid' => $gabs_uuid, 
             'email' => $value->emailOne, 
             'short_name' => $shortName ,
             'password' => Hash::make($value->password),
@@ -122,10 +127,34 @@ class CompanyController extends Controller
             'plan_id' => '2'
             ];
 
-            if( $inserted_id = Company::insertGetId($company_user_data)){
+            if( $inserted_id = CompanyGabsModel::insertGetId($company_user_data)){
 
                 DB::table('usertbl')->where('userId',$value->userId)->update(['inserted' => '1']);
                 
+                $company_model = new CompanyModel;
+ 
+                $company_model_data = [
+                    'company_gabs_id' => $inserted_id,
+                    'company_name' =>  $company_name,
+                    'email' =>  $value->emailOne,
+                    'gabs_uuid'=>      $gabs_uuid,
+                    'status' =>        ucwords($value->status),
+                    'city_id' =>       $city_id,
+                    'state_id' =>      $state_id,
+                    'country_id' =>    $country_id,
+                    'skype_id' =>      null,
+                    'website' =>       $website,
+                    'address' =>       $address,
+                    'telephone' =>     $telephone ,
+                    'postcode' =>      $postcode,
+                    'created_at' => $created_at,
+                    'updated_at' => $updated_at
+                ];
+
+                $company_model->insert($company_model_data);
+
+
+
                 $company_users_model =  new CompanyUsers;
 
                 $company_user_permissions =   CompanyPlanPermissionModel::where('company_plan_id','2')->value('permissions');
@@ -138,8 +167,7 @@ class CompanyController extends Controller
                         'user_type' => 1,
                         'status' => $value->status,
                         'created_at'=> $created_at,
-                        'updated_at'=> $updated_at,
-                        'inserted' => '1'
+                        'updated_at'=> $updated_at
                         ];
                         
                         $company_user_id =  $company_users_model->insertGetId($data);
@@ -169,7 +197,7 @@ class CompanyController extends Controller
             abort(403);
         } 
 
-        $data = Company::select(['id','name','company_name','email' ,'status','updated_at','updated_by']);
+        $data = CompanyGabsModel::select(['id','name','company_name','email' ,'status','updated_at','updated_by']);
 
         
         if(  !empty($request->input('search.keyword') ) ) {
@@ -245,8 +273,8 @@ class CompanyController extends Controller
 
         $permissions = CompanyMenuGroupMenu::where('parent_id', 0)->get();
 
-        $siteLang =  SiteLanguage::where('alias',app()->getLocale())->first();
-        $defaultLang = SiteLanguage::where('alias',app()->getLocale())->value('id');    
+        // $siteLang =  SiteLanguage::where('alias',app()->getLocale())->first();
+        // $defaultLang = SiteLanguage::where('alias',app()->getLocale())->value('id');    
         //return self::select(DB:raw('sum("json_extract('json_details', '$.salary')") ('title_languages->'.$siteLang->id.'->title as name')
 
         $plans = CompanyPlanModel::select('id as value','title as name')->get();
@@ -274,26 +302,25 @@ class CompanyController extends Controller
     public function store(Request $request)
     {   
        
-
         if($request->id){
             if (!Auth::user()->can('main-navigation-company-edit')) {
                 abort(403);
             } 
-            $company_model = Company::find($request->id);
-            $company_model->updated_by = Auth::user()->id; 
+            $company_gabs_model = CompanyGabsModel::find($request->id);
+            $company_gabs_model->updated_by = Auth::user()->id; 
         }else{
             if (!Auth::user()->can('main-navigation-company-add')) {
                 abort(403);
             } 
-            $company_model = new Company; 
-            $company_model->created_by = Auth::user()->id; 
+            $company_gabs_model = new CompanyGabsModel; 
+            $company_gabs_model->created_by = Auth::user()->id; 
         } 
          
         $request->validate(
             [
-            'company_name' => 'required|max:255|unique:companies,company_name,'.$request->id, 
-            'gabs_uuid' => 'required||max:6|unique:companies,gabs_uuid,'.$request->id, 
-            'email' => 'required|max:45|unique:companies,email,'.$request->id, 
+            'company_name' => 'required|max:255|unique:companies_gabs,company_name,'.$request->id, 
+            'gabs_uuid' => 'required||max:6|unique:companies_gabs,gabs_uuid,'.$request->id, 
+            'email' => 'required|max:45|unique:companies_gabs,email,'.$request->id, 
             'password' => 'required|min:5',
             'status' => 'required|string',
             'address' => 'nullable|string',
@@ -427,39 +454,39 @@ class CompanyController extends Controller
             }  
                             
 
-              $company_model->company_name = $request->company_name;  
+              $company_gabs_model->company_name = $request->company_name;  
               //old field
-              $company_model->name = $request->company_name;  
-              $company_model->short_name = $request->company_name; 
-              $company_model->email_id_1 = $request->email;   
+              $company_gabs_model->name = $request->company_name;  
+              $company_gabs_model->short_name = $request->company_name; 
+              $company_gabs_model->email_id_1 = $request->email;   
               //
-              $company_model->password =  Hash::make($request->password);  
-              $company_model->gabs_uuid = $request->gabs_uuid;  
-              $company_model->email = $request->email;  
+              $company_gabs_model->password =  Hash::make($request->password);  
+              $company_gabs_model->gabs_uuid = $request->gabs_uuid;  
+              $company_gabs_model->email = $request->email;  
              
-              $company_model->status = $request->status;  
-              $company_model->address = $request->address;  
-              $company_model->city_id = $request->city_id;  
-              $company_model->state_id = $request->state_id;  
-              $company_model->business_type_id =  (isset($business_type_id)) ? $business_type_id : null;  
-              $company_model->business_type =  (isset($business_type)) ? $business_type : null;  
-              $company_model->country_id = $request->country_id;  
-              $company_model->postcode = $request->postcode;  
-              $company_model->region_id = $request->region_id;  
-              $company_model->telephone = $request->country_code."_".$request->telephone;  
-              $company_model->skype_id = $request->skype_id;  
-              $company_model->website = $request->website;  
-              $company_model->plan_id = $request->plan_id;  
-              $company_model->association_member_id = $request->association_member_id;  
-              $company_model->permit_no = $request->permit_no;  
-              $company_model->admin_comment = $request->admin_comment;  
-              $company_model->facebook = $request->facebook;  
-              $company_model->instagram = $request->instagram;  
-              $company_model->youtube = $request->youtube;  
-              $company_model->twitter = $request->twitter;  
-              $company_model->linkedin = $request->linkedin;  
-              $company_model->terms_and_services = (isset($request->terms_and_services))?$request->terms_and_services :'0';  
-              $company_model->ip_address = $request->ip();  
+              $company_gabs_model->status = $request->status;  
+              $company_gabs_model->address = $request->address;  
+              $company_gabs_model->city_id = $request->city_id;  
+              $company_gabs_model->state_id = $request->state_id;  
+              $company_gabs_model->business_type_id =  (isset($business_type_id)) ? $business_type_id : null;  
+              $company_gabs_model->business_type =  (isset($business_type)) ? $business_type : null;  
+              $company_gabs_model->country_id = $request->country_id;  
+              $company_gabs_model->postcode = $request->postcode;  
+              $company_gabs_model->region_id = $request->region_id;  
+              $company_gabs_model->telephone = (isset($request->telephone))? $request->country_code."_".$request->telephone :null;  
+              $company_gabs_model->skype_id = $request->skype_id;  
+              $company_gabs_model->website = $request->website;  
+              $company_gabs_model->plan_id = $request->plan_id;  
+              $company_gabs_model->association_member_id = $request->association_member_id;  
+              $company_gabs_model->permit_no = $request->permit_no;  
+              $company_gabs_model->admin_comment = $request->admin_comment;  
+              $company_gabs_model->facebook = $request->facebook;  
+              $company_gabs_model->instagram = $request->instagram;  
+              $company_gabs_model->youtube = $request->youtube;  
+              $company_gabs_model->twitter = $request->twitter;  
+              $company_gabs_model->linkedin = $request->linkedin;  
+              $company_gabs_model->terms_and_services = (isset($request->terms_and_services))?$request->terms_and_services :'0';  
+              $company_gabs_model->ip_address = $request->ip();  
 
 
               //Document folder path 
@@ -469,13 +496,41 @@ class CompanyController extends Controller
               if($request->has('logo')){
                 $logo = time().'.'.$request->logo->extension();  
                 $request->logo->move(public_path('company_data').'/'.$folder.'/logo', $logo);
-                $company_model->logo = $logo;
+                $company_gabs_model->logo = $logo;
               }
            
 
-              if($company_model->save()){
+              if($company_gabs_model->save()){
 
                 if(!isset($request->id)){
+
+                    //save data to companies
+                    
+                    $company_model = new CompanyModel;
+
+                    $telephone = (isset($request->telephone))? $request->country_code."_".$request->telephone :null;  
+
+                    $company_model_data = [
+                        'company_gabs_id' => $company_gabs_model->id,
+                        'company_name' =>  $request->company_name,
+                        'email' =>  $request->email,
+                        'gabs_uuid'=>      $request->gabs_uuid,
+                        'status' =>        $request->status,
+                        'city_id' =>       $request->city_id,
+                        'state_id' =>      $request->state_id,
+                        'country_id' =>    $request->country_id,
+                        'skype_id' =>      $request->skype_id,
+                        'website' =>       $request->website,
+                        'address' =>       $request->address,
+                        'telephone' =>     $telephone ,
+                        'postcode' =>      $request->postcode,
+                        'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+                        'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+                    ];
+
+                    $company_model->insert($company_model_data);
+
+                    //save data to company users
 
                     $company_user_permissions =   CompanyPlanPermissionModel::where('company_plan_id',$request->plan_id)->value('permissions');
 
@@ -485,7 +540,7 @@ class CompanyController extends Controller
                         'name' => $request->company_name,
                         'email' => $request->email,
                         'password' => Hash::make($request->password),
-                        'company_id' => $company_model->id,
+                        'company_id' => $company_gabs_model->id,
                         'user_type' => 1,
                         'status' => $status,
                         'created_at'=> \Carbon\Carbon::now()->toDateTimeString(),
@@ -510,7 +565,7 @@ class CompanyController extends Controller
                     for($i=0; $i < 2; $i++){
 
                         $conatct_data = [
-                            'company_id' => $company_model->id,
+                            'company_id' => $company_gabs_model->id,
                             'name' =>  isset($request->contact_name[$i]) ? $request->contact_name[$i] : null,
                             'email' => isset($request->contact_email[$i])? $request->contact_email[$i]: null,
                             'designation' => isset($request->designation[$i])? $request->designation[$i] : null,
@@ -534,7 +589,7 @@ class CompanyController extends Controller
                         
                         $doc = time().rand(1,9999).'_document.'.$document->extension();  
                         $document->move(public_path('company_data').'/'.$folder.'/document' , $doc);
-                        $document_file[$key]['company_id'] = $company_model->id;
+                        $document_file[$key]['company_id'] = $company_gabs_model->id;
                         $document_file[$key]['name'] = $doc;
                         $document_file[$key]['created_at'] = \Carbon\Carbon::now()->toDateTimeString();
                         $document_file[$key]['updated_at'] = \Carbon\Carbon::now()->toDateTimeString();
@@ -581,12 +636,12 @@ class CompanyController extends Controller
     //         if (!Auth::user()->can('main-navigation-company-edit')) {
     //             abort(403);
     //         } 
-    //         $company_model = Company::find($request->id);
+    //         $company_gabs_model = Company::find($request->id);
     //     }else{
     //         if (!Auth::user()->can('main-navigation-company-add')) {
     //             abort(403);
     //         } 
-    //         $company_model = new Company; 
+    //         $company_gabs_model = new Company; 
     //     } 
          
     //     $validator = Validator::make($request->all(),
@@ -622,31 +677,31 @@ class CompanyController extends Controller
         
                 
 
-    //           $company_model->name = $request->name;  
-    //           $company_model->password =  Hash::make($request->password);  
-    //         //   $company_model->password =  $request->password;  
-    //           $company_model->short_name = $request->short_name;  
-    //           $company_model->company_name = $request->company_name;  
-    //           $company_model->designation = $request->designation;  
-    //           $company_model->email = $request->email;  
-    //           $company_model->phone = $request->phone;  
-    //           $company_model->whatapp_no = $request->whatapp_no;  
-    //           $company_model->business_type_id =  (isset($business_type_id)) ? $business_type_id : null;  
-    //           $company_model->business_type =  (isset($business_type)) ? $business_type : null;  
-    //           $company_model->country_id = $request->country_id;  
-    //           $company_model->status = $request->status;  
-    //           $company_model->tax_id_no = $request->tax_id_no;  
-    //           $company_model->register_on = $request->register_on;  
-    //           $company_model->ip_address = $request->ip_address;  
-    //           $company_model->marketing_status = $request->marketing_status;  
-    //           $company_model->marketing_memo_history = $request->marketing_memo_history;  
-    //           $company_model->operating_system = $request->operating_system;  
-    //           $company_model->admin_comment = $request->admin_comment;  
-    //           $company_model->address = $request->address;  
+    //           $company_gabs_model->name = $request->name;  
+    //           $company_gabs_model->password =  Hash::make($request->password);  
+    //         //   $company_gabs_model->password =  $request->password;  
+    //           $company_gabs_model->short_name = $request->short_name;  
+    //           $company_gabs_model->company_name = $request->company_name;  
+    //           $company_gabs_model->designation = $request->designation;  
+    //           $company_gabs_model->email = $request->email;  
+    //           $company_gabs_model->phone = $request->phone;  
+    //           $company_gabs_model->whatapp_no = $request->whatapp_no;  
+    //           $company_gabs_model->business_type_id =  (isset($business_type_id)) ? $business_type_id : null;  
+    //           $company_gabs_model->business_type =  (isset($business_type)) ? $business_type : null;  
+    //           $company_gabs_model->country_id = $request->country_id;  
+    //           $company_gabs_model->status = $request->status;  
+    //           $company_gabs_model->tax_id_no = $request->tax_id_no;  
+    //           $company_gabs_model->register_on = $request->register_on;  
+    //           $company_gabs_model->ip_address = $request->ip_address;  
+    //           $company_gabs_model->marketing_status = $request->marketing_status;  
+    //           $company_gabs_model->marketing_memo_history = $request->marketing_memo_history;  
+    //           $company_gabs_model->operating_system = $request->operating_system;  
+    //           $company_gabs_model->admin_comment = $request->admin_comment;  
+    //           $company_gabs_model->address = $request->address;  
 
-    //           $company_model->updated_by = Auth::user()->id;  
+    //           $company_gabs_model->updated_by = Auth::user()->id;  
 
-    //           if($company_model->save()){
+    //           if($company_gabs_model->save()){
 
     //             if(!isset($request->id)){
     //                 $company_users_model =  new CompanyUsers;
@@ -654,7 +709,7 @@ class CompanyController extends Controller
     //                     'name' => $request->name,
     //                     'email' => $request->email,
     //                     'password' => Hash::make($request->password),
-    //                     'company_id' => $company_model->id,
+    //                     'company_id' => $company_gabs_model->id,
     //                     'user_type' => 1,
     //                     'status' => $status,
     //                     'created_at'=> \Carbon\Carbon::now()->toDateTimeString(),
@@ -721,7 +776,7 @@ class CompanyController extends Controller
         $status = json_decode(json_encode($this->status));
 
        
-        $data = Company::with(['contcatPersonDetails','documents'])->find($id);
+        $data = CompanyGabsModel::with(['contcatPersonDetails','documents'])->find($id);
      
         $telephone  = (isset($data->telephone) && ($data->telephone != '') && ($data->telephone != null) ) ? explode('_',$data->telephone) : null;
         $data->telephone = ($telephone != null) ? $telephone[1] : null;
@@ -760,9 +815,9 @@ class CompanyController extends Controller
 
         $request->validate(
             [
-            'company_name' => 'required|max:255|unique:companies,company_name,'.$request->id, 
-            'gabs_uuid' => 'required||max:6|unique:companies,gabs_uuid,'.$request->id, 
-            'email' => 'required|max:45|unique:companies,email,'.$request->id, 
+            'company_name' => 'required|max:255|unique:companies_gabs,company_name,'.$request->id, 
+            'gabs_uuid' => 'required||max:6|unique:companies_gabs,gabs_uuid,'.$request->id, 
+            'email' => 'required|max:45|unique:companies_gabs,email,'.$request->id, 
             'password' => 'nullable|min:5',
             'status' => 'required|string',
             'address' => 'nullable|string',
@@ -895,61 +950,59 @@ class CompanyController extends Controller
             if(is_array($request->business_type_id) && count($request->business_type_id) > 0){
             
                     $business_type_id   = json_encode($request->business_type_id);
-                
                     $business_type = BusinessType::select('name')->where('name','!=',null)->whereIn('id',$request->business_type_id)->get()->toArray();
-
                     $business_type = (empty($business_type))? null: implode(',', array_column( $business_type,'name' ));
                 }    
         }
 
         
-        $company_model = Company::find($request->id);
+        $company_gabs_model = CompanyGabsModel::find($request->id);
 
-        $old_logo_name = $company_model->logo;
+        $old_logo_name = $company_gabs_model->logo;
 
-        $company_model->updated_by = Auth::user()->id; 
+        $company_gabs_model->updated_by = Auth::user()->id; 
 
         
-        $company_model->company_name = $request->company_name;  
+        $company_gabs_model->company_name = $request->company_name;  
         //old field
-        $company_model->name = $request->company_name;  
-        $company_model->short_name = $request->company_name;  
+        $company_gabs_model->name = $request->company_name;  
+        $company_gabs_model->short_name = $request->company_name;  
         //
 
         if($request->has('password')){
-            $company_model->password =  Hash::make($request->password);  
+            $company_gabs_model->password =  Hash::make($request->password);  
         }
 
-        $company_model->gabs_uuid = $request->gabs_uuid;  
-        $company_model->email = $request->email;  
-        $company_model->status = $request->status;  
-        $company_model->address = $request->address;  
-        $company_model->city_id = $request->city_id;  
-        $company_model->state_id = $request->state_id;  
-        $company_model->business_type_id =  (isset($business_type_id)) ? $business_type_id : null;  
-        $company_model->business_type =  (isset($business_type)) ? $business_type : null;  
-        $company_model->country_id = $request->country_id;  
-        $company_model->postcode = $request->postcode;  
-        $company_model->region_id = $request->region_id;  
-        $company_model->telephone =  ($request->telephone)? $request->country_code."_".$request->telephone : null;   
-        $company_model->skype_id = $request->skype_id;  
-        $company_model->website = $request->website;  
-        $company_model->plan_id = $request->plan_id;  
-        $company_model->association_member_id = $request->association_member_id;  
-        $company_model->permit_no = $request->permit_no;  
-        $company_model->admin_comment = $request->admin_comment;  
-        $company_model->facebook = $request->facebook;  
-        $company_model->instagram = $request->instagram;  
-        $company_model->youtube = $request->youtube;  
-        $company_model->twitter = $request->twitter;  
-        $company_model->linkedin = $request->linkedin;  
-        $company_model->terms_and_services = (isset($request->terms_and_services))?$request->terms_and_services :'0';  
-        $company_model->ip_address = $request->ip(); 
+        $company_gabs_model->gabs_uuid = $request->gabs_uuid;  
+        $company_gabs_model->email = $request->email;  
+        $company_gabs_model->status = $request->status;  
+        $company_gabs_model->address = $request->address;  
+        $company_gabs_model->city_id = $request->city_id;  
+        $company_gabs_model->state_id = $request->state_id;  
+        $company_gabs_model->business_type_id =  (isset($business_type_id)) ? $business_type_id : null;  
+        $company_gabs_model->business_type =  (isset($business_type)) ? $business_type : null;  
+        $company_gabs_model->country_id = $request->country_id;  
+        $company_gabs_model->postcode = $request->postcode;  
+        $company_gabs_model->region_id = $request->region_id;  
+        $company_gabs_model->telephone =  ($request->telephone)? $request->country_code."_".$request->telephone : null;   
+        $company_gabs_model->skype_id = $request->skype_id;  
+        $company_gabs_model->website = $request->website;  
+        $company_gabs_model->plan_id = $request->plan_id;  
+        $company_gabs_model->association_member_id = $request->association_member_id;  
+        $company_gabs_model->permit_no = $request->permit_no;  
+        $company_gabs_model->admin_comment = $request->admin_comment;  
+        $company_gabs_model->facebook = $request->facebook;  
+        $company_gabs_model->instagram = $request->instagram;  
+        $company_gabs_model->youtube = $request->youtube;  
+        $company_gabs_model->twitter = $request->twitter;  
+        $company_gabs_model->linkedin = $request->linkedin;  
+        $company_gabs_model->terms_and_services = (isset($request->terms_and_services))?$request->terms_and_services :'0';  
+        $company_gabs_model->ip_address = $request->ip(); 
 
         if($request->has('logo')){
             $logo = time().'.'.$request->logo->extension();  
             $request->logo->move(public_path('company_data').'/'.$request->gabs_uuid.'/logo', $logo);
-            $company_model->logo = $logo;
+            $company_gabs_model->logo = $logo;
         
             if(is_file(public_path('company_data').'/'.$request->gabs_uuid.'/logo/'.$old_logo_name )){
 
@@ -959,7 +1012,7 @@ class CompanyController extends Controller
         }
 
         
-        if($company_model->save()){
+        if($company_gabs_model->save()){
 
             //this is for insert data company_contact_person_details 
 
@@ -1089,7 +1142,7 @@ class CompanyController extends Controller
             abort(403);
         } 
         
-        if(Company::where('id', $request->id)->firstorfail()->delete()){
+        if(CompanyGabsModel::where('id', $request->id)->firstorfail()->delete()){
             $result['status']     = true;
             $result['message']    = 'Successfully deleted'; 
         
