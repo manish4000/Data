@@ -1049,7 +1049,7 @@ class CompanyController extends Controller
 
             $company_users_model =  CompanyUsers::where('company_id',$id)->where('user_type',1)->first();
             
-            $status = ($request->status == 'Permitted') ? 'Permitted' : 'Blocked';               
+           // $status = ($request->status == 'Permitted') ? 'Permitted' : 'Blocked';               
 
             $company_user_permissions =   CompanyPlanPermissionModel::where('company_plan_id',$request->plan_id)->value('permissions');
 
@@ -1059,7 +1059,7 @@ class CompanyController extends Controller
                     'name' => $request->company_name,
                     'email' => $request->email,
                     'password' => Hash::make($request->password),
-                    'status' => $status,
+                    'status' => $request->status,
                     'updated_at'=> \Carbon\Carbon::now()->toDateTimeString(),
                 ];
 
@@ -1068,13 +1068,14 @@ class CompanyController extends Controller
                 $company_user_data = [
                  'name' => $request->company_name,
                  'email' => $request->email,
-                 'status' => $status,
+                 'status' => $request->status,
                  'updated_at'=> \Carbon\Carbon::now()->toDateTimeString(),
                  ];
             }
 
-
                 $company_users_model->update($company_user_data);
+
+                CompanyModel::where('company_gabs_id',$id)->update(['status' => $request->status]);
 
                 $company_user_add_permission  = CompanyUsers::find($company_users_model->id);
                 $company_user_add_permission->permissions()->sync($company_user_permissions);
