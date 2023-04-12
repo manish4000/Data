@@ -101,17 +101,13 @@
           @csrf
           <div class="form-group">
             <x-admin.form.inputs.email for="email" tooltip="{{__('webCaption.email.caption')}}"   label="{{__('webCaption.email.title')}}"  class="form-control" name="email"  placeholder="{{__('webCaption.email.title')}}" value="{{old('email')}}"  required="required" />
-              @if ($errors->has('email'))
-                <x-admin.form.form_error_messages message="{{ $errors->first('email') }}"  />
-              @endif
+              
           </div>
 
           <div class="form-group">
             <div class="form-group">
               <x-admin.form.inputs.password    for="login-password" tooltip="{{__('webCaption.password.caption')}}"   label="{{__('webCaption.password.title')}}"  class="form-control" name="password"  placeholder="{{__('webCaption.password.title')}}" value=""  required="" />
-              @if ($errors->has('password'))
-              <x-admin.form.form_error_messages message="{{ $errors->first('password') }}"  />
-                @endif
+              
             </div>
           </div>
 
