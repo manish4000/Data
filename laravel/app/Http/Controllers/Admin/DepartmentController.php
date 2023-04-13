@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Department;
+use App\Models\DepartmentPermission;
 use App\Models\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Routing\UrlGenerator;
@@ -191,6 +192,9 @@ class DepartmentController extends Controller
         }
         
         if(Department::where('id', $request->id)->firstorfail()->delete()){
+
+            DepartmentPermission::where('department_id', $request->id)->delete();
+
             $result['status']     = true;
             $result['message']    = __('webCaption.alert_deleted_successfully.title'); 
             return response()->json(['result' => $result]);
@@ -212,6 +216,8 @@ class DepartmentController extends Controller
         }
         
         if(Department::whereIn('id', $request->delete_ids)->delete()){
+
+            DepartmentPermission::whereIn('department_id',$request->delete_ids)->delete();
             $result['status']     = true;
             $result['message']    = __('webCaption.alert_deleted_successfully.title') ;
            return response()->json(['result' => $result]);
