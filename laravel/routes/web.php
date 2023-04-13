@@ -203,19 +203,19 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
 
     Route::group(['prefix' => 'language-translation','as'=> 'language_translation.'], function () {
 
-        Route::group(['prefix' => 'web-caption','as'=> 'web_caption.'], function () {
+            Route::group(['prefix' => 'web-caption','as'=> 'web_caption.'], function () {
 
-            Route::get('/', [WebCaptionController::class, 'index'])->name('index');
-            Route::get('/add', [WebCaptionController::class, 'create'])->name('create');
-            Route::post('/store', [WebCaptionController::class, 'store'])->name('store');
-            Route::get('/edit/{id}', [WebCaptionController::class, 'edit'])->name('edit');
-            Route::post('/delete', [WebCaptionController::class, 'destroy'])->name('delete');   
-            //this route for add language file in language folder for multiple language 
-            Route::get('generate-locale-file',[WebCaptionController::class, 'getLocalfile'] );
+                Route::get('/', [WebCaptionController::class, 'index'])->name('index');
+                Route::get('/add', [WebCaptionController::class, 'create'])->name('create');
+                Route::post('/store', [WebCaptionController::class, 'store'])->name('store');
+                Route::get('/edit/{id}', [WebCaptionController::class, 'edit'])->name('edit');
+                Route::post('/delete', [WebCaptionController::class, 'destroy'])->name('delete');   
+                //this route for add language file in language folder for multiple language 
+                Route::get('generate-locale-file',[WebCaptionController::class, 'getLocalfile'] );
 
-        });
+            });
 
-        Route::group(['prefix' => 'master-data-translation','as'=> 'master_data_translation.'], function () {
+            Route::group(['prefix' => 'master-data-translation','as'=> 'master_data_translation.'], function () {
             Route::get('/', [MasterDataTranslationController::class, 'index'])->name('index');
             Route::get('/edit/{id}', [MasterDataTranslationController::class, 'edit'])->name('edit');
             Route::post('/update/{id}', [MasterDataTranslationController::class, 'update'])->name('update');
@@ -234,6 +234,7 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
                 Route::post('/store', [CountryController::class, 'store'])->name('store');
                 Route::post('/delete', [CountryController::class, 'destroy'])->name('delete');
                 Route::get('/edit/{id}', [CountryController::class, 'edit'])->name('edit');
+                Route::post('/delete-multiple', [CountryController::class,'deleteMultiple'])->name('delete-multiple');
             });
         });
 
