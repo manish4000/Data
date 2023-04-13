@@ -15,7 +15,7 @@
     <td >{{$item->country->name}}    </td>
     <td >{{$item->posted_date}}    </td>
     <td>
-        @if (Auth::guard('dash')->user()->can('common-bank-details-edit'))	
+        @if (Auth::guard('dash')->user()->can('common-testimonial-edit'))	
         <x-dash.form.buttons.edit href="{{ route('dashtestimonial.edit', $item->id) }}" />
         @endif    
     &nbsp;
