@@ -288,12 +288,32 @@ class TestimonialController extends Controller
     public function destroy(Request $request)
     {
 
+        $user =   Auth::guard('dash')->user();
+
+        $folder =     CompanyGabsModel::where('id',$user->company_id)->value('gabs_uuid');   
         
         if (!Auth::guard('dash')->user()->can('common-testimonial-delete')) {
             abort(403);
         }
 
-            if(CompanyTestimonial::where('id', $request->id)->firstorfail()->delete()){
+        $company_testmonial_model =   CompanyTestimonial::FindOrFail($request->id);
+
+        $user_image = $company_testmonial_model->image;
+        $vehicle_image = $company_testmonial_model->vehicle_image;
+
+        if($company_testmonial_model->delete()){
+
+            if(is_file(public_path('company_data').'/'.$folder.'/testimonials/'.$user_image )){
+
+                unlink(public_path('company_data').'/'.$folder.'/testimonials/'.$user_image);
+            }
+            
+            if(is_file(public_path('company_data').'/'.$folder.'/testimonials/'.$vehicle_image )){
+
+                unlink(public_path('company_data').'/'.$folder.'/testimonials/'.$vehicle_image);
+            }
+
+
             $result['status']     = true;
             $result['message']    = __('webCaption.alert_deleted_successfully.title'); 
         
