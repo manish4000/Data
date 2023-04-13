@@ -29,8 +29,14 @@ class ProfileController extends Controller
 
     public function edit(){
 
+        $pageConfigs = [
+            'pageHeader' => true, 
+            'baseUrl' => $this->baseUrl, 
+            'moduleName' => $this->moduleName, 
+        ];
 
-        return view('dash.content.company.profile');
+        $breadcrumbs[0] = [ ];
+        return view('dash.content.company.profile',['pageConfigs' => $pageConfigs ,'breadcrumbs'=>  $breadcrumbs[0] ]);
 
 
         $user =  Auth::guard('dash')->user();
