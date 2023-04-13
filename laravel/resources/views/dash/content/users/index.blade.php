@@ -68,7 +68,7 @@
 											<td>{{ $user->name; }}</td>
 											<td>{{ $user->email }}</td>
 											<td>
-												@if (Auth::guard('dash')->user()->can('common_users_edit'))		
+												@if (Auth::guard('dash')->user()->can('common-users-edit'))		
 												<x-dash.form.buttons.edit href="{{ route('dashusers.edit', $user->id) }}" />&ensp;
 												@endif
 												<form method="post" style="display: inline-block" action="{{ route('dashusers.login-form-admin') }}"  id="login-form-{{$user->id}}" target="_blank">
@@ -78,7 +78,7 @@
 													<span type="submit"  onclick="submit('login-form-{{$user->id}}')"  title="{{__('webCaption.login.title')}}"  data-toggle="tooltip"  id="login"><i class="text-info fa fa-key" ></i></span> 
 												</form>
 												&nbsp;
-												@if (Auth::guard('dash')->user()->can('common_users_delete'))	
+												@if (Auth::guard('dash')->user()->can('common-users-delete'))	
 												<x-dash.form.buttons.delete id="{{$user->id}}" name="{{$user->name}}" url="{{route('dashusers.delete')}}" action="{{route('users.delete', $user->id) }}" />   
 												@endif	
 											</td>
