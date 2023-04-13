@@ -4,6 +4,7 @@ namespace app\Http\Controllers\Admin\company;
 
 use App\Http\Controllers\Controller;
 use App\Models\Company\CompanyPlanModel;
+use App\Models\Company\CompanyPlanPermissionModel;
 use Illuminate\Http\Request;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Facades\Auth;
@@ -176,6 +177,9 @@ class PlanController extends Controller
         }
 
         if(CompanyPlanModel::where('id', $request->id)->firstorfail()->delete()){
+
+            CompanyPlanPermissionModel::where('company_plan_id',$request->id)->delete();
+
             $result['status']     = true;
             $result['message']    = __('webCaption.alert_deleted_successfully.title'); 
         
