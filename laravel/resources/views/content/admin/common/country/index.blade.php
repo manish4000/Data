@@ -49,15 +49,20 @@
                                     unset( $request_params['perPage'] );
                                     @endphp
 
-                                    <div class="mb-1 mx-3">
-                                        
+                                <div class="mb-1 mx-3">        
                                     {{ $data->onEachSide(5)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}   
-
                                 </div>
+                                @can('main-navigation-common-country-delete')
+                                    <div class="px-2 my-2">
+                                        {{-- deleteMultiple() for delete multiple data pass url here  --}}
+                                        <x-admin.form.buttons.multipleDelete url="{{route('common.country.delete-multiple')}}" />
+                                    </div>
+                                @endcan
 
                             <table class="table" id="master-list">
                                 <thead>
                                     <tr>
+                                        <th> <x-admin.form.inputs.multiple_select_checkbox id="checkAll"   value="1"  customClass=""  /> </th>
                                         <th class="position-for-filter-heading">#
                                             <x-admin.filter.order-by-filter-div orderBy="id" /> 
                                         </th>
@@ -110,6 +115,8 @@
 </section>
 
 {{-- this file include for delete alert box  --}}
+
+@include('components.admin.alerts.multiple-delete-alert-box')
 @include('components.admin.alerts.delete-alert-box')
 @include('components.admin.filter.order-by')
 <!-- users list ends -->
