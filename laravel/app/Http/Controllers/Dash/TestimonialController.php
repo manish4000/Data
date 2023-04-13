@@ -61,7 +61,7 @@ class TestimonialController extends Controller
 
         $data = CompanyTestimonial::with('country')->select('*');
 
-        $perPage =  (isset($request->perPage) && !empty($request->perPage)) ? $request->perPage : 500;
+        $perPage =  (isset($request->perPage) && !empty($request->perPage)) ? $request->perPage : 100;
 
         if(  !empty($request->input('search.keyword') ) ) {
             $data->keywordFilter($request->input('search.keyword')); 

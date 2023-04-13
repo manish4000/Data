@@ -84,7 +84,7 @@ class TypeController extends Controller
 
         } ]); 
 
-        $perPage =  (isset($request->perPage) && !empty($request->perPage)) ? $request->perPage : 500;
+        $perPage =  (isset($request->perPage) && !empty($request->perPage)) ? $request->perPage : 100;
 
         $data = $data->paginate($perPage);
 

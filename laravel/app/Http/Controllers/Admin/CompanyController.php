@@ -229,7 +229,7 @@ class CompanyController extends Controller
         $status = json_decode(json_encode($this->status));
 
         $country = Country::get(['id as value' ,'name']);
-        $perPage =  (isset($request->perPage) && !empty($request->perPage)) ? $request->perPage : 500;
+        $perPage =  (isset($request->perPage) && !empty($request->perPage)) ? $request->perPage : 100;
 
         $data = $data->paginate($perPage);
 

@@ -69,7 +69,7 @@ class UserController extends Controller
             $users->orderBy($request->order_by, $request->order);
         }
         
-        $perPage =  (isset($request->perPage) && !empty($request->perPage)) ? $request->perPage : 500;
+        $perPage =  (isset($request->perPage) && !empty($request->perPage)) ? $request->perPage : 100;
         $users = $users->paginate($perPage);
         $status = json_decode(json_encode($this->status));
         return view('dash.content.users.index',['status' => $status,'users' => $users,'pageConfigs' =>$pageConfigs ,'breadcrumbs' => $breadcrumbs]);

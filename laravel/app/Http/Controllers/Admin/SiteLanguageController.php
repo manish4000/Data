@@ -56,7 +56,7 @@ class SiteLanguageController extends Controller
         if($request->has('order_by') &&  $request->has('order') ){
             $languages->orderBy($request->order_by, $request->order);
         }
-        $perPage =  (isset($request->perPage) && !empty($request->perPage)) ? $request->perPage : 500;
+        $perPage =  (isset($request->perPage) && !empty($request->perPage)) ? $request->perPage : 100;
 
         $languages = $languages->paginate($perPage);
        

@@ -54,7 +54,7 @@ class MenuGroupController extends Controller
         if($request->has('order_by') &&  $request->has('order') ){
             $groups->orderBy($request->order_by, $request->order);
         }
-        $perPage =  (isset($request->perPage) && !empty($request->perPage)) ? $request->perPage : 500;
+        $perPage =  (isset($request->perPage) && !empty($request->perPage)) ? $request->perPage : 100;
 
         $groups = $groups->paginate($perPage);
 

@@ -80,7 +80,7 @@ class UserController extends Controller
         if($request->has('order_by') &&  $request->has('order') ){
             $users->orderBy($request->order_by, $request->order);
         }
-        $perPage =  (isset($request->perPage) && !empty($request->perPage)) ? $request->perPage : 500;
+        $perPage =  (isset($request->perPage) && !empty($request->perPage)) ? $request->perPage : 100;
 
         $users = $users->paginate($perPage);
         // dd($users);  
