@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dash;
 
 use App\Http\Controllers\Controller;
 use App\Models\Company\CompanyMenuGroupMenu;
+use App\Models\Company\CompanyUserPermission;
 use App\Models\Dash\CompanyUsers;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Http\Request;
@@ -273,6 +274,9 @@ class UserController extends Controller
             abort(403);
         }
         if(CompanyUsers::where('id', $request->id)->firstorfail()->delete()){
+
+            CompanyUserPermission::where('company_user_id' ,$request->id)->delete();
+            
             $result['status']     = true;
             $result['message']    = __('webCaption.alert_deleted_successfully.title'); 
             return response()->json(['result' => $result]);
