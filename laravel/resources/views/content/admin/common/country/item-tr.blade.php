@@ -1,4 +1,7 @@
 <tr>
+    <td>
+        <x-admin.form.inputs.multiple_select_checkbox id="select{{$item->id}}"   value="{{$item->id}}"  customClass="checkbox"  />            
+    </td>
     <td>{{$item->id}}</td>
 
     <td>
