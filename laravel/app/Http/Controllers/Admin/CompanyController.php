@@ -9,6 +9,7 @@ use App\Models\Company\CompanyDocument;
 use App\Models\Company\CompanyMenuGroupMenu;
 use App\Models\Company\CompanyPlanModel;
 use App\Models\Company\CompanyPlanPermissionModel;
+use App\Models\Company\CompanyUserPermission;
 use App\Models\CompanyGabsModel;
 use App\Models\CompanyModel;
 use App\Models\Dash\CompanyUsers;
@@ -54,7 +55,7 @@ class CompanyController extends Controller
     public function importDataFromJct(){
        
         ini_set('max_execution_time', 300);
-       $old_company_users_data = DB::table('usertbl')->where('inserted','0')->take(70)->get();
+        $old_company_users_data = DB::table('usertbl')->where('inserted','0')->take(70)->get();
 
 
        foreach($old_company_users_data as $key => $value){
@@ -1053,6 +1054,7 @@ class CompanyController extends Controller
 
             $company_user_permissions =   CompanyPlanPermissionModel::where('company_plan_id',$request->plan_id)->value('permissions');
 
+
             if($request->has('password')){
 
                 $company_user_data = [
@@ -1073,10 +1075,11 @@ class CompanyController extends Controller
                  ];
             }
 
+
                 $company_users_model->update($company_user_data);
 
                 CompanyModel::where('company_gabs_id',$id)->update(['status' => $request->status]);
-
+                
                 $company_user_add_permission  = CompanyUsers::find($company_users_model->id);
                 $company_user_add_permission->permissions()->sync($company_user_permissions);
 
@@ -1142,8 +1145,48 @@ class CompanyController extends Controller
         if (!Auth::user()->can('main-navigation-company-delete')) {
             abort(403);
         } 
-        
+
+        $company_gabs_model =  CompanyGabsModel::find($request->id);
+
+        $logo_image = $company_gabs_model->logo;
+
         if(CompanyGabsModel::where('id', $request->id)->firstorfail()->delete()){
+
+            //delete logo 
+
+            if(is_file(public_path('company_data').'/'.$company_gabs_model->gabs_uuid.'/logo/'.$logo_image )){
+
+                unlink(public_path('company_data').'/'.$company_gabs_model->gabs_uuid.'/logo/'.$logo_image);
+            }
+
+            //delete the referance of documents 
+            $company_documents_name =   CompanyDocument::where('company_id',$request->id)->get(['name'])->toArray();
+            $company_documents_name = array_column($company_documents_name ,'name');
+            if(count($company_documents_name) > 0 ){
+                foreach($company_documents_name as $doc){
+
+                    if(file_exists(public_path('company_data').'/'.$company_gabs_model->gabs_uuid.'/document/'.$doc )){
+                        unlink(public_path('company_data').'/'.$company_gabs_model->gabs_uuid.'/document/'.$doc);
+                    }
+
+                }
+            }
+
+            CompanyDocument::where('company_id',$request->id)->delete();
+            //delete the referance of and contact person details 
+            CompanyContactPersonDetails::where('company_id',$request->id)->delete();
+
+            //delete referance of companies 
+            CompanyModel::where('company_gabs_id',$request->id)->delete();
+            //delete the referance of company users 
+
+            $company_users_ids =   CompanyUsers::where('company_id',$request->id)->get(['id'])->toArray();
+            $company_users_ids = array_column($company_users_ids,'id');
+            //delete related users
+             CompanyUsers::whereIn('id' ,$company_users_ids )->delete();  
+            //delete related users permissions 
+            CompanyUserPermission::whereIn('company_user_id',$company_users_ids)->delete();
+
             $result['status']     = true;
             $result['message']    = 'Successfully deleted'; 
         
