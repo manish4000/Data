@@ -636,11 +636,15 @@ class UserController extends Controller
             abort(403);
         }
         if(User::where('id', $request->id)->firstorfail()->delete()){
+
+            UserPermission::where('user_id',$request->id)->delete();
+
             $result['status']     = true;
             $result['message']    = __('webCaption.alert_deleted_successfully.title'); 
             return response()->json(['result' => $result]);
 
         }else{
+
             $result['status']     = false;
             $result['message']    = __('webCaption.alert_somthing_wrong.title'); 
             return response()->json(['result' => $result]);
