@@ -45,12 +45,16 @@ Route::middleware('dash')->name('dash')->group(function(){
 
       
         Route::group(['prefix'=>'profile','as' => 'profile.','namespace'=>'Dash'],function(){
-             Route::get('/','ProfileController@edit')->name('index');
+            // Route::get('/','ProfileController@edit')->name('index');
             // Route::post('update','ProfileController@updateProfile')->name('update');
 
-            //  Route::get('/',function(){
-            //     return view('dash.content.company.profile');
-            //  })->name('index');
+             Route::get('/',function(){
+                return view('dash.content.company.profile');
+             });
+
+            //  Route::group(['prefix'=>'profile','as' => 'profile.'],function(){
+            //     Route::get('/',function(){ return view('dash.content.company.profile'); });
+           
         });
         
         

@@ -29,31 +29,21 @@ class ProfileController extends Controller
 
     public function edit(){
 
-        $pageConfigs = [
-            'pageHeader' => true, 
-            'baseUrl' => $this->baseUrl, 
-            'moduleName' => $this->moduleName, 
-        ];
+        $user =  Auth::guard('dash')->user();
 
-        $breadcrumbs[0] = [ ];
-        return view('dash.content.company.profile',['pageConfigs' => $pageConfigs ,'breadcrumbs' =>  $breadcrumbs[0] ]);
+        $company_users =  CompanyUsers::where('company_id',$user->company_id)->where('user_type',1)->first();
 
+        $data = CompanyModel::where('company_gabs_id',$company_users->company_id)->first();
+        $country = Country::get(['id as value' ,'name']);
 
-        // $user =  Auth::guard('dash')->user();
+        $telephone  = (isset($data->telephone) && ($data->telephone != '') && ($data->telephone != null) ) ? explode('_',$data->telephone) : null;
+        $data->telephone = ($telephone != null) ? $telephone[1] : null;
 
-        // $company_users =  CompanyUsers::where('company_id',$user->company_id)->where('user_type',1)->first();
+        $company_tel_country_code = (isset($telephone[0]))? $telephone[0] :null;  
 
-        // $data = CompanyModel::where('company_gabs_id',$company_users->company_id)->first();
-        // $country = Country::get(['id as value' ,'name']);
+        $country_phone_code =  Country::select('phone_code as value' ,'country_code' ,DB::raw("CONCAT(country_code,' (',phone_code ,')' ) AS name"))->where('phone_code','!=' ,null)->where('country_code','!=' ,null)->get(['phone_code','country_code']);
 
-        // $telephone  = (isset($data->telephone) && ($data->telephone != '') && ($data->telephone != null) ) ? explode('_',$data->telephone) : null;
-        // $data->telephone = ($telephone != null) ? $telephone[1] : null;
-
-        // $company_tel_country_code = (isset($telephone[0]))? $telephone[0] :null;  
-
-        // $country_phone_code =  Country::select('phone_code as value' ,'country_code' ,DB::raw("CONCAT(country_code,' (',phone_code ,')' ) AS name"))->where('phone_code','!=' ,null)->where('country_code','!=' ,null)->get(['phone_code','country_code']);
-
-        // return view('dash.content.profile',['data'=> $data,'country_phone_code' => $country_phone_code ,'country' => $country ,'company_tel_country_code' => $company_tel_country_code]);
+        return view('dash.content.profile',['data'=> $data,'country_phone_code' => $country_phone_code ,'country' => $country ,'company_tel_country_code' => $company_tel_country_code]);
 
     }
 
