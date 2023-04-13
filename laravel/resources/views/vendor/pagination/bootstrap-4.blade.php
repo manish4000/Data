@@ -31,7 +31,7 @@
         </div>
         <div class="col-sm-4 col-md-4">
                        
-            {{__('webCaption.showing.title')}} {{ $offset + 1  }} {{__('webCaption.to.title')}} {{ $offset + $paginator->perPage() }}  {{__('webCaption.of.title')}}  {{ $paginator->total() }} {{__('webCaption.entries.title')}}
+            {{__('webCaption.showing.title')}} {{ number_format($offset + 1)  }} {{__('webCaption.to.title')}} {{ number_format( $offset + $paginator->perPage() ) }}  {{__('webCaption.of.title')}}  {{ number_format( $paginator->total()) }} {{__('webCaption.entries.title')}}
            
         </div>
 
