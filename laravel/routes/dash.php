@@ -49,7 +49,7 @@ Route::middleware('dash')->name('dash')->group(function(){
             // Route::post('update','ProfileController@updateProfile')->name('update');
 
              Route::get('/',function(){
-                return view('dash.content.company.profile');
+                return view('dash.content.profile');
              })->name('index');
         });
         
