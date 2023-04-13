@@ -29,6 +29,10 @@ class ProfileController extends Controller
 
     public function edit(){
 
+
+        return view('dash.content.company.profile');
+
+
         $user =  Auth::guard('dash')->user();
 
         $company_users =  CompanyUsers::where('company_id',$user->company_id)->where('user_type',1)->first();
