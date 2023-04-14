@@ -68,7 +68,7 @@
                     <div class="table-responsive">
                       
                             <div class="mt-2">
-                                {{ $data->onEachSide(5)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
+                                {{ $data->onEachSide(2)->links('vendor.pagination.bootstrap-4') }}       
                             </div>
                          {{--check delete permission  --}}
                        
@@ -84,11 +84,11 @@
                                         <th> <x-admin.form.inputs.multiple_select_checkbox id="checkAll"   value="1"  customClass=""  /> </th>
                                         <th class="position-for-filter-heading"># <x-admin.filter.order-by-filter-div orderBy="id" />
                                         </th>                                                
-                                        <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.make.caption')}}"> {{__('webCaption.nake.title')}}<x-admin.filter.order-by-filter-div orderBy="name" />
+                                        <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.make.caption')}}"> {{__('webCaption.make.title')}}<x-admin.filter.order-by-filter-div orderBy="name" />
                                         </th>
                                         <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.no_of_children.caption')}}" >{{__('webCaption.no_of_children.title')}}<x-admin.filter.order-by-filter-div orderBy="children_count" />
                                         </th>
-                                        <th data-toggle="tooltip" title="{{__('webCaption.display_status.caption')}}"  >{{__('webCaption.display_status.title')}}
+                                        <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.display_status.caption')}}"  >{{__('webCaption.display_status.title')}} <x-admin.filter.order-by-filter-div orderBy="display" />
                                         </th>
                                         <th data-toggle="tooltip" title="{{__('webCaption.actions.caption')}}" >{{__('webCaption.actions.title')}}</th>
                                 </tr>
@@ -107,7 +107,7 @@
                             </tbody>                            
                         </table>
                         <div class="mt-2">
-                            {{ $data->onEachSide(5)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
+                            {{ $data->onEachSide(2)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
                         </div>
                     </div>
                 @else

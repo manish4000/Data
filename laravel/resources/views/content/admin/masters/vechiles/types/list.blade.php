@@ -67,7 +67,7 @@
                 @if(count($data) > 0 )
                     <div class="table-responsive">
                         <div class="mt-2">
-                            {{ $data->onEachSide(5)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
+                            {{ $data->onEachSide(2)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
                         </div>
                         @can('main-navigation-masters-vehicle-type-delete')
                             <div class="px-2 my-2">
@@ -85,7 +85,8 @@
                                         </th>
                                         <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.no_of_children.caption')}}" >{{__('webCaption.no_of_children.title')}}<x-admin.filter.order-by-filter-div orderBy="children_count" />
                                         </th>
-                                        <th data-toggle="tooltip" title="{{__('webCaption.display_status.caption')}}"  >{{__('webCaption.display_status.title')}}
+                                        <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.display_status.caption')}}"  >
+                                            {{__('webCaption.display_status.title')}} <x-admin.filter.order-by-filter-div orderBy="display" />
                                         </th>
                                         <th data-toggle="tooltip" title="{{__('webCaption.actions.caption')}}" >{{__('webCaption.actions.title')}}</th>
                                 </tr>
@@ -103,7 +104,7 @@
                             </tbody>                            
                         </table>
                         <div class="mt-2">
-                            {{ $data->onEachSide(5)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
+                            {{ $data->onEachSide(2)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
                         </div>
                     </div>
                 @else
