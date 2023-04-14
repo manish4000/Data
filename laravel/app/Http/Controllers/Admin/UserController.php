@@ -102,7 +102,7 @@ class UserController extends Controller
             return redirect('/dashboard');
         }else{
             $message = __('webCaption.user_not_found.title'); 
-            return redirect()->back()->with('success_message' ,$message );
+            return redirect()->back()->with('error_message' ,$message );
         }
        
     }
@@ -651,6 +651,33 @@ class UserController extends Controller
         }
 
     }
+
+    public function deleteMultiple( Request $request){
+
+        if (!Auth::user()->can('settings-users-delete')) {
+            $result['status']     = false;
+            $result['message']    = __('webCaption.alert_delete_access.title'); 
+            return response()->json(['result' => $result]);
+            abort(403);
+        }
+
+        if(User::whereIn('id', $request->delete_ids)->delete()){
+            UserPermission::where('user_id',$request->delete_ids)->delete();
+            $result['status']     = true;
+            $result['message']    = __('webCaption.alert_deleted_successfully.title') ;
+            return response()->json(['result' => $result]);
+
+        }else{
+            $result['status']     = false;
+            $result['message']    = __('webCaption.alert_somthing_wrong.title'); 
+            return response()->json(['result' => $result]);
+        }
+
+        
+    }
+
+
+
 
     public function profile()
     {

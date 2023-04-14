@@ -31,9 +31,17 @@
 							<div class="mt-2">
 								{{ $users->onEachSide(5)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
 							</div>
+
+							@can('settings-users-delete')
+								<div class="px-2 my-2">
+									{{-- deleteMultiple() for delete multiple data pass url here  --}}
+									<x-admin.form.buttons.multipleDelete url="{{route('users.delete-multiple')}}" />
+								</div>
+                        	@endcan
 							<table class="table">
 								<thead>
 									<tr>
+										<th> <x-admin.form.inputs.multiple_select_checkbox id="checkAll"   value="1"  customClass=""  /> </th>
 										<th scope="col" class="position-for-filter-heading">#
 											<x-admin.filter.order-by-filter-div orderBy="id" />
 										</th>
@@ -63,6 +71,9 @@
 									@endphp --}}
 									@foreach ($users as $user)
 										<tr>
+											<td>
+											<x-admin.form.inputs.multiple_select_checkbox id="select{{$user->id}}" value="{{$user->id}}"  customClass="checkbox"  />            
+										   </td>
 											<th scope="row">{{$user->id}}</th>
 											<td>{{ $user->name; }}</td>
 											<td>{{ $user->email }}</td>
@@ -263,6 +274,7 @@
 
 {{--  --}}
 @include('components.admin.alerts.delete-alert-box')
+@include('components.admin.alerts.multiple-delete-alert-box')
 @include('components.admin.filter.order-by')
 
 

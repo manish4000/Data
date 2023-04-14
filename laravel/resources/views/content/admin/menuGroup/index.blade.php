@@ -34,9 +34,16 @@
 						<div class="mt-2">
 							{{ $groups->onEachSide(5)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
 						</div>
+						@can('settings-menu-group-delete')
+								<div class="px-2 my-2">
+									{{-- deleteMultiple() for delete multiple data pass url here  --}}
+									<x-admin.form.buttons.multipleDelete url="{{route('menu-groups.delete-multiple')}}" />
+								</div>
+						@endcan
 						<table class="table">
 							<thead>
 								<tr>
+									<th> <x-admin.form.inputs.multiple_select_checkbox id="checkAll"   value="1"  customClass=""  /> </th>
 									<th scope="col" class="position-for-filter-heading">#
 										<x-admin.filter.order-by-filter-div orderBy="id" />
 									</th>
@@ -56,6 +63,9 @@
 								
 								@foreach ($groups as $group)
 									<tr>
+										<td>
+											<x-admin.form.inputs.multiple_select_checkbox id="select{{$group->id}}"   value="{{$group->id}}"  customClass="checkbox"  />            
+										</td>
 										<th scope="row">{{$group->id}}</th>
 										<td>{{ $group->title; }}</td>
 										<td>{{ $group->order; }}</td>
@@ -96,6 +106,7 @@
 
 {{-- this file include for delete alert box  --}}
 @include('components.admin.alerts.delete-alert-box')
+@include('components.admin.alerts.multiple-delete-alert-box')
 {{-- this file include for short data asc and desc   --}}
 @include('components.admin.filter.order-by')
 <!-- users list ends -->

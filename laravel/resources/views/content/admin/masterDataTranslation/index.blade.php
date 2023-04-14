@@ -38,15 +38,17 @@
                 <div class="card-body">
                     @if(count($data) > 0)
                     <div class="table-responsive">
-                        <tr>
-                            <td colspan="5">
-                                {{ $data->onEachSide(5)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
-                            </td>
-                        </tr>  
+                        
+                            <div class="mb-1 mx-3">   
+                                {{ $data->onEachSide(2)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
+                            </div>
+
+                      
     
                         <table class="table" id="master-list">
                             <thead>
                                 <tr>
+
                                     <th class="position-for-filter-heading" > #  
                                         <x-admin.filter.order-by-filter-div orderBy="id" /> 
                                     </th>

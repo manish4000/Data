@@ -1150,7 +1150,7 @@ class CompanyController extends Controller
 
         $logo_image = $company_gabs_model->logo;
 
-        if(CompanyGabsModel::where('id', $request->id)->firstorfail()->delete()){
+        if(CompanyGabsModel::where('id', $request->id)->delete()){
 
             //delete logo 
 
@@ -1186,6 +1186,72 @@ class CompanyController extends Controller
              CompanyUsers::whereIn('id' ,$company_users_ids )->delete();  
             //delete related users permissions 
             CompanyUserPermission::whereIn('company_user_id',$company_users_ids)->delete();
+
+            $result['status']     = true;
+            $result['message']    = 'Successfully deleted'; 
+        
+           return response()->json(['result' => $result]);
+
+        }else{
+            $result['status']     = false;
+            $result['message']    = 'Somthing Went Wrong...'; 
+            return response()->json(['result' => $result]);
+        }
+    }
+
+
+    public function deleteMultiple(Request  $request)
+    {
+
+        if (!Auth::user()->can('main-navigation-company-delete')) {
+            abort(403);
+        } 
+
+        $companies =  CompanyGabsModel::wherein('id',$request->delete_ids)->get();
+
+        foreach($companies as $company ){
+
+            $logo_image = $company->logo;
+
+                if(is_file(public_path('company_data').'/'.$company->gabs_uuid.'/logo/'.$logo_image )){
+
+                    unlink(public_path('company_data').'/'.$company->gabs_uuid.'/logo/'.$logo_image);
+                }
+
+                //delete the referance of documents 
+                $company_documents_name =   CompanyDocument::where('company_id',$company->id)->get(['name'])->toArray();
+                $company_documents_name = array_column($company_documents_name ,'name');
+
+                if(count($company_documents_name) > 0 ){
+                    foreach($company_documents_name as $doc){
+    
+                        if(file_exists(public_path('company_data').'/'.$company->gabs_uuid.'/document/'.$doc )){
+                            unlink(public_path('company_data').'/'.$company->gabs_uuid.'/document/'.$doc);
+                        }
+    
+                    }
+                }
+                
+            CompanyDocument::where('company_id',$company->id)->delete();
+            //delete the referance of and contact person details 
+            CompanyContactPersonDetails::where('company_id',$company->id)->delete();
+
+            //delete referance of companies 
+            CompanyModel::where('company_gabs_id',$company->id)->delete();
+            //delete the referance of company users 
+
+            $company_users_ids =   CompanyUsers::where('company_id',$company->id)->get(['id'])->toArray();
+            $company_users_ids = array_column($company_users_ids,'id');
+            //delete related users
+             CompanyUsers::whereIn('id' ,$company_users_ids )->delete();  
+            //delete related users permissions 
+            CompanyUserPermission::whereIn('company_user_id',$company_users_ids)->delete();   
+
+        }
+
+        
+
+        if(CompanyGabsModel::whereIn('id',$request->delete_ids)->delete()){
 
             $result['status']     = true;
             $result['message']    = 'Successfully deleted'; 

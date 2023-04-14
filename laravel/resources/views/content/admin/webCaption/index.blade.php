@@ -49,15 +49,21 @@
                                     unset( $request_params['perPage'] );
                                     @endphp
 
-                                    <div class="mb-1 mx-3">
-                                        
-                                    {{ $data->onEachSide(5)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}   
+                                    <div class="mb-1 mx-3">   
+                                    {{ $data->onEachSide(3)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}   
+                                    </div>
 
-                                </div>
+                                    @can('main-navigation-masters-language-translation-caption-delete')
+                                    <div class="px-2 my-2">
+                                        {{-- deleteMultiple() for delete multiple data pass url here  --}}
+                                        <x-admin.form.buttons.multipleDelete url="{{route('language_translation.web_caption.delete-multiple')}}" />
+                                    </div>
+                                    @endcan
 
                             <table class="table" id="master-list">
                                 <thead>
                                     <tr>
+                                        <th> <x-admin.form.inputs.multiple_select_checkbox id="checkAll"   value="1"  customClass=""  /> </th>
                                         <th class="position-for-filter-heading">#
                                             <x-admin.filter.order-by-filter-div orderBy="id" /> 
                                         </th>
@@ -85,7 +91,7 @@
                             </table>
 
                                     <div class="my-1 mx-3">
-                                        {{ $data->onEachSide(5)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}   
+                                        {{ $data->onEachSide(3)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}   
                                     </div>
                                                         
                         </div>
@@ -108,6 +114,7 @@
 
 {{-- this file include for delete alert box  --}}
 @include('components.admin.alerts.delete-alert-box')
+@include('components.admin.alerts.multiple-delete-alert-box')
 @include('components.admin.filter.order-by')
 <!-- users list ends -->
 

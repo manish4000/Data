@@ -456,7 +456,24 @@ class MenuGroupController extends Controller
         if (!Auth::user()->can('main-navigation-company-menu-group-delete')) {
             abort(403);
         }
-        if(CompanyMenuGroup::where('id', $request->id)->firstorfail()->delete()){
+        if(CompanyMenuGroup::where('id', $request->id)->delete()){
+            $result['status']     = true;
+            $result['message']    = __('webCaption.alert_deleted_successfully.title'); 
+           return response()->json(['result' => $result]);
+
+        }else{
+            $result['status']     = false;
+            $result['message']    = __('webCaption.alert_somthing_wrong.title'); 
+            return response()->json(['result' => $result]);
+        }  
+    }
+
+    public function deleteMultiple(Request $request)
+    {              
+        if (!Auth::user()->can('main-navigation-company-menu-group-delete')) {
+            abort(403);
+        }
+        if(CompanyMenuGroup::whereIn('id',$request->delete_ids)->delete()){
             $result['status']     = true;
             $result['message']    = __('webCaption.alert_deleted_successfully.title'); 
            return response()->json(['result' => $result]);

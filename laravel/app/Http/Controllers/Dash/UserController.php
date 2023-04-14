@@ -273,7 +273,7 @@ class UserController extends Controller
             return response()->json(['result' => $result]);
             abort(403);
         }
-        if(CompanyUsers::where('id', $request->id)->firstorfail()->delete()){
+        if(CompanyUsers::where('id', $request->id)->delete()){
 
             CompanyUserPermission::where('company_user_id' ,$request->id)->delete();
             
@@ -287,4 +287,30 @@ class UserController extends Controller
             return response()->json(['result' => $result]);
         }
     }
+
+    public function deleteMultiple(Request $request){
+
+        
+        if (!Auth::guard('dash')->user()->can('common-users-delete')) {
+            $result['status']     = false;
+            $result['message']    = __('webCaption.alert_delete_access.title'); 
+            return response()->json(['result' => $result]);
+            abort(403);
+        }
+
+            CompanyUserPermission::whereIn('company_user_id' ,$request->delete_ids)->delete();
+                   
+           if(CompanyUsers::whereIn('id', $request->delete_ids)->delete()){
+                $result['status']     = true;
+                $result['message']    = __('webCaption.alert_deleted_successfully.title'); 
+                return response()->json(['result' => $result]);
+           }else{
+                $result['status']     = false;
+                $result['message']    = __('webCaption.alert_somthing_wrong.title'); 
+                return response()->json(['result' => $result]);
+           } 
+            
+
+    }
+
 }

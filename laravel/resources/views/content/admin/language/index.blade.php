@@ -42,9 +42,16 @@
 						<div class="mt-2">
 							{{ $languages->onEachSide(5)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
 						</div>
+							@can('main-navigation-masters-languages-delete')
+									<div class="px-2 my-2">
+										{{-- deleteMultiple() for delete multiple data pass url here  --}}
+										<x-admin.form.buttons.multipleDelete url="{{route('site-languages.delete-multiple')}}" />
+									</div>
+							@endcan
 							<table class="table">
 							<thead>
 								<tr>
+								<th> <x-admin.form.inputs.multiple_select_checkbox id="checkAll"   value="1"  customClass=""  /> </th>	
 								<th scope="col" class="position-for-filter-heading" >#
 									<x-admin.filter.order-by-filter-div orderBy="id" />
 								</th>
@@ -75,6 +82,9 @@
 							
 									@foreach ($languages as $language)
 										<tr>
+										<td>
+										<x-dash.form.inputs.multiple_select_checkbox id="select{{$language->id}}"   value="{{$language->id}}"    customClass="checkbox"  />            
+										</td>
 										<th scope="row">{{$language->id}}</th>
 										<td>{{ $language->language_en; }}</td>
 										<td>{{ $language->language_text; }}</td>
@@ -118,6 +128,7 @@
 
 {{-- this file include for delete alert box  --}}
 @include('components.admin.alerts.delete-alert-box')
+@include('components.admin.alerts.multiple-delete-alert-box')
 <!-- users list ends -->
 {{-- this file include for short data asc and desc   --}}
 @include('components.admin.filter.order-by')

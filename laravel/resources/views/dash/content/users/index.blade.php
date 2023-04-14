@@ -43,9 +43,16 @@
 							<div class="mt-2">
 								{{ $users->onEachSide(5)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
 							</div>
+							@if (Auth::guard('dash')->user()->can('common-users-delete'))	
+								<div class="px-2 my-2">
+									{{-- deleteMultiple() for delete multiple data pass url here  --}}
+									<x-dash.form.buttons.multipleDelete url="{{route('dashusers.delete-multiple')}}" />
+								</div>
+							@endif
 							<table class="table">
 								<thead>
 								<tr>
+									<th> <x-dash.form.inputs.multiple_select_checkbox id="checkAll"   value="1"  customClass=""  /> </th>
 									<th scope="col" class="position-for-filter-heading">#
 										<x-dash.filter.order-by-filter-div orderBy="id" />
 									</th>
@@ -64,6 +71,9 @@
 
 									@foreach ($users as $user)
 										<tr>
+											<td>
+												<x-dash.form.inputs.multiple_select_checkbox id="select{{$user->id}}"   value="{{$user->id}}"  customClass="checkbox"  />            
+											   </td>
 											<th scope="row">{{$user->id}}</th>
 											<td>{{ $user->name; }}</td>
 											<td>{{ $user->email }}</td>
@@ -102,6 +112,7 @@
 	</div>
 </div>
 @include('components.dash.alerts.delete-alert-box')
+@include('components.dash.alerts.multiple-delete-alert-box')
 @include('components.dash.filter.order-by')
 @endsection
 

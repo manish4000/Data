@@ -76,9 +76,16 @@
                             <div class="mt-2">
                                 {{ $data->onEachSide(5)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
                             </div>
+                            @can('main-navigation-company-delete')
+									<div class="px-2 my-2">
+										{{-- deleteMultiple() for delete multiple data pass url here  --}}
+										<x-admin.form.buttons.multipleDelete url="{{route('company.delete-multiple')}}" />
+									</div>
+							@endcan
                             <table class="table" id="master-list">
                                 <thead>
                                     <tr>
+                                        <th> <x-admin.form.inputs.multiple_select_checkbox id="checkAll"   value="1"  customClass=""  /> </th>	
                                         <th class="position-for-filter-heading"># 
                                             <x-admin.filter.order-by-filter-div orderBy="id" />
 
@@ -125,7 +132,7 @@
 
 @include('components.admin.alerts.delete-alert-box')
 @include('components.admin.filter.order-by')
-
+@include('components.admin.alerts.multiple-delete-alert-box')
 
 <!-- users list ends -->
 @endsection
