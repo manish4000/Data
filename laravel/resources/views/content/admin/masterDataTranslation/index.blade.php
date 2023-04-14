@@ -72,7 +72,7 @@
                             <tfoot>
                                 <tr>
                                     <td colspan="5">
-                                        {{ $data->onEachSide(5)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}          
+                                        {{ $data->onEachSide(2)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}          
                                     </td>
                                 </tr>                            
                             </tfoot>

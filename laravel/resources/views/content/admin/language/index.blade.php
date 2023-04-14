@@ -40,7 +40,7 @@
 				  @if(count($languages) > 0)	
 					<div class="table-responsive">
 						<div class="mt-2">
-							{{ $languages->onEachSide(5)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
+							{{ $languages->onEachSide(2)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
 						</div>
 							@can('main-navigation-masters-languages-delete')
 									<div class="px-2 my-2">
@@ -112,7 +112,7 @@
 							</tbody>
 							</table>
 						<div class="mt-2">
-							{{ $languages->onEachSide(5)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
+							{{ $languages->onEachSide(2)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
 						</div>	
 					</div>
 				  @else

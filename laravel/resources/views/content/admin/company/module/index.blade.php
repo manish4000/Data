@@ -38,7 +38,7 @@
                 @if(count($data) > 0 )
                     <div class="table-responsive">
                         <div class="mt-2">
-                            {{ $data->onEachSide(5)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
+                            {{ $data->onEachSide(2)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
                         </div>
                         @can('main-navigation-company-module-delete')  
                             <div class="px-2 my-2">
@@ -68,7 +68,7 @@
                             </tbody>                            
                         </table>
                         <div class="mt-2">
-                            {{ $data->onEachSide(5)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
+                            {{ $data->onEachSide(2)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
                         </div>
                     </div>
                 @else

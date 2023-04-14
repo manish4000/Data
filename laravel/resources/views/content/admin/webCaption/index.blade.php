@@ -50,7 +50,7 @@
                                     @endphp
 
                                     <div class="mb-1 mx-3">   
-                                    {{ $data->onEachSide(3)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}   
+                                    {{ $data->onEachSide(2)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}   
                                     </div>
 
                                     @can('main-navigation-masters-language-translation-caption-delete')
@@ -91,7 +91,7 @@
                             </table>
 
                                     <div class="my-1 mx-3">
-                                        {{ $data->onEachSide(3)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}   
+                                        {{ $data->onEachSide(2)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}   
                                     </div>
                                                         
                         </div>
