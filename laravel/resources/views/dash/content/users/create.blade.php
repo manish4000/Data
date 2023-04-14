@@ -16,10 +16,16 @@
 @endsection
 
 @section('content')
+
+@php	
+$old_permissions = (session()->getOldInput('permissions') != null ) ? session()->getOldInput('permissions') : [] ;
+
+@endphp
+
 <div>
+
 	<form action="{{ route('dashusers.store')}}" method="POST">
 		@csrf
-
 		<div class="card card-primary">
 			<div class="card-header">
 				<h4 class="card-title">
@@ -81,14 +87,14 @@
 										@if(count($permission->menuChild) > 0)
 											<li class="jstree-open">
 
-													<x-dash.form.inputs.checkbox  name="permissions[]"  for="{{$permission->id}}permission" label="{{$permission->title }}" checked="{{( isset($user) && (!empty($permission->permission_slug)) && $user->can($permission->permission_slug)) ? 'checked' :''; }}"  value="{{ $permission->id }}"  customClass="form-check-input"  />	
+													<x-dash.form.inputs.checkbox  name="permissions[]"  for="{{$permission->id}}permission" label="{{$permission->title }}" checked="{{( isset($user) && (!empty($permission->permission_slug)) && $user->can($permission->permission_slug)) || in_array($permission->id,$old_permissions) ? 'checked' :''; }}"  value="{{ $permission->id }}"  customClass="form-check-input"  />	
 
 												 @include('dash.content.users.child_list',['items' => $permission->menuChild ]) 												
 											</li>
 										@else
 											<li>
 												
-													<x-dash.form.inputs.checkbox  name="permissions[]"  for="{{$permission->id}}permission" label="{{ $permission->title }}" checked="{{ ( isset($user) && (!empty($permission->permission_slug)) && $user->can($permission->permission_slug)) ? 'checked' :''; }}"  value="{{ $permission->id }}"  customClass="form-check-input"  />
+													<x-dash.form.inputs.checkbox  name="permissions[]"  for="{{$permission->id}}permission" label="{{ $permission->title }}" checked="{{ ( isset($user) && (!empty($permission->permission_slug)) && $user->can($permission->permission_slug)) || in_array($permission->id,$old_permissions) ? 'checked' :''; }}"  value="{{ $permission->id }}"  customClass="form-check-input"  />
 												
 											</li>
 										@endif
@@ -137,7 +143,10 @@
 		</div>
     </form>
 </div>
+
 @endsection
+
+
 
 @section('vendor-script')
   <!-- vendor files -->
