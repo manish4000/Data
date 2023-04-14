@@ -635,9 +635,9 @@ class UserController extends Controller
         if (!$user->can('settings-users-delete')) {
             abort(403);
         }
+        UserPermission::where('user_id',$request->id)->delete();
         if(User::where('id', $request->id)->firstorfail()->delete()){
 
-            UserPermission::where('user_id',$request->id)->delete();
 
             $result['status']     = true;
             $result['message']    = __('webCaption.alert_deleted_successfully.title'); 
@@ -661,8 +661,10 @@ class UserController extends Controller
             abort(403);
         }
 
+        UserPermission::whereIn('user_id',$request->delete_ids)->delete();
+        
         if(User::whereIn('id', $request->delete_ids)->delete()){
-            UserPermission::where('user_id',$request->delete_ids)->delete();
+        
             $result['status']     = true;
             $result['message']    = __('webCaption.alert_deleted_successfully.title') ;
             return response()->json(['result' => $result]);

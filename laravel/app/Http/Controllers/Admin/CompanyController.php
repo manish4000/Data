@@ -1150,8 +1150,6 @@ class CompanyController extends Controller
 
         $logo_image = $company_gabs_model->logo;
 
-        if(CompanyGabsModel::where('id', $request->id)->delete()){
-
             //delete logo 
 
             if(is_file(public_path('company_data').'/'.$company_gabs_model->gabs_uuid.'/logo/'.$logo_image )){
@@ -1187,16 +1185,18 @@ class CompanyController extends Controller
             //delete related users permissions 
             CompanyUserPermission::whereIn('company_user_id',$company_users_ids)->delete();
 
+            if(CompanyGabsModel::where('id', $request->id)->delete()){
+
             $result['status']     = true;
             $result['message']    = 'Successfully deleted'; 
         
-           return response()->json(['result' => $result]);
-
-        }else{
-            $result['status']     = false;
-            $result['message']    = 'Somthing Went Wrong...'; 
             return response()->json(['result' => $result]);
-        }
+
+            }else{
+                $result['status']     = false;
+                $result['message']    = 'Somthing Went Wrong...'; 
+                return response()->json(['result' => $result]);
+            }
     }
 
 

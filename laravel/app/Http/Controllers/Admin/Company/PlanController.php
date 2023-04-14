@@ -176,9 +176,9 @@ class PlanController extends Controller
             abort(403);
         }
 
-        if(CompanyPlanModel::where('id', $request->id)->firstorfail()->delete()){
+        CompanyPlanPermissionModel::where('company_plan_id',$request->id)->delete();
 
-            CompanyPlanPermissionModel::where('company_plan_id',$request->id)->delete();
+        if(CompanyPlanModel::where('id', $request->id)->firstorfail()->delete()){
 
             $result['status']     = true;
             $result['message']    = __('webCaption.alert_deleted_successfully.title'); 
@@ -200,6 +200,9 @@ class PlanController extends Controller
             return response()->json(['result' => $result]);
             abort(403);
         }
+
+        CompanyPlanPermissionModel::whereIn('company_plan_id',$request->delete_ids)->delete();
+
         if(CompanyPlanModel::whereIn('id', $request->delete_ids)->delete()){
             $result['status']     = true;
             $result['message']    = __('webCaption.alert_deleted_successfully.title') ;

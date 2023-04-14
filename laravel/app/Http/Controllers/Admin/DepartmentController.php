@@ -190,11 +190,10 @@ class DepartmentController extends Controller
             return response()->json(['result' => $result]);
             abort(403);
         }
-        
-        if(Department::where('id', $request->id)->firstorfail()->delete()){
 
-            DepartmentPermission::where('department_id', $request->id)->delete();
-
+        DepartmentPermission::where('department_id', $request->id)->delete();
+        if(Department::where('id', $request->id)->delete()){
+ 
             $result['status']     = true;
             $result['message']    = __('webCaption.alert_deleted_successfully.title'); 
             return response()->json(['result' => $result]);
@@ -215,9 +214,9 @@ class DepartmentController extends Controller
             abort(403);
         }
         
+        DepartmentPermission::whereIn('department_id',$request->delete_ids)->delete();
         if(Department::whereIn('id', $request->delete_ids)->delete()){
 
-            DepartmentPermission::whereIn('department_id',$request->delete_ids)->delete();
             $result['status']     = true;
             $result['message']    = __('webCaption.alert_deleted_successfully.title') ;
            return response()->json(['result' => $result]);

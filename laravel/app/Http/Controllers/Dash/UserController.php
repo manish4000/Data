@@ -273,9 +273,11 @@ class UserController extends Controller
             return response()->json(['result' => $result]);
             abort(403);
         }
+
+        CompanyUserPermission::where('company_user_id' ,$request->id)->delete();
+        
         if(CompanyUsers::where('id', $request->id)->delete()){
 
-            CompanyUserPermission::where('company_user_id' ,$request->id)->delete();
             
             $result['status']     = true;
             $result['message']    = __('webCaption.alert_deleted_successfully.title'); 
