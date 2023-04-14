@@ -22,3 +22,7 @@
 .position-for-filter-heading{
     position: relative;
 }
+
+.character-counter-div{
+    float : right;
+}

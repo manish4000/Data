@@ -71,6 +71,13 @@ $customClass = isset($customClass) ? $customClass : '';
 @if (isset($label) && isset($for)) 
   <label  @if (isset($tooltip)) title="{{$tooltip}}"  @endif   data-toggle="tooltip" for='{{ $for }}'>{{ $label }}  @if(isset($required) && !empty($required)) <span class="text-danger" style="font-size: 14px;font-weight: bolder"> * </span>  @endif </label>
 @endif
+
+@if (isset($maxlength) && isset($for) )
+<div class="character-counter-div">
+(<span class="text-right" id="count_{{$for}}">{{$charLength}}</span>/{{$maxlength}})
+</div>
+@endif
+
 <input
     type="text" 
     @if (isset($for)) id="{{$for}}" onkeyup="checkTextLimit('{{$for}}');"  @endif
@@ -86,7 +93,6 @@ $customClass = isset($customClass) ? $customClass : '';
     @if(isset($attributes)) {{$attributes}}  @endif            
     @if(isset($value))   value="{{$value}}"  @endif  >
 
-@if (isset($maxlength) && isset($for) )(<span class="text-right" id="count_{{$for}}">{{$charLength}}</span>/{{$maxlength}}) @endif
 
 @if(isset($name)) 
 

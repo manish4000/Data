@@ -27,6 +27,13 @@ $charLength =  (isset($value))? strlen($value) : 0;
 @endphp
 
 {{-- @if (isset($label) && isset($for)) <label for='{{ $for }}'>{{ $label }} </label> @endif --}}
+
+@if (isset($maxlength) && isset($for) )
+<div class="character-counter-div">
+(<span class="text-right" id="count_{{$for}}">{{$charLength}}</span>/{{$maxlength}})
+</div>
+@endif
+
 <div class="input-group">
 
     <div class="input-group-prepend">
@@ -49,7 +56,7 @@ $charLength =  (isset($value))? strlen($value) : 0;
     @if(isset($attributes)) {{$attributes}}  @endif            
     @if(isset($value))   value="{{$value}}"  @endif   />
 </div>
-@if (isset($maxlength) && isset($for) )(<span class="text-right" id="count_{{$for}}">{{$charLength}}</span>/{{$maxlength}}) @endif
+
 
     @if(isset($name)) 
 
