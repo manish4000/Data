@@ -467,6 +467,7 @@
   <!-- vendor files -->
   <script src="{{ asset(mix('vendors/js/extensions/jstree.min.js')) }}"></script>
 @endsection
+
 @push('script')
   <!-- Page js files -->
   <script src="{{ asset(mix('js/scripts/extensions/ext-component-tree.js')) }}"></script>

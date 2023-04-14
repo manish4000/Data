@@ -13,9 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('makes', function (Blueprint $table) {
-            $table->longText('title_languages')->nullable();   
-            });
+        //
     }
 
     /**
@@ -25,8 +23,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('makes', function (Blueprint $table) {
-            //
-        });
+        //
     }
 };
