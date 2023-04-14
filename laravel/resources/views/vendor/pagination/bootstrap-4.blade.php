@@ -29,6 +29,7 @@
 
             </div>
         </div>
+        
         <div class="col-sm-4 col-md-4">
                        
             {{__('webCaption.showing.title')}} {{ number_format($offset + 1)  }} {{__('webCaption.to.title')}} {{ number_format( $offset + $paginator->perPage() ) }}  {{__('webCaption.of.title')}}  {{ number_format( $paginator->total()) }} {{__('webCaption.entries.title')}}
@@ -37,9 +38,9 @@
 
         
 
-        @if ($paginator->hasPages())
+    
         <div class="col-sm-4 col-md-4">  
-            
+            @if ($paginator->hasPages())
             <nav>
                 <ul class="pagination float-right">
                     {{-- Previous Page Link --}}
@@ -84,8 +85,9 @@
                     @endif
                 </ul>
             </nav>
+            @endif
         </div>
-        @endif
+       
     </div>
 
 
