@@ -81,7 +81,8 @@ Route::middleware('dash')->name('dash')->group(function(){
             Route::get('/create','UserController@create')->name('create');
             Route::post('/store','UserController@store')->name('store');
             Route::get('edit/{id}','UserController@edit')->name('edit');
-            Route::post('/delete', 'UserController@destroy')->name('delete');   
+            Route::post('/delete', 'UserController@destroy')->name('delete'); 
+            Route::post('/delete-multiple','UserController@deleteMultiple')->name('delete-multiple');   
             Route::post('login-from-admin','UserController@loginFromAdmin')->name('login-form-admin');
         });
         Route::group(['prefix'=>'testimonial','namespace'=>'Dash','as' => 'testimonial.'],function(){

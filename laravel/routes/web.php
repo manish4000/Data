@@ -71,6 +71,7 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
 
     Route::post('users/login-from-admin','Admin\UserController@loginFromAdmin')->name('users.login-form-admin');
     Route::post('users/delete','Admin\UserController@destroy')->name('users.delete');
+    Route::post('users/delete-multiple','Admin\UserController@deleteMultiple')->name('users.delete-multiple');
    
     Route::resource('users', 'Admin\UserController');
     Route::get('users/edit/{id}', 'Admin\UserController@edit')->name('users.edit');
@@ -85,15 +86,19 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
 
 
     Route::resource('roles', 'Admin\RoleController');
-    Route::resource('site-languages', 'Admin\SiteLanguageController');
 
+    Route::post('site-languages/delete-multiple', [SiteLanguageController::class, 'deleteMultiple'])->name('site-languages.delete-multiple');
+    
+    Route::resource('site-languages', 'Admin\SiteLanguageController');
     Route::post('site-languages/delete', [SiteLanguageController::class, 'destroy'])->name('site-languages.destroy');
+
 
     Route::resource('menu', 'Admin\MenuController');
     Route::resource('permissions', 'Admin\PermissionController');
     Route::post('permissions/delete', 'Admin\PermissionController@destroy');
     Route::resource('menu-groups', 'Admin\MenuGroupController');
     Route::post('menu-groups/delete', [MenuGroupController::class, 'destroy'])->name('menu-groups.destroy');
+    Route::post('menu-groups/delete-multiple', [MenuGroupController::class,'deleteMultiple'])->name('menu-groups.delete-multiple');
     Route::resource('vehicle-type', 'Admin\Masters\TypeController');
 
 
@@ -149,6 +154,7 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
         Route::get('edit/{id}','CompanyController@edit')->name('edit');
         Route::post('update/{id}','CompanyController@update')->name('update');
         Route::post('/delete', 'CompanyController@destroy')->name('delete');
+        Route::post('/delete-multiple','CompanyController@deleteMultiple')->name('delete-multiple'); 
 
         Route::post('state-list','CompanyController@stateList')->name('state-list');
         Route::post('city-list','CompanyController@cityList')->name('city-list');
@@ -195,6 +201,7 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
             Route::get('menu/{id}/edit', 'MenuGroupController@editMenu')->name('menu.edit');
             Route::post('menu/{id}/update', 'MenuGroupController@updateMenu')->name('menu.update');
             Route::post('delete-menu', 'MenuGroupController@destroyMenu')->name('menu.delete');
+            Route::post('/delete-multiple','MenuGroupController@deleteMultiple')->name('delete-multiple'); 
             Route::post('update-menu-position','MenuGroupController@updateMenuPosition')->name('update-menu-position');
 
         });
@@ -209,7 +216,8 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
                 Route::get('/add', [WebCaptionController::class, 'create'])->name('create');
                 Route::post('/store', [WebCaptionController::class, 'store'])->name('store');
                 Route::get('/edit/{id}', [WebCaptionController::class, 'edit'])->name('edit');
-                Route::post('/delete', [WebCaptionController::class, 'destroy'])->name('delete');   
+                Route::post('/delete', [WebCaptionController::class, 'destroy'])->name('delete');  
+                Route::post('/delete-multiple',[WebCaptionController::class, 'deleteMultiple'])->name('delete-multiple'); 
                 //this route for add language file in language folder for multiple language 
                 Route::get('generate-locale-file',[WebCaptionController::class, 'getLocalfile'] );
 
