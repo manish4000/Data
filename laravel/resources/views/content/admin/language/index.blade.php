@@ -19,10 +19,56 @@
 				</div>
 				<div class="card-body">
 					<form method="GET" action="{{route('site-languages.index')}}">
-						<div class="d-flex justify-content-between align-items-center  row pt-0 pb-2">
+						<div class="row">
 							<div class="col-md-3">
 								<div class="form-group">
 									<x-admin.form.inputs.text id="searchKeyword" for="{{__('webCaption.keyword.title')}}" label="{{__('webCaption.keyword.title')}}" tooltip="{{__('webCaption.keyword.caption')}}"  class="form-control" name="search[keyword]"  placeholder="{{__('webCaption.keyword.title')}}" value="{{ request()->input('search.keyword') }}"  required="" />
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<x-admin.form.label for="" value="{{__('webCaption.status.title')}}" class="" tooltip="{{__('webCaption.status.caption')}}" />
+									<div>
+											<div class="form-check form-check-inline">
+											<x-admin.form.inputs.radio for="StatusActive" class="border border-danger" name="search[status]" tooltip="{{__('webCaption.active.caption')}}" label="{{__('webCaption.active.title')}}" value="Active"  required=""  checked="{{ (request()->input('search.status') ) == 'Active' ? 'checked' : '' }}" required="" />&ensp;
+												
+											<x-admin.form.inputs.radio for="StatusInactive" class="border border-danger" name="search[status]" label="{{__('webCaption.inactive.title')}}" tooltip="{{__('webCaption.inactive.caption')}}" value="Inactive"  required=""  checked="{{ (request()->input('search.status') ) == 'Inactive' ? 'checked' : '' }}" required="" />&ensp;
+			
+											<x-admin.form.inputs.radio for="StatusAll" class="border border-danger" name="search[status]" label="{{__('webCaption.all.title')}}" tooltip="{{__('webCaption.all.caption')}}" value=""  required=""  checked="{{  ( (request()->input('search.status') ) == null ) || ( (request()->input('search.status') ) == '' )  ? 'checked' : '' }}" required="" />&ensp;
+										    </div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="row">
+									<div class="col-6">
+										<div class="form-group">
+											<x-admin.form.label for="" value="{{__('webCaption.caption.title')}}" class="" tooltip="{{__('webCaption.caption.caption')}}" />
+											<div>
+													<div class="form-check form-check-inline">
+													<x-admin.form.inputs.radio for="CaptionYes" class="border border-danger" name="search[show_in_captions]" tooltip="{{__('webCaption.yes.caption')}}" label="{{__('webCaption.yes.title')}}" value="1"  required=""  checked="{{ (request()->input('search.show_in_captions') ) == '1' ? 'checked' : '' }}" required="" />&ensp;
+														
+													<x-admin.form.inputs.radio for="CaptionNo" class="border border-danger" name="search[show_in_captions]" label="{{__('webCaption.no.title')}}" tooltip="{{__('webCaption.no.caption')}}" value="0"  required=""  checked="{{ (request()->input('search.show_in_captions') ) == '0' ? 'checked' : '' }}" required="" />&ensp;
+					
+													<x-admin.form.inputs.radio for="CaptionAll" class="border border-danger" name="search[show_in_captions]" label="{{__('webCaption.all.title')}}" tooltip="{{__('webCaption.all.caption')}}" value=""  required=""  checked="{{  ( (request()->input('search.show_in_captions') ) == null ) || ( (request()->input('search.show_in_captions') ) == '' )  ? 'checked' : '' }}" required="" />&ensp;
+													</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-6">
+										<div class="form-group">
+											<x-admin.form.label for="" value="{{__('webCaption.master.title')}}" class="" tooltip="{{__('webCaption.master.caption')}}" />
+											<div>
+													<div class="form-check form-check-inline">
+													<x-admin.form.inputs.radio for="MasterYes" class="border border-danger" name="search[show_in_masters]" tooltip="{{__('webCaption.yes.caption')}}" label="{{__('webCaption.yes.title')}}" value="1"  required=""  checked="{{ (request()->input('search.show_in_masters') ) == '1' ? 'checked' : '' }}" required="" />&ensp;
+														
+													<x-admin.form.inputs.radio for="MasterNo" class="border border-danger" name="search[show_in_masters]" label="{{__('webCaption.no.title')}}" tooltip="{{__('webCaption.no.caption')}}" value="0"  required=""  checked="{{ (request()->input('search.show_in_masters') ) == '0' ? 'checked' : '' }}" required="" />&ensp;
+					
+													<x-admin.form.inputs.radio for="MasterAll" class="border border-danger" name="search[show_in_masters]" label="{{__('webCaption.all.title')}}" tooltip="{{__('webCaption.all.caption')}}" value=""  required=""  checked="{{  ( (request()->input('search.show_in_masters') ) == null ) || ( (request()->input('search.show_in_masters') ) == '' )  ? 'checked' : '' }}" required="" />&ensp;
+													</div>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 							<div class="col-md-3">
@@ -59,8 +105,12 @@
 									{{__('webCaption.title_english.title')}}
 									<x-admin.filter.order-by-filter-div orderBy="language_en" />
 								</th>
-								<th scope="col" data-toggle="tooltip" title="{{__('webCaption.title.caption')}}">{{__('webCaption.title.title')}}</th>
-								<th scope="col" data-toggle="tooltip" title="{{__('webCaption.status.caption')}}">{{__('webCaption.status.title')}}</th>
+								<th scope="col" class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.title.caption')}}">{{__('webCaption.title.title')}}
+									<x-admin.filter.order-by-filter-div orderBy="language_text" />
+								</th>
+								<th scope="col" class="position-for-filter-heading"  data-toggle="tooltip" title="{{__('webCaption.status.caption')}}">{{__('webCaption.status.title')}}
+									<x-admin.filter.order-by-filter-div orderBy="status" />
+								</th>
 								<th scope="col" class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.alias.caption')}}">{{__('webCaption.alias.title')}}
 									<x-admin.filter.order-by-filter-div orderBy="alias" />
 								</th>

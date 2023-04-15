@@ -10,13 +10,29 @@
 				</div>
 				<div class="card-body">
 					<form method="GET" action="{{route('users.index')}}">
-						<div class="d-flex justify-content-between align-items-center  row pt-0 pb-2">
+						<div class="row">
 							<div class="col-md-3">
 								<div class="form-group">
 									<x-admin.form.inputs.text id="searchKeyword" label="{{__('webCaption.keyword.title')}}" tooltip="{{__('webCaption.keyword.caption')}}" for="{{__('webCaption.keyword.title')}}"  class="form-control" name="search[keyword]"  placeholder="{{__('webCaption.keyword.title')}}" value="{{ request()->input('search.keyword') }}"  required="" />
 								</div>
 							</div>
-							<div class="col-md-6 offset-md-3 text-md-center">
+
+							<div class="col-md-3">
+								<div class="form-group">
+									<x-admin.form.label for="" value="{{__('webCaption.status.title')}}" class="" tooltip="{{__('webCaption.status.caption')}}" />
+									<div>
+											<div class="form-check form-check-inline">
+											<x-admin.form.inputs.radio for="StatusActive" class="border border-danger" name="search[status]" tooltip="{{__('webCaption.active.caption')}}" label="{{__('webCaption.active.title')}}" value="1"  required=""  checked="{{ (request()->input('search.status') ) == '1' ? 'checked' : '' }}" required="" />&ensp;
+												
+											<x-admin.form.inputs.radio for="StatusInactive" class="border border-danger" name="search[status]" label="{{__('webCaption.inactive.title')}}" tooltip="{{__('webCaption.inactive.caption')}}" value="0"  required=""  checked="{{ (request()->input('search.status') ) == '0' ? 'checked' : '' }}" required="" />&ensp;
+			
+											<x-admin.form.inputs.radio for="StatusAll" class="border border-danger" name="search[status]" label="{{__('webCaption.all.title')}}" tooltip="{{__('webCaption.all.caption')}}" value=""  required=""  checked="{{  ( (request()->input('search.status') ) == null ) || ( (request()->input('search.status') ) == '' )  ? 'checked' : '' }}" required="" />&ensp;
+										    </div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-6 text-md-center">
 								<x-admin.form.buttons.search />
 								<x-admin.form.buttons.reset href="{{route('users.index')}}" />
 							</div>
