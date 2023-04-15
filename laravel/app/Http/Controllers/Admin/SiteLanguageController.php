@@ -29,7 +29,9 @@ class SiteLanguageController extends Controller
      }
 
     public function index(Request $request)
-    {
+    {   
+
+
         if (!Auth::user()->can('main-navigation-masters-languages')) {
             abort(403);
         }
@@ -50,12 +52,26 @@ class SiteLanguageController extends Controller
 
         $languages = SiteLanguage::select('*');
 
-        if(  $request->has('search.keyword')) {
+        if($request->has('search.keyword')) {
             $languages->keywordFilter($request->input('search.keyword')); 
         }
+
+        if($request->has('search.status') && $request->input('search.status') != null  ) {
+            $languages->statusFilter($request->input('search.status')); 
+        }
+
+        if($request->has('search.show_in_masters') && $request->input('search.show_in_masters') != null  ) {
+            $languages->showMasterFilter($request->input('search.show_in_masters')); 
+        }
+
+        if($request->has('search.show_in_captions') && $request->input('search.show_in_captions') != null  ) {
+            $languages->showCaptionFilter($request->input('search.show_in_captions')); 
+        }
+
         if($request->has('order_by') &&  $request->has('order') ){
             $languages->orderBy($request->order_by, $request->order);
         }
+
         $perPage =  (isset($request->perPage) && !empty($request->perPage)) ? $request->perPage : 100;
 
         $languages = $languages->paginate($perPage);
