@@ -46,10 +46,24 @@ class CompanyGabsModel extends Model
             $query->where('country_id', $country);
         });
     }
+
     public function scopeStatusFilter($query, $status)
     {
         return $query->where( function($query) use ($status) {
             $query->where('status', $status);
+        });
+    }
+
+
+    public function scopeBusinessTypeFilter($query, $business_type){
+
+        $query->whereJsonContains('business_type_id',$business_type);
+    }
+
+    public function scopePlanFilter($query, $plan)
+    {
+        return $query->where( function($query) use ($plan) {
+            $query->where('plan_id', $plan);
         });
     }
 
