@@ -32,7 +32,6 @@ class TypeController extends Controller
 
     public function index(Request $request)
     {    
-        
         if (!Auth::user()->can('main-navigation-masters-vehicle-type')) {
             abort(403);
         }
@@ -157,7 +156,7 @@ class TypeController extends Controller
 
                 if($type_model->save()){
                     $message = (isset($request->id)) ? $request->name." ". __('webCaption.alert_updated_successfully.title') : $request->name." ".__('webCaption.alert_added_successfully.title') ;
-                    return redirect()->route('masters-vehicle-type')->with('success_message' ,$message );
+                    return redirect()->route('masters.vehicle.type.index')->with('success_message' ,$message );
                 }else{
                     return redirect($this->baseUrl)->with(['error_message' => __('webCaption.alert_somthing_wrong.title') ]);
                 }

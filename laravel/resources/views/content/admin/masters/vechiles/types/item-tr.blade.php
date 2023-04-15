@@ -45,19 +45,19 @@
                 }
             @endphp
     
-            <x-admin.form.inputs.listing_checkbox id="list{{$item->id}}"  onclick="changeDisplayStatus('{{$item->id}}','{{route('masters-vehicle-type-update-status')}}')"  dataItemId="{{$item->id}}" dataUrl="{{route('masters-vehicle-type-update-status')}}" 
+            <x-admin.form.inputs.listing_checkbox id="list{{$item->id}}"  onclick="changeDisplayStatus('{{$item->id}}','{{route('masters.vehicle.type.update-status')}}')"  dataItemId="{{$item->id}}" dataUrl="{{route('masters.vehicle.type.update-status')}}" 
                value="{{$item->id}}" checked="{{$displayStatusChecked}}"  /> 
         </td>
         <td>
             @can('main-navigation-masters-vehicle-type-edit')
-             <x-admin.form.buttons.edit href="{{ route('masters-vehicle-type-edit', $item->id) }}" />
+             <x-admin.form.buttons.edit href="{{ route('masters.vehicle.type.edit', $item->id) }}" />
             @endcan
             &nbsp;
 
            {{-- pass in  deleteSingleData(id , name ,url ) for delete  --}}
 
            @can('main-navigation-masters-vehicle-type-delete')
-            <x-admin.form.buttons.delete id="{{$item->id}}" name="{{$item->name}}" url="{{route('masters-vehicle-type-delete')}}" action="{{route('masters-vehicle-type-delete',$item->id)}}" /> 
+            <x-admin.form.buttons.delete id="{{$item->id}}" name="{{$item->name}}" url="{{route('masters.vehicle.type.delete')}}" action="{{route('masters.vehicle.type.delete',$item->id)}}" /> 
            @endcan
         </td>
     </tr>

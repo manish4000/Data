@@ -12,7 +12,7 @@
           <h4 class="card-title" data-toggle="tooltip" data-placement="right" title="{{__('webCaption.search_filter.caption')}}">{{__('webCaption.search_filter.title')}}</h4>                    
         </div>
         <div class="card-body">
-          <form method="GET" action="{{route('masters-vehicle-make')}}">
+          <form method="GET" action="{{route('masters.vehicle.make.index')}}">
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-group">
@@ -49,7 +49,7 @@
                 </div>
                 <div class="col-md-3 ">
                     <x-admin.form.buttons.search />
-                    <x-admin.form.buttons.reset href="{{route('masters-vehicle-make')}}" />
+                    <x-admin.form.buttons.reset href="{{route('masters.vehicle.make.index')}}" />
                 </div>
             </div>
           </form>
@@ -75,7 +75,7 @@
                         @can('main-navigation-masters-vehicle-make-delete')
                             <div class="px-2 my-2">
                                 {{-- deleteMultiple() for delete multiple data pass url here  --}}
-                                <x-admin.form.buttons.multipleDelete url="{{route('masters-vehicle-make-delete-multiple')}}" />
+                                <x-admin.form.buttons.multipleDelete url="{{route('masters.vehicle.make.delete-multiple')}}" />
                             </div>
                         @endcan
                         <table class="table" id="master-list">

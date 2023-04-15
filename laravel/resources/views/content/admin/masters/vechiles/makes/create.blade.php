@@ -6,7 +6,7 @@
 @endif
 
 @section('content')
-<form action="{{ route('masters-vehicle-make-store')}}" method="POST">
+<form action="{{ route('masters.vehicle.make.store')}}" method="POST">
 @csrf
 <section >
   <div class="card">
