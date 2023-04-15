@@ -51,7 +51,8 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {   
-        
+
+
         if (!Auth::user()->can('settings-users')) {
             abort(403);
         }
@@ -77,6 +78,11 @@ class UserController extends Controller
         if( $request->has('search.keyword')) {
             $users->keywordFilter($request->input('search.keyword')); 
         }
+
+        if( $request->has('search.status') && $request->input('search.status') != null ) {
+            $users->statusFilter($request->input('search.status')); 
+        }
+
         if($request->has('order_by') &&  $request->has('order') ){
             $users->orderBy($request->order_by, $request->order);
         }
