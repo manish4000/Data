@@ -41,6 +41,7 @@ class UserController extends Controller
         if (!Auth::guard('dash')->user()->can('common-users')) {
             abort(403);
         }
+
         
         $companyId =  Auth::guard('dash')->user()->company_id; 
         $pageConfigs = [
@@ -62,7 +63,7 @@ class UserController extends Controller
         if( $request->has('search.keyword')) {
             $users->keywordFilter($request->input('search.keyword')); 
         }
-        if( $request->has('search.status')) {
+        if( $request->has('search.status') && $request->input('search.status') != null ) {
             $users->StatusFilter($request->input('search.status')); 
         }
         if($request->has('order_by') &&  $request->has('order') ){
