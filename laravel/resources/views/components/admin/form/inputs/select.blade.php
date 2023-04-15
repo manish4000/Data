@@ -39,9 +39,10 @@
 @if(isset($name)) 
 
 <div class="m-0">
-    @if($errors->has($name))
-    <x-admin.form.form_error_messages message="{{ $errors->first($name) }}"  />
+    @if($errors->has($name.'.*'))
+    <x-admin.form.form_error_messages message="{{ $errors->first($name.'.*') }}"  />
     @endif
+
 </div>
 
 @endif 

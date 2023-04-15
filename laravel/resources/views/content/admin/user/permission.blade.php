@@ -79,7 +79,7 @@
 				
   <script type="text/javascript">
   	$(document).ready(function() {
-  		$(".jstree-basic ul li a, .jstree-basic ul li ul li a").each(function() {
+  		$(".jstree-basic ul li a").each(function() {
 
   		  var attributes = $.map(this.attributes, function(item) {
 		    return item.name;

@@ -24,8 +24,7 @@
     @endif
 
 
-    <select  class="select2"    name="{{ $name }}" id="{{ $for }}" {{ $required }} multiple="multiple">
-
+    <select  class="select2"    name="{{ $name }}" id="{{ $for }}" {{ $required }} multiple="multiple" >
         @if(isset($optionData) && count($optionData) > 0)
 
             @foreach($optionData as $option)
