@@ -66,6 +66,11 @@ class   User extends Authenticatable
         });
     }
 
+    public function scopeStatusFilter($query, $status)
+    {   
+        return $query->where( 'status', $status);
+    }
+
     protected function google2faSecret(): Attribute
     {
         return new Attribute(
