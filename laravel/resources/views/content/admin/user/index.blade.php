@@ -69,7 +69,7 @@
 											{{__('webCaption.email.title')}}
 											<x-admin.filter.order-by-filter-div orderBy="email" />
 										</th>
-										<th scope="col" class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.active.caption')}}">{{__('webCaption.active.title')}}
+										<th scope="col" class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.active.caption')}}">{{__('webCaption.active.title')}} <x-admin.filter.order-by-filter-div orderBy="status" />
 										</th>
 										<th scope="col" data-toggle="tooltip" title="{{__('webCaption.actions.caption')}}"  > {{__('webCaption.actions.title')}}
 										</th>
