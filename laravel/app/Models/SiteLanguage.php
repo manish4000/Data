@@ -24,4 +24,17 @@ class SiteLanguage extends Model
         });
     }
 
+    public function scopeStatusFilter($query, $status)
+    {   
+        return $query->where('status', $status);
+    }
+
+    public function  scopeShowMasterFilter($query, $status){
+        return $query->where('show_in_masters', $status);
+    }
+    
+    public function  scopeShowCaptionFilter($query, $status){
+        return $query->where('show_in_captions', $status);
+    }
+
 }
