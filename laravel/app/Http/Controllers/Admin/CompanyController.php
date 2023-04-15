@@ -198,6 +198,7 @@ class CompanyController extends Controller
             abort(403);
         } 
 
+
         $data = CompanyGabsModel::select(['id','name','company_name','email' ,'status','updated_at','updated_by']);
 
         
@@ -210,10 +211,20 @@ class CompanyController extends Controller
         if( !empty($request->input('search.status'))) {
             $data->statusFilter($request->input('search.status')); 
         }
+        if( !empty($request->input('search.plan'))) {
+            $data->planFilter($request->input('search.plan')); 
+        }
+
+        if( !empty($request->input('search.business_type'))) {
+            $data->businessTypeFilter($request->input('search.business_type')); 
+        }
+        
 
         if($request->has('order_by') &&  $request->has('order') ){
             $data->orderBy($request->order_by, $request->order);
         }
+
+
 
         $pageConfigs = [
             'pageHeader' => true, 
@@ -232,9 +243,11 @@ class CompanyController extends Controller
         $perPage =  (isset($request->perPage) && !empty($request->perPage)) ? $request->perPage : 100;
 
         $data = $data->paginate($perPage);
-
         
-        return view('content.admin.company.list',['pageConfigs' => $pageConfigs,'status' => $status,'country' => $country ,'breadcrumbs' => $breadcrumbs,'data' =>$data]);
+        $plans = CompanyPlanModel::select('id as value','title as name')->get();
+        $BusinessTypes = BusinessType::select('id as value','name')->whereNotNull('name')->get();
+        
+        return view('content.admin.company.list',['plans' => $plans,'BusinessTypes' => $BusinessTypes,'pageConfigs' => $pageConfigs,'status' => $status,'country' => $country ,'breadcrumbs' => $breadcrumbs,'data' =>$data]);
     }
 
     /**
