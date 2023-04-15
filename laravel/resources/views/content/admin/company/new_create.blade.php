@@ -107,7 +107,7 @@
 								</div>
 								<div class="col-8">
 									<div class="form-group">
-                              <x-admin.form.inputs.text id="" for="telephone"  tooltip="{{__('webCaption.telephone.caption')}}" label="{{__('webCaption.telephone.title')}}" maxlength="20"  name="telephone"  placeholder="{{__('webCaption.telephone.title')}}" value="{{old('telephone', isset($data->telephone)?$data->telephone:'' )}}"  required="" />
+                              <x-admin.form.inputs.number id="" for="telephone"  tooltip="{{__('webCaption.telephone.caption')}}" label="{{__('webCaption.telephone.title')}}" maxlength="20"  name="telephone"  placeholder="{{__('webCaption.telephone.title')}}" value="{{old('telephone', isset($data->telephone)?$data->telephone:'' )}}"  required="" />
                               
                            </div>
 								</div>
@@ -212,9 +212,7 @@
                    <div class="col-md-4">
                       <div class="form-group">
                           <x-admin.form.inputs.select label="{{__('webCaption.marketing_status.title')}}"  id="" for="marketing_status" name="marketing_status" placeholder="{{__('webCaption.marketing_status.title')}}" editSelected=""  required="" :optionData="[]" />
-                            @if($errors->has('marketing_status'))
-                            <x-admin.form.form_error_messages message="{{ $errors->first('marketing_status') }}"  />
-                            @endif
+                          
                       </div>
                   </div>
 
@@ -247,8 +245,8 @@
                      <div class="col-md-4">
                         <div class="form-group">
                            <x-admin.form.inputs.text id="" for="contact_1_designation" tooltip="{{__('webCaption.designation.caption')}}" label="{{__('webCaption.designation.title')}}" maxlength="50" class="form-control" name="contact_designation[]"  placeholder="{{__('webCaption.designation.title')}}" value=""  required="" />
-                           @if($errors->has('contact_designation0'))
-                              <x-admin.form.form_error_messages message="{{ $errors->first('contact_designation0') }}"  />
+                           @if($errors->has('contact_designation.0'))
+                              <x-admin.form.form_error_messages message="{{ $errors->first('contact_designation.0') }}"  />
                            @endif
                         </div>
                      </div>
@@ -265,7 +263,7 @@
                   <div class="row">
                      <div class="col-md-4">
                         <div class="form-group">
-                           <x-admin.form.inputs.text id="" for="contact_1_phone" tooltip="{{__('webCaption.phone.caption')}}" label="{{__('webCaption.phone.title')}}" maxlength="20" class="form-control" name="contact_phone[]"  placeholder="{{__('webCaption.phone.title')}}" value=""  required="" />
+                           <x-admin.form.inputs.number id="" for="contact_1_phone" tooltip="{{__('webCaption.phone.caption')}}" label="{{__('webCaption.phone.title')}}" maxlength="20" class="form-control" name="contact_phone[]"  placeholder="{{__('webCaption.phone.title')}}" value=""  required="" />
                            @if($errors->has('contact_phone.0'))
                               <x-admin.form.form_error_messages message="{{ $errors->first('contact_phone.0') }}"  />
                            @endif
@@ -335,7 +333,7 @@
                   <div class="row">
                       <div class="col-md-4">
                           <div class="form-group">
-                              <x-admin.form.inputs.text id="" for="contact_2_phone" tooltip="{{__('webCaption.phone.caption')}}" label="{{__('webCaption.phone.title')}}" maxlength="20" class="form-control" name="contact_phone[]"  placeholder="{{__('webCaption.phone.title')}}" value=""  required="" />
+                              <x-admin.form.inputs.number id="" for="contact_2_phone" tooltip="{{__('webCaption.phone.caption')}}" label="{{__('webCaption.phone.title')}}" maxlength="20" class="form-control" name="contact_phone[]"  placeholder="{{__('webCaption.phone.title')}}" value=""  required="" />
                               @if($errors->has('contact_phone.1'))
                               <x-admin.form.form_error_messages message="{{ $errors->first('contact_phone.1') }}"  />
                               @endif
@@ -383,17 +381,13 @@
                   <div class="col-md-4">
                      <div class="form-group">
                         <x-admin.form.inputs.text_with_icon id="" for="instagram" tooltip="{{__('webCaption.instagram.caption')}}" label="{{__('webCaption.instagram.title')}}" maxlength="100" class="form-control" name="instagram" iconColorClass="text-primary"  iconClass="fab fa-instagram" placeholder="{{__('webCaption.instagram.title')}}" value="{{old('instagram', isset($data->instagram)?$data->instagram:'' )}}"  required="" />
-                        @if($errors->has('instagram'))
-                           <x-admin.form.form_error_messages message="{{ $errors->first('instagram') }}"  />
-                        @endif
+                        
                      </div>
                   </div>
                   <div class="col-md-4">
                      <div class="form-group">
                         <x-admin.form.inputs.text_with_icon id="" for="linkedin" tooltip="{{__('webCaption.linkedin.caption')}}" label="{{__('webCaption.linkedin.title')}}" maxlength="100" class="form-control" name="linkedin" iconColorClass="text-primary"  iconClass="fab fa-linkedin" placeholder="{{__('webCaption.linkedin.title')}}" value="{{old('linkedin', isset($data->linkedin)?$data->linkedin:'' )}}"  required="" />
-                        @if($errors->has('linkedin'))
-                           <x-admin.form.form_error_messages message="{{ $errors->first('linkedin') }}"  />
-                        @endif
+                        
                      </div>
                   </div>
                </div>
@@ -402,17 +396,13 @@
                   <div class="col-md-4">
                      <div class="form-group">
                         <x-admin.form.inputs.text_with_icon id="" for="youtube" tooltip="{{__('webCaption.youtube.caption')}}" label="{{__('webCaption.youtube.title')}}" maxlength="100" class="form-control" name="youtube" iconColorClass="text-primary"  iconClass="fab fa-youtube" placeholder="{{__('webCaption.youtube.title')}}" value="{{old('youtube', isset($data->youtube)?$data->youtube:'' )}}"  required="" />
-                        @if($errors->has('youtube'))
-                           <x-admin.form.form_error_messages message="{{ $errors->first('youtube') }}"  />
-                        @endif
+                      
                      </div>
                   </div>
                   <div class="col-md-4">
                      <div class="form-group">
                         <x-admin.form.inputs.text_with_icon id="" for="twitter"  tooltip="{{__('webCaption.twitter.caption')}}" label="{{__('webCaption.twitter.title')}}" maxlength="100" class="form-control" name="twitter" iconColorClass="text-primary"  iconClass="fab fa-twitter" placeholder="{{__('webCaption.twitter.title')}}" value="{{old('twitter', isset($data->twitter)?$data->twitter:'' )}}"  required="" />
-                        @if($errors->has('twitter'))
-                           <x-admin.form.form_error_messages message="{{ $errors->first('twitter') }}"  />
-                        @endif
+                        
                      </div>
                   </div>
                </div>

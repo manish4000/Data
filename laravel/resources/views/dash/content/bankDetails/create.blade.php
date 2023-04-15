@@ -60,7 +60,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <x-dash.form.inputs.text  for="account_number"  maxlength="255" tooltip="{{__('webCaption.account_number.caption')}}" label="{{__('webCaption.account_number.title')}}"  name="account_number"  placeholder="{{__('webCaption.account_number.title')}}" value="{{old('account_number', isset($data->account_number)?$data->account_number:'' )}}"  required="required" />
+                        <x-dash.form.inputs.number  for="account_number"  maxlength="255" tooltip="{{__('webCaption.account_number.caption')}}" label="{{__('webCaption.account_number.title')}}"  name="account_number"  placeholder="{{__('webCaption.account_number.title')}}" value="{{old('account_number', isset($data->account_number)?$data->account_number:'' )}}"  required="required" />
                         
                     </div>
                 </div>

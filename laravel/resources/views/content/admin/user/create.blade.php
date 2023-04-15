@@ -97,12 +97,12 @@
 							<div class="row">
 								<div class="col-4">
 									<div class="form-group">
-										<x-admin.form.inputs.select  tooltip="{{__('webCaption.country_code.caption')}}"  label="{{__('webCaption.country_code.title')}}"  id="" for="country_code" name="country_code"  required="" :optionData="$country_phone_code"  editSelected="{{(isset($country_code) && ($country_code != null)) ? $country_code : ''; }}" />
+										<x-admin.form.inputs.select  tooltip="{{__('webCaption.country_code.caption')}}"  label="{{__('webCaption.country_code.title')}}"  id="" for="country_code" name="country_code"  required="required" :optionData="$country_phone_code"  editSelected="{{(isset($country_code) && ($country_code != null)) ? $country_code : ''; }}" />
 									  </div>
 								</div>
 								<div class="col-8">
 									<div class="form-group">
-										<x-admin.form.inputs.text  for="phone"  maxlength="12" tooltip="{{__('webCaption.phone.caption')}}"  label="{{__('webCaption.phone.title')}}"  class="form-control" name="phone"  placeholder="{{__('webCaption.phone.title')}}" value="{{old('phone', isset($user->phone)?$user->phone:'' )}}"  required="required" />
+										<x-admin.form.inputs.number  for="phone"  maxlength="12" tooltip="{{__('webCaption.phone.caption')}}"  label="{{__('webCaption.phone.title')}}"  class="form-control" name="phone"  placeholder="{{__('webCaption.phone.title')}}" value="{{old('phone', isset($user->phone)?$user->phone:'' )}}"  required="required" />
 										
 									</div>
 								</div>

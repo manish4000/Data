@@ -96,7 +96,7 @@
                             </div>
                             <div class="col-8">
                                 <div class="form-group">
-                                    <x-admin.form.inputs.text id="" for="phone"  tooltip="{{__('webCaption.phone.caption')}}" label="{{__('webCaption.phone.title')}}" maxlength="20"  name="phone"  placeholder="{{__('webCaption.phone.title')}}" value="{{old('phone', isset($data->phone)?$data->phone:'' )}}"  required="" />
+                                    <x-admin.form.inputs.number id="" for="phone"  tooltip="{{__('webCaption.phone.caption')}}" label="{{__('webCaption.phone.title')}}" maxlength="20"  name="phone"  placeholder="{{__('webCaption.phone.title')}}" value="{{old('phone', isset($data->phone)?$data->phone:'' )}}"  required="" />
                                 </div>
                             </div>
                         </div>
