@@ -13,20 +13,20 @@ use App\Models\Masters\Currencies;
 
 use App\Models\Companies;
 use App\Models\Vehicles;
+use Illuminate\Support\Facades\DB;
 
 class Helper {
     public static $companies_id;
     public static $created_by_id;
     public static $query;
-
     public static $DifferenceSpecialAndRegularPrice;
     public static $DefultDifference;
-
     public static $currency;
     public static $regularPrice;
     public static $specialPrice;
-
     public static $returnMessage;
+
+   
 
     public static function applClasses() {
         // Demo
@@ -136,6 +136,8 @@ class Helper {
         
         return $layoutClasses;
     }
+
+
     public static function dashApplClasses() {
         // Demo
         $fullURL = request()->fullurl();

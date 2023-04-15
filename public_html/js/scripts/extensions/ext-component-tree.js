@@ -14,7 +14,7 @@ $(function () {
     customIconsTree = $('#jstree-custom-icons'),
     contextMenu = $('#jstree-context-menu'),
     dragDrop = $('#jstree-drag-drop'),
-    checkboxTree = $('#jstree-checkbox'),
+    checkboxTree = $('.jstree-checkbox'),
     ajaxTree = $('#jstree-ajax');
 
   var assetPath = '../../../app-assets/';
@@ -24,7 +24,13 @@ $(function () {
 
   // Basic
   if (basicTree.length) {
-    basicTree.jstree();
+    basicTree.jstree({
+      plugins: ['checkbox'],
+      "checkbox": {
+        "three_state": false
+      }
+    }
+    );
   }
 
   // Custom Icons
@@ -305,7 +311,6 @@ $(function () {
   // Checkbox
   if (checkboxTree.length) {
 
-
     checkboxTree.jstree({
       core: {
         data: [
@@ -395,6 +400,7 @@ $(function () {
 
   // Ajax Example
   if (ajaxTree.length) {
+
     ajaxTree.jstree({
       core: {
         data: {
