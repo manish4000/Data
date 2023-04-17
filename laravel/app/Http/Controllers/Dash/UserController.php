@@ -160,12 +160,12 @@ class UserController extends Controller
             'password' => 'nullable|confirmed|min:8',
 
         ],[
-            'name.required' => __('webCaption.validation_required.title', ['field'=> "Name" ] ),
-            'email.required' => __('webCaption.validation_required.title', ['field'=> "Email" ] ),
-            'email.email'=> __('webCaption.validation_email.title', ['field'=> "Email" ] ),
+            'name.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.name.title') ] ),
+            'email.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.email.title')] ),
+            'email.email'=> __('webCaption.validation_email.title', ['field'=> __('webCaption.email.title') ] ),
             'email.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('email')] ),
-            'status.required' => __('webCaption.validation_required.title', ['field'=> 'status'] ),
-            'password.min' => __('webCaption.validation_min.title', ['field'=> 'password' ,'min' => "8"] ),
+            'status.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.status.title') ] ),
+            'password.min' => __('webCaption.validation_min.title', ['field'=> __('webCaption.password.title') ,'min' => "8"] ),
             'password.confirmed'=> __('webCaption.validation_confirmed.title', ['field'=> "Password" ] ),
           ]
         );
@@ -174,9 +174,9 @@ class UserController extends Controller
             $request->validate([
                 'password' => 'required|confirmed|min:8',   
             ],[
-                'password.required' => __('webCaption.validation_required.title', ['field'=> "Password" ] ),
-                'password.min' => __('webCaption.validation_min.title', ['field'=> 'password' ,'min' => "8"] ),
-                'password.confirmed'=> __('webCaption.validation_confirmed.title', ['field'=> "Password" ] ),
+                'password.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.password.title') ] ),
+                'password.min' => __('webCaption.validation_min.title', ['field'=> __('webCaption.password.title') ,'min' => "8"] ),
+                'password.confirmed'=> __('webCaption.validation_confirmed.title', ['field'=> __('webCaption.password.title') ] ),
             ]);
         }
         

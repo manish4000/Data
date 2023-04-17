@@ -152,9 +152,9 @@ class BankDetailsController extends Controller
             
             ],
             [
-                'bank_name.required' => __('webCaption.validation_required.title', ['field'=> "Bank Name" ] ),
-                'bank_name.string' => __('webCaption.validation_string.title', ['field'=> "Bank Name" ] ),
-                'bank_name.max' => __('webCaption.validation_max.title', ['field'=> "Bank Name" ,'max' =>"255" ] ),
+                'bank_name.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.bank_name.title') ] ),
+                'bank_name.string' => __('webCaption.validation_string.title', ['field'=> __('webCaption.bank_name.title') ] ),
+                'bank_name.max' => __('webCaption.validation_max.title', ['field'=> __('webCaption.bank_name.title') ,'max' =>"255" ] ),
 
 
                 // 'dealer_name.string' => __('webCaption.validation_string.title', ['field'=> "Dealer Name" ] ),
@@ -176,9 +176,9 @@ class BankDetailsController extends Controller
                 // 'account_name.string' => __('webCaption.validation_string.title', ['field'=> "Account Name" ] ),
                 // 'account_name.max' => __('webCaption.validation_max.title', ['field'=> "Account Name" ,"max" => "255" ] ),
 
-                'account_number.required' => __('webCaption.validation_required.title', ['field'=> "Account Number" ] ),
-                'account_number.string' => __('webCaption.validation_string.title', ['field'=> "Account Number" ] ),
-                'account_number.max' => __('webCaption.validation_max.title', ['field'=> "Account Number" ,"max" => "255" ] ),
+                'account_number.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.account_number.title')] ),
+                'account_number.string' => __('webCaption.validation_string.title', ['field'=> __('webCaption.account_number.title')] ),
+                'account_number.max' => __('webCaption.validation_max.title', ['field'=> __('webCaption.account_number.title'),"max" => "255" ] ),
 
                 // 'account_address.required' => __('webCaption.validation_required.title', ['field'=> "Account Address" ] ),
                 // 'account_address.string' => __('webCaption.validation_string.title', ['field'=> "Account Address" ] ),
@@ -194,8 +194,8 @@ class BankDetailsController extends Controller
                 // 'state_id.required' => __('webCaption.validation_required.title', ['field'=> "State" ] ),
                 // 'state_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "State" ] ),
 
-                'swift_code.required' => __('webCaption.validation_required.title', ['field'=> "Swift Code" ] ),
-                'swift_code.max' => __('webCaption.validation_max.title', ['field'=> "Swift Code" ,"max" => "100" ] ),
+                'swift_code.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.swift_code.title') ] ),
+                'swift_code.max' => __('webCaption.validation_max.title', ['field'=> __('webCaption.swift_code.title') ,"max" => "100" ] ),
 
                 // 'iban_no.required' => __('webCaption.validation_required.title', ['field'=> "Iban Number" ] ),
                 // 'iban_no.string' => __('webCaption.validation_string.title', ['field'=> "Iban Number" ] ),

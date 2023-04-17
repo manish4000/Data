@@ -115,23 +115,23 @@ class CountryController extends Controller
             }
              $country_model =   new Country;
         }
-
+        
         $request->validate(
                 [
-                    'name' => 'required|max:100|unique:regions,name,'.$request->id,
+                    'name' => 'required|max:100|unique:countries,name,'.$request->id,
                     'phone_code' => 'nullable|max:10',
                     'country_code' => 'nullable|max:5',
                     'regions_id' => 'nullable|numeric',
                     'display' => 'required|in:Yes,No',
                 ]  ,
                 [   
-                    'name.required'=> __('webCaption.validation_required.title', ['field'=> "Name" ] ),
+                    'name.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.name.title') ] ),
                     'name.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('name')] ),
                     'name.max'=> __('webCaption.validation_max.title', ['field'=> "Name" ,"max" => "100"] ),
                     'phone_code.max'=> __('webCaption.validation_max.title', ['field'=> "Phone Code" ,"max" => "10"] ),
                     'country_code.max'=> __('webCaption.validation_max.title', ['field'=> "Country Code" ,"max" => "5"] ),
-                    'regions_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "Region"] ),
-                    'display.required'=> __('webCaption.validation_required.title', ['field'=> "Display" ] ),
+                    'regions_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.region.title')] ),
+                    'display.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.display.title')] ),
                     'display.in'=> __('webCaption.validation_in.title' ),
                 ]                           
             );

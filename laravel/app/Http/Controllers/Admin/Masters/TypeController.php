@@ -138,8 +138,8 @@ class TypeController extends Controller
             'name' => 'required|unique:types,name,'.$request->id, 
           ]  ,
           [
-            'name.required' => __('webCaption.validation_required.title', ['field'=> "name" ] ),
-            'display.required' => __('webCaption.validation_required.title', ['field'=> "display" ] ),
+            'name.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.name.title')  ] ),
+            'display.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.display.title')  ] ),
             'name.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('name')] ),
           ]);
     

@@ -95,7 +95,7 @@ class ModuleController extends Controller
 
         $request->validate(
             ['title' => 'required|unique:company_modules,title,'.$request->id.',id,deleted_at,NULL'],
-            ['title.required' => __('webCaption.validation_required.title', ['field'=> "title" ] ) ,
+            ['title.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.title.title')  ] ) ,
              'title.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('title')] )  
             ]
         );

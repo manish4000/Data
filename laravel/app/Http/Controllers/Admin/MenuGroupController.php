@@ -119,13 +119,13 @@ class MenuGroupController extends Controller
             'slug'=> 'required|regex:/^\S*$/u|unique:menu_groups,slug,'.$request->id,
         ],
         [
-            'title.required'=> __('webCaption.validation_required.title', ['field'=> "title" ] ),
+            'title.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.title.title') ] ),
             'title.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('title')] ),
-            'slug.required'=> __('webCaption.validation_required.title', ['field'=> "slug" ] ),
+            'slug.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.slug.title') ] ),
             'slug.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('slug')] ),
-            'slug.regex' => __('webCaption.validation_space.title', ['field'=> "slug" ,"use" => "(_)" ]  ),
-            'order.required'=> __('webCaption.validation_required.title', ['field'=> "order" ] ),
-            'order.numeric'=> __('webCaption.validation_nemuric.title', ['field'=> "order" ] )
+            'slug.regex' => __('webCaption.validation_space.title', ['field'=> __('webCaption.slug.title') ,"use" => "(_)" ]  ),
+            'order.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.order.title') ] ),
+            'order.numeric'=> __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.order.title') ] )
 
         ]);
         

@@ -366,92 +366,92 @@ class CompanyController extends Controller
             'terms_and_services' =>'nullable|in:0,1'
 
             ],[
-                'company_name.required'=> __('webCaption.validation_required.title', ['field'=> "Company Name" ] ),
-                'company_name.max'=> __('webCaption.validation_max.title', ['field'=> "Company Name" ,"max" => "255"] ),
+                'company_name.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.company_name.title') ] ),
+                'company_name.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.company_name.title') ,"max" => "255"] ),
                 'company_name.unique'=> __('webCaption.validation_unique.title', ['field'=> $request->input('company_name') ] ),
 
-                'gabs_uuid.required'=> __('webCaption.validation_required.title', ['field'=> "GABS Uuid" ] ),
-                'gabs_uuid.max'=> __('webCaption.validation_max.title', ['field'=> "GABS Uuid" ,"max" => "6"] ),
+                'gabs_uuid.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.gabs_uuid.title') ] ),
+                'gabs_uuid.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.gabs_uuid.title') ,"max" => "6"] ),
                 'gabs_uuid.unique'=> __('webCaption.validation_unique.title', ['field'=> $request->input('gabs_uuid') ] ),
 
-                'email.required'=> __('webCaption.validation_required.title', ['field'=> "Email" ] ),
-                'email.max'=> __('webCaption.validation_max.title', ['field'=> "Email" ,"max" => "45"] ),
+                'email.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.email.title') ] ),
+                'email.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.email.title') ,"max" => "45"] ),
                 'email.unique'=> __('webCaption.validation_unique.title', ['field'=> $request->input('email') ] ),
 
-                'password.required'=> __('webCaption.validation_required.title', ['field'=> "Password" ] ),
-                'password.min'=> __('webCaption.validation_min.title', ['field'=> "Password" ,"min" => "5"] ),
+                'password.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.password.title') ] ),
+                'password.min'=> __('webCaption.validation_min.title', ['field'=> __('webCaption.password.title') ,"min" => "5"] ),
 
-                'status.required'=> __('webCaption.validation_required.title', ['field'=> "Status" ] ),
-                'status.string'=> __('webCaption.validation_string.title', ['field'=> "Status"] ),
+                'status.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.status.title') ] ),
+                'status.string'=> __('webCaption.validation_string.title', ['field'=> __('webCaption.status.title') ] ),
 
-                'address.string'=> __('webCaption.validation_string.title', ['field'=> "Address"] ),
+                'address.string'=> __('webCaption.validation_string.title', ['field'=> __('webCaption.address.title') ] ),
 
-                'city_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "City"] ),
-                'state_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "State"] ),
-                'country_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "Country"] ),
+                'city_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.city.title')] ),
+                'state_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.state.title')] ),
+                'country_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.country.title') ] ),
 
-                'postcode.string'=> __('webCaption.validation_string.title', ['field'=> "Postcode"] ),
-                'postcode.max'=> __('webCaption.validation_max.title', ['field'=> "Postcode" ,"max" => "15"] ),
+                'postcode.string'=> __('webCaption.validation_string.title', ['field'=> __('webCaption.postcode.title') ] ),
+                'postcode.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.postcode.title') ,"max" => "15"] ),
 
-                'region_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "Region"] ),
+                'region_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.region.title')] ),
 
-                'telephone.string'=> __('webCaption.validation_string.title', ['field'=> "Telephone"] ),
-                'telephone.max'=> __('webCaption.validation_max.title', ['field'=> "Telephone" ,"max" => "20"] ),
-                'country_code.required_with' => __('webCaption.validation_required.title', ['field'=> "Country Code" ] ),
+                'telephone.string'=> __('webCaption.validation_string.title', ['field'=> __('webCaption.telephone.title')] ),
+                'telephone.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.telephone.title') ,"max" => "20"] ),
+                'country_code.required_with' => __('webCaption.validation_required.title', ['field'=> __('webCaption.country_code.title') ] ),
 
-                'skype_id.string'=> __('webCaption.validation_string.title', ['field'=> "Skype"] ),
-                'skype_id.max'=> __('webCaption.validation_max.title', ['field'=> "Skype" ,"max" => "25"] ),
+                'skype_id.string'=> __('webCaption.validation_string.title', ['field'=> __('webCaption.skype.title')  ] ),
+                'skype_id.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.skype.title')  ,"max" => "25"] ),
 
-                'website.string'=> __('webCaption.validation_string.title', ['field'=> "Website"] ),
-                'website.max'=> __('webCaption.validation_max.title', ['field'=> "Website" ,"max" => "20"] ),
+                'website.string'=> __('webCaption.validation_string.title', ['field'=> __('webCaption.website.title') ] ),
+                'website.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.website.title')  ,"max" => "20"] ),
 
-                'logo.image'=> __('webCaption.validation_image.title', ['field'=> "Logo"] ),
-                'logo.mimes'=> __('webCaption.validation_mimes.title', ['field'=> "Logo","fileTypes" => "jpeg,png,jpg,gif"] ),
-                'logo.max'=> __('webCaption.validation_max_file.title', ['field'=> "Logo","max" => "6120"] ),
+                'logo.image'=> __('webCaption.validation_image.title', ['field'=> __('webCaption.logo.title') ] ),
+                'logo.mimes'=> __('webCaption.validation_mimes.title', ['field'=> __('webCaption.logo.title') ,"fileTypes" => "jpeg,png,jpg,gif"] ),
+                'logo.max'=> __('webCaption.validation_max_file.title', ['field'=> __('webCaption.logo.title') ,"max" => "6120"] ),
 
                 // 'document.*.image' => __('webCaption.validation_image.title', ['field'=> "Document"] ),
-                'document.*.mimes'=> __('webCaption.validation_mimes.title', ['field'=> "Document","fileTypes" => "jpeg,png,jpg,gif"] ),
-                'document.*.max'=> __('webCaption.validation_max_file.title', ['field'=> "Document","max" => "6120"] ),
+                'document.*.mimes'=> __('webCaption.validation_mimes.title', ['field'=>__('webCaption.document.title') ,"fileTypes" => "jpeg,png,jpg,gif"] ),
+                'document.*.max'=> __('webCaption.validation_max_file.title', ['field'=> __('webCaption.document.title') ,"max" => "6120"] ),
 
-                'plan_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "Plan"] ),
+                'plan_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.plan.title')] ),
 
-                'business_type_id.*.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "business Type"] ),
+                'business_type_id.*.numeric' => __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.business_type.title') ] ),
 
-                'association_member_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "Association Member Id"] ),
+                'association_member_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.association_member.title')] ),
 
-                'permit_no.string'=> __('webCaption.validation_string.title', ['field'=> "Permit No"] ),
-                'permit_no.max'=> __('webCaption.validation_max.title', ['field'=> "Permit No" ,"max" => "250"] ),
+                'permit_no.string'=> __('webCaption.validation_string.title', ['field'=> __('webCaption.permit_number.title') ] ),
+                'permit_no.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.permit_number.title') , "max" => "250"] ),
 
-                'admin_comment.string'=> __('webCaption.validation_string.title', ['field'=> "Admin Comment"] ),
-                'admin_comment.max'=> __('webCaption.validation_max.title', ['field'=> "Admin Comment" ,"max" => "250"] ),
+                'admin_comment.string'=> __('webCaption.validation_string.title', ['field'=> __('webCaption.admin_comment.title')] ),
+                'admin_comment.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.admin_comment.title') ,"max" => "250"] ),
 
-                'contact_phone.*.max' => __('webCaption.validation_max.title', ['field'=> "Phone" ,"max" => "20"] ),
-                'contact_email.*.max' => __('webCaption.validation_max.title', ['field'=> "Email" ,"max" => "50"] ),
-                'contact_designation.*.max' => __('webCaption.validation_max.title', ['field'=> "Designation" ,"max" => "50"] ),
-                'contact_name.*.max' => __('webCaption.validation_max.title', ['field'=> "Name" ,"max" => "100"] ),
+                'contact_phone.*.max' => __('webCaption.validation_max.title', ['field'=> __('webCaption.phone.title') ,"max" => "20"] ),
+                'contact_email.*.max' => __('webCaption.validation_max.title', ['field'=> __('webCaption.email.title') ,"max" => "50"] ),
+                'contact_designation.*.max' => __('webCaption.validation_max.title', ['field'=> __('webCaption.designation.title') ,"max" => "50"] ),
+                'contact_name.*.max' => __('webCaption.validation_max.title', ['field'=> __('webCaption.name.title') ,"max" => "100"] ),
 
-                'contact_phone.*.string' => __('webCaption.validation_max.title', ['field'=> "Phone"] ),
-                'contact_email.*.string' => __('webCaption.validation_max.title', ['field'=> "Email"] ),
-                'contact_designation.*.string' => __('webCaption.validation_max.title', ['field'=> "Designation"] ),
-                'contact_name.*.string' => __('webCaption.validation_max.title', ['field'=> "Name" ] ),
+                'contact_phone.*.string' => __('webCaption.validation_max.title', ['field'=> __('webCaption.phone.title')] ),
+                'contact_email.*.string' => __('webCaption.validation_max.title', ['field'=> __('webCaption.email.title')] ),
+                'contact_designation.*.string' => __('webCaption.validation_max.title', ['field'=> __('webCaption.designation.title')] ),
+                'contact_name.*.string' => __('webCaption.validation_max.title', ['field'=> __('webCaption.name.title') ] ),
 
 
-                'facebook.url' => __('webCaption.validation_max.title', ['field'=> "Facebook"] ),
-                'facebook.max'=> __('webCaption.validation_max.title', ['field'=> "Facebook" ,"max" => "100"] ),
+                'facebook.url' => __('webCaption.validation_max.title', ['field'=> __('webCaption.facebook.title')] ),
+                'facebook.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.facebook.title') ,"max" => "100"] ),
 
-                'instagram.url' => __('webCaption.validation_max.title', ['field'=> "Instagram"] ),
-                'instagram.max'=> __('webCaption.validation_max.title', ['field'=> "Instagram" ,"max" => "100"] ),
+                'instagram.url' => __('webCaption.validation_max.title', ['field'=> __('webCaption.instagram.title') ] ),
+                'instagram.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.instagram.title') ,"max" => "100"] ),
 
-                'youtube.url' => __('webCaption.validation_max.title', ['field'=> "Youtube"] ),
-                'youtube.max'=> __('webCaption.validation_max.title', ['field'=> "Youtube" ,"max" => "100"] ),
+                'youtube.url' => __('webCaption.validation_max.title', ['field'=> __('webCaption.youtube.title') ] ),
+                'youtube.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.youtube.title') ,"max" => "100"] ),
 
-                'twitter.url' => __('webCaption.validation_max.title', ['field'=> "Twitter"] ),
-                'twitter.max'=> __('webCaption.validation_max.title', ['field'=> "Twitter" ,"max" => "100"] ),
+                'twitter.url' => __('webCaption.validation_max.title', ['field'=> __('webCaption.twitter.title') ] ),
+                'twitter.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.twitter.title') ,"max" => "100"] ),
 
-                'linkedin.url' => __('webCaption.validation_max.title', ['field'=> "linkedin"] ),
-                'linkedin.max'=> __('webCaption.validation_max.title', ['field'=> "linkedin" ,"max" => "100"] ),
+                'linkedin.url' => __('webCaption.validation_max.title', ['field'=> __('webCaption.linkedin.title') ] ),
+                'linkedin.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.linkedin.title') ,"max" => "100"] ),
 
-                'terms_and_services' => __('webCaption.validation_max.title', ['field'=> "Terms And Services"] )
+                'terms_and_services' => __('webCaption.validation_max.title', ['field'=> __('webCaption.accept_terms_and_services.title')] )
 
             ]
         );
@@ -870,91 +870,91 @@ class CompanyController extends Controller
             //     'contact_name.*.max' => 'phone number may not be greater than 100 characters.',
             // ]
             [
-                'company_name.required'=> __('webCaption.validation_required.title', ['field'=> "Company Name" ] ),
-                'company_name.max'=> __('webCaption.validation_max.title', ['field'=> "Company Name" ,"max" => "255"] ),
+                'company_name.required'=> __('webCaption.validation_required.title', ['field'=> ('webCaption.company_name.title') ] ),
+                'company_name.max'=> __('webCaption.validation_max.title', ['field'=> ('webCaption.company_name.title') ,"max" => "255"] ),
                 'company_name.unique'=> __('webCaption.validation_unique.title', ['field'=> $request->input('company_name') ] ),
 
-                'gabs_uuid.required'=> __('webCaption.validation_required.title', ['field'=> "GABS Uuid" ] ),
-                'gabs_uuid.max'=> __('webCaption.validation_max.title', ['field'=> "GABS Uuid" ,"max" => "6"] ),
+                'gabs_uuid.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.gabs_uuid.title') ] ),
+                'gabs_uuid.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.gabs_uuid.title') ,"max" => "6"] ),
                 'gabs_uuid.unique'=> __('webCaption.validation_unique.title', ['field'=> $request->input('gabs_uuid') ] ),
 
-                'email.required'=> __('webCaption.validation_required.title', ['field'=> "Email" ] ),
-                'email.max'=> __('webCaption.validation_max.title', ['field'=> "Email" ,"max" => "45"] ),
+                'email.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.email.title') ] ),
+                'email.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.email.title') ,"max" => "45"] ),
                 'email.unique'=> __('webCaption.validation_unique.title', ['field'=> $request->input('email') ] ),
 
                 // 'password.required'=> __('webCaption.validation_required.title', ['field'=> "Password" ] ),
-                'password.min'=> __('webCaption.validation_min.title', ['field'=> "Password" ,"min" => "5"] ),
+                'password.min'=> __('webCaption.validation_min.title', ['field'=>  __('webCaption.password.title') ,"min" => "5"] ),
 
-                'status.required'=> __('webCaption.validation_required.title', ['field'=> "Status" ] ),
-                'status.string'=> __('webCaption.validation_string.title', ['field'=> "Status"] ),
+                'status.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.status.title')  ] ),
+                'status.string'=> __('webCaption.validation_string.title', ['field'=> __('webCaption.status.title') ] ),
 
-                'address.string'=> __('webCaption.validation_string.title', ['field'=> "Address"] ),
+                'address.string'=> __('webCaption.validation_string.title', ['field'=>  __('webCaption.address.title')] ),
 
-                'city_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "City"] ),
-                'state_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "State"] ),
-                'country_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "Country"] ),
+                'city_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.city.title')] ),
+                'state_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.state.title')] ),
+                'country_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.country.title') ] ),
 
-                'postcode.string'=> __('webCaption.validation_string.title', ['field'=> "Postcode"] ),
-                'postcode.max'=> __('webCaption.validation_max.title', ['field'=> "Postcode" ,"max" => "15"] ),
+                'postcode.string'=> __('webCaption.validation_string.title', ['field'=> __('webCaption.postcode.title') ] ),
+                'postcode.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.postcode.title')  ,"max" => "15"] ),
 
-                'region_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "Region"] ),
+                'region_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.region.title')] ),
 
-                'telephone.string'=> __('webCaption.validation_string.title', ['field'=> "Telephone"] ),
-                'telephone.max'=> __('webCaption.validation_max.title', ['field'=> "Telephone" ,"max" => "20"] ),
-                'country_code.required_with' => __('webCaption.validation_required.title', ['field'=> "Country Code" ] ),
-                'skype_id.string'=> __('webCaption.validation_string.title', ['field'=> "Skype"] ),
-                'skype_id.max'=> __('webCaption.validation_max.title', ['field'=> "Skype" ,"max" => "25"] ),
+                'telephone.string'=> __('webCaption.validation_string.title', ['field'=> __('webCaption.telephone.title')] ),
+                'telephone.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.telephone.title') ,"max" => "20"] ),
+                'country_code.required_with' => __('webCaption.validation_required.title', ['field'=> __('webCaption.country_code.title')  ] ),
+                'skype_id.string'=> __('webCaption.validation_string.title', ['field'=> __('webCaption.skype.title') ] ),
+                'skype_id.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.skype.title')  ,"max" => "25"] ),
 
-                'website.string'=> __('webCaption.validation_string.title', ['field'=> "Website"] ),
-                'website.max'=> __('webCaption.validation_max.title', ['field'=> "Website" ,"max" => "75"] ),
+                'website.string'=> __('webCaption.validation_string.title', ['field'=> __('webCaption.website.title')] ),
+                'website.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.website.title') ,"max" => "75"] ),
 
-                'logo.image'=> __('webCaption.validation_image.title', ['field'=> "Logo"] ),
-                'logo.mimes'=> __('webCaption.validation_mimes.title', ['field'=> "Logo","fileTypes" => "jpeg,png,jpg,gif"] ),
-                'logo.max'=> __('webCaption.validation_max_file.title', ['field'=> "Logo","max" => "6120"] ),
+                'logo.image'=> __('webCaption.validation_image.title', ['field'=> __('webCaption.logo.title')] ),
+                'logo.mimes'=> __('webCaption.validation_mimes.title', ['field'=> __('webCaption.logo.title'),"fileTypes" => "jpeg,png,jpg,gif"] ),
+                'logo.max'=> __('webCaption.validation_max_file.title', ['field'=> __('webCaption.logo.title'),"max" => "6120"] ),
 
                 // 'document.*.image' => __('webCaption.validation_image.title', ['field'=> "Document"] ),
-                'document.*.mimes'=> __('webCaption.validation_mimes.title', ['field'=> "Document","fileTypes" => "jpeg,png,jpg,gif,pdf"] ),
-                'document.*.max'=> __('webCaption.validation_max_file.title', ['field'=> "Document","max" => "6120"] ),
+                'document.*.mimes'=> __('webCaption.validation_mimes.title', ['field'=> __('webCaption.document.title'),"fileTypes" => "jpeg,png,jpg,gif,pdf"] ),
+                'document.*.max'=> __('webCaption.validation_max_file.title', ['field'=> __('webCaption.document.title'),"max" => "6120"] ),
 
-                'plan_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "Plan"] ),
+                'plan_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.plan.title')] ),
 
-                'business_type_id.*.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "business Type"] ),
+                'business_type_id.*.numeric' => __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.business_type.title')] ),
 
-                'association_member_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "Association Member Id"] ),
+                'association_member_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=>  __('webCaption.association_member.title')] ),
 
-                'permit_no.string'=> __('webCaption.validation_string.title', ['field'=> "Permit No"] ),
-                'permit_no.max'=> __('webCaption.validation_max.title', ['field'=> "Permit No" ,"max" => "250"] ),
+                'permit_no.string'=> __('webCaption.validation_string.title', ['field'=> __('webCaption.permit_number.title') ] ),
+                'permit_no.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.permit_number.title')  ,"max" => "250"] ),
 
-                'admin_comment.string'=> __('webCaption.validation_string.title', ['field'=> "Admin Comment"] ),
-                'admin_comment.max'=> __('webCaption.validation_max.title', ['field'=> "Admin Comment" ,"max" => "250"] ),
+                'admin_comment.string'=> __('webCaption.validation_string.title', ['field'=> __('webCaption.admin_comment.title')] ),
+                'admin_comment.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.admin_comment.title') ,"max" => "250"] ),
 
-                'contact_phone.*.max' => __('webCaption.validation_max.title', ['field'=> "Phone" ,"max" => "20"] ),
-                'contact_email.*.max' => __('webCaption.validation_max.title', ['field'=> "Email" ,"max" => "50"] ),
-                'contact_designation.*.max' => __('webCaption.validation_max.title', ['field'=> "Designation" ,"max" => "50"] ),
-                'contact_name.*.max' => __('webCaption.validation_max.title', ['field'=> "Name" ,"max" => "100"] ),
+                'contact_phone.*.max' => __('webCaption.validation_max.title', ['field'=> __('webCaption.phone.title') ,"max" => "20"] ),
+                'contact_email.*.max' => __('webCaption.validation_max.title', ['field'=> __('webCaption.email.title') ,"max" => "50"] ),
+                'contact_designation.*.max' => __('webCaption.validation_max.title', ['field'=> __('webCaption.designation.title') ,"max" => "50"] ),
+                'contact_name.*.max' => __('webCaption.validation_max.title', ['field'=> __('webCaption.name.title') ,"max" => "100"] ),
 
-                'contact_phone.*.string' => __('webCaption.validation_max.title', ['field'=> "Phone"] ),
-                'contact_email.*.string' => __('webCaption.validation_max.title', ['field'=> "Email"] ),
-                'contact_designation.*.string' => __('webCaption.validation_max.title', ['field'=> "Designation"] ),
-                'contact_name.*.string' => __('webCaption.validation_max.title', ['field'=> "Name" ] ),
+                'contact_phone.*.string' => __('webCaption.validation_max.title', ['field'=> __('webCaption.phone.title')] ),
+                'contact_email.*.string' => __('webCaption.validation_max.title', ['field'=> __('webCaption.email.title')] ),
+                'contact_designation.*.string' => __('webCaption.validation_max.title', ['field'=> __('webCaption.designation.title')] ),
+                'contact_name.*.string' => __('webCaption.validation_max.title', ['field'=> __('webCaption.name.title') ] ),
 
 
-                'facebook.url' => __('webCaption.validation_max.title', ['field'=> "Facebook"] ),
-                'facebook.max'=> __('webCaption.validation_max.title', ['field'=> "Facebook" ,"max" => "100"] ),
+                'facebook.url' => __('webCaption.validation_max.title', ['field'=> __('webCaption.facebook.title')] ),
+                'facebook.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.facebook.title') ,"max" => "100"] ),
 
-                'instagram.url' => __('webCaption.validation_max.title', ['field'=> "Instagram"] ),
-                'instagram.max'=> __('webCaption.validation_max.title', ['field'=> "Instagram" ,"max" => "100"] ),
+                'instagram.url' => __('webCaption.validation_max.title', ['field'=> __('webCaption.instagram.title')] ),
+                'instagram.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.instagram.title') ,"max" => "100"] ),
 
-                'youtube.url' => __('webCaption.validation_max.title', ['field'=> "Youtube"] ),
-                'youtube.max'=> __('webCaption.validation_max.title', ['field'=> "Youtube" ,"max" => "100"] ),
+                'youtube.url' => __('webCaption.validation_max.title', ['field'=> __('webCaption.youtube.title')] ),
+                'youtube.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.youtube.title') ,"max" => "100"] ),
 
-                'twitter.url' => __('webCaption.validation_max.title', ['field'=> "Twitter"] ),
-                'twitter.max'=> __('webCaption.validation_max.title', ['field'=> "Twitter" ,"max" => "100"] ),
+                'twitter.url' => __('webCaption.validation_max.title', ['field'=> __('webCaption.twitter.title')] ),
+                'twitter.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.twitter.title') ,"max" => "100"] ),
 
-                'linkedin.url' => __('webCaption.validation_max.title', ['field'=> "linkedin"] ),
-                'linkedin.max'=> __('webCaption.validation_max.title', ['field'=> "linkedin" ,"max" => "100"] ),
+                'linkedin.url' => __('webCaption.validation_max.title', ['field'=> __('webCaption.linkedin.title')] ),
+                'linkedin.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.linkedin.title') ,"max" => "100"] ),
 
-                'terms_and_services' => __('webCaption.validation_max.title', ['field'=> "Terms And Services"] )
+                'terms_and_services' => __('webCaption.validation_max.title', ['field'=> __('webCaption.accept_terms_and_services.title')] )
 
             ]
         );

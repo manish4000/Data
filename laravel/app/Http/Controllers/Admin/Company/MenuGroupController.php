@@ -112,13 +112,13 @@ class MenuGroupController extends Controller
             'slug' => 'required|string|regex:/^\S*$/u|unique:company_menu_groups,slug,'.$request->id.',id,deleted_at,NULL'
         ],
         [
-            'title.required'=> __('webCaption.validation_required.title', ['field'=> "title" ] ),
+            'title.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.title.title') ] ),
             'title.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('title')] ),
-            'slug.required'=> __('webCaption.validation_required.title', ['field'=> "slug" ] ),
+            'slug.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.slug.title') ] ),
             'slug.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('slug')] ),
             'slug.string' => __('webCaption.validation_string.title', ['field'=> $request->input('slug')] ),
-            'slug.regex' => __('webCaption.validation_space.title', ['field'=> "slug" ,"use" => "(_)" ]  ),
-            'order.numeric'=> __('webCaption.validation_nemuric.title', ['field'=> "order" ] )
+            'slug.regex' => __('webCaption.validation_space.title', ['field'=> __('webCaption.slug.title') ,"use" => "(_)" ]  ),
+            'order.numeric'=> __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.order.title') ] )
         ]);
 
         
@@ -271,21 +271,21 @@ class MenuGroupController extends Controller
                 'order' => 'nullable|numeric',
             ],
             [
-                'title.required'=> __('webCaption.validation_required.title', ['field'=> "title" ] ),
-                'slug.required_if'=> __('webCaption.validation_required.title', ['field'=> "Slug" ] ),
+                'title.required'=> __('webCaption.validation_required.title', ['field'=>__('webCaption.title.title') ] ),
+                'slug.required_if'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.slug.title')] ),
                 // 'title.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('title')] ) ,
                 'title.string' => __('webCaption.validation_string.title', ['field'=> $request->input('title')] ) ,
-                'uri.required'=> __('webCaption.validation_required.title', ['field'=> "uri" ] ),
-                'icon.required_if'=> __('webCaption.validation_required.title', ['field'=> "Icon" ] ),
-                'uri.required_if'=> __('webCaption.validation_required.title', ['field'=> "Uri" ] ),
-                'company_menu_group_id.required'=> __('webCaption.validation_required.title', ['field'=> "company_menu_group_id" ] ),
+                'uri.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.uri.title') ] ),
+                'icon.required_if'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.icon.title') ] ),
+                'uri.required_if'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.uri.title') ] ),
+                'company_menu_group_id.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.menu_group.title') ] ),
                 'slug.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('slug')] )  ,
-                'slug.regex' => __('webCaption.validation_space.title', ['field'=> "slug" ,"use" => "(_)" ]  ),
-                'permission_slug.required' => __('webCaption.validation_required.title', ['field'=> "permission slug" ] ),
+                'slug.regex' => __('webCaption.validation_space.title', ['field'=> __('webCaption.slug.title') ,"use" => "(_)" ]  ),
+                'permission_slug.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.permission_slug.title') ] ),
                 'permission_slug.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('permission_slug')] )  ,
                 // 'slug.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('slug')] ),
-                'type.required' => __('webCaption.validation_required.title', ['field'=> "Type" ] ),
-                'type.in' => __('webCaption.validation_in.title', ['field'=> "Type" ] ),
+                'type.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.type.title') ] ),
+                'type.in' => __('webCaption.validation_in.title', ['field'=> __('webCaption.type.title')  ] ),
             ]
         );
 
@@ -349,21 +349,21 @@ class MenuGroupController extends Controller
                 'type' =>'required|in:permission,menu'
             ],
             [
-                'title.required'=> __('webCaption.validation_required.title', ['field'=> "title" ] ),
+                'title.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.title.title')  ] ),
                 // 'title.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('title')] ) ,
                 'title.string' => __('webCaption.validation_string.title', ['field'=> $request->input('title')] ) ,
-                'uri.required'=> __('webCaption.validation_required.title', ['field'=> "uri" ] ),
-                'icon.required_if'=> __('webCaption.validation_required.title', ['field'=> "Icon" ] ),
-                'uri.required_if'=> __('webCaption.validation_required.title', ['field'=> "Uri" ] ),
+                'uri.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.uri.title')  ] ),
+                'icon.required_if'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.icon.title')  ] ),
+                'uri.required_if'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.uri.title') ] ),
                 'company_menu_group_id.required'=> __('webCaption.validation_required.title', ['field'=> "company_menu_group_id" ] ),
-                'slug.required'=> __('webCaption.validation_required.title', ['field'=> "slug" ]), 
-                'slug.string'=> __('webCaption.validation_string.title', ['field'=> "slug" ]), 
-                'slug.regex' => __('webCaption.validation_space.title', ['field'=> "slug" ,"use" => "(_)" ]  ),
-                'slug.required_if'=> __('webCaption.validation_required.title', ['field'=> "Slug" ] ),
+                'slug.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.slug.title') ]), 
+                'slug.string'=> __('webCaption.validation_string.title', ['field'=> __('webCaption.slug.title') ]), 
+                'slug.regex' => __('webCaption.validation_space.title', ['field'=> __('webCaption.slug.title') ,"use" => "(_)" ]  ),
+                'slug.required_if'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.slug.title') ] ),
                 // 'slug.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('slug')] ),
-                'type.required' => __('webCaption.validation_required.title', ['field'=> "Type" ] ),
-                'type.in' => __('webCaption.validation_in.title', ['field'=> "Type" ] ),
-                'permission_slug.required' => __('webCaption.validation_required.title', ['field'=> "permission slug" ] ),
+                'type.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.type.title') ] ),
+                'type.in' => __('webCaption.validation_in.title', ['field'=> __('webCaption.type.title') ] ),
+                'permission_slug.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.permission_slug.title') ] ),
                 'permission_slug.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('permission_slug')] )  ,
             ]
         );

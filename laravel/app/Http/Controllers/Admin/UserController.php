@@ -260,17 +260,17 @@ class UserController extends Controller
             "department_id.*"  => "required|numeric|min:1",
             // 'username' =>  'required|unique:users,username,'.$request->id,
         ], [
-            'name.required'=> __('webCaption.validation_required.title', ['field'=> "Name" ] ),
-            'name.max'=> __('webCaption.validation_max.title', ['field'=> 'Name' ,'min' => "100"] ),
+            'name.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.name.title') ] ),
+            'name.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.name.title') ,'min' => "100"] ),
             'email.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('email')] ),
-            'email.required'=> __('webCaption.validation_required.title', ['field'=> "Email" ] ),
-            'email.email'=> __('webCaption.validation_email.title', ['field'=> "Email" ] ),
-            'email.max' => __('webCaption.validation_max.title', ['field'=> 'Email' ,'max' => "100"] ),
-            'phone.required'=> __('webCaption.validation_required.title', ['field'=> "Phone" ] ),
-            'country_code.required'=> __('webCaption.validation_required.title', ['field'=> "Country Code" ] ),
-            'phone.max'=> __('webCaption.validation_max.title', ['field'=> 'Phone' ,'max' => "12"] ),
-            'department_id.required'=> __('webCaption.validation_required.title', ['field'=> "Department" ] ),
-            'department_id.*.numeric'=> __('webCaption.validation_nemuric.title', ['field'=> "Department" ] ),
+            'email.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.email.title') ] ),
+            'email.email'=> __('webCaption.validation_email.title', ['field'=> __('webCaption.email.title') ] ),
+            'email.max' => __('webCaption.validation_max.title', ['field'=> __('webCaption.email.title') ,'max' => "100"] ),
+            'phone.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.phone.title') ] ),
+            'country_code.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.country_code.title') ] ),
+            'phone.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.phone.title') ,'max' => "12"] ),
+            'department_id.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.department.title') ] ),
+            'department_id.*.numeric'=> __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.department.title') ] ),
             // 'username.required'=> __('webCaption.validation_required.title', ['field'=> "Username" ] ),
             // 'username.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('username')] ),
         ]);
@@ -294,9 +294,9 @@ class UserController extends Controller
                     'password' => 'required|confirmed|min:5',
                 ],
                 [
-                        'password.required' => __('webCaption.validation_required.title', ['field'=> "Password" ] ),
-                        'password.min' => __('webCaption.validation_min.title', ['field'=> 'password' ,'min' => "5"] ),
-                        'password.confirmed'=> __('webCaption.validation_confirmed.title', ['field'=> "Password" ] ),
+                        'password.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.password.title') ] ),
+                        'password.min' => __('webCaption.validation_min.title', ['field'=> __('webCaption.password.title')  ,'min' => "5"] ),
+                        'password.confirmed'=> __('webCaption.validation_confirmed.title', ['field'=> __('webCaption.password.title') ] ),
                 ]);
                 $userModel->password = bcrypt($request->password);
             }
@@ -310,9 +310,9 @@ class UserController extends Controller
                 'password' => 'required|confirmed|min:5',   
             ],
             [
-                'password.required' => __('webCaption.validation_required.title', ['field'=> "Password" ] ),
-                'password.min' => __('webCaption.validation_min.title', ['field'=> 'password' ,'min' => "5"] ),
-                'password.confirmed'=> __('webCaption.validation_confirmed.title', ['field'=> "Password" ] ),
+                'password.required' => __('webCaption.validation_required.title', ['field'=>__('webCaption.password.title')  ] ),
+                'password.min' => __('webCaption.validation_min.title', ['field'=> __('webCaption.password.title')  ,'min' => "5"] ),
+                'password.confirmed'=> __('webCaption.validation_confirmed.title', ['field'=>__('webCaption.password.title')  ] ),
             ]);
 
             $userModel = new User();
@@ -465,9 +465,9 @@ class UserController extends Controller
             'one_time_password' => 'required|numeric',
         ],
         [
-                'id.required' => __('webCaption.validation_required.title', ['field'=> "Id" ] ),
-                'one_time_password.required' => __('webCaption.validation_required.title', ['field'=> 'OTP'] ),
-                'one_time_password.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "OTP"] ),
+                'id.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.id.title')  ] ),
+                'one_time_password.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.otp.title')  ] ),
+                'one_time_password.numeric' => __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.otp.title')  ] ),
 
         ]);
 
@@ -578,10 +578,10 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email,'.$id
         ],[
-            'name.required'=> __('webCaption.validation_required.title', ['field'=> "Name" ] ),
+            'name.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.name.title')  ] ),
             'email.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('email')] ),
-            'email.required'=> __('webCaption.validation_required.title', ['field'=> "Email" ] ),
-            'email.email'=> __('webCaption.validation_email.title', ['field'=> "Email"] ),
+            'email.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.email.title')  ] ),
+            'email.email'=> __('webCaption.validation_email.title', ['field'=> __('webCaption.email.title')  ] ),
         ]);
   
         // $validatedData['password'] = bcrypt($validatedData['password']);
@@ -704,9 +704,9 @@ class UserController extends Controller
                 'name' => 'required',
                 'email' => 'required|email|unique:users,email,'.$user->id
             ],[
-                'name.required'=> __('webCaption.validation_required.title', ['field'=> "Name" ] ),
+                'name.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.name.title')  ] ),
                 'email.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('email')] ),
-                'email.required'=> __('webCaption.validation_required.title', ['field'=> "Email" ] ),
+                'email.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.email.title')  ] ),
                 'email.email'=> __('webCaption.validation_email.title', ['field'=> $request->input('email') ] ),
             ]);
         }
@@ -716,13 +716,13 @@ class UserController extends Controller
                 'password' => 'required|confirmed|min:5',
                 'email' => 'required|email|unique:users,email,'.$user->id
             ],[
-                'name.required'=> __('webCaption.validation_required.title', ['field'=> "Name" ] ),
+                'name.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.name.title') ] ),
                 'email.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('email')] ),
-                'email.required'=> __('webCaption.validation_required.title', ['field'=> "Email" ] ),
+                'email.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.email.title') ] ),
                 'email.email'=> __('webCaption.validation_email.title', ['field'=> $request->input('email') ] ),
-                'password.required'=> __('webCaption.validation_required.title', ['field'=> "Password" ] ),
-                'password.confirmed'=> __('webCaption.validation_confirmed.title', ['field'=> "Password" ] ),
-                'password.min'=> __('webCaption.validation_min.title', ['field'=> "Password" ,"min" => "5" ] ),
+                'password.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.password.title')  ] ),
+                'password.confirmed'=> __('webCaption.validation_confirmed.title', ['field'=> __('webCaption.password.title')  ] ),
+                'password.min'=> __('webCaption.validation_min.title', ['field'=> __('webCaption.password.title') ,"min" => "5" ] ),
             ]);
             $encryptPassword = bcrypt($validatedData['password']);
             $user->password = $encryptPassword;

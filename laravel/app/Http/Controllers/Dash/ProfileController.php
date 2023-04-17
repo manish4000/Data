@@ -68,36 +68,36 @@ class ProfileController extends Controller
             'skype_id'=> 'nullable|string|max:25',
             'website'=> 'nullable|string|max:20',
             ],[
-                'company_name.required'=> __('webCaption.validation_required.title', ['field'=> "Company Name" ] ),
-                'company_name.max'=> __('webCaption.validation_max.title', ['field'=> "Company Name" ,"max" => "255"] ),
+                'company_name.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.company_name.title') ] ),
+                'company_name.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.company_name.title') ,"max" => "255"] ),
                 'company_name.unique'=> __('webCaption.validation_unique.title', ['field'=> $request->input('company_name') ] ),
 
                 // 'gabs_uuid.required'=> __('webCaption.validation_required.title', ['field'=> "GABS Uuid" ] ),
                 // 'gabs_uuid.max'=> __('webCaption.validation_max.title', ['field'=> "GABS Uuid" ,"max" => "6"] ),
                 // 'gabs_uuid.unique'=> __('webCaption.validation_unique.title', ['field'=> $request->input('gabs_uuid') ] ),
 
-                'email.required'=> __('webCaption.validation_required.title', ['field'=> "Email" ] ),
-                'email.max'=> __('webCaption.validation_max.title', ['field'=> "Email" ,"max" => "45"] ),
+                'email.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.email.title') ] ),
+                'email.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.email.title') ,"max" => "45"] ),
                 'email.unique'=> __('webCaption.validation_unique.title', ['field'=> $request->input('email') ] ),
 
-                'address.string'=> __('webCaption.validation_string.title', ['field'=> "Address"] ),
+                'address.string'=> __('webCaption.validation_string.title', ['field'=> __('webCaption.address.title') ] ),
 
-                'city_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "City"] ),
-                'state_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "State"] ),
-                'country_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> "Country"] ),
+                'city_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.city.title')] ),
+                'state_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.state.title') ] ),
+                'country_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.country.title') ] ),
 
-                'postcode.string'=> __('webCaption.validation_string.title', ['field'=> "Postcode"] ),
-                'postcode.max'=> __('webCaption.validation_max.title', ['field'=> "Postcode" ,"max" => "15"] ),
+                'postcode.string'=> __('webCaption.validation_string.title', ['field'=> __('webCaption.postcode.title')] ),
+                'postcode.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.postcode.title') ,"max" => "15"] ),
 
-                'telephone.string'=> __('webCaption.validation_string.title', ['field'=> "Telephone"] ),
-                'telephone.max'=> __('webCaption.validation_max.title', ['field'=> "Telephone" ,"max" => "20"] ),
-                'country_code.required_with' => __('webCaption.validation_required.title', ['field'=> "Country Code" ] ),
+                'telephone.string'=> __('webCaption.validation_string.title', ['field'=> __('webCaption.telephone.title')] ),
+                'telephone.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.telephone.title') ,"max" => "20"] ),
+                'country_code.required_with' => __('webCaption.validation_required.title', ['field'=> __('webCaption.country_code.title') ] ),
 
-                'skype_id.string'=> __('webCaption.validation_string.title', ['field'=> "Skype"] ),
-                'skype_id.max'=> __('webCaption.validation_max.title', ['field'=> "Skype" ,"max" => "25"] ),
+                'skype_id.string'=> __('webCaption.validation_string.title', ['field'=> __('webCaption.skype.title') ] ),
+                'skype_id.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.skype.title') ,"max" => "25"] ),
 
-                'website.string'=> __('webCaption.validation_string.title', ['field'=> "Website"] ),
-                'website.max'=> __('webCaption.validation_max.title', ['field'=> "Website" ,"max" => "20"] ),  
+                'website.string'=> __('webCaption.validation_string.title', ['field'=> __('webCaption.website.title')] ),
+                'website.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.website.title') ,"max" => "20"] ),  
 
             ]
         );

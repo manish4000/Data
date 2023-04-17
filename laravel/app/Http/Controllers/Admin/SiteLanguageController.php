@@ -119,14 +119,14 @@ class SiteLanguageController extends Controller
                     'alias' =>'required|string|regex:/^\S*$/u',  
                 ],
                 [   
-                    'language_en.required'=> __('webCaption.validation_required.title', ['field'=> "language_en" ] ),
+                    'language_en.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.title_english.title') ] ),
                     'language_en.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('language_en')] ),
-                    'language_text.required'=> __('webCaption.validation_required.title', ['field'=> "language_text" ] ),
+                    'language_text.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.title_language.title') ] ),
                     'language_text.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('language_text')] ),
-                    'status.required'=> __('webCaption.validation_required.title', ['field'=> "status" ] ),
-                    'alias.required'=> __('webCaption.validation_required.title', ['field'=> "alias" ] ),
-                    'alias.string'=> __('webCaption.validation_string.title', ['field'=> "alias" ] ),
-                    'alias.regex' => __('webCaption.validation_space.title', ['field'=> "alias" ,"use" => "(_)" ] ),
+                    'status.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.status.title') ] ),
+                    'alias.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.alias.title') ] ),
+                    'alias.string'=> __('webCaption.validation_string.title', ['field'=> __('webCaption.alias.title') ] ),
+                    'alias.regex' => __('webCaption.validation_space.title', ['field'=> __('webCaption.alias.title') ,"use" => "(_)" ] ),
                 ]
                 );
 

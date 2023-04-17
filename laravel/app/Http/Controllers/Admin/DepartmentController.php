@@ -111,11 +111,11 @@ class DepartmentController extends Controller
             'slug' => 'required|regex:/^\S*$/u|unique:departments,slug,'.$request->id.',id,deleted_at,NULL'  
            ],
            [
-            'title.required' => __('webCaption.validation_required.title', ['field'=> "title" ] ) ,
+            'title.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.title.title') ] ) ,
             'title.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('title')] )  ,
-            'slug.required' => __('webCaption.validation_required.title', ['field'=> "slug" ] ) ,
+            'slug.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.slug.title') ] ) ,
             'slug.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('slug')] )  ,
-            'slug.regex' => __('webCaption.validation_space.title', ['field'=> "slug" ,"use" => "(_)" ]  ),
+            'slug.regex' => __('webCaption.validation_space.title', ['field'=> __('webCaption.slug.title') ,"use" => "(_)" ]  ),
         ]);
 
         $departmentModel->title = $request->title;

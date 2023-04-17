@@ -45,7 +45,6 @@ class WebCaptionController extends Controller
 
             $locale_translations = $webcaption->local_translations;
        
-
             foreach($languages as  $id=>$lang){
              
                 if(isset($locale_translations[$id])) {
@@ -150,12 +149,12 @@ class WebCaptionController extends Controller
                     'local_slug' => 'required|string|regex:/^\S*$/u|unique:web_captions,local_slug,'.$request->id, 
                 ]  ,
                 [   
-                    'title.required'=> __('webCaption.validation_required.title', ['field'=> "title" ] ),
+                    'title.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.title.title') ] ),
                     // 'title.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('title')] ),
-                    'local_slug.required'=> __('webCaption.validation_required.title', ['field'=> "local_slug" ] ),
-                    'local_slug.string' => __('webCaption.validation_string.title', ['field'=> "local_slug"] ),
-                    'title.string' => __('webCaption.validation_string.title', ['field'=> "title"] ),
-                    'local_slug.regex' => __('webCaption.validation_space.title', ['field'=> "local_slug" ,"use" => "(_)" ] ),
+                    'local_slug.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.locale_slug.title') ] ),
+                    'local_slug.string' => __('webCaption.validation_string.title', ['field'=> __('webCaption.locale_slug.title') ] ),
+                    'title.string' => __('webCaption.validation_string.title', ['field'=> __('webCaption.title.title')] ),
+                    'local_slug.regex' => __('webCaption.validation_space.title', ['field'=> __('webCaption.locale_slug.title') ,"use" => "(_)" ] ),
                     'local_slug.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('local_slug')] ),
                 ]                           
             );

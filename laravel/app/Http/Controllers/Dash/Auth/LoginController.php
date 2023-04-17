@@ -36,9 +36,9 @@ class LoginController extends Controller
             'password' => 'required',
             // 'g-recaptcha-response'  => ['required', new DashReCaptcha]
         ],[
-            'email.required' => __('webCaption.validation_required.title', ['field'=> "Email" ] ),
-            'email.email' => __('webCaption.validation_email.title', ['field'=> "Email" ] ),
-            'password.required' => __('webCaption.validation_required.title', ['field'=> "Password" ] ),
+            'email.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.email.title') ] ),
+            'email.email' => __('webCaption.validation_email.title', ['field'=> __('webCaption.email.title') ] ),
+            'password.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.password.title') ] ),
             'g-recaptcha-response.required' => __('webCaption.validation_required.title', ['field'=> "g-recaptcha-response" ] ),
         ]);
 

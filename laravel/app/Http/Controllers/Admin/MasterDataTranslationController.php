@@ -128,7 +128,7 @@ class MasterDataTranslationController extends Controller
                 'value' => 'required|unique:master_data_translations,value,'.$request->id
             ],
             [
-                'value.required' => __('webCaption.validation_required.title', ['field'=> "value" ] ),
+                'value.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.value.title') ] ),
                 'value.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('value')] )   
             ]
             );
