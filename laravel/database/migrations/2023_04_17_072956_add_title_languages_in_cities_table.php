@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('cities', function (Blueprint $table) {
             $table->longText('title_languages')->nullable(); 
-            $table->unsignedBigInteger('country_id')->nullable();
+            $table->unsignedBigInteger('country_id')->nullable()->change();
         });
     }
 
