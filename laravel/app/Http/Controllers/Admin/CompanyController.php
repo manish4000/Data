@@ -194,7 +194,7 @@ class CompanyController extends Controller
      */
     public function index(Request $request)
     {   
-        if (!Auth::user()->can('main-navigation-company')) {
+        if (!Auth::user()->can('main-navigation-company-list')) {
             abort(403);
         } 
 
