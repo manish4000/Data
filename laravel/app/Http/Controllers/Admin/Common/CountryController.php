@@ -59,7 +59,7 @@ class CountryController extends Controller
 
    
 
-        return view('content.admin.common.country.index', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs, 'data'=>$data,'perPage' => $perPage]);
+        return view('content.admin.masters.common.country.index', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs, 'data'=>$data,'perPage' => $perPage]);
     }
 
 
@@ -79,7 +79,7 @@ class CountryController extends Controller
         
         $regions = RegionModel::select('id as value','name')->get();
         $activeSiteLanguages = SiteLanguage::ActiveSiteLanguagesForMaster();
-        return view('content.admin.common.country.create', ['data' => $data,'activeSiteLanguages' => $activeSiteLanguages,'regions' =>$regions,'breadcrumbs' => $breadcrumbs,'menuUrl' => $this->menuUrl]);
+        return view('content.admin.masters.common.country.create', ['data' => $data,'activeSiteLanguages' => $activeSiteLanguages,'regions' =>$regions,'breadcrumbs' => $breadcrumbs,'menuUrl' => $this->menuUrl]);
 
     }
 
@@ -98,7 +98,7 @@ class CountryController extends Controller
         ];
 
         $regions = RegionModel::select('id as value','name')->get();
-        return view('content.admin.common.country.create',['breadcrumbs' => $breadcrumbs ,'regions' => $regions,'pageConfigs' => $pageConfigs,'menuUrl' =>$this->menuUrl]);
+        return view('content.admin.masters.common.country.create',['breadcrumbs' => $breadcrumbs ,'regions' => $regions,'pageConfigs' => $pageConfigs,'menuUrl' =>$this->menuUrl]);
     }
 
 
@@ -127,9 +127,9 @@ class CountryController extends Controller
                 [   
                     'name.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.name.title') ] ),
                     'name.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('name')] ),
-                    'name.max'=> __('webCaption.validation_max.title', ['field'=> "Name" ,"max" => "100"] ),
-                    'phone_code.max'=> __('webCaption.validation_max.title', ['field'=> "Phone Code" ,"max" => "10"] ),
-                    'country_code.max'=> __('webCaption.validation_max.title', ['field'=> "Country Code" ,"max" => "5"] ),
+                    'name.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.name.title') ,"max" => "100"] ),
+                    'phone_code.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.phone_code.title') ,"max" => "10"] ),
+                    'country_code.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.country_code.title') ,"max" => "5"] ),
                     'regions_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.region.title')] ),
                     'display.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.display.title')] ),
                     'display.in'=> __('webCaption.validation_in.title' ),
