@@ -305,36 +305,13 @@
 
 	jQuery(document).ready(function($) {
 
-		// comboTree1 = $('#justAnInputBox').comboTree({
-		// 	source : SampleJSONData,
-		// 	isMultiple: true,
-		// 	cascadeSelect: false,
-		// 	collapse: true,
-		// 	selectableLastNode: true
-
-		// });
-		
-		// comboTree1 = $('#justAnInputBox1').comboTree({
-		// 	source : permissionData,
-		// 	isMultiple: true,
-		// 	cascadeSelect: true,
-		// 	collapse: false,
-		// 	selected: selectedPermission
-		// });
-
 		comboTree2 = $('#justAnInputBox2').comboTree({
 			source : menuData,
 			isMultiple: false,
 			selected: selectedParent
 		});
 
-		// comboTree3.setSource(permissionData);
 
-
-		// comboTree2 = $('#justAnotherInputBox').comboTree({
-		// 	source : SampleJSONData,
-		// 	isMultiple: false
-		// });
 	});
 </script>
 @endsection
