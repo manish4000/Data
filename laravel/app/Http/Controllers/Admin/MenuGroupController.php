@@ -252,7 +252,7 @@ class MenuGroupController extends Controller
         $arrayData = [];
         $permissionData = $this->listSelectableTreeData($permissions, $arrayData);
 
-        $menusWithoutParent = Menu::where([ 'menu_group_id' => $id, 'parent_id' => 0 ])->get();
+        $menusWithoutParent = Menu::where([ 'menu_group_id' => $id, 'parent_id' => 0 ])->orderBy('order')->get();
        
         $selectableMenuData = $this->listSelectableMenuData($menusWithoutParent, $arrayData);
         
@@ -466,10 +466,9 @@ class MenuGroupController extends Controller
         $menuOrderData = $this->orderMenuData(0, 1, $data, $menu->menu_group_id);
         $data = $menuOrderData;
 
-        $menuList = Menu::select('id','title')->where(['parent_id' => 0, 'menu_group_id' => $menu->menu_group_id])->get();
+        $menuList = Menu::select('id','title')->where(['parent_id' => 0, 'menu_group_id' => $menu->menu_group_id])->orderBy('order')->get();
 
         $groups = MenuGroup::select('id as value','title as name')->get();
-        
         $permissions = Permission::where('parent_id', 0)->get();
         $arrayData = [];
         $permissionData = $this->listSelectableTreeData($permissions, $arrayData);
@@ -615,7 +614,7 @@ class MenuGroupController extends Controller
     }
 
     public function orderMenuData($parent_id, $level, &$data, $menu_group_id) {
-        $menus = Menu::where([ 'menu_group_id' => $menu_group_id, 'parent_id' => $parent_id ])->get();
+        $menus = Menu::where([ 'menu_group_id' => $menu_group_id, 'parent_id' => $parent_id ])->orderBy('order')->get();
         foreach ($menus as $menu) {
             $menu['level'] = $level;
             $menu['title'] = $menu->title;
