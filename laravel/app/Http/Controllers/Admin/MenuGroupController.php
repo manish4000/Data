@@ -255,6 +255,16 @@ class MenuGroupController extends Controller
         $menusWithoutParent = Menu::where([ 'menu_group_id' => $id, 'parent_id' => 0 ])->get();
        
         $selectableMenuData = $this->listSelectableMenuData($menusWithoutParent, $arrayData);
+        
+        $blank = [
+            'id' => '1',
+            'parent_id' => '0',
+            'title' => 'No Parent',
+            'value' => 0
+        ];
+
+        array_unshift($selectableMenuData , $blank);    
+
 
         $activeSiteLanguages = $this->activeSiteLanguages();
             
@@ -270,6 +280,7 @@ class MenuGroupController extends Controller
         // if (!Auth::user()->can('menu-group-add')) {
         //     abort(403);
         // } 
+
 
         $request->validate(
             [   
@@ -372,6 +383,7 @@ class MenuGroupController extends Controller
 
     public function updateMenu(Request $request, $id) {
 
+
         // $user = auth()->user();
         // if (!$user->can('update-menu')) {
         //     abort(403);
@@ -464,8 +476,15 @@ class MenuGroupController extends Controller
 
         $selectableMenuData = $this->listSelectableMenuData($menuList, $arrayData);
 
+        $blank = [
+            'id' => '1',
+            'parent_id' => 0,
+            'title' => 'No Parent',
+            'value' =>0
+        ];
 
-       
+        array_unshift($selectableMenuData , $blank);   
+         
         return view('content.admin.menuGroup.listMenu', ['menu' => $menu ,'data'=> $data,'menuGroupId' => $menu->menu_group_id,'selectableMenuData' => $selectableMenuData ,'menuList' =>$menuList , 'groups' => $groups , 'permissionData' => $permissionData , 'pageConfigs' =>$pageConfigs ,'breadcrumbs' => $breadcrumbs ,'menuUrl' => $this->menuUrl]);
     }
 
