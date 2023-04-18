@@ -86,7 +86,7 @@
                                 </thead>
                                 <tbody>
                                         @foreach($data as $item)
-                                            @include('content.admin.common.country.item-tr', ['item'=>$item])    
+                                            @include('content.admin.masters.common.country.item-tr', ['item'=>$item])    
                                         @endforeach               
                                 </tbody>
                                 
