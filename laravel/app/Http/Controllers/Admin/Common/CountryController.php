@@ -138,11 +138,11 @@ class CountryController extends Controller
 
 
 
-            $country_model->name               =   $request->name;
-            $country_model->phone_code          =   $request->phone_code;
-            $country_model->country_code   =   $request->country_code;
-            $country_model->regions_id   =   $request->regions_id;
-            $country_model->display   =   $request->display;
+            $country_model->name            =   $request->name;
+            $country_model->phone_code      =   $request->phone_code;
+            $country_model->country_code    =   $request->country_code;
+            $country_model->regions_id      =   $request->regions_id;
+            $country_model->display         =   $request->display;
 
             if($request->has('regions_id')){
                $region = RegionModel::where('id',$request->regions_id)->first()->value('name');
@@ -182,8 +182,6 @@ class CountryController extends Controller
     }
 
     public function deleteMultiple( Request $request){
-
-
 
 
         if (!Auth::user()->can('main-navigation-common-country-delete')) {

@@ -57,7 +57,7 @@ class StateController extends Controller
 
         $perPage =  (isset($request->perPage) && !empty($request->perPage)) ? $request->perPage : 100;
 
-        $countries = Country::select('id as value','name')->get();
+        $countries = Country::select('id as value','name')->orderBy('name')->get();
         $data = $data->paginate($perPage);
 
         return view('content.admin.masters.common.state.index', ['pageConfigs' => $pageConfigs,'countries' => $countries, 'breadcrumbs' => $breadcrumbs, 'data'=>$data,'perPage' => $perPage]);
@@ -78,7 +78,7 @@ class StateController extends Controller
             'name' => __('webCaption.list.title')
         ];
 
-        $countries = Country::select('id as value','name')->get();
+        $countries = Country::select('id as value','name')->orderBy('name')->get();
         $activeSiteLanguages = SiteLanguage::ActiveSiteLanguagesForMaster();
         
         return view('content.admin.masters.common.state.create', ['data' => $data,'activeSiteLanguages' => $activeSiteLanguages,'countries' =>$countries,'breadcrumbs' => $breadcrumbs,'menuUrl' => $this->menuUrl]);
@@ -99,7 +99,7 @@ class StateController extends Controller
             'moduleName' => __('webCaption.menu_main_navigation_common_state_add.title'), 
         ];
 
-        $countries = Country::select('id as value','name')->get();
+        $countries = Country::select('id as value','name')->orderBy('name')->get();
         return view('content.admin.masters.common.state.create',['breadcrumbs' => $breadcrumbs ,'countries' => $countries,'pageConfigs' => $pageConfigs,'menuUrl' =>$this->menuUrl]);
     }
 
@@ -170,8 +170,6 @@ class StateController extends Controller
     }
 
     public function deleteMultiple( Request $request){
-
-
 
 
         if (!Auth::user()->can('main-navigation-common-state-delete')) {

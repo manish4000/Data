@@ -482,7 +482,7 @@ class MenuGroupController extends Controller
             'value' =>0
         ];
 
-        array_unshift($selectableMenuData , $blank);   
+        array_unshift($selectableMenuData ,$blank);   
          
         return view('content.admin.menuGroup.listMenu', ['menu' => $menu ,'data'=> $data,'menuGroupId' => $menu->menu_group_id,'selectableMenuData' => $selectableMenuData ,'menuList' =>$menuList , 'groups' => $groups , 'permissionData' => $permissionData , 'pageConfigs' =>$pageConfigs ,'breadcrumbs' => $breadcrumbs ,'menuUrl' => $this->menuUrl]);
     }

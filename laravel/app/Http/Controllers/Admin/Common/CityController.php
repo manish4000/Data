@@ -57,7 +57,7 @@ class CityController extends Controller
 
         $perPage =  (isset($request->perPage) && !empty($request->perPage)) ? $request->perPage : 100;
 
-        $states = StateModel::select('id as value','name')->get();
+        $states = StateModel::select('id as value','name')->orderBy('name')->get();
         $data = $data->paginate($perPage);
 
         return view('content.admin.masters.common.city.index', ['pageConfigs' => $pageConfigs,'states' => $states, 'breadcrumbs' => $breadcrumbs, 'data'=>$data,'perPage' => $perPage]);
@@ -67,7 +67,7 @@ class CityController extends Controller
     
     public function edit($id){
 
-        if (!Auth::user()->can('main-navigation-common-state-city')) {
+        if (!Auth::user()->can('main-navigation-common-city-edit')) {
             abort(403);
         }
 
@@ -78,7 +78,7 @@ class CityController extends Controller
             'name' => __('webCaption.list.title')
         ];
 
-        $states = StateModel::select('id as value','name')->get();
+        $states = StateModel::select('id as value','name')->orderBy('name')->get();
         $activeSiteLanguages = SiteLanguage::ActiveSiteLanguagesForMaster();
         
         return view('content.admin.masters.common.city.create', ['data' => $data,'activeSiteLanguages' => $activeSiteLanguages,'states' =>$states,'breadcrumbs' => $breadcrumbs,'menuUrl' => $this->menuUrl]);
@@ -99,7 +99,7 @@ class CityController extends Controller
             'moduleName' => __('webCaption.menu_main_navigation_common_city_add.title'), 
         ];
 
-        $states = StateModel::select('id as value','name')->get();
+        $states = StateModel::select('id as value','name')->orderBy('name')->get();
         return view('content.admin.masters.common.city.create',['breadcrumbs' => $breadcrumbs ,'states' => $states,'pageConfigs' => $pageConfigs,'menuUrl' =>$this->menuUrl]);
     }
 
