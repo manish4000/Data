@@ -205,8 +205,17 @@ class MenuGroupController extends Controller
         $permissions = CompanyPermission::where('parent_id', 0)->get();
         $arrayData = [];
         $permissionData = $this->listSelectableTreeData($permissions, $arrayData);
-        $menusWithoutParent = CompanyMenuGroupMenu::where([ 'company_menu_group_id' => $id, 'parent_id' => 0 ])->get();
+        $menusWithoutParent = CompanyMenuGroupMenu::where([ 'company_menu_group_id' => $id, 'parent_id' => 0 ])->orderBy('order')->get();
         $selectableMenuData = $this->listSelectableMenuData($menusWithoutParent, $arrayData);
+        
+        $blank = [
+            'id' => '1',
+            'parent_id' => '0',
+            'title' => 'No Parent',
+            'value' => 0
+        ];
+
+        array_unshift($selectableMenuData , $blank);
         $modules = CompanyModule::select('id as value' ,'title as name')->get();
 
         return view('content.admin.company.menuGroup.listMenu', ['breadcrumbs'=>$breadcrumbs,'menuGroupId' => $id,'pageConfigs' => $pageConfigs,'menu_group' => $menu_group,'modules' => $modules,'data' => $data, 'permissionData' => $permissionData, 'selectableMenuData' => $selectableMenuData ,'menuUrl' => $this->menuUrl]);
@@ -410,13 +419,23 @@ class MenuGroupController extends Controller
         $menuOrderData = $this->orderMenuData(0, 1, $data, $menu->company_menu_group_id);
         $data = $menuOrderData;
 
-        $menuList = CompanyMenuGroupMenu::select('id','title')->where(['parent_id' => 0, 'company_menu_group_id' => $menu->company_menu_group_id])->get();
+        $menuList = CompanyMenuGroupMenu::select('id','title')->where(['parent_id' => 0, 'company_menu_group_id' => $menu->company_menu_group_id])->orderBy('order')->get();
 
         $groups = CompanyMenuGroup::select('id as value','title as name')->get();
         $permissions = CompanyPermission::where('parent_id', 0)->get();
         $arrayData = [];
         $permissionData = $this->listSelectableTreeData($permissions, $arrayData);
+
+         
         $selectableMenuData = $this->listSelectableMenuData($menuList, $arrayData);
+        $blank = [
+            'id' => '1',
+            'parent_id' => 0,
+            'title' => 'No Parent',
+            'value' =>0
+        ];
+
+        array_unshift($selectableMenuData ,$blank);
         $modules = CompanyModule::select('id as value' ,'title as name')->get();
 
 
