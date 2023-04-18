@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\Common\CityController;
 use App\Http\Controllers\Admin\Common\CountryController;
+use App\Http\Controllers\Admin\Common\StateController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StaterkitController;
 use App\Http\Controllers\Admin\LanguageController;
@@ -247,6 +249,24 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
                 Route::post('/delete', [CountryController::class, 'destroy'])->name('delete');
                 Route::get('/edit/{id}', [CountryController::class, 'edit'])->name('edit');
                 Route::post('/delete-multiple', [CountryController::class,'deleteMultiple'])->name('delete-multiple');
+            });
+            //routes of country module 
+            Route::group(['prefix' => 'state' ,'as' => 'state.'],function(){
+                Route::get('/', [StateController::class, 'index'])->name('index'); 
+                Route::get('/create', [StateController::class, 'create'])->name('create');
+                Route::post('/store', [StateController::class, 'store'])->name('store');
+                Route::post('/delete', [StateController::class, 'destroy'])->name('delete');
+                Route::get('/edit/{id}', [StateController::class, 'edit'])->name('edit');
+                Route::post('/delete-multiple', [StateController::class,'deleteMultiple'])->name('delete-multiple');
+            });
+
+            Route::group(['prefix' => 'city' ,'as' => 'city.'],function(){
+                Route::get('/', [CityController::class, 'index'])->name('index'); 
+                Route::get('/create', [CityController::class, 'create'])->name('create');
+                Route::post('/store', [CityController::class, 'store'])->name('store');
+                Route::post('/delete', [CityController::class, 'destroy'])->name('delete');
+                Route::get('/edit/{id}', [CityController::class, 'edit'])->name('edit');
+                Route::post('/delete-multiple', [CityController::class,'deleteMultiple'])->name('delete-multiple');
             });
         });
 
