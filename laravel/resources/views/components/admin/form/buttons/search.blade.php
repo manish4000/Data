@@ -1,1 +1,1 @@
-<button  type="submit" title="{{__('webCaption.search.caption')}}" data-toggle="tooltip" class="btn btn-primary mr-1"> <i class="fa fa-search"></i> {{__('webCaption.search.title')}}  </button>
+<button  type="submit" title="{{__('webCaption.search.caption')}}" data-toggle="tooltip" class="btn btn-primary mr-0"> <i class="fa fa-search"></i> {{__('webCaption.search.title')}}  </button>
