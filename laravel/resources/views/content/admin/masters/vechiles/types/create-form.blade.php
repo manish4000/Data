@@ -24,22 +24,22 @@
 		<hr class="m-0 p-0">
     <div class="card-body">
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-lg-4 col-md-6">
           <div class="form-group">
             <x-admin.form.inputs.text tooltip="{{__('webCaption.type.caption')}}" label="{{__('webCaption.type.title')}}" maxlength="80" for="name"   name="name"  placeholder="{{ __('webCaption.type.title') }}" value="{{old('name', isset($data->name)?$data->name:'' )}}"  required="required" />
           </div>    
         </div>
 
         
-        <div class="col-md-4">
+        <div class="col-lg-4 col-md-6">
           <div class="form-group">
             <x-admin.form.inputs.select  tooltip="{{__('webCaption.select_parent.caption')}}"  label="{{__('webCaption.select_parent.title')}}"  id="" for="parent_id" name="parent_id" placeholder="{{__('webCaption.select_parent.title')}}"  required="" :optionData="$parent_data" editSelected="{{(isset($data->parent_id) && ($data->parent_id != null))?$data->parent_id :''; }}" />
           </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-lg-4 col-md-6">
             <div class="form-group">
-              <x-admin.form.label for="" value="{{__('webCaption.display.title')}}" class="" tooltip="{{__('webCaption.display.caption')}}" />
+                <x-admin.form.label for="" value="{{__('webCaption.display.title')}}" class="" tooltip="{{__('webCaption.display.caption')}}" />
                    <div>
                       <div class="form-check form-check-inline">
                         <x-admin.form.inputs.radio for="Yes" tooltip="{{__('webCaption.yes.caption')}}"  class="border border-danger" name="display" label="{{__('webCaption.yes.title')}}" placeholder="{{ __('locale.Vehicle_Type.name') }}" value="Yes"  required="required" 
@@ -70,7 +70,3 @@
 </section>
 </form>
 @endsection
-
-@push('script')
-<script src="{{ asset('assets/js/gabs/master.js') }}"></script>
-@endpush

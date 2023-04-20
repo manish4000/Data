@@ -119,9 +119,6 @@
 <link href="{{ asset('css/tree-select.css') }}" rel="stylesheet" />
 @endsection
 
-@push('script')
-  <script src="{{ asset('assets/js/gabs/master.js') }}"></script>
-@endpush
 
 @section('script')
 

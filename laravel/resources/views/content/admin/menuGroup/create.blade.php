@@ -50,7 +50,3 @@
 </form>
 @endsection
 
-
-@push('script')
-<script src="{{ asset('assets/js/gabs/master.js') }}"></script>
-@endpush

@@ -101,7 +101,6 @@
 <link href="{{ asset('css/tree-select.css') }}" rel="stylesheet" />
 @endsection
 @push('script')
-<script src="{{ asset('assets/js/gabs/master.js') }}"></script>
 <script src="{{ asset('js/comboTreePlugin2.js') }}"></script>
 
 
