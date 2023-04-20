@@ -13,10 +13,13 @@ use App\Models\Company\CompanyUserPermission;
 use App\Models\CompanyGabsModel;
 use App\Models\CompanyModel;
 use App\Models\Dash\CompanyUsers;
+use App\Models\Masters\Company\Association;
 use App\Models\Masters\Company\BusinessType;
 use App\Models\Masters\Company\Company;
+
 use App\Models\Masters\Country;
 use App\Models\Masters\Vehicles\Type;
+use App\Models\RegionModel;
 use App\Models\SiteLanguage;
 use App\Models\StateModel;
 use Illuminate\Contracts\Routing\UrlGenerator;
@@ -198,7 +201,6 @@ class CompanyController extends Controller
             abort(403);
         } 
 
-
         $data = CompanyGabsModel::select(['id','name','company_name','email' ,'status','updated_at','updated_by']);
 
         
@@ -286,6 +288,8 @@ class CompanyController extends Controller
         $status = json_decode(json_encode($this->status));
 
         $permissions = CompanyMenuGroupMenu::where('parent_id', 0)->get();
+        $regions = RegionModel::select('id as value','name')->get(); 
+        $association =   Association::select('id as value','name')->get();  
 
         // $siteLang =  SiteLanguage::where('alias',app()->getLocale())->first();
         // $defaultLang = SiteLanguage::where('alias',app()->getLocale())->value('id');    
@@ -304,7 +308,7 @@ class CompanyController extends Controller
         // }
         $country_phone_code =  Country::select('phone_code as value' ,'country_code' ,DB::raw("CONCAT(country_code,' (',phone_code ,')' ) AS name"))->where('phone_code','!=' ,null)->where('country_code','!=' ,null)->get();
 
-        return view("content.admin.company.new_create",[ 'country_phone_code' => $country_phone_code,'plans' => $plans,'pageConfigs' => $pageConfigs ,'permissions' => $permissions,'country' => $country ,'breadcrumbs' => $breadcrumbs, 'status' =>$status,'BusinessTypes' => $BusinessTypes ]);
+        return view("content.admin.company.new_create",[ 'country_phone_code' => $country_phone_code,'association' => $association,'plans' => $plans,'pageConfigs' => $pageConfigs ,'permissions' => $permissions,'country' => $country ,'breadcrumbs' => $breadcrumbs,'regions' => $regions , 'status' =>$status,'BusinessTypes' => $BusinessTypes ]);
     }
 
     /**
@@ -351,7 +355,7 @@ class CompanyController extends Controller
             'document.*'=> 'nullable|mimes:jpeg,png,jpg,gif,pdf|max:6120',
             'plan_id' => 'nullable|numeric',
             'business_type_id.*' => 'nullable|numeric',
-            'association_member_id' => 'nullable|numeric',
+            'association_member_id.*' => 'nullable|numeric',
             'permit_no' => "nullable|string|max:250",
             'admin_comment' => 'nullable|string|max:250',
             'contact_name.*' => 'nullable|string|max:100',
@@ -417,7 +421,7 @@ class CompanyController extends Controller
 
                 'business_type_id.*.numeric' => __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.business_type.title') ] ),
 
-                'association_member_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.association_member.title')] ),
+                'association_member_id.*.numeric' => __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.association_member.title')] ),
 
                 'permit_no.string'=> __('webCaption.validation_string.title', ['field'=> __('webCaption.permit_number.title') ] ),
                 'permit_no.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.permit_number.title') , "max" => "250"] ),
@@ -466,7 +470,14 @@ class CompanyController extends Controller
                     $business_type = (empty($business_type))? null: implode(',', array_column( $business_type,'name' ));
                     }    
             }  
-                            
+            
+
+            if($request->has('association_member_id')) {
+                if(is_array($request->association_member_id) && count($request->association_member_id) > 0){
+                    $association_member_id   = json_encode($request->association_member_id);
+                }
+            }
+            
 
               $company_gabs_model->company_name = $request->company_name;  
               //old field
@@ -491,7 +502,7 @@ class CompanyController extends Controller
               $company_gabs_model->skype_id = $request->skype_id;  
               $company_gabs_model->website = $request->website;  
               $company_gabs_model->plan_id = $request->plan_id;  
-              $company_gabs_model->association_member_id = $request->association_member_id;  
+              $company_gabs_model->association_member_id =  (isset($association_member_id)) ? $association_member_id : null; 
               $company_gabs_model->permit_no = $request->permit_no;  
               $company_gabs_model->admin_comment = $request->admin_comment;  
               $company_gabs_model->facebook = $request->facebook;  
@@ -499,7 +510,7 @@ class CompanyController extends Controller
               $company_gabs_model->youtube = $request->youtube;  
               $company_gabs_model->twitter = $request->twitter;  
               $company_gabs_model->linkedin = $request->linkedin;  
-              $company_gabs_model->terms_and_services = (isset($request->terms_and_services))?$request->terms_and_services :'0';  
+              $company_gabs_model->terms_and_services = '1';  
               $company_gabs_model->ip_address = $request->ip();  
 
 
@@ -803,14 +814,14 @@ class CompanyController extends Controller
         $data->business_type_id  = json_decode($data->business_type_id);
 
         $permissions = CompanyMenuGroupMenu::where('parent_id', 0)->get();
+        $regions = RegionModel::select('id as value','name')->get(); 
+        $association =   Association::select('id as value','name')->get();  
         
-        // $types = Type::get(['id as value' ,'name']);  
+        
        
         $country_phone_code =  Country::select('phone_code as value' ,'country_code' ,DB::raw("CONCAT(country_code,' (',phone_code ,')' ) AS name"))->where('phone_code','!=' ,null)->where('country_code','!=' ,null)->get(['phone_code','country_code']);
 
-        // dd($data->contcatPersonDetails);
-
-        return view('content.admin.company.new_edit',['country_phone_code' => $country_phone_code,'plans' => $plans,'company_tel_country_code' => $company_tel_country_code ,'data' => $data,'permissions' =>$permissions ,'status' =>$status ,'country' => $country , 'BusinessTypes' => $BusinessTypes , 'pageConfigs' => $pageConfigs ,'breadcrumbs' =>$breadcrumbs ]);
+        return view('content.admin.company.new_edit',['country_phone_code' => $country_phone_code, 'association'=>  $association,'regions' => $regions,'plans' => $plans,'company_tel_country_code' => $company_tel_country_code ,'data' => $data,'permissions' =>$permissions ,'status' =>$status ,'country' => $country , 'BusinessTypes' => $BusinessTypes , 'pageConfigs' => $pageConfigs ,'breadcrumbs' =>$breadcrumbs ]);
     }
 
     /**
@@ -969,6 +980,13 @@ class CompanyController extends Controller
                 }    
         }
 
+        if($request->has('association_member_id')) {
+
+            if(is_array($request->association_member_id) && count($request->association_member_id) > 0){
+                $association_member_id   = json_encode($request->association_member_id);
+            }
+        }
+
         
         $company_gabs_model = CompanyGabsModel::find($request->id);
 
@@ -1002,7 +1020,7 @@ class CompanyController extends Controller
         $company_gabs_model->skype_id = $request->skype_id;  
         $company_gabs_model->website = $request->website;  
         $company_gabs_model->plan_id = $request->plan_id;  
-        $company_gabs_model->association_member_id = $request->association_member_id;  
+        $company_gabs_model->association_member_id = (isset($association_member_id)) ? $association_member_id : null;   
         $company_gabs_model->permit_no = $request->permit_no;  
         $company_gabs_model->admin_comment = $request->admin_comment;  
         $company_gabs_model->facebook = $request->facebook;  
@@ -1010,7 +1028,7 @@ class CompanyController extends Controller
         $company_gabs_model->youtube = $request->youtube;  
         $company_gabs_model->twitter = $request->twitter;  
         $company_gabs_model->linkedin = $request->linkedin;  
-        $company_gabs_model->terms_and_services = (isset($request->terms_and_services))?$request->terms_and_services :'0';  
+        $company_gabs_model->terms_and_services = '1';  
         $company_gabs_model->ip_address = $request->ip(); 
 
         if($request->has('logo')){
