@@ -289,7 +289,7 @@ class CompanyController extends Controller
 
         $permissions = CompanyMenuGroupMenu::where('parent_id', 0)->get();
         $regions = RegionModel::select('id as value','name')->get(); 
-        $association =   Association::select('id as value','name')->get();  
+        // $association =   Association::select('id as value','name')->get();  
 
         // $siteLang =  SiteLanguage::where('alias',app()->getLocale())->first();
         // $defaultLang = SiteLanguage::where('alias',app()->getLocale())->value('id');    
@@ -308,7 +308,7 @@ class CompanyController extends Controller
         // }
         $country_phone_code =  Country::select('phone_code as value' ,'country_code' ,DB::raw("CONCAT(country_code,' (',phone_code ,')' ) AS name"))->where('phone_code','!=' ,null)->where('country_code','!=' ,null)->get();
 
-        return view("content.admin.company.new_create",[ 'country_phone_code' => $country_phone_code,'association' => $association,'plans' => $plans,'pageConfigs' => $pageConfigs ,'permissions' => $permissions,'country' => $country ,'breadcrumbs' => $breadcrumbs,'regions' => $regions , 'status' =>$status,'BusinessTypes' => $BusinessTypes ]);
+        return view("content.admin.company.new_create",[ 'country_phone_code' => $country_phone_code,'plans' => $plans,'pageConfigs' => $pageConfigs ,'permissions' => $permissions,'country' => $country ,'breadcrumbs' => $breadcrumbs,'regions' => $regions , 'status' =>$status,'BusinessTypes' => $BusinessTypes ]);
     }
 
     /**
@@ -472,11 +472,11 @@ class CompanyController extends Controller
             }  
             
 
-            if($request->has('association_member_id')) {
-                if(is_array($request->association_member_id) && count($request->association_member_id) > 0){
-                    $association_member_id   = json_encode($request->association_member_id);
-                }
-            }
+            // if($request->has('association_member_id')) {
+            //     if(is_array($request->association_member_id) && count($request->association_member_id) > 0){
+            //         $association_member_id   = json_encode($request->association_member_id);
+            //     }
+            // }
             
 
               $company_gabs_model->company_name = $request->company_name;  
@@ -502,7 +502,7 @@ class CompanyController extends Controller
               $company_gabs_model->skype_id = $request->skype_id;  
               $company_gabs_model->website = $request->website;  
               $company_gabs_model->plan_id = $request->plan_id;  
-              $company_gabs_model->association_member_id =  (isset($association_member_id)) ? $association_member_id : null; 
+            //   $company_gabs_model->association_member_id =  (isset($association_member_id)) ? $association_member_id : null; 
               $company_gabs_model->permit_no = $request->permit_no;  
               $company_gabs_model->admin_comment = $request->admin_comment;  
               $company_gabs_model->facebook = $request->facebook;  
@@ -815,13 +815,13 @@ class CompanyController extends Controller
 
         $permissions = CompanyMenuGroupMenu::where('parent_id', 0)->get();
         $regions = RegionModel::select('id as value','name')->get(); 
-        $association =   Association::select('id as value','name')->get();  
+        // $association =   Association::select('id as value','name')->get();  
         
         
        
         $country_phone_code =  Country::select('phone_code as value' ,'country_code' ,DB::raw("CONCAT(country_code,' (',phone_code ,')' ) AS name"))->where('phone_code','!=' ,null)->where('country_code','!=' ,null)->get(['phone_code','country_code']);
 
-        return view('content.admin.company.new_edit',['country_phone_code' => $country_phone_code, 'association'=>  $association,'regions' => $regions,'plans' => $plans,'company_tel_country_code' => $company_tel_country_code ,'data' => $data,'permissions' =>$permissions ,'status' =>$status ,'country' => $country , 'BusinessTypes' => $BusinessTypes , 'pageConfigs' => $pageConfigs ,'breadcrumbs' =>$breadcrumbs ]);
+        return view('content.admin.company.new_edit',['country_phone_code' => $country_phone_code,'regions' => $regions,'plans' => $plans,'company_tel_country_code' => $company_tel_country_code ,'data' => $data,'permissions' =>$permissions ,'status' =>$status ,'country' => $country , 'BusinessTypes' => $BusinessTypes , 'pageConfigs' => $pageConfigs ,'breadcrumbs' =>$breadcrumbs ]);
     }
 
     /**
@@ -859,7 +859,7 @@ class CompanyController extends Controller
             'document.*'=> 'nullable|mimes:jpeg,png,jpg,gif,pdf|max:6120',
             'plan_id' => 'nullable|numeric',
             'business_type_id.*' => 'nullable|numeric',
-            'association_member_id' => 'nullable|numeric',
+            // 'association_member_id' => 'nullable|numeric',
             'permit_no' => "nullable|string|max:250",
             'admin_comment' => 'nullable|string|max:250',
             'contact_name.*' => 'nullable|string|max:100',
@@ -1020,7 +1020,7 @@ class CompanyController extends Controller
         $company_gabs_model->skype_id = $request->skype_id;  
         $company_gabs_model->website = $request->website;  
         $company_gabs_model->plan_id = $request->plan_id;  
-        $company_gabs_model->association_member_id = (isset($association_member_id)) ? $association_member_id : null;   
+        // $company_gabs_model->association_member_id = (isset($association_member_id)) ? $association_member_id : null;   
         $company_gabs_model->permit_no = $request->permit_no;  
         $company_gabs_model->admin_comment = $request->admin_comment;  
         $company_gabs_model->facebook = $request->facebook;  
