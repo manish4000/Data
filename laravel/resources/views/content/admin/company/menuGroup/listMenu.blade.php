@@ -10,21 +10,28 @@
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 @endsection
 
+@if(isset($menu->id))
+<style>
+	.remove-branch {  display: none;}
+</style>	
+@endif
+
+
 @section('content')
 <div >
 
 
 	<div class="row">
 		<div class="col-md-6">
-			
+			<form action="{{ route('company.menu-groups.add-menu')}}" method="POST">
+				@csrf
 			<div class="card card-primary">
 				<div class="card-header">
 					
 					<h3 class="card-title">{{__('webCaption.create.title')}}</h3>
 				</div>
 				<div class="card-body">
-					<form action="{{ route('company.menu-groups.add-menu')}}" method="POST">
-						@csrf
+					
 						<input type="hidden" name="company_menu_group_id" id="company_menu_group_id" value="{{ $menuGroupId }}">
 						
 						<div class="form-group">
@@ -82,9 +89,7 @@
 								
 							  </div>
 	
-							  {{-- <div class="form-group">
-								<x-admin.form.inputs.text tooltip="{{__('webCaption.permission.caption')}}" label="{{__('webCaption.permission.title')}}"  for="justAnInputBox1"  name="sel_permission"  placeholder="{{__('webCaption.permission.title')}}" value="{{old('sel_permission', isset($data->sel_permission)?$data->sel_permission:'' )}}"  required="" />
-							</div> --}}
+
 							  
 							  <div class="form-group">
 								<x-admin.form.inputs.text tooltip="{{__('webCaption.language_slug.caption')}}"  label="{{__('webCaption.language_slug.title')}}"  for="slug"  maxlength="255"  name="slug"  placeholder="{{__('webCaption.language_slug.title')}}" value="{{old('slug', isset($menu->slug)?$menu->slug:'' )}}"  required="" />
@@ -93,26 +98,29 @@
 							
 						</div>
 						
-						<div class="form-group">
+						{{-- <div class="form-group">
 					    	<div class="form-group">
                                 <x-admin.form.inputs.select tooltip="{{__('webCaption.module.caption')}}"  label="{{__('webCaption.module.title')}}" for="company_module_id" name="company_module_id" placeholder="{{__('webCaption.module.title')}}" :optionData="$modules" editSelected="{{(isset($menu->company_module_id) && ($menu->company_module_id != null))?$menu->company_module_id :''; }}"   required=""   />
                             </div>
-					  	</div>
+					  	</div> --}}
 					  	
-					  	<div class="form-group text-center">
-							<input type="hidden" name="id" value="@if(isset($menu->id) && !empty($menu->id)){{$menu->id}}@endif" />
-					  		<button type="submit" class="btn btn-success">{{__('webCaption.create.title')}}</button>
-					  	</div>
-					</form>
+					  
 				</div>
 			</div>
-			
+			<div class="form-group text-center">
+				<input type="hidden" name="id" value="@if(isset($menu->id) && !empty($menu->id)){{$menu->id}}@endif" />
+				@if(isset($menu->id))   <x-admin.form.buttons.update />  @else    <x-admin.form.buttons.create />   @endif
+
+			</div>
+		</form>
 		</div>
+		
 		<div class="col-md-6">
 			<div class="card card-primary">
 				<div class="card-header">
 					<h3 class="card-title">{{__('webCaption.list.title')}} </h3>
 				</div>
+			
 				<div class="card-body">
 					<ul id="tree"></ul>
 				</div>
@@ -126,7 +134,12 @@
 @endsection
 
 @push('script')
-  <script src="{{ asset('assets/js/gabs/master.js') }}"></script>
+
+			<script>
+				// $("button.button.remove-branch").css("display", "none");
+			alert(document.getElementByClassName('remove-branch'));
+			</script>
+
   
 <script>
 
@@ -229,7 +242,10 @@
 	});
 
 	function editMenu(id) {
-		window.location.href = "/admin/company/menu-groups/menu/"+id+"/edit";
+		// window.location.href = "/admin/company/menu-groups/menu/"+id+"/edit";
+		url = "{{route('company.menu-groups.menu.edit',':id' )}}";
+		url = url.replace(':id', id);
+		window.location.href = url ;
 	}
 
 </script>

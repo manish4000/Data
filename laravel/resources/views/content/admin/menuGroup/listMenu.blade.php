@@ -11,6 +11,12 @@
 	<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 @endsection
 
+@if(isset($menu->id))
+	<style>
+	.remove-branch {  display: none;}
+	</style>	
+@endif
+
 @section('content')
 <div>
 	<div class="row">
@@ -95,7 +101,10 @@
 				</div>
 			</form>
 		</div>
+		
+
 		<div class="col-md-6">
+
 			<div class="card card-primary">
 				<div class="card-header">
 					<h3 class="card-title">{{__('webCaption.list.title')}}   </h3>
@@ -112,7 +121,6 @@
 @endsection
 
 @push('script')
-<script src="{{ asset('assets/js/gabs/master.js') }}"></script>
 
 <script>
 
@@ -213,10 +221,14 @@
 	        var action = "{{ url('admin/menu-groups/delete-menu') }}";
 			deleteSingleData(id,'' ,action);
 	    });
+
 	});
 
 	function editMenu(id) {
-		window.location.href = "/admin/menu-groups/menu/"+id+"/edit";
+		
+		url = "{{route('menu-groups.menu.edit',':id' )}}";
+		url = url.replace(':id', id);
+		window.location.href = url ;
 	}
 
 </script>
@@ -296,22 +308,16 @@
 
 <script type="text/javascript">
 
-	
 	var menuData = <?php print_r(json_encode($selectableMenuData))?>;
 	
 	var selectedParent = <?php echo '['.$sel.']'; ?>
-
-	var comboTree2;
-
+	
 	jQuery(document).ready(function($) {
-
 		comboTree2 = $('#justAnInputBox2').comboTree({
 			source : menuData,
 			isMultiple: false,
 			selected: selectedParent
 		});
-
-
 	});
 </script>
 @endsection
