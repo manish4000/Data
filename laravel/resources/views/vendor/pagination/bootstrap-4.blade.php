@@ -11,10 +11,10 @@
             unset( $request_params['perPage']);
     
         @endphp
-    <div class="d-flex justify-content-between mx-2 row">
-        <div class="col-sm-4 col-md-4">
+    <div class="d-flex  row">
+        <div class="col-sm-3 col-md-3 col-lg-3 text-center">
             <div class="mb-1">
-                <span class="mr-2">{{__('webCaption.record_per_page.title')}}</span> 
+                <span class="mr-0">{{__('webCaption.record_per_page.title')}}</span> 
                 <a class="btn btn-secondary btn-sm dropdown-toggle"  data-toggle="dropdown" aria-expanded="false">
                    <span id="selected"> @if($selected_per_page != '') {{$selected_per_page}} @else {{__('webCaption.record_per_page.title')}} @endif</span>
                 </a>
@@ -30,7 +30,7 @@
             </div>
         </div>
         
-        <div class="col-sm-4 col-md-4">
+        <div class="col-sm-4 col-md-4 text-center mb-1">
                        
             {{__('webCaption.showing.title')}} {{ number_format($offset + 1)  }} {{__('webCaption.to.title')}} {{ number_format( $offset + $paginator->perPage() ) }}  {{__('webCaption.of.title')}}  {{ number_format( $paginator->total()) }} {{__('webCaption.entries.title')}}
            
@@ -39,10 +39,10 @@
         
 
     
-        <div class="col-sm-4 col-md-4">  
+        <div class="col-sm-5 col-md-5 col-12 text-center">  
             @if ($paginator->hasPages())
             <nav>
-                <ul class="pagination float-right">
+                <ul class="pagination float-right float-none d-inline-flex">
                     {{-- Previous Page Link --}}
                     @if ($paginator->onFirstPage())
                         <li class="page-item disabled" aria-disabled="true" aria-label="@lang('pagination.previous')">
@@ -89,9 +89,3 @@
         </div>
        
     </div>
-
-
-
-
-    
-
