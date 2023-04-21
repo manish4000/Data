@@ -13,7 +13,7 @@
                     <h4 class="card-title" data-toggle="tooltip" data-placement="right" title="{{__('webCaption.search_filter.caption')}}">{{__('webCaption.search_filter.title')}}</h4>                    
                 </div>
                 <div class="card-body">
-                    <form method="GET" action="{{route('common.city.index')}}">
+                    <form method="GET" action="{{route('common.region.index')}}">
 
                         <div class=" row pt-0 pb-0">
                             <div class="col-md-4 col-lg-4 col-xl-5">
@@ -58,10 +58,10 @@
                                  
                                     {{ $data->onEachSide(1)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}   
                                 </div>
-                                @can('main-navigation-common-city-delete')
+                                @can('main-navigation-common-region-delete')
                                     <div class="px-2 my-2">
                                         {{-- deleteMultiple() for delete multiple data pass url here  --}}
-                                        <x-admin.form.buttons.multipleDelete url="{{route('common.city.delete-multiple')}}" />
+                                        <x-admin.form.buttons.multipleDelete url="{{route('common.region.delete-multiple')}}" />
                                     </div>
                                 @endcan
 
@@ -87,7 +87,7 @@
                                 </thead>
                                 <tbody>
                                         @foreach($data as $item)
-                                            @include('content.admin.masters.common.city.item-tr', ['item'=>$item])    
+                                            @include('content.admin.masters.common.region.item-tr', ['item'=>$item])    
                                         @endforeach               
                                 </tbody>
                                 

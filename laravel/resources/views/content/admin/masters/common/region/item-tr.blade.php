@@ -12,13 +12,13 @@
     </td>  
 
     <td>
-    @can('main-navigation-common-city-edit')
-    <x-admin.form.buttons.edit href="{{ route('common.city.edit', $item->id) }}" />&ensp;
+    @can('main-navigation-common-region-edit')
+    <x-admin.form.buttons.edit href="{{ route('common.region.edit', $item->id) }}" />&ensp;
     @endcan
     &nbsp;
     
-    @can('main-navigation-common-city-delete')
-    <x-admin.form.buttons.delete id="{{$item->id}}" name="{{$item->title}}" url="{{route('common.city.delete')}}" action="{{route('common.city.delete', $item->id) }}" />  
+    @can('main-navigation-common-region-delete')
+    <x-admin.form.buttons.delete id="{{$item->id}}" name="{{$item->title}}" url="{{route('common.region.delete')}}" action="{{route('common.region.delete', $item->id) }}" />  
     @endcan
 
     </td>
