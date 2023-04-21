@@ -90,10 +90,6 @@ class TypeController extends Controller
         return view('content.admin.masters.vechiles.types.list', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs, 'data'=>$data,'perPage' => $perPage]);
     }
 
-    public function getChildList(Request $request) {      
-        $records = Type::select('id', 'name', 'parent_id', 'display')->orderBy('name', 'ASC')->where('parent_id', $request->itemId)->get();        
-        return view('content.admin.masters.vechiles.types.list-loop', ['data'=>$records]);
-    }
 
     //send id as value because dynamic select work with  id as value  name as name  
 
