@@ -1,8 +1,8 @@
 @extends('layouts/contentLayoutMaster',['activeUrl' => $menuUrl])
 @if(isset($data->id) && !empty($data->id))
-@section('title', __('webCaption.vehicleStatus.title'). ' ' .__('webCaption.edit.title')  )
+@section('title', __('webCaption.vehicle_status.title'). ' ' .__('webCaption.edit.title')  )
 @else
-@section('title', __('webCaption.vehicleStatus.title').' '. __('webCaption.add.title') )
+@section('title', __('webCaption.vehicle_status.title').' '. __('webCaption.add.title') )
 @endif
 
 @section('content')
@@ -15,9 +15,9 @@
 			<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map font-medium-3 mr-1"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line>
 			</svg>
 			@if(isset($data->id) && !empty($data->id))
-			{{__('webCaption.vehicleStatus.title'). ' ' .__('webCaption.edit.title')  }}
+			{{__('webCaption.vehicle_status.title'). ' ' .__('webCaption.edit.title')  }}
 			@else
-			{{  __('webCaption.vehicleStatus.title').' '. __('webCaption.add.title')}}
+			{{  __('webCaption.vehicle_status.title').' '. __('webCaption.add.title')}}
 			@endif
 			</h4>  
 		</div>
@@ -26,7 +26,7 @@
       <div class="row">
         <div class="col-lg-4 col-md-6">
           <div class="form-group">
-            <x-admin.form.inputs.text tooltip="{{__('webCaption.vehicleStatus.caption')}}" label="{{__('webCaption.vehicleStatus.title')}}" maxlength="50" for="name"   name="name"  placeholder="{{ __('webCaption.vehicleStatus.title') }}" value="{{old('name', isset($data->name)?$data->name:'' )}}"  required="required" />
+            <x-admin.form.inputs.text tooltip="{{__('webCaption.vehicle_status.caption')}}" label="{{__('webCaption.vehicle_status.title')}}" maxlength="50" for="name"   name="name"  placeholder="{{ __('webCaption.vehicle_status.title') }}" value="{{old('name', isset($data->name)?$data->name:'' )}}"  required="required" />
           </div>    
         </div>
 

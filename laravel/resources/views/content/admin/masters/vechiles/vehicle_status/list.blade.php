@@ -80,7 +80,7 @@
                                         <th> <x-admin.form.inputs.multiple_select_checkbox id="checkAll"   value="1"  customClass=""  /> </th>
                                         <th class="position-for-filter-heading"># <x-admin.filter.order-by-filter-div orderBy="id" />
                                         </th>                                                
-                                        <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.vehicleStatus.caption')}}"> {{__('webCaption.vehicleStatus.title')}}<x-admin.filter.order-by-filter-div orderBy="name" />
+                                        <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.vehicle_status.caption')}}"> {{__('webCaption.vehicle_status.title')}}<x-admin.filter.order-by-filter-div orderBy="name" />
                                         </th>
                                         <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.no_of_children.caption')}}" >{{__('webCaption.no_of_children.title')}}<x-admin.filter.order-by-filter-div orderBy="children_count" />
                                         </th>
