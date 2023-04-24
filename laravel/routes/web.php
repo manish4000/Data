@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\Common\CityController;
 use App\Http\Controllers\Admin\Common\RegionController;
+use App\Http\Controllers\Admin\Common\PortsController;
 use App\Http\Controllers\Admin\Common\CountryController;
 use App\Http\Controllers\Admin\Common\StateController;
 use Illuminate\Support\Facades\Route;
@@ -14,6 +15,8 @@ use App\Http\Controllers\Admin\GoogleV3CaptchaController;
 use App\Http\Controllers\Admin\MasterDataTranslationController;
 use App\Http\Controllers\Admin\Masters\FuelController;
 use App\Http\Controllers\Admin\Masters\TransmissionController;
+use App\Http\Controllers\Admin\Masters\RelationController;
+use App\Http\Controllers\Admin\Masters\AccessoriesController;
 use App\Http\Controllers\Admin\Masters\ColorController;
 use App\Http\Controllers\Admin\Masters\ModelController;
 use App\Http\Controllers\Admin\Masters\ExtGradeController;
@@ -24,8 +27,11 @@ use App\Http\Controllers\Admin\Masters\BusinessTypeController;
 use App\Http\Controllers\Admin\Masters\SupportLanguagesController;
 use App\Http\Controllers\Admin\Masters\MarketingStatusController;
 use App\Http\Controllers\Admin\Masters\SubTypeController;
+use App\Http\Controllers\Admin\Masters\ModelCodeController;
 use App\Http\Controllers\Admin\Masters\DealsInController;
 use App\Http\Controllers\Admin\Masters\MakeController;
+use App\Http\Controllers\Admin\Masters\User\DepartmentController;
+use App\Http\Controllers\Admin\Masters\User\DesignationController;
 use App\Http\Controllers\Admin\MenuGroupController;
 use App\Http\Controllers\Admin\SiteLanguageController;
 use App\Http\Controllers\Admin\WebCaptionController;
@@ -189,6 +195,7 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
         Route::post('update/{id}','CompanyController@update')->name('update');
         Route::post('/delete', 'CompanyController@destroy')->name('delete');
         Route::post('/delete-multiple','CompanyController@deleteMultiple')->name('delete-multiple'); 
+        Route::post('/check-uuid-exist','CompanyController@checkUuidExist')->name('check-uuid-exist'); 
 
         Route::post('state-list','CompanyController@stateList')->name('state-list');
         Route::post('city-list','CompanyController@cityList')->name('city-list');
@@ -301,13 +308,28 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
                 Route::post('/delete-multiple', [CityController::class,'deleteMultiple'])->name('delete-multiple');
             });
 
-            Route::group(['prefix' => 'region' ,'as' => 'region.'],function(){
+            Route::group(['prefix' => 'region' , 'as' => 'region.'],function(){
                 Route::get('/', [RegionController::class, 'index'])->name('index'); 
-                Route::get('/create', [RegionController::class, 'create'])->name('create');
                 Route::post('/store', [RegionController::class, 'store'])->name('store');
+                Route::post('/update-status', [RegionController::class, 'updateStatus'])->name('update-status');      
                 Route::post('/delete', [RegionController::class, 'destroy'])->name('delete');
                 Route::get('/edit/{id}', [RegionController::class, 'edit'])->name('edit');
+                Route::get('/add', [RegionController::class, 'add'])->name('add');
+                Route::get('/create', [RegionController::class, 'create'])->name('create');
+                Route::post('/getChildList', [RegionController::class,'getChildList']);
                 Route::post('/delete-multiple', [RegionController::class,'deleteMultiple'])->name('delete-multiple');
+            });
+
+            Route::group(['prefix' => 'ports' , 'as' => 'ports.'],function(){
+                Route::get('/', [PortsController::class, 'index'])->name('index'); 
+                Route::post('/store', [PortsController::class, 'store'])->name('store');
+                Route::post('/update-status', [PortsController::class, 'updateStatus'])->name('update-status');      
+                Route::post('/delete', [PortsController::class, 'destroy'])->name('delete');
+                Route::get('/edit/{id}', [PortsController::class, 'edit'])->name('edit');
+                Route::get('/add', [PortsController::class, 'add'])->name('add');
+                Route::get('/create', [PortsController::class, 'create'])->name('create');
+                Route::post('/getChildList', [PortsController::class,'getChildList']);
+                Route::post('/delete-multiple', [PortsController::class,'deleteMultiple'])->name('delete-multiple');
             });
         });
 
@@ -367,6 +389,30 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
                 Route::post('/getChildList', [TransmissionController::class,'getChildList']);
                 Route::post('/delete-multiple', [TransmissionController::class,'deleteMultiple'])->name('delete-multiple');
             });
+
+            Route::group(['prefix' => 'accessories' , 'as' => 'accessories.'],function(){
+                Route::get('/', [AccessoriesController::class, 'index'])->name('index'); 
+                Route::post('/store', [AccessoriesController::class, 'store'])->name('store');
+                Route::post('/update-status', [AccessoriesController::class, 'updateStatus'])->name('update-status');      
+                Route::post('/delete', [AccessoriesController::class, 'destroy'])->name('delete');
+                Route::get('/edit/{id}', [AccessoriesController::class, 'edit'])->name('edit');
+                Route::get('/add', [AccessoriesController::class, 'add'])->name('add');
+                Route::get('/create', [AccessoriesController::class, 'create'])->name('create');
+                Route::post('/getChildList', [AccessoriesController::class,'getChildList']);
+                Route::post('/delete-multiple', [AccessoriesController::class,'deleteMultiple'])->name('delete-multiple');
+            });
+
+            // Route::group(['prefix' => 'relation' , 'as' => 'relation.'],function(){
+            //     Route::get('/', [RelationController::class, 'index'])->name('index'); 
+            //     Route::post('/store', [RelationController::class, 'store'])->name('store');
+            //     Route::post('/update-status', [RelationController::class, 'updateStatus'])->name('update-status');      
+            //     Route::post('/delete', [RelationController::class, 'destroy'])->name('delete');
+            //     Route::get('/edit/{id}', [RelationController::class, 'edit'])->name('edit');
+            //     Route::get('/add', [RelationController::class, 'add'])->name('add');
+            //     Route::get('/create', [RelationController::class, 'create'])->name('create');
+            //     Route::post('/getChildList', [RelationController::class,'getChildList']);
+            //     Route::post('/delete-multiple', [RelationController::class,'deleteMultiple'])->name('delete-multiple');
+            // });
 
             Route::group(['prefix' => 'color' , 'as' => 'color.'],function(){
                 Route::get('/', [ColorController::class, 'index'])->name('index'); 
@@ -439,7 +485,18 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
                 Route::post('/getChildList', [SubTypeController::class,'getChildList']);
                 Route::post('/delete-multiple', [SubTypeController::class,'deleteMultiple'])->name('delete-multiple');
             });
-            
+
+            Route::group(['prefix' => 'model-code' , 'as' => 'model-code.'],function(){
+                Route::get('/', [ModelCodeController::class, 'index'])->name('index'); 
+                Route::post('/store', [ModelCodeController::class, 'store'])->name('store');
+                Route::post('/update-status', [ModelCodeController::class, 'updateStatus'])->name('update-status');      
+                Route::post('/delete', [ModelCodeController::class, 'destroy'])->name('delete');
+                Route::get('/edit/{id}', [ModelCodeController::class, 'edit'])->name('edit');
+                Route::get('/add', [ModelCodeController::class, 'add'])->name('add');
+                Route::get('/create', [ModelCodeController::class, 'create'])->name('create');
+                Route::post('/getChildList', [ModelCodeController::class,'getChildList']);
+                Route::post('/delete-multiple', [ModelCodeController::class,'deleteMultiple'])->name('delete-multiple');
+            });
         });
         
         Route::group(['prefix' => 'company' , 'as' => 'company.'],function(){
@@ -468,17 +525,17 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
                 Route::post('/delete-multiple', [BusinessTypeController::class,'deleteMultiple'])->name('delete-multiple');
             });
 
-            Route::group(['prefix' => 'support-languages' , 'as' => 'support-languages.'],function(){
-                Route::get('/', [SupportLanguagesController::class, 'index'])->name('index'); 
-                Route::post('/store', [SupportLanguagesController::class, 'store'])->name('store');
-                Route::post('/update-status', [SupportLanguagesController::class, 'updateStatus'])->name('update-status');      
-                Route::post('/delete', [SupportLanguagesController::class, 'destroy'])->name('delete');
-                Route::get('/edit/{id}', [SupportLanguagesController::class, 'edit'])->name('edit');
-                Route::get('/add', [SupportLanguagesController::class, 'add'])->name('add');
-                Route::get('/create', [SupportLanguagesController::class, 'create'])->name('create');
-                Route::post('/getChildList', [SupportLanguagesController::class,'getChildList']);
-                Route::post('/delete-multiple', [SupportLanguagesController::class,'deleteMultiple'])->name('delete-multiple');
-            });
+            // Route::group(['prefix' => 'support-languages' , 'as' => 'support-languages.'],function(){
+            //     Route::get('/', [SupportLanguagesController::class, 'index'])->name('index'); 
+            //     Route::post('/store', [SupportLanguagesController::class, 'store'])->name('store');
+            //     Route::post('/update-status', [SupportLanguagesController::class, 'updateStatus'])->name('update-status');      
+            //     Route::post('/delete', [SupportLanguagesController::class, 'destroy'])->name('delete');
+            //     Route::get('/edit/{id}', [SupportLanguagesController::class, 'edit'])->name('edit');
+            //     Route::get('/add', [SupportLanguagesController::class, 'add'])->name('add');
+            //     Route::get('/create', [SupportLanguagesController::class, 'create'])->name('create');
+            //     Route::post('/getChildList', [SupportLanguagesController::class,'getChildList']);
+            //     Route::post('/delete-multiple', [SupportLanguagesController::class,'deleteMultiple'])->name('delete-multiple');
+            // });
 
             Route::group(['prefix' => 'marketing-status' , 'as' => 'marketing-status.'],function(){
                 Route::get('/', [MarketingStatusController::class, 'index'])->name('index'); 
@@ -504,6 +561,34 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
                 Route::post('/delete-multiple', [DealsInController::class,'deleteMultiple'])->name('delete-multiple');
             });
 
+        });
+
+        Route::group(['prefix' => 'user' , 'as' => 'user.'],function(){
+
+            Route::group(['prefix' => 'department' , 'as' => 'department.'],function(){
+                Route::get('/', [DepartmentController::class, 'index'])->name('index'); 
+                Route::post('/store', [DepartmentController::class, 'store'])->name('store');
+                Route::post('/update-status', [DepartmentController::class, 'updateStatus'])->name('update-status');      
+                Route::post('/delete', [DepartmentController::class, 'destroy'])->name('delete');
+                Route::get('/edit/{id}', [DepartmentController::class, 'edit'])->name('edit');
+                Route::get('/add', [DepartmentController::class, 'add'])->name('add');
+                Route::get('/create', [DepartmentController::class, 'create'])->name('create');
+                Route::post('/getChildList', [DepartmentController::class,'getChildList']);
+                Route::post('/delete-multiple', [DepartmentController::class,'deleteMultiple'])->name('delete-multiple');
+            });
+
+            Route::group(['prefix' => 'designation' , 'as' => 'designation.'],function(){
+                Route::get('/', [DesignationController::class, 'index'])->name('index'); 
+                Route::post('/store', [DesignationController::class, 'store'])->name('store');
+                Route::post('/update-status', [DesignationController::class, 'updateStatus'])->name('update-status');      
+                Route::post('/delete', [DesignationController::class, 'destroy'])->name('delete');
+                Route::get('/edit/{id}', [DesignationController::class, 'edit'])->name('edit');
+                Route::get('/add', [DesignationController::class, 'add'])->name('add');
+                Route::get('/create', [DesignationController::class, 'create'])->name('create');
+                Route::post('/getChildList', [DesignationController::class,'getChildList']);
+                Route::post('/delete-multiple', [DesignationController::class,'deleteMultiple'])->name('delete-multiple');
+            });
+            
         });
         
     });
