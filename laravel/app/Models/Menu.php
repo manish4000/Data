@@ -19,7 +19,7 @@ class Menu extends Model
     ];
 
     public function child(){
-        return $this->hasMany(static::class, 'parent_id')->where('type','menu');
+        return $this->hasMany(static::class, 'parent_id')->where('type','menu')->orderBy('order');
     }
 
     public function menuChild(){
