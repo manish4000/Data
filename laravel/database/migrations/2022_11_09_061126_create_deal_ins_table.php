@@ -19,6 +19,7 @@ class CreateDealInsTable extends Migration
             $table->enum('display', ['Yes', 'No'])->default('Yes');
             $table->bigInteger('jct_ref_id')->nullable();
             $table->bigInteger('parent_id')->nullable();
+            
             $table->softDeletes();
             $table->timestamps();
         });
