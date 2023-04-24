@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\Common;
 
 use App\Http\Controllers\Controller;
 use App\Models\Masters\Country;
-use App\Models\RegionModel;
+use App\Models\Region;
 use Illuminate\Http\Request;
 use App\Models\SiteLanguage;
 use Illuminate\Support\Facades\Auth;
@@ -77,7 +77,7 @@ class CountryController extends Controller
             'name' => __('webCaption.list.title')
         ];
         
-        $regions = RegionModel::select('id as value','name')->get();
+        $regions = Region::select('id as value','name')->get();
         $activeSiteLanguages = SiteLanguage::ActiveSiteLanguagesForMaster();
         return view('content.admin.masters.common.country.create', ['data' => $data,'activeSiteLanguages' => $activeSiteLanguages,'regions' =>$regions,'breadcrumbs' => $breadcrumbs,'menuUrl' => $this->menuUrl]);
 
@@ -97,7 +97,7 @@ class CountryController extends Controller
             'moduleName' => __('webCaption.menu_main_navigation_common_country_add.title'), 
         ];
 
-        $regions = RegionModel::select('id as value','name')->get();
+        $regions = Region::select('id as value','name')->get();
         return view('content.admin.masters.common.country.create',['breadcrumbs' => $breadcrumbs ,'regions' => $regions,'pageConfigs' => $pageConfigs,'menuUrl' =>$this->menuUrl]);
     }
 
@@ -118,7 +118,7 @@ class CountryController extends Controller
         
         $request->validate(
                 [
-                    'name' => 'required|max:100|unique:countries,name,'.$request->id,
+                    'name' => 'required|max:100|unique:countries,name,'.$request->id.',id,deleted_at,NULL',
                     'phone_code' => 'nullable|max:10',
                     'country_code' => 'nullable|max:5',
                     'regions_id' => 'nullable|numeric',
@@ -144,8 +144,8 @@ class CountryController extends Controller
             $country_model->regions_id      =   $request->regions_id;
             $country_model->display         =   $request->display;
 
-            if($request->has('regions_id')){
-               $region = RegionModel::where('id',$request->regions_id)->first()->value('name');
+            if($request->has('regions_id') && $request->input('regions_id') != '' ){
+               $region = Region::where('id',$request->regions_id)->first()->value('name');
                $country_model->region          =  $region;
             }
 
