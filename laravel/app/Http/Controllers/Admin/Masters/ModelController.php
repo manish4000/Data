@@ -131,7 +131,7 @@ class ModelController extends Controller
         $validator = Validator::make($request->all(),
           [
             'display' => 'required',
-            'name' => 'required|unique:model,name,'.$request->id, 
+            'name' => 'required|unique:model,name,'.$request->id.',id,deleted_at,NULL' 
           ]  ,
           [
             'name.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.name.title')  ] ),

@@ -120,7 +120,7 @@ class StateController extends Controller
         
         $request->validate(
                 [
-                    'name' => 'required|max:100|unique:states,name,'.$request->id,
+                    'name' => 'required|max:100|unique:states,name,'.$request->id.',id,deleted_at,NULL',
                     'country_id' => 'nullable|required',
                     'display' => 'required|in:Yes,No',
                 ]  ,

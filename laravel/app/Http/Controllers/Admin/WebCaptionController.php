@@ -146,7 +146,7 @@ class WebCaptionController extends Controller
                 [
                     'title' => 'required|string', 
                     // 'title' => 'required|unique:web_captions,title,'.$request->id, 
-                    'local_slug' => 'required|string|regex:/^\S*$/u|unique:web_captions,local_slug,'.$request->id, 
+                    'local_slug' => 'required|string|regex:/^\S*$/u|unique:web_captions,local_slug,'.$request->id.',id,deleted_at,NULL', 
                 ]  ,
                 [   
                     'title.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.title.title') ] ),

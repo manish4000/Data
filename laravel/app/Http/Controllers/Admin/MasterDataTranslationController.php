@@ -125,7 +125,7 @@ class MasterDataTranslationController extends Controller
 
         $validator = Validator::make($request->all(),
             [
-                'value' => 'required|unique:master_data_translations,value,'.$request->id
+                'value' => 'required|unique:master_data_translations,value,'.$request->id.',id,deleted_at,NULL',
             ],
             [
                 'value.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.value.title') ] ),

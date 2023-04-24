@@ -114,9 +114,9 @@ class MenuGroupController extends Controller
         }
 
         $request->validate([
-            'title' => 'required|unique:menu_groups,title,'.$request->id,
+            'title' => 'required|unique:menu_groups,title,'.$request->id.',id,deleted_at,NULL',
             'order'=> 'required|numeric',
-            'slug'=> 'required|regex:/^\S*$/u|unique:menu_groups,slug,'.$request->id,
+            'slug'=> 'required|regex:/^\S*$/u|unique:menu_groups,slug,'.$request->id.',id,deleted_at,NULL',
         ],
         [
             'title.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.title.title') ] ),
@@ -286,10 +286,11 @@ class MenuGroupController extends Controller
             [   
                 'menu_group_id' => 'required',
                 'title' => 'required',
-                'slug' => 'required_if:type,==,menu|nullable|sometimes|unique:menu,slug,'.$request->id,
+                'slug' => 'required_if:type,==,menu|nullable|sometimes|unique:menu,slug,'.$request->id.',id,deleted_at,NULL',
                 'icon' => 'required_if:type,==,menu',
                 'uri' => 'required_if:type,==,menu',
-                'permission_slug' =>'required|regex:/^\S*$/u|unique:menu,permission_slug,'.$request->id,
+
+                'permission_slug' =>'required|regex:/^\S*$/u|unique:menu,permission_slug,'.$request->id.',id,deleted_at,NULL',
                 'type' =>'required|in:permission,menu',
                 'order' => 'nullable|numeric',
             ],
@@ -383,7 +384,7 @@ class MenuGroupController extends Controller
 
     public function updateMenu(Request $request, $id) {
 
-
+        
         // $user = auth()->user();
         // if (!$user->can('update-menu')) {
         //     abort(403);
@@ -399,10 +400,10 @@ class MenuGroupController extends Controller
             'menu_group_id' => 'required',
             'title' => 'required',
             'order' => 'nullable|numeric',
-            'permission_slug' =>'required|regex:/^\S*$/u|unique:menu,permission_slug,'.$request->id,
+            'permission_slug' =>'required|regex:/^\S*$/u|unique:menu,permission_slug,'.$request->id.',id,deleted_at,NULL',
             'type' =>'required|in:permission,menu',
             'uri' => 'required_if:type,==,menu',
-            'slug' => 'required_if:type,==,menu|nullable|sometimes|regex:/^\S*$/u|unique:menu,slug,'.$request->id,
+            'slug' => 'required_if:type,==,menu|nullable|sometimes|regex:/^\S*$/u|unique:menu,slug,'.$request->id.',id,deleted_at,NULL',
             'icon' => 'required_if:type,==,menu',
         ],[
             'menu_group_id.required' => __('webCaption.validation_required.title', ['field'=> "menu Group" ] ),

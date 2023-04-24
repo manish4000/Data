@@ -113,8 +113,8 @@ class SiteLanguageController extends Controller
 
         $validator = Validator::make($request->all(),
                 [
-                    'language_en' => 'required|unique:site_languages,language_en,'.$request->id, 
-                    'language_text' => 'required|unique:site_languages,language_text,'.$request->id, 
+                    'language_en' => 'required|unique:site_languages,language_en,'.$request->id.',id,deleted_at,NULL', 
+                    'language_text' => 'required|unique:site_languages,language_text,'.$request->id.',id,deleted_at,NULL', 
                     'status' => 'required',
                     'alias' =>'required|string|regex:/^\S*$/u',  
                 ],
@@ -219,8 +219,8 @@ class SiteLanguageController extends Controller
         }
 
         $validatedData = $request->validate([
-            'language_en' => 'required|unique:site_languages,language_en,'.$id,
-            'language_text' => 'required|unique:site_languages,language_text,'.$id,
+            'language_en' => 'required|unique:site_languages,language_en,'.$id.',id,deleted_at,NULL',
+            'language_text' => 'required|unique:site_languages,language_text,'.$id.',id,deleted_at,NULL',
             'status' => 'required'
         ]);
   

@@ -165,7 +165,6 @@ class UserController extends Controller
     //     $user = User::with(['roles', 'permissions'])->find($id);
     //     $roles = Role::all();
     //     $permissions = Permission::where('parent_id', 0)->get();
-
     //     // $arrayData = [];
     //     // $permissionData = $this->permissionData($permissions, $arrayData);
     //     // dd($permissionData);
@@ -253,7 +252,7 @@ class UserController extends Controller
         
         $request->validate([
             'name'     => 'required|max:100',
-            'email'    => 'required|email|max:100|unique:users,email,'.$request->id,
+            'email'    => 'required|email|max:100|unique:users,email,'.$request->id.',id,deleted_at,NULL',
             'phone' =>  'required|max:12',
             'country_code' =>  'required',
             'department_id'    => 'required|array',
@@ -576,7 +575,7 @@ class UserController extends Controller
 
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$id
+            'email' => 'required|email|unique:users,email,'.$id.',id,deleted_at,NULL',
         ],[
             'name.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.name.title')  ] ),
             'email.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('email')] ),
@@ -702,7 +701,7 @@ class UserController extends Controller
         if (empty($password)) {
             $validatedData = $request->validate([
                 'name' => 'required',
-                'email' => 'required|email|unique:users,email,'.$user->id
+                'email' => 'required|email|unique:users,email,'.$user->id.',id,deleted_at,NULL',
             ],[
                 'name.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.name.title')  ] ),
                 'email.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('email')] ),

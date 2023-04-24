@@ -271,11 +271,11 @@ class MenuGroupController extends Controller
             [
                 'title' => 'required|string',
                 // 'title' => 'required|string|unique:company_menu_groups_menu,title,'.$request->id.',id,deleted_at,NULL',
-                'slug' => 'required_if:type,==,menu|nullable|sometimes|regex:/^\S*$/u|unique:company_menu_groups_menu,slug,'.$request->id,
+                'slug' => 'required_if:type,==,menu|nullable|sometimes|regex:/^\S*$/u|unique:company_menu_groups_menu,slug,'.$request->id.',id,deleted_at,NULL',
                 'icon' => 'required_if:type,==,menu',
                 'uri' => 'required_if:type,==,menu',
                 'company_menu_group_id' => 'required',
-                'permission_slug' =>'required|regex:/^\S*$/u|unique:company_menu_groups_menu,permission_slug,'.$request->id,
+                'permission_slug' =>'required|regex:/^\S*$/u|unique:company_menu_groups_menu,permission_slug,'.$request->id.',id,deleted_at,NULL',
                 'type' =>'required|in:permission,menu',
                 'order' => 'nullable|numeric',
             ],
