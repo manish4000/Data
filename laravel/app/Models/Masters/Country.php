@@ -2,6 +2,7 @@
 
 namespace App\Models\Masters;
 
+use App\Models\Region;
 use App\Models\RegionModel;
 use App\Traits\MasterDataTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -40,6 +41,6 @@ class Country extends Model
     }
 
     public function regionData() {
-        return $this->belongsTo(RegionModel::class, 'regions_id');
+        return $this->belongsTo(Region::class, 'regions_id');
     }
 }
