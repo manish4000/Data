@@ -66,9 +66,9 @@ class MenuServiceProvider extends ServiceProvider
 
 
         $groups = \App\Models\MenuGroup::with(['menu' => function($q) {
-                   $q->where('parent_id', 0 )->where('type','menu')->orderBy('order');
+                   $q->where('parent_id', 0 )->where('type','menu')->orderBy('order','ASC');
                   }])->orderBy('order')->get();
-
+       
 
 
         // $groups = \App\Models\MenuGroup::with(['menu' => function($q) {
@@ -77,7 +77,7 @@ class MenuServiceProvider extends ServiceProvider
 
         
         $companyMenu = \App\Models\Company\CompanyMenuGroup::with(['menu' => function($q){
-                      $q->where('parent_id' ,0)->where('type','menu')->orderBy('order');
+                      $q->where('parent_id' ,0)->where('type','menu')->orderBy('order','ASC');
                       }])->orderBy('order')->get();
         
 
