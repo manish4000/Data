@@ -14,12 +14,12 @@
         <div class="card-body">
           <form method="GET" action="{{route('masters.vehicle.type.index')}}">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-6 col-lg-3 col-xl-4">
                     <div class="form-group">
                         <x-admin.form.inputs.text id="searchKeyword" for="{{__('webCaption.keyword.title')}}" label="{{__('webCaption.keyword.title')}}" tooltip="{{__('webCaption.keyword.caption')}}"  class="form-control" name="search[keyword]"  placeholder="{{__('webCaption.keyword.title')}}" value="{{ request()->input('search.keyword') }}"  required="" />
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-7 col-md-3">
                     <div class="form-group">
                         <x-admin.form.label for="" value="{{__('webCaption.display_status.title')}}" class="" tooltip="{{__('webCaption.display_status.caption')}}" />
                         <div>
@@ -32,10 +32,10 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-3">
+                </div> 
+                <div class="col-5 col-sm-3 col-md-3 col-lg-2 col-xl-2">
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-12 col-md-10">
                             <div class="form-group">
                                 <x-admin.form.label for=""  value="{{__('webCaption.parent_only.title')}}" class="" tooltip="{{__('webCaption.parent_only.caption')}}" />
 
@@ -46,7 +46,7 @@
                         
                     </div> 
                 </div>
-                <div class="col-md-3 ">
+                <div class="col-12 col-sm-5 col-md-5 col-lg-4 col-xl-3 pt-1">
                     <x-admin.form.buttons.search />
                     <x-admin.form.buttons.reset href="{{route('masters.vehicle.type.index')}}" />
                 </div>
@@ -74,22 +74,38 @@
                                 <x-admin.form.buttons.multipleDelete url="{{route('masters.vehicle.type.delete-multiple')}}" />
                             </div>
                         @endcan
+
+                        @php
+                        $heading_array = [
+                                                [
+                                                    'title' => 'id',
+                                                    'orderby' => 'id'
+                                                ] , 
+                                                [
+                                                    'title' => 'name',
+                                                    'orderby' => 'name'
+                                                ] , 
+                                                [
+                                                    'title' => 'no_of_children',
+                                                    'orderby' => 'children_count'
+                                                ] , 
+                                                [
+                                                    'title' => 'display_status',
+                                                    'orderby' => 'display'
+                                                ] , 
+                                                [
+                                                    'title' => 'actions',
+                                                    'orderby' => null
+                                                ]  
+                                         ];
+                        @endphp
+
+                        <x-admin.table.table-heading :headingFields="$heading_array"/>
+
+
+
                         <table class="table" id="master-list">
-                            <thead>
-                                <tr>
-                                        <th> <x-admin.form.inputs.multiple_select_checkbox id="checkAll"   value="1"  customClass=""  /> </th>
-                                        <th class="position-for-filter-heading"># <x-admin.filter.order-by-filter-div orderBy="id" />
-                                        </th>                                                
-                                        <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.type.caption')}}"> {{__('webCaption.type.title')}}<x-admin.filter.order-by-filter-div orderBy="name" />
-                                        </th>
-                                        <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.no_of_children.caption')}}" >{{__('webCaption.no_of_children.title')}}<x-admin.filter.order-by-filter-div orderBy="children_count" />
-                                        </th>
-                                        <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.display_status.caption')}}"  >
-                                            {{__('webCaption.display_status.title')}} <x-admin.filter.order-by-filter-div orderBy="display" />
-                                        </th>
-                                        <th data-toggle="tooltip" title="{{__('webCaption.actions.caption')}}" >{{__('webCaption.actions.title')}}</th>
-                                </tr>
-                            </thead>
+
                             <tbody>
                                 @foreach($data as $item)
                                     @include('content.admin.masters.vechiles.types.item-tr', ['item'=>$item])    
@@ -102,6 +118,7 @@
                                             
                             </tbody>                            
                         </table>
+                        
                         <div class="mt-2">
                             {{ $data->onEachSide(2)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
                         </div>
@@ -131,10 +148,6 @@
 
 @section('page-script')
 
-
-{{-- include these files for change display status  functionality --}}
-
-<script src="{{ asset('assets/js/gabs/master.js') }}"></script>
 {{--  --}}
 <script type="text/javascript">
 $('.load-child-records').click( function(event){

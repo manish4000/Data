@@ -11,13 +11,13 @@
 				<div class="card-body">
 					<form method="GET" action="{{route('users.index')}}">
 						<div class="row">
-							<div class="col-md-3">
+							<div class="col-md-7 col-lg-8 col-xl-6">
 								<div class="form-group">
 									<x-admin.form.inputs.text id="searchKeyword" label="{{__('webCaption.keyword.title')}}" tooltip="{{__('webCaption.keyword.caption')}}" for="{{__('webCaption.keyword.title')}}"  class="form-control" name="search[keyword]"  placeholder="{{__('webCaption.keyword.title')}}" value="{{ request()->input('search.keyword') }}"  required="" />
 								</div>
 							</div>
 
-							<div class="col-md-3">
+							<div class="col-md-5 col-lg-4 col-xl-3">
 								<div class="form-group">
 									<x-admin.form.label for="" value="{{__('webCaption.status.title')}}" class="" tooltip="{{__('webCaption.status.caption')}}" />
 									<div>
@@ -32,7 +32,7 @@
 								</div>
 							</div>
 
-							<div class="col-md-6 text-md-center">
+							<div class="col-md-5 col-lg-4 col-xl-3 mt-2">
 								<x-admin.form.buttons.search />
 								<x-admin.form.buttons.reset href="{{route('users.index')}}" />
 							</div>
@@ -44,15 +44,15 @@
 				<div class="card-body">
 					@if(count($users) > 0) 
 						<div class="table-responsive">
-							<div class="mt-2">
+							<div class="mt-2 mb-1">
 								{{ $users->onEachSide(2)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
 							</div>
 
 							@can('settings-users-delete')
-								<div class="px-2 my-2">
+								<!-- <div class="px-2 my-2">
 									{{-- deleteMultiple() for delete multiple data pass url here  --}}
 									<x-admin.form.buttons.multipleDelete url="{{route('users.delete-multiple')}}" />
-								</div>
+								</div> -->
                         	@endcan
 							<table class="table">
 								<thead>

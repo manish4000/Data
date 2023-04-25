@@ -11,14 +11,14 @@
 				</div>
 				<div class="card-body">
 					<form method="GET" action="{{route('menu-groups.index')}}" id="myform" name="form">
-						<div class="row pt-0 pb-2">
-							<div class="col-md-3">
+						<div class="row pt-0 pb-0">
+							<div class="col-md-7 col-lg-8 col-xl-9">
 								<div class="form-group">		
 									<x-admin.form.inputs.text id="searchKeyword" label="{{__('webCaption.keyword.title')}}" tooltip="{{__('webCaption.keyword.caption')}}"  class="form-control" name="search[keyword]"  placeholder="{{__('webCaption.keyword.title')}}" value="{{ request()->input('search.keyword') }}"  required="" />
 								</div>
 							</div>
 							
-							<div class="col-md-6 offset-md-3 text-md-center">
+							<div class="col-md-5 col-lg-4 col-xl-3">
 								<x-admin.form.buttons.search />
 								<x-admin.form.buttons.reset href="{{route('menu-groups.index')}}" />
 							</div>
@@ -31,14 +31,14 @@
 				<div class="card-body">
 					@if(count($groups) > 0) 
 					<div class="table-responsive"> 
-						<div class="mt-2">
+						<div class="mt-2 mb-1">
 							{{ $groups->onEachSide(2)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
 						</div>
 						@can('settings-menu-group-delete')
-								<div class="px-2 my-2">
+								<!-- <div class="px-2 my-2">
 									{{-- deleteMultiple() for delete multiple data pass url here  --}}
 									<x-admin.form.buttons.multipleDelete url="{{route('menu-groups.delete-multiple')}}" />
-								</div>
+								</div> -->
 						@endcan
 						<table class="table">
 							<thead>

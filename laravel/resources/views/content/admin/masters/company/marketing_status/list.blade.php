@@ -65,14 +65,14 @@
             @can('masters-company-marketing-status') 
                 @if(count($data) > 0 )
                     <div class="table-responsive">
-                        <div class="mt-2">
+                        <div class="mt-2 mb-1">
                             {{ $data->onEachSide(2)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
                         </div>
                         @can('masters-company-marketing-status-delete')
-                            <div class="px-2 my-2">
+                            <!-- <div class="px-2 my-2">
                                 {{-- deleteMultiple() for delete multiple data pass url here  --}}
                                 <x-admin.form.buttons.multipleDelete url="{{route('masters.company.marketing-status.delete-multiple')}}" />
-                            </div>
+                            </div> -->
                         @endcan
                         <table class="table" id="master-list">
                             <thead>

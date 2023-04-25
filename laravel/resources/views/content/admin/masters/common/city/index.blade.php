@@ -15,19 +15,19 @@
                 <div class="card-body">
                     <form method="GET" action="{{route('common.city.index')}}">
 
-                        <div class=" row pt-0 pb-2">
-                            <div class="col-md-3">
+                        <div class=" row pt-0 pb-0">
+                            <div class="col-md-4 col-lg-4 col-xl-5">
                                 <div class="form-group">
                                     <x-admin.form.inputs.text id="searchKeyword" for="{{__('webCaption.keyword.title')}}" label="{{__('webCaption.keyword.title')}}" tooltip="{{__('webCaption.keyword.caption')}}"  class="form-control" name="search[keyword]"  placeholder="{{__('webCaption.keyword.title')}}" value="{{ request()->input('search.keyword') }}"  required="" />
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-3 col-lg-4 col-xl-4">
                                 <div class="form-group">
                                     <x-admin.form.inputs.select tooltip="{{__('webCaption.state.caption')}}" label="{{__('webCaption.state.title')}}" id="search[state]"  for="search[state]" name="search[state]" value="" editSelected="{{request()->input('search.state')}}" required="" :optionData="$states" />
                                 </div>
                             </div>
 
-                            <div class="col-md-6 mt-2 text-center">
+                            <div class="col-md-5 col-lg-4 col-xl-3 mt-2">
                                 <x-admin.form.buttons.search /> 
                                 <x-admin.form.buttons.reset href="{{route('common.state.index')}}" />
                             </div>
@@ -54,14 +54,15 @@
                                     unset( $request_params['perPage'] );
                                     @endphp
 
-                                <div class="mb-1 mx-3">        
-                                    {{ $data->onEachSide(2)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}   
+                                <div class="mb-1 mx-0 mt-2">        
+                                 
+                                    {{ $data->onEachSide(1)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}   
                                 </div>
                                 @can('main-navigation-common-city-delete')
-                                    <div class="px-2 my-2">
+                                    <!-- <div class="px-2 my-2">
                                         {{-- deleteMultiple() for delete multiple data pass url here  --}}
                                         <x-admin.form.buttons.multipleDelete url="{{route('common.city.delete-multiple')}}" />
-                                    </div>
+                                    </div> -->
                                 @endcan
 
                             <table class="table" id="master-list">
