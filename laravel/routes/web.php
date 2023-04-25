@@ -366,17 +366,17 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
 
             //routes of make module 
 
-            Route::group(['prefix' => 'make' , 'as' => 'make.'],function(){
-                Route::get('/', [MakeController::class, 'index'])->name('index'); 
-                Route::post('/store', [MakeController::class, 'store'])->name('store');
-                Route::post('/update-status', [MakeController::class, 'updateStatus'])->name('update-status');      
-                Route::post('/delete', [MakeController::class, 'destroy'])->name('delete');
-                Route::get('/edit/{id}', [MakeController::class, 'edit'])->name('edit');
-                Route::get('/add', [MakeController::class, 'add'])->name('add');
-                Route::get('/create', [MakeController::class, 'create'])->name('create');
-                Route::post('/getChildList', [MakeController::class,'getChildList']);
-                Route::post('/delete-multiple', [MakeController::class,'deleteMultiple'])->name('delete-multiple');
-            });
+            // Route::group(['prefix' => 'make' , 'as' => 'make.'],function(){
+            //     Route::get('/', [MakeController::class, 'index'])->name('index'); 
+            //     Route::post('/store', [MakeController::class, 'store'])->name('store');
+            //     Route::post('/update-status', [MakeController::class, 'updateStatus'])->name('update-status');      
+            //     Route::post('/delete', [MakeController::class, 'destroy'])->name('delete');
+            //     Route::get('/edit/{id}', [MakeController::class, 'edit'])->name('edit');
+            //     Route::get('/add', [MakeController::class, 'add'])->name('add');
+            //     Route::get('/create', [MakeController::class, 'create'])->name('create');
+            //     Route::post('/getChildList', [MakeController::class,'getChildList']);
+            //     Route::post('/delete-multiple', [MakeController::class,'deleteMultiple'])->name('delete-multiple');
+            // });
 
             Route::group(['prefix' => 'fuel' , 'as' => 'fuel.'],function(){
                 Route::get('/', [FuelController::class, 'index'])->name('index'); 
@@ -414,17 +414,17 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
                 Route::post('/delete-multiple', [AccessoriesController::class,'deleteMultiple'])->name('delete-multiple');
             });
 
-            Route::group(['prefix' => 'relation' , 'as' => 'relation.'],function(){
-                Route::get('/', [RelationController::class, 'index'])->name('index'); 
-                Route::post('/store', [RelationController::class, 'store'])->name('store');
-                Route::post('/update-status', [RelationController::class, 'updateStatus'])->name('update-status');      
-                Route::post('/delete', [RelationController::class, 'destroy'])->name('delete');
-                Route::get('/edit/{id}', [RelationController::class, 'edit'])->name('edit');
-                Route::get('/add', [RelationController::class, 'add'])->name('add');
-                Route::get('/create', [RelationController::class, 'create'])->name('create');
-                Route::post('/getChildList', [RelationController::class,'getChildList']);
-                Route::post('/delete-multiple', [RelationController::class,'deleteMultiple'])->name('delete-multiple');
-            });
+            // Route::group(['prefix' => 'relation' , 'as' => 'relation.'],function(){
+            //     Route::get('/', [RelationController::class, 'index'])->name('index'); 
+            //     Route::post('/store', [RelationController::class, 'store'])->name('store');
+            //     Route::post('/update-status', [RelationController::class, 'updateStatus'])->name('update-status');      
+            //     Route::post('/delete', [RelationController::class, 'destroy'])->name('delete');
+            //     Route::get('/edit/{id}', [RelationController::class, 'edit'])->name('edit');
+            //     Route::get('/add', [RelationController::class, 'add'])->name('add');
+            //     Route::get('/create', [RelationController::class, 'create'])->name('create');
+            //     Route::post('/getChildList', [RelationController::class,'getChildList']);
+            //     Route::post('/delete-multiple', [RelationController::class,'deleteMultiple'])->name('delete-multiple');
+            // });
 
             Route::group(['prefix' => 'color' , 'as' => 'color.'],function(){
                 Route::get('/', [ColorController::class, 'index'])->name('index'); 
