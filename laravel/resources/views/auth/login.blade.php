@@ -160,6 +160,3 @@
 
 <script src='https://www.google.com/recaptcha/api.js'></script>
 @endsection
-@push('script')
-<script src="{{ asset('assets/js/gabs/master.js') }}"></script>
-@endpush
