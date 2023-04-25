@@ -92,7 +92,7 @@ class ModelCodeController extends Controller
 
         $perPage =  (isset($request->perPage) && !empty($request->perPage)) ? $request->perPage : 100;
         $data = $data->paginate($perPage);
-        $allmodel = VehicleModel::select('id as value','name')where('parent_id','0')->orderBy('name')->get();
+        $allmodel = VehicleModel::select('id as value','name')->where('parent_id','0')->orderBy('name')->get();
 
         
         return view('content.admin.masters.vechiles.model_code.list', ['allmodel' => $allmodel,'pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs, 'data'=>$data,'perPage' => $perPage]);
@@ -107,7 +107,7 @@ class ModelCodeController extends Controller
             abort(403);
         }
         $parent_data = ModelCode::select('id as value', 'name', 'parent_id', 'display')->orderBy('name', 'ASC')->where('parent_id', '0')->get();
-        $allmodel = VehicleModel::select('id as value','name')where('parent_id','0')->orderBy('name')->get();
+        $allmodel = VehicleModel::select('id as value','name')->where('parent_id','0')->orderBy('name')->get();
         $data = array();
         $breadcrumbs[0] = [
             'link' => $this->baseUrl,

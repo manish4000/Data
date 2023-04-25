@@ -92,7 +92,7 @@ class SubTypeController extends Controller
         $perPage =  (isset($request->perPage) && !empty($request->perPage)) ? $request->perPage : 100;
         $data = $data->paginate($perPage);
 
-        $alltypes = Type::select('id as value','name')->orderBy('name')->get();
+        $alltypes = Type::select('id as value','name')->where('parent_id','0')->orderBy('name')->get();
         
         return view('content.admin.masters.vechiles.subtype.list', ['alltypes' => $alltypes,'pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs, 'data'=>$data,'perPage' => $perPage]);
     }
@@ -106,7 +106,7 @@ class SubTypeController extends Controller
             abort(403);
         }
         $parent_data = SubType::select('id as value', 'name', 'parent_id', 'display')->orderBy('name', 'ASC')->where('parent_id', '0')->get();
-        $alltypes = Type::select('id as value','name')->orderBy('name')->get();
+        $alltypes = Type::select('id as value','name')->where('parent_id','0')->orderBy('name')->get();
         $data = array();
         $breadcrumbs[0] = [
             'link' => $this->baseUrl,
@@ -203,7 +203,7 @@ class SubTypeController extends Controller
 
         //send id as value because dynamic select work with  id as value  name as name  
         $parent_data = SubType::select('id as value', 'name', 'parent_id', 'display')->orderBy('name', 'ASC')->where('parent_id', '0')->get();
-        $alltypes = Type::select('id as value','name')->orderBy('name')->get();
+        $alltypes = Type::select('id as value','name')->where('parent_id','0')->orderBy('name')->get();
 
         return view('content.admin.masters.vechiles.subtype.create-form',['alltypes' => $alltypes,'data' => $data,'breadcrumbs' =>$breadcrumbs ,'activeSiteLanguages' => $activeSiteLanguages ,'parent_data' => $parent_data ,'menuUrl' =>$this->menuUrl]);
    
