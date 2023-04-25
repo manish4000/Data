@@ -16,10 +16,11 @@ use App\Models\Dash\CompanyUsers;
 use App\Models\Masters\Company\Association;
 use App\Models\Masters\Company\BusinessType;
 use App\Models\Masters\Company\Company;
-
+use App\Models\Masters\Company\DealIns;
+use App\Models\Masters\Company\MarketingStatus;
 use App\Models\Masters\Country;
 use App\Models\Masters\Vehicles\Type;
-use App\Models\RegionModel;
+use App\Models\Region;
 use App\Models\SiteLanguage;
 use App\Models\StateModel;
 use Illuminate\Contracts\Routing\UrlGenerator;
@@ -184,9 +185,23 @@ class CompanyController extends Controller
 
 
     }
-}
+    }
 
 
+    public  function checkUuidExist(Request $request){
+
+
+        if(CompanyGabsModel::select("*")->where("gabs_uuid",$request->uuid)->exists()){
+
+            $result['status']     = true;
+            $result['message']    = 'Value Exist'; 
+            return response()->json(['result' => $result]);
+        }else{
+            $result['status']     = false;
+            $result['message']    = 'Value not Exist'; 
+            return response()->json(['result' => $result]);
+        }
+    }
 
 
 
@@ -288,9 +303,11 @@ class CompanyController extends Controller
         $status = json_decode(json_encode($this->status));
 
         $permissions = CompanyMenuGroupMenu::where('parent_id', 0)->get();
-        $regions = RegionModel::select('id as value','name')->get(); 
-        // $association =   Association::select('id as value','name')->get();  
-
+        $regions = Region::select('id as value','name')->get(); 
+        $association =   Association::select('id as value','name')->get();  
+        $deals_in = DealIns::select('id as value','name')->get();
+        $marketing_status = MarketingStatus::select('id as value','name')->get();    
+        
         // $siteLang =  SiteLanguage::where('alias',app()->getLocale())->first();
         // $defaultLang = SiteLanguage::where('alias',app()->getLocale())->value('id');    
         //return self::select(DB:raw('sum("json_extract('json_details', '$.salary')") ('title_languages->'.$siteLang->id.'->title as name')
@@ -308,7 +325,7 @@ class CompanyController extends Controller
         // }
         $country_phone_code =  Country::select('phone_code as value' ,'country_code' ,DB::raw("CONCAT(country_code,' (',phone_code ,')' ) AS name"))->where('phone_code','!=' ,null)->where('country_code','!=' ,null)->get();
 
-        return view("content.admin.company.new_create",[ 'country_phone_code' => $country_phone_code,'plans' => $plans,'pageConfigs' => $pageConfigs ,'permissions' => $permissions,'country' => $country ,'breadcrumbs' => $breadcrumbs,'regions' => $regions , 'status' =>$status,'BusinessTypes' => $BusinessTypes ]);
+        return view("content.admin.company.new_create",[ 'country_phone_code' => $country_phone_code,'marketing_status' => $marketing_status,'association' => $association,'plans' => $plans,'pageConfigs' => $pageConfigs,'deals_in' => $deals_in,'permissions' => $permissions,'country' => $country ,'breadcrumbs' => $breadcrumbs,'regions' => $regions , 'status' =>$status,'BusinessTypes' => $BusinessTypes ]);
     }
 
     /**
@@ -318,8 +335,9 @@ class CompanyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
-       
+    {       
+     
+
         if($request->id){
             if (!Auth::user()->can('main-navigation-company-edit')) {
                 abort(403);
@@ -336,9 +354,9 @@ class CompanyController extends Controller
          
         $request->validate(
             [
-            'company_name' => 'required|max:255|unique:companies_gabs,company_name,'.$request->id, 
-            'gabs_uuid' => 'required||max:6|unique:companies_gabs,gabs_uuid,'.$request->id, 
-            'email' => 'required|max:45|unique:companies_gabs,email,'.$request->id, 
+            'company_name' => 'required|max:255|unique:companies_gabs,company_name,'.$request->id.',id,deleted_at,NULL', 
+            'gabs_uuid' => 'required||max:6|unique:companies_gabs,gabs_uuid,'.$request->id.',id,deleted_at,NULL',
+            'email' => 'required|max:45|unique:companies_gabs,email,'.$request->id.',id,deleted_at,NULL',
             'password' => 'required|min:5',
             'status' => 'required|string',
             'address' => 'nullable|string',
@@ -352,16 +370,23 @@ class CompanyController extends Controller
             'skype_id'=> 'nullable|string|max:25',
             'website'=> 'nullable|string|max:20',
             'logo'=> 'nullable|image|mimes:jpeg,png,jpg,gif|max:6120',
-            'document.*'=> 'nullable|mimes:jpeg,png,jpg,gif,pdf|max:6120',
+            // 'document.*'=> 'nullable|mimes:jpeg,png,jpg,gif,pdf|max:6120',
             'plan_id' => 'nullable|numeric',
             'business_type_id.*' => 'nullable|numeric',
+            'marketing_status' => 'nullable|numeric',
             'association_member_id.*' => 'nullable|numeric',
+            'deals_in.*' => 'nullable|numeric',
             'permit_no' => "nullable|string|max:250",
             'admin_comment' => 'nullable|string|max:250',
-            'contact_name.*' => 'nullable|string|max:100',
-            'contact_email.*' => 'nullable|email|max:50',
-            'contact_designation.*' => 'nullable|string|max:50',
-            'contact_phone.*' => 'nullable|string|max:20',
+            'contact_1_name' => 'nullable|string|max:100',
+            'contact_1_email' => 'nullable|email|max:50',
+            'contact_1_designation.*' => 'nullable|string|max:50',
+            'contact_1_phone' => 'nullable|string|max:20',
+
+            'contact_2_name' => 'nullable|string|max:100',
+            'contact_2_email' => 'nullable|email|max:50',
+            'contact_2_designation.*' => 'nullable|string|max:50',
+            'contact_2_phone' => 'nullable|string|max:20',
             'facebook' => 'nullable|url|max:100',
             'instagram' => 'nullable|url|max:100',
             'youtube' => 'nullable|url|max:100',
@@ -421,7 +446,10 @@ class CompanyController extends Controller
 
                 'business_type_id.*.numeric' => __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.business_type.title') ] ),
 
+                'marketing_status.numeric' => __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.marketing_status.title') ] ),
+
                 'association_member_id.*.numeric' => __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.association_member.title')] ),
+                'deals_in.*.numeric' => __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.deals_in.title')] ),
 
                 'permit_no.string'=> __('webCaption.validation_string.title', ['field'=> __('webCaption.permit_number.title') ] ),
                 'permit_no.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.permit_number.title') , "max" => "250"] ),
@@ -429,15 +457,26 @@ class CompanyController extends Controller
                 'admin_comment.string'=> __('webCaption.validation_string.title', ['field'=> __('webCaption.admin_comment.title')] ),
                 'admin_comment.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.admin_comment.title') ,"max" => "250"] ),
 
-                'contact_phone.*.max' => __('webCaption.validation_max.title', ['field'=> __('webCaption.phone.title') ,"max" => "20"] ),
-                'contact_email.*.max' => __('webCaption.validation_max.title', ['field'=> __('webCaption.email.title') ,"max" => "50"] ),
-                'contact_designation.*.max' => __('webCaption.validation_max.title', ['field'=> __('webCaption.designation.title') ,"max" => "50"] ),
-                'contact_name.*.max' => __('webCaption.validation_max.title', ['field'=> __('webCaption.name.title') ,"max" => "100"] ),
+                'contact_1_phone.max' => __('webCaption.validation_max.title', ['field'=> __('webCaption.phone.title') ,"max" => "20"] ),
+                'contact_1_email.max' => __('webCaption.validation_max.title', ['field'=> __('webCaption.email.title') ,"max" => "50"] ),
+                'contact_1_designation.max' => __('webCaption.validation_max.title', ['field'=> __('webCaption.designation.title') ,"max" => "50"] ),
+                'contact_1_name.max' => __('webCaption.validation_max.title', ['field'=> __('webCaption.name.title') ,"max" => "100"] ),
 
-                'contact_phone.*.string' => __('webCaption.validation_max.title', ['field'=> __('webCaption.phone.title')] ),
-                'contact_email.*.string' => __('webCaption.validation_max.title', ['field'=> __('webCaption.email.title')] ),
-                'contact_designation.*.string' => __('webCaption.validation_max.title', ['field'=> __('webCaption.designation.title')] ),
-                'contact_name.*.string' => __('webCaption.validation_max.title', ['field'=> __('webCaption.name.title') ] ),
+                'contact_2_phone.max' => __('webCaption.validation_max.title', ['field'=> __('webCaption.phone.title') ,"max" => "20"] ),
+                'contact_2_email.max' => __('webCaption.validation_max.title', ['field'=> __('webCaption.email.title') ,"max" => "50"] ),
+                'contact_2_designation.max' => __('webCaption.validation_max.title', ['field'=> __('webCaption.designation.title') ,"max" => "50"] ),
+                'contact_2_name.max' => __('webCaption.validation_max.title', ['field'=> __('webCaption.name.title') ,"max" => "100"] ),
+
+
+                'contact_1_phone.string' => __('webCaption.validation_max.title', ['field'=> __('webCaption.phone.title')] ),
+                'contact_1_email.string' => __('webCaption.validation_max.title', ['field'=> __('webCaption.email.title')] ),
+                'contact_1_designation.string' => __('webCaption.validation_max.title', ['field'=> __('webCaption.designation.title')] ),
+                'contact_1_name.string' => __('webCaption.validation_max.title', ['field'=> __('webCaption.name.title') ] ),
+
+                'contact_2_phone.string' => __('webCaption.validation_max.title', ['field'=> __('webCaption.phone.title')] ),
+                'contact_2_email.string' => __('webCaption.validation_max.title', ['field'=> __('webCaption.email.title')] ),
+                'contact_2_designation.string' => __('webCaption.validation_max.title', ['field'=> __('webCaption.designation.title')] ),
+                'contact_2_name.string' => __('webCaption.validation_max.title', ['field'=> __('webCaption.name.title') ] ),
 
 
                 'facebook.url' => __('webCaption.validation_max.title', ['field'=> __('webCaption.facebook.title')] ),
@@ -472,11 +511,17 @@ class CompanyController extends Controller
             }  
             
 
-            // if($request->has('association_member_id')) {
-            //     if(is_array($request->association_member_id) && count($request->association_member_id) > 0){
-            //         $association_member_id   = json_encode($request->association_member_id);
-            //     }
-            // }
+            if($request->has('association_member_id')) {
+                if(is_array($request->association_member_id) && count($request->association_member_id) > 0){
+                    $association_member_id   = json_encode($request->association_member_id);
+                }
+            }
+
+            if($request->has('deals_in')) {
+                if(is_array($request->deals_in) && count($request->deals_in) > 0){
+                    $deals_in   = json_encode($request->deals_in);
+                }
+            }
             
 
               $company_gabs_model->company_name = $request->company_name;  
@@ -488,7 +533,7 @@ class CompanyController extends Controller
               $company_gabs_model->password =  Hash::make($request->password);  
               $company_gabs_model->gabs_uuid = $request->gabs_uuid;  
               $company_gabs_model->email = $request->email;  
-             
+              $company_gabs_model->marketing_status = $request->marketing_status;  
               $company_gabs_model->status = $request->status;  
               $company_gabs_model->address = $request->address;  
               $company_gabs_model->city_id = $request->city_id;  
@@ -502,8 +547,27 @@ class CompanyController extends Controller
               $company_gabs_model->skype_id = $request->skype_id;  
               $company_gabs_model->website = $request->website;  
               $company_gabs_model->plan_id = $request->plan_id;  
-            //   $company_gabs_model->association_member_id =  (isset($association_member_id)) ? $association_member_id : null; 
+              $company_gabs_model->association_member_id =  (isset($association_member_id)) ? $association_member_id : null; 
+              $company_gabs_model->deals_in =  (isset($deals_in)) ? $deals_in : null; 
               $company_gabs_model->permit_no = $request->permit_no;  
+
+              $company_gabs_model->contact_1_name = $request->contact_1_name;  
+              $company_gabs_model->contact_1_email = $request->contact_1_email;  
+              $company_gabs_model->contact_1_phone = $request->contact_1_phone;  
+              $company_gabs_model->contact_1_designation = $request->contact_1_designation;  
+              $company_gabs_model->contact_1_line = isset($request->contact_1_line) ? $request->contact_1_line :'0' ;  
+              $company_gabs_model->contact_1_viber = isset($request->contact_1_viber) ? $request->contact_1_viber : '0' ;  
+              $company_gabs_model->contact_1_whatsapp = isset($request->contact_1_whatsapp) ? $request->contact_1_whatsapp : '0';  
+
+              $company_gabs_model->contact_2_name = $request->contact_2_name;  
+              $company_gabs_model->contact_2_email = $request->contact_2_email;  
+              $company_gabs_model->contact_2_phone = $request->contact_2_phone;  
+              $company_gabs_model->contact_2_designation = $request->contact_2_designation;  
+             
+              $company_gabs_model->contact_2_line = isset($request->contact_2_line) ? $request->contact_2_line :'0' ;  
+              $company_gabs_model->contact_2_viber = isset($request->contact_2_viber) ? $request->contact_2_viber : '0' ;  
+              $company_gabs_model->contact_2_whatsapp = isset($request->contact_2_whatsapp) ? $request->contact_2_whatsapp : '0'; 
+
               $company_gabs_model->admin_comment = $request->admin_comment;  
               $company_gabs_model->facebook = $request->facebook;  
               $company_gabs_model->instagram = $request->instagram;  
@@ -570,7 +634,7 @@ class CompanyController extends Controller
                         'status' => $status,
                         'created_at'=> \Carbon\Carbon::now()->toDateTimeString(),
                         'updated_at'=> \Carbon\Carbon::now()->toDateTimeString(),
-                        ];
+                    ];
                         $company_user_id =  $company_users_model->insertGetId($company_user_data);
 
                         $company_user_add_permission  = CompanyUsers::find($company_user_id);
@@ -583,51 +647,57 @@ class CompanyController extends Controller
 
                 // if(($request->contact_name[0] != '') || ($request->contact_name[0] != null)  ){
 
-                    $loop_time = count($request->contact_name);
+                    // $loop_time = count($request->contact_name);
 
-                    $company_contact_person_model =   new  CompanyContactPersonDetails();
+                    // $company_contact_person_model =   new  CompanyContactPersonDetails();
 
-                    for($i=0; $i < 2; $i++){
+                    // for($i=0; $i < 2; $i++){
 
-                        $conatct_data = [
-                            'company_id' => $company_gabs_model->id,
-                            'name' =>  isset($request->contact_name[$i]) ? $request->contact_name[$i] : null,
-                            'email' => isset($request->contact_email[$i])? $request->contact_email[$i]: null,
-                            'designation' => isset($request->designation[$i])? $request->designation[$i] : null,
-                            'phone' => isset($request->contact_phone[$i])? $request->contact_phone[$i] : null,
-                            'viber' => isset($request->contact_viber[$i]) ? 1 : 0,
-                            'line' => isset($request->contact_line[$i]) ?  1: 0,
-                            'whatsapp' => isset($request->contact_whatsapp[$i]) ? 1 : 0,
-                        ];
+                    //     $conatct_data = [
+                    //         'company_id' => $company_gabs_model->id,
+                    //         'name' =>  isset($request->contact_name[$i]) ? $request->contact_name[$i] : null,
+                    //         'email' => isset($request->contact_email[$i])? $request->contact_email[$i]: null,
+                    //         'designation' => isset($request->designation[$i])? $request->designation[$i] : null,
+                    //         'phone' => isset($request->contact_phone[$i])? $request->contact_phone[$i] : null,
+                    //         'viber' => isset($request->contact_viber[$i]) ? 1 : 0,
+                    //         'line' => isset($request->contact_line[$i]) ?  1: 0,
+                    //         'whatsapp' => isset($request->contact_whatsapp[$i]) ? 1 : 0,
+                    //     ];
 
-                        $company_contact_person_model->insert($conatct_data);  
+                    //     $company_contact_person_model->insert($conatct_data);  
 
-                        $conatct_data = [];
-                    }
+                    //     $conatct_data = [];
+                    // }
                 // }
 
                 //this is for upload multiple files  
 
                 if($request->has('document')){
 
+                    $company_document_model =   new CompanyDocument;
+
                     foreach($request->document as $key => $document){
                         
                         $doc = time().rand(1,9999).'_document.'.$document->extension();  
                         $document->move(public_path('company_data').'/'.$folder.'/document' , $doc);
-                        $document_file[$key]['company_id'] = $company_gabs_model->id;
-                        $document_file[$key]['name'] = $doc;
-                        $document_file[$key]['created_at'] = \Carbon\Carbon::now()->toDateTimeString();
-                        $document_file[$key]['updated_at'] = \Carbon\Carbon::now()->toDateTimeString();
-         
+                        $document_file['company_id'] = $company_gabs_model->id;
+                        $document_file['name'] = $doc;
+                        $document_file['order_by'] = $key;
+                        $document_file['document_name'] = isset($request->document_name[$key]) ? $request->document_name[$key] :null ;
+                        $document_file['created_at'] = \Carbon\Carbon::now()->toDateTimeString();
+                        $document_file['updated_at'] = \Carbon\Carbon::now()->toDateTimeString();
+
+                        $company_document_model->insert($document_file);
+
+                        $document_file = [];
                     }
 
-                    $company_document_model =   new CompanyDocument;
-                    $company_document_model->insert($document_file);
+                  
 
                 }
 
 
-                    $message = (isset($request->id)) ? $request->name." ".__('webCaption.alert_updated_successfully.title') : $request->name." ".__('webCaption.alert_added_successfully.title') ;
+                    $message = (isset($request->id)) ? __('webCaption.alert_updated_successfully.title') : __('webCaption.alert_added_successfully.title') ;
                     return redirect($this->baseUrl)->with(['success_message' => $message ]);
                }
                else
@@ -801,7 +871,7 @@ class CompanyController extends Controller
         $status = json_decode(json_encode($this->status));
 
        
-        $data = CompanyGabsModel::with(['contcatPersonDetails','documents'])->find($id);
+        $data = CompanyGabsModel::with(['documents'])->find($id);
      
         $telephone  = (isset($data->telephone) && ($data->telephone != '') && ($data->telephone != null) ) ? explode('_',$data->telephone) : null;
         $data->telephone = ($telephone != null) ? $telephone[1] : null;
@@ -812,16 +882,20 @@ class CompanyController extends Controller
         
         $plans = CompanyPlanModel::select('id as value','title as name')->get();
         $data->business_type_id  = json_decode($data->business_type_id);
+        $data->association_member_id  = json_decode($data->association_member_id);
+        $data->deals_in  = json_decode($data->deals_in);
 
         $permissions = CompanyMenuGroupMenu::where('parent_id', 0)->get();
-        $regions = RegionModel::select('id as value','name')->get(); 
-        // $association =   Association::select('id as value','name')->get();  
-        
+        $regions = Region::select('id as value','name')->get(); 
+        $association =   Association::select('id as value','name')->get();  
+        $deals_in = DealIns::select('id as value','name')->get();
+        $marketing_status = MarketingStatus::select('id as value','name')->get();    
         
        
         $country_phone_code =  Country::select('phone_code as value' ,'country_code' ,DB::raw("CONCAT(country_code,' (',phone_code ,')' ) AS name"))->where('phone_code','!=' ,null)->where('country_code','!=' ,null)->get(['phone_code','country_code']);
 
-        return view('content.admin.company.new_edit',['country_phone_code' => $country_phone_code,'regions' => $regions,'plans' => $plans,'company_tel_country_code' => $company_tel_country_code ,'data' => $data,'permissions' =>$permissions ,'status' =>$status ,'country' => $country , 'BusinessTypes' => $BusinessTypes , 'pageConfigs' => $pageConfigs ,'breadcrumbs' =>$breadcrumbs ]);
+
+        return view('content.admin.company.new_edit',['country_phone_code' => $country_phone_code, 'marketing_status'=>$marketing_status,'deals_in' => $deals_in,'association'=>  $association,'regions' => $regions,'plans' => $plans,'company_tel_country_code' => $company_tel_country_code ,'data' => $data,'permissions' =>$permissions ,'status' =>$status ,'country' => $country , 'BusinessTypes' => $BusinessTypes , 'pageConfigs' => $pageConfigs ,'breadcrumbs' =>$breadcrumbs ]);
     }
 
     /**
@@ -833,16 +907,17 @@ class CompanyController extends Controller
      */
     public function update(Request $request, $id)
     {   
-        
+
+
         if (!Auth::user()->can('main-navigation-company-edit')) {
             abort(403);
         } 
 
         $request->validate(
             [
-            'company_name' => 'required|max:255|unique:companies_gabs,company_name,'.$request->id, 
-            'gabs_uuid' => 'required||max:6|unique:companies_gabs,gabs_uuid,'.$request->id, 
-            'email' => 'required|max:45|unique:companies_gabs,email,'.$request->id, 
+            'company_name' => 'required|max:255|unique:companies_gabs,company_name,'.$request->id.',id,deleted_at,NULL',
+            'gabs_uuid' => 'required||max:6|unique:companies_gabs,gabs_uuid,'.$request->id.',id,deleted_at,NULL',
+            'email' => 'required|max:45|unique:companies_gabs,email,'.$request->id.',id,deleted_at,NULL',
             'password' => 'nullable|min:5',
             'status' => 'required|string',
             'address' => 'nullable|string',
@@ -859,13 +934,19 @@ class CompanyController extends Controller
             'document.*'=> 'nullable|mimes:jpeg,png,jpg,gif,pdf|max:6120',
             'plan_id' => 'nullable|numeric',
             'business_type_id.*' => 'nullable|numeric',
-            // 'association_member_id' => 'nullable|numeric',
+            'marketing_status' => 'nullable|numeric',
+            'association_member_id' => 'nullable|numeric',
             'permit_no' => "nullable|string|max:250",
             'admin_comment' => 'nullable|string|max:250',
-            'contact_name.*' => 'nullable|string|max:100',
-            'contact_email.*' => 'nullable|email|max:50',
-            'contact_designation.*' => 'nullable|string|max:50',
-            'contact_phone.*' => 'nullable|string|max:20',
+            'contact_1_name' => 'nullable|string|max:100',
+            'contact_1_email' => 'nullable|email|max:50',
+            'contact_1_designation.*' => 'nullable|string|max:50',
+            'contact_1_phone' => 'nullable|string|max:20',
+
+            'contact_2_name' => 'nullable|string|max:100',
+            'contact_2_email' => 'nullable|email|max:50',
+            'contact_2_designation.*' => 'nullable|string|max:50',
+            'contact_2_phone' => 'nullable|string|max:20',
             'facebook' => 'nullable|url|max:100',
             'instagram' => 'nullable|url|max:100',
             'youtube' => 'nullable|url|max:100',
@@ -928,6 +1009,7 @@ class CompanyController extends Controller
                 'document.*.max'=> __('webCaption.validation_max_file.title', ['field'=> __('webCaption.document.title'),"max" => "6120"] ),
 
                 'plan_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.plan.title')] ),
+                'marketing_status.numeric' => __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.marketing_status.title')] ),
 
                 'business_type_id.*.numeric' => __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.business_type.title')] ),
 
@@ -939,15 +1021,25 @@ class CompanyController extends Controller
                 'admin_comment.string'=> __('webCaption.validation_string.title', ['field'=> __('webCaption.admin_comment.title')] ),
                 'admin_comment.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.admin_comment.title') ,"max" => "250"] ),
 
-                'contact_phone.*.max' => __('webCaption.validation_max.title', ['field'=> __('webCaption.phone.title') ,"max" => "20"] ),
-                'contact_email.*.max' => __('webCaption.validation_max.title', ['field'=> __('webCaption.email.title') ,"max" => "50"] ),
-                'contact_designation.*.max' => __('webCaption.validation_max.title', ['field'=> __('webCaption.designation.title') ,"max" => "50"] ),
-                'contact_name.*.max' => __('webCaption.validation_max.title', ['field'=> __('webCaption.name.title') ,"max" => "100"] ),
+                'contact_1_phone.max' => __('webCaption.validation_max.title', ['field'=> __('webCaption.phone.title') ,"max" => "20"] ),
+                'contact_1_email.max' => __('webCaption.validation_max.title', ['field'=> __('webCaption.email.title') ,"max" => "50"] ),
+                'contact_1_designation.max' => __('webCaption.validation_max.title', ['field'=> __('webCaption.designation.title') ,"max" => "50"] ),
+                'contact_1_name.max' => __('webCaption.validation_max.title', ['field'=> __('webCaption.name.title') ,"max" => "100"] ),
 
-                'contact_phone.*.string' => __('webCaption.validation_max.title', ['field'=> __('webCaption.phone.title')] ),
-                'contact_email.*.string' => __('webCaption.validation_max.title', ['field'=> __('webCaption.email.title')] ),
-                'contact_designation.*.string' => __('webCaption.validation_max.title', ['field'=> __('webCaption.designation.title')] ),
-                'contact_name.*.string' => __('webCaption.validation_max.title', ['field'=> __('webCaption.name.title') ] ),
+                'contact_2_phone.max' => __('webCaption.validation_max.title', ['field'=> __('webCaption.phone.title') ,"max" => "20"] ),
+                'contact_2_email.max' => __('webCaption.validation_max.title', ['field'=> __('webCaption.email.title') ,"max" => "50"] ),
+                'contact_2_designation.max' => __('webCaption.validation_max.title', ['field'=> __('webCaption.designation.title') ,"max" => "50"] ),
+                'contact_2_name.max' => __('webCaption.validation_max.title', ['field'=> __('webCaption.name.title') ,"max" => "100"] ),
+
+                'contact_1_phone.string' => __('webCaption.validation_max.title', ['field'=> __('webCaption.phone.title')] ),
+                'contact_1_email.string' => __('webCaption.validation_max.title', ['field'=> __('webCaption.email.title')] ),
+                'contact_1_designation.string' => __('webCaption.validation_max.title', ['field'=> __('webCaption.designation.title')] ),
+                'contact_1_name.string' => __('webCaption.validation_max.title', ['field'=> __('webCaption.name.title') ] ),
+
+                'contact_2_phone.string' => __('webCaption.validation_max.title', ['field'=> __('webCaption.phone.title')] ),
+                'contact_2_email.string' => __('webCaption.validation_max.title', ['field'=> __('webCaption.email.title')] ),
+                'contact_2_designation.string' => __('webCaption.validation_max.title', ['field'=> __('webCaption.designation.title')] ),
+                'contact_2_name.string' => __('webCaption.validation_max.title', ['field'=> __('webCaption.name.title') ] ),
 
 
                 'facebook.url' => __('webCaption.validation_max.title', ['field'=> __('webCaption.facebook.title')] ),
@@ -1005,7 +1097,7 @@ class CompanyController extends Controller
             $company_gabs_model->password =  Hash::make($request->password);  
         }
 
-        $company_gabs_model->gabs_uuid = $request->gabs_uuid;  
+        // $company_gabs_model->gabs_uuid = $request->gabs_uuid;  
         $company_gabs_model->email = $request->email;  
         $company_gabs_model->status = $request->status;  
         $company_gabs_model->address = $request->address;  
@@ -1014,14 +1106,36 @@ class CompanyController extends Controller
         $company_gabs_model->business_type_id =  (isset($business_type_id)) ? $business_type_id : null;  
         $company_gabs_model->business_type =  (isset($business_type)) ? $business_type : null;  
         $company_gabs_model->country_id = $request->country_id;  
+        $company_gabs_model->marketing_status = $request->marketing_status;  
         $company_gabs_model->postcode = $request->postcode;  
         $company_gabs_model->region_id = $request->region_id;  
         $company_gabs_model->telephone =  ($request->telephone)? $request->country_code."_".$request->telephone : null;   
         $company_gabs_model->skype_id = $request->skype_id;  
         $company_gabs_model->website = $request->website;  
         $company_gabs_model->plan_id = $request->plan_id;  
-        // $company_gabs_model->association_member_id = (isset($association_member_id)) ? $association_member_id : null;   
+        $company_gabs_model->association_member_id = (isset($association_member_id)) ? $association_member_id : null;   
         $company_gabs_model->permit_no = $request->permit_no;  
+
+        $company_gabs_model->contact_1_name = $request->contact_1_name;  
+        $company_gabs_model->contact_1_email = $request->contact_1_email;  
+        $company_gabs_model->contact_1_phone = $request->contact_1_phone;  
+        $company_gabs_model->contact_1_designation = $request->contact_1_designation;  
+        $company_gabs_model->contact_1_line = isset($request->contact_1_line) ? $request->contact_1_line :'0' ;  
+        $company_gabs_model->contact_1_viber = isset($request->contact_1_viber) ? $request->contact_1_viber : '0' ;  
+        $company_gabs_model->contact_1_whatsapp = isset($request->contact_1_whatsapp) ? $request->contact_1_whatsapp : '0';  
+
+        $company_gabs_model->contact_2_name = $request->contact_2_name;  
+        $company_gabs_model->contact_2_email = $request->contact_2_email;  
+        $company_gabs_model->contact_2_phone = $request->contact_2_phone;  
+        $company_gabs_model->contact_2_designation = $request->contact_2_designation;  
+
+        $company_gabs_model->contact_2_line = isset($request->contact_2_line) ? $request->contact_2_line :'0' ;  
+        $company_gabs_model->contact_2_viber = isset($request->contact_2_viber) ? $request->contact_2_viber : '0' ;  
+        $company_gabs_model->contact_2_whatsapp = isset($request->contact_2_whatsapp) ? $request->contact_2_whatsapp : '0'; 
+
+
+
+
         $company_gabs_model->admin_comment = $request->admin_comment;  
         $company_gabs_model->facebook = $request->facebook;  
         $company_gabs_model->instagram = $request->instagram;  
@@ -1052,26 +1166,26 @@ class CompanyController extends Controller
                 
                 // $loop_time = count($request->contact_name);
 
-                $company_contact_person_model =   new  CompanyContactPersonDetails;
+                // $company_contact_person_model =   new  CompanyContactPersonDetails;
 
-                $company_contact_person_model->where('company_id',$id)->delete();
+                // $company_contact_person_model->where('company_id',$id)->delete();
 
-                for($i=0; $i < 2; $i++){
+                // for($i=0; $i < 2; $i++){
 
-                    $conatct_data = [
-                        'company_id' => $id,
-                        'name' => isset($request->contact_name[$i]) ? $request->contact_name[$i] : null,
-                        'email' => isset($request->contact_email[$i]) ? $request->contact_email[$i] : null,
-                        'designation' => isset($request->contact_designation[$i]) ? $request->contact_designation[$i] : null,
-                        'phone' => isset($request->contact_phone[$i]) ?  $request->contact_phone[$i]: null,
-                        'viber' => isset($request->contact_viber[$i])? 1: 0,
-                        'line' => isset($request->contact_line[$i])? 1 : 0,
-                        'whatsapp' => isset($request->contact_whatsapp[$i]) ? 1 : 0,
-                    ];
+                //     $conatct_data = [
+                //         'company_id' => $id,
+                //         'name' => isset($request->contact_name[$i]) ? $request->contact_name[$i] : null,
+                //         'email' => isset($request->contact_email[$i]) ? $request->contact_email[$i] : null,
+                //         'designation' => isset($request->contact_designation[$i]) ? $request->contact_designation[$i] : null,
+                //         'phone' => isset($request->contact_phone[$i]) ?  $request->contact_phone[$i]: null,
+                //         'viber' => isset($request->contact_viber[$i])? 1: 0,
+                //         'line' => isset($request->contact_line[$i])? 1 : 0,
+                //         'whatsapp' => isset($request->contact_whatsapp[$i]) ? 1 : 0,
+                //     ];
 
-                    $company_contact_person_model->insert($conatct_data);  
-                    $conatct_data = [];
-                }
+                //     $company_contact_person_model->insert($conatct_data);  
+                //     $conatct_data = [];
+                // }
             // }
         
         //update the company user details 
@@ -1117,8 +1231,24 @@ class CompanyController extends Controller
         }
 
 
+        if($request->delete_document != '' && $request->delete_document != null){
+            
+            $document_delete_data =  CompanyDocument::whereIn('id',$request->delete_document)->get();
+
+            foreach($document_delete_data as $delete_doc){
+
+                if(is_file(public_path('company_data').'/'.$request->gabs_uuid.'/document/'.$delete_doc->name )){
+
+                    unlink(public_path('company_data').'/'.$company_gabs_model->gabs_uuid.'/logo/'.$delete_doc->name);
+                }
+            }
+
+            CompanyDocument::whereIn('id',$request->delete_document)
+
+
+        } 
+
         //update the company documents  images
-        
         
         if($request->has('document')){
 
