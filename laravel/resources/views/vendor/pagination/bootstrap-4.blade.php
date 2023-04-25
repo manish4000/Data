@@ -1,5 +1,7 @@
 
         @php
+       // dd($elements);
+
         $currentPage = $paginator->currentPage() ;
         $offset = 0 ;
         if( $currentPage > 1 ) {
@@ -12,34 +14,27 @@
     
         @endphp
     <div class="d-flex  row">
-        <div class="col-sm-3 col-md-3 col-lg-3 text-center">
-            <div class="mb-1">
-                <span class="mr-0">{{__('webCaption.record_per_page.title')}}</span> 
-                <a class="btn btn-secondary btn-sm dropdown-toggle"  data-toggle="dropdown" aria-expanded="false">
-                   <span id="selected"> @if($selected_per_page != '') {{$selected_per_page}} @else {{__('webCaption.record_per_page.title')}} @endif</span>
-                </a>
 
-                <div class="dropdown-menu">
-                    <a class="dropdown-item @php echo ($selected_per_page == 20 )? 'active' :''; @endphp" href="{{url()->current().'?'.http_build_query( array_merge($request_params, ['perPage'=>'20'] ) ) }}">20</a> 
-                    <a class="dropdown-item @php  echo ($selected_per_page ==50 )? 'active'   :''; @endphp" href="{{url()->current().'?'.http_build_query( array_merge($request_params, ['perPage'=>'50'] ) ) }}">50</a> 
-                    <a class="dropdown-item  @php  echo ($selected_per_page ==100 )? 'active' :''; @endphp" href="{{url()->current().'?'.http_build_query( array_merge($request_params, ['perPage'=>'100'] ) ) }}">100</a> 
-                    <a class="dropdown-item  @php  echo ($selected_per_page ==500 )? 'active' :''; @endphp" href="{{url()->current().'?'.http_build_query( array_merge($request_params, ['perPage'=>'500'] ) ) }}">500</a> 
-                    <a class="dropdown-item  @php  echo ($selected_per_page ==1000 )? 'active' :''; @endphp" href="{{url()->current().'?'.http_build_query( array_merge($request_params, ['perPage'=>'1000'] ) ) }}">1000</a> 
-                </div>
+    <div class="col-xl-2 col-lg-2 col-md-3 ol-sm-3 pb-2 text-center text-md-left text-xl-left text-lg-left">
 
-            </div>
-        </div>
+    <div class="dropdown">
+        <button class="btn btn-gray-action dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">Action</button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><a class="dropdown-item" href="#">Delete Multiple</a></li>
+        </ul>
+    </div>
+    
+    </div>
+
+
+       
         
-        <div class="col-sm-4 col-md-4 text-center mb-1">
-                       
-            {{__('webCaption.showing.title')}} {{ number_format($offset + 1)  }} {{__('webCaption.to.title')}} {{ number_format( $offset + $paginator->perPage() ) }}  {{__('webCaption.of.title')}}  {{ number_format( $paginator->total()) }} {{__('webCaption.entries.title')}}
-           
-        </div>
-
-        
+        <div class="col-xl-3 col-sm-3 col-md-3 col-lg-3 text-center pt-50 pb-2">{{__('webCaption.total_records.title')}}:   {{ number_format( $paginator->total()) }}</div>      
 
     
-        <div class="col-sm-5 col-md-5 col-12 text-center">  
+        <div class="col-sm-5 col-md-6 col-lg-5 col-xl-5 text-center pl-0 pr-0 pl-xl-1 pl-lg-1 pl-md-1 pr-xl-1 pr-lg-1 pr-md-1">  
             @if ($paginator->hasPages())
             <nav>
                 <ul class="pagination float-right float-none d-inline-flex">
@@ -87,5 +82,34 @@
             </nav>
             @endif
         </div>
+        <div class="col-sm-3 col-md-3 col-lg-2 col-xl-2 text-center pt-25 mt-md-2 mt-xl-0 mt-lg-0">
+            <div class="mb-1">
+                <span class="mr-0">{{__('webCaption.per_page.title')}}</span> 
+                <a class="btn border btn-sm dropdown-toggle"  data-toggle="dropdown" aria-expanded="false">
+                   <span id="selected"> @if($selected_per_page != '') {{$selected_per_page}} @else {{__('webCaption.per_page.title')}} @endif</span>
+                </a>
+
+                <div class="dropdown-menu">
+                    <a class="dropdown-item @php echo ($selected_per_page == 20 )? 'active' :''; @endphp" href="{{url()->current().'?'.http_build_query( array_merge($request_params, ['perPage'=>'20'] ) ) }}">20</a> 
+                    <a class="dropdown-item @php  echo ($selected_per_page ==50 )? 'active'   :''; @endphp" href="{{url()->current().'?'.http_build_query( array_merge($request_params, ['perPage'=>'50'] ) ) }}">50</a> 
+                    <a class="dropdown-item  @php  echo ($selected_per_page ==100 )? 'active' :''; @endphp" href="{{url()->current().'?'.http_build_query( array_merge($request_params, ['perPage'=>'100'] ) ) }}">100</a> 
+                    <a class="dropdown-item  @php  echo ($selected_per_page ==500 )? 'active' :''; @endphp" href="{{url()->current().'?'.http_build_query( array_merge($request_params, ['perPage'=>'500'] ) ) }}">500</a> 
+                    <a class="dropdown-item  @php  echo ($selected_per_page ==1000 )? 'active' :''; @endphp" href="{{url()->current().'?'.http_build_query( array_merge($request_params, ['perPage'=>'1000'] ) ) }}">1000</a> 
+                </div>
+
+            </div>
+        </div>
+
+
+
+
        
     </div>
+
+
+    <style>
+
+.btn-gray-action { background:#f3f2f7;}
+.dropdown-toggle::after {background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23807e8c'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !important;}
+
+    </style>
