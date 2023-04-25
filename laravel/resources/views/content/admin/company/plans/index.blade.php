@@ -8,17 +8,19 @@
             <!-- filter  -->
       <div class="card">
         <div class="card-header">
-          <h4 class="card-title" data-toggle="tooltip" data-placement="right" title="{{__('webCaption.search_filter.caption')}}">{{__('webCaption.search_filter.title')}}</h4>                    
+          <h4 class="card-title" data-toggle="tooltip" data-placement="right" 
+          title="{{__('webCaption.search_filter.caption')}}">{{__('webCaption.search_filter.title')}}
+        </h4>                    
         </div>
         <div class="card-body">
           <form method="GET" action="{{route('company.plans.index')}}">
-            <div class="d-flex justify-content-between align-items-center row pt-0 pb-2">
-                <div class="col-md-3">
+            <div class="d-flex  row pt-0 pb-0">
+                <div class="col-md-7 col-lg-8 col-xl-9">
                     <div class="form-group">
                         <x-admin.form.inputs.text id="searchKeyword" for="searchKeyword" label="{{__('webCaption.keyword.title')}}" tooltip="{{__('webCaption.keyword.caption')}}"  class="form-control" name="search[keyword]"  placeholder="{{__('webCaption.keyword.title')}}" value="{{ request()->input('search.keyword') }}"  required="" />
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-5 col-lg-4 col-xl-3 mt-2">
                     <x-admin.form.buttons.search />
                     <x-admin.form.buttons.reset  href="{{route('company.plans.index')}}"/>
                 </div>
