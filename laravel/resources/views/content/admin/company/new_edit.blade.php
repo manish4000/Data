@@ -27,10 +27,9 @@
                    
                   </div>
               </div>
-
               <div class="col-md-4">
                 <div class="form-group">
-                  <x-admin.form.inputs.text id="" label="{{__('webCaption.gabs_uuid.title')}}" for="gabs_uuid"  tooltip="{{__('webCaption.gabs_uuid.caption')}}"  maxlength="6" name="gabs_uuid"  placeholder="{{__('webCaption.gabs_uuid.title')}}" value="{{old('gabs_uuid',$data->gabs_uuid )}}"  required="required" />
+                  <x-admin.form.inputs.text id="" label="{{__('webCaption.gabs_uuid.title')}}" for="gabs_uuid"  tooltip="{{__('webCaption.gabs_uuid.caption')}}"  maxlength="6" name="gabs_uuid"  placeholder="{{__('webCaption.gabs_uuid.title')}}" value="{{old('gabs_uuid',$data->gabs_uuid )}}"  required="required"  readonly="readonly"/>
                   
                 </div>
               </div>
@@ -97,7 +96,7 @@
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                  <x-admin.form.inputs.select label="{{__('webCaption.region.title')}}"  id="" for="region_id" tooltip="{{__('webCaption.region.caption')}}"  name="region_id" placeholder="{{ __('locale.region.caption') }}" editSelected="{{old('region_id',$data->region_id)}}"  required="" :optionData="[]" />
+                  <x-admin.form.inputs.select label="{{__('webCaption.region.title')}}"  id="" for="region_id" tooltip="{{__('webCaption.region.caption')}}"  name="region_id" placeholder="{{ __('locale.region.caption') }}" editSelected="{{old('region_id',$data->region_id)}}"  required="" :optionData="$regions" />
                     
                 </div>
             </div>
@@ -133,9 +132,12 @@
                     
                   </div>
             </div>
+            @php 
+            $fileType = ['jpg','png'];    
+            @endphp 
             <div class="col-md-4">
                   <div class="form-group">
-                    <x-admin.form.inputs.file id="" editImageUrl="{{asset('company_data/'.$data->gabs_uuid.'/logo/'.$data->logo)}}" caption="{{__('webCaption.upload_logo.title')}}" for="logo"  ImageId="logo-preview"   name="logo"  placeholder="{{__('webCaption.logo.title')}}" required="required" />
+                    <x-admin.form.inputs.file id="" editImageUrl="{{asset('company_data/'.$data->gabs_uuid.'/logo/'.$data->logo)}}" caption="{{__('webCaption.upload_logo.title')}}" for="logo"  :fileType="$fileType" maxFileSize="5000"   ImageId="logo-preview"   name="logo"  placeholder="{{__('webCaption.logo.title')}}" required="required" />
                     
                   </div>
             </div>
@@ -166,16 +168,24 @@
               $editSelected = '';
             }
             @endphp
+
+            @php if(isset($data->association_member_id)){
+                $associationEditSelected = $data->association_member_id;
+              } else{
+                $associationEditSelected = '';
+              }
+            @endphp
+
             <div class="col-md-4">
                 <div class="form-group">
                   <x-admin.form.inputs.multiple_select tooltip="{{__('webCaption.business_type.caption')}}" label="{{__('webCaption.business_type.title')}}"  id="" for="business_type_id" name="business_type_id[]" placeholder="{{__('webCaption.business_type_id.title')}}" :editSelected="$editSelected" :oldValues="old('business_type_id')"  required="" :optionData="$BusinessTypes" />
                     
                 </div>
             </div>
+            
             <div class="col-md-4">
                 <div class="form-group">
-                  <x-admin.form.inputs.select label="{{__('webCaption.association_member.title')}}"  tooltip="{{__('webCaption.association_member.caption')}}"   id="" for="association_member_id" name="association_member_id"  editSelected="{{old('association_member_id',$data->association_member_id)}}"  required="" 
-                     :optionData="[]" />
+                  <x-admin.form.inputs.multiple_select label="{{__('webCaption.association_member.title')}}"  tooltip="{{__('webCaption.association_member.caption')}}"   id="" for="association_member_id" name="association_member_id[]"   required="" :editSelected="$associationEditSelected"  :oldValues="old('association_member_id')" :optionData="$association" />
                    
                 </div>
             </div>
@@ -198,46 +208,87 @@
 
         </div>  
         <div class="row">
-            <div class="col-md-12">
-                <div class="card border">
-                    <div class="card-header">
-                        <h6 class="card-title">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers font-medium-3 mr-1"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-                          {{__('webCaption.upload_document_files.title')}}
-                        </h6>  
-                    </div>
-                    <hr class="m-0 p-0">
+          <div class="col-md-12">
+            <div class="card border">
+               <div class="card-header">
+                  <h6 class="card-title">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers font-medium-3 mr-1"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                     {{__('webCaption.upload_document_files.title')}}
+                  </h6>
+               </div>
+               <hr class="m-0 p-0">
 
-                    <div class="row m-2">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                              <x-admin.form.inputs.multiple_file lable="{{__('webCaption.document_upload.title')}}"  id="" caption="{{__('webCaption.document_upload.title')}}" for="document1"  class="form-control" name="document[]"  placeholder="{{__('webCaption.document.title')}}" required=""   multiple="multiple" />
-                                
-                            </div>
-                        </div>
+               <div class="row m-2">
+                @for($i=0;$i<6;$i++)
 
-                    </div>
-                    <div class="d-flex">
+                  @php
+                  $doc_name = '';
+                  $doc_type = '';
+                  @endphp
 
-                        @foreach($data->documents as $document)
-
-                          @if(is_file(public_path('company_data/').$data->gabs_uuid.'/document/'.$document->name ))
-                            <div class=" mx-2">
-                              <img src="{{asset('company_data/'.$data->gabs_uuid.'/document/'.$document->name)}}" class="img-fluid p-2" alt="" height="100" width="100">
-                            </div>
-                          @endif
-
-                        @endforeach
-
-                    </div>
+                  @foreach ($data->documents as $item)
+                    @if($item->order_by == $i ) 
+                      @php
+                          $doc_id = $item->id;
+                          $doc_name = $item->name;
+                          // $ext =  explode(".",$doc_name);
+                          $doc_ext = pathinfo($doc_name, PATHINFO_EXTENSION);
+                          $doc_type = $item->document_name;  
+                      @endphp
                     
-                </div>    
+                    @endif
+                  @endforeach
+
+                  <div class="col-md-4">      
+                        <div class="form-group">
+                          <x-admin.form.inputs.document_file for="document_{{$i}}" label="{{__('webCaption.document_1.title')}}"    name="document[]" />
+                          @if($doc_name != '')
+                            <x-admin.form.inputs.checkbox id="" for="document_{{$i}}_check" tooltip="{{__('webCaption.line.caption')}}" label="{{__('webCaption.line.title')}}" class="form-control" name="delete_document[]"   value="{{$doc_id}}" 
+                            checked="" />
+                              @if($doc_ext == 'pdf')
+
+                                {{-- show pdf preview  --}}
+
+                              @elseif($doc_ext == 'xls' || $doc_ext == 'xlsx' )
+
+                                      {{-- show excel preview  --}}
+                              @else
+                                  {{-- show other perview  --}}
+                              @endif
+
+                          @endif
+                         
+                          <x-admin.form.inputs.text id="" for="document_name_{{$i}}" tooltip="{{__('webCaption.document_name.caption')}}" label="{{__('webCaption.document_name.title')}}" maxlength="75" name="document_name[]"  placeholder="{{__('webCaption.document_name.title')}}" value="{{$doc_type}}"  required="" />
+
+                        
+                             
+                        </div>
+                  </div>
+                @endfor
+               </div>
+
+
             </div>
+         </div>
+
             <div class="col-md-4">
                 <div class="form-group">
-                    <x-admin.form.inputs.select label="{{__('webCaption.marketing_status.title')}}"  id="" for="marketing_status" name="marketing_status" placeholder="{{__('webCaption.marketing_status.title')}}" editSelected=""  required="" :optionData="[]" />
+                  <x-admin.form.inputs.select label="{{__('webCaption.marketing_status.title')}}"  id="" for="marketing_status" name="marketing_status" placeholder="{{__('webCaption.marketing_status.title')}}" editSelected="{{old('marketing_status',$data->marketing_status)}}" required="" :optionData="$marketing_status" />
                       
                 </div>
+            </div>
+
+            @php if(isset($data->deals_in)){
+              $dealsInEditSelected = $data->deals_in;
+              } else{
+              $dealsInEditSelected = '';
+              }
+            @endphp
+            <div class="col-md-4">
+              <div class="form-group">
+                  <x-admin.form.inputs.multiple_select label="{{__('webCaption.deals_in.title')}}"  id="" for="deals_in" name="deals_in[]" placeholder="{{__('webCaption.deals_in.title')}}" :oldValues="old('deals_in')" :editSelected="$dealsInEditSelected"  required="" :optionData="$deals_in" />
+                  
+              </div>
             </div>
 
         </div>  
@@ -245,7 +296,7 @@
 
       </div>
     </div>
-    <div class="card">
+    {{-- <div class="card">
         <div class="card-header">
             <h4 class="card-title">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info font-medium-3 mr-1"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
@@ -292,7 +343,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <x-admin.form.inputs.text id="" for="contact_1_phone" label="{{__('webCaption.phone.title')}}" maxlength="20" class="form-control" name="contact_phone[]" tooltip="{{__('webCaption.phone.caption')}}"  placeholder="{{__('webCaption.phone.title')}}" 
+                        <x-admin.form.inputs.number id="" for="contact_1_phone" label="{{__('webCaption.phone.title')}}" maxlength="20" class="form-control" name="contact_phone[]" tooltip="{{__('webCaption.phone.caption')}}"  placeholder="{{__('webCaption.phone.title')}}" 
                         value="{{old('contact_phone.0',(isset($data->contcatPersonDetails[0]->phone))? $data->contcatPersonDetails[0]->phone : '')}}"  required="" />
                         @if($errors->has('contact_phone.0'))
                         <x-admin.form.form_error_messages message="{{ $errors->first('contact_phone.0') }}"  />
@@ -370,7 +421,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <x-admin.form.inputs.text id="" tooltip="{{__('webCaption.phone.caption')}}" for="contact_2_phone" label="{{__('webCaption.phone.title')}}" maxlength="20" class="form-control" name="contact_phone[]"  placeholder="{{__('webCaption.phone.title')}}"  
+                        <x-admin.form.inputs.number id="" tooltip="{{__('webCaption.phone.caption')}}" for="contact_2_phone" label="{{__('webCaption.phone.title')}}" maxlength="20" class="form-control" name="contact_phone[]"  placeholder="{{__('webCaption.phone.title')}}"  
                         value="{{old('contact_name.1', (isset($data->contcatPersonDetails[1]->phone)) ? $data->contcatPersonDetails[1]->phone : '' )}}"  required="" />
                         @if($errors->has('contact_phone.1'))
                         <x-admin.form.form_error_messages message="{{ $errors->first('contact_phone.1') }}"  />
@@ -395,8 +446,116 @@
         </div>
  
 
-    </div>
+    </div> --}}
 
+
+    <div class="card">
+      <div class="card-header">
+         <h4 class="card-title">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info font-medium-3 mr-1"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+            {{__('webCaption.contact_person_details.title')}}
+         </h4>
+      </div>
+      <hr class="m-0 p-0">
+      <div id="container">
+
+         <div class="card-body" >
+            <h4 class="card-title">  {{__('webCaption.contact_person_1.title')}} </h4>
+            <div class="row">
+               <div class="col-md-4">
+                  <div class="form-group">
+                     <x-admin.form.inputs.text id="" for="contact_option" tooltip="{{__('webCaption.name.caption')}}" label="{{__('webCaption.name.title')}}" maxlength="100" class="form-control" name="contact_1_name"  placeholder="{{__('webCaption.name.title')}}" value="{{old('contact_1_name',$data->contact_1_name)}}"  required="" />
+                     
+                  </div>
+               </div>
+               <div class="col-md-4">
+                  <div class="form-group">
+                     <x-admin.form.inputs.text id="" for="contact_1_designation" tooltip="{{__('webCaption.designation.caption')}}" label="{{__('webCaption.designation.title')}}" maxlength="50" class="form-control" name="contact_1_designation"  placeholder="{{__('webCaption.designation.title')}}" value="{{old('contact_1_designation',$data->contact_1_designation)}}"  required="" />
+                    
+                  </div>
+               </div>
+               <div class="col-md-4">
+                  <div class="form-group">
+                     <x-admin.form.inputs.email id="" for="contact_1_email" tooltip="{{__('webCaption.email.caption')}}" label="{{__('webCaption.email.title')}}" maxlength="50" class="form-control" name="contact_1_email"  placeholder="{{__('webCaption.email.title')}}" value="{{old('contact_1_email',$data->contact_1_email)}}"  required="" />
+                     
+                  </div>
+               </div>
+            </div>
+
+            <div class="row">
+               <div class="col-md-4">
+                  <div class="form-group">
+                     <x-admin.form.inputs.number id="" for="contact_1_phone" tooltip="{{__('webCaption.phone.caption')}}" label="{{__('webCaption.phone.title')}}" maxlength="20" class="form-control" name="contact_1_phone"  placeholder="{{__('webCaption.phone.title')}}" value="{{old('contact_1_phone',$data->contact_1_phone)}}"  required="" />
+                     
+                  </div>
+               </div>
+               <div class="col-md-4">
+                  <x-admin.form.label for="" tooltip="{{__('webCaption.contact_option.caption')}}" value="{{__('webCaption.contact_option.title')}}" class="" />
+                  <div class="form-group">
+                     <x-admin.form.inputs.checkbox id="" for="contact_1_option_viber" tooltip="{{__('webCaption.viber.caption')}}" label="{{__('webCaption.viber.title')}}"  class="form-control" name="contact_1_viber"   value="1" checked="{{ ( old('contact_1_viber') == '1' || $data->contact_1_viber == '1' ) ? 'checked' : '' }}" />
+
+                     <x-admin.form.inputs.checkbox id="" for="contact_1_option_line" tooltip="{{__('webCaption.line.caption')}}" label="{{__('webCaption.line.title')}}" class="form-control" name="contact_1_line"   value="1" 
+                     checked="{{ ( old('contact_1_line') == '1' || $data->contact_1_line == '1' ) ? 'checked' : '' }}" />
+
+                     <x-admin.form.inputs.checkbox id="" for="contact_1_option_whatsapp" tooltip="{{__('webCaption.whatsapp.caption')}}"  label="{{__('webCaption.whatsapp.title')}}"  class="form-control" name="contact_1_whatsapp"   value="1"
+                       checked="{{ ( old('contact_1_whatsapp') == '1' || $data->contact_1_whatsapp == '1' ) ? 'checked' : '' }}" />&ensp; 
+                  </div>
+               </div>
+            </div>
+
+         </div>
+
+         {{--  --}}
+         <div class="card-body" >
+            <h4 class="card-title">    {{__('webCaption.contact_person_2.title')}} </h4>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <x-admin.form.inputs.text id="" for="contact_2_name" tooltip="{{__('webCaption.name.caption')}}" label="{{__('webCaption.name.title')}}" maxlength="100" class="form-control" name="contact_2_name"  placeholder="{{__('webCaption.name.title')}}" value="{{old('contact_2_name',$data->contact_2_name)}}"  required="" />
+                      
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <x-admin.form.inputs.text id="" for="contact_2_designation" tooltip="{{__('webCaption.designation.caption')}}" label="{{__('webCaption.designation.title')}}" maxlength="50" class="form-control" name="contact_2_designation"  placeholder="{{__('webCaption.designation.title')}}" value="{{old('contact_2_designation',$data->contact_2_designation)}}"   required="" />
+                      
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <x-admin.form.inputs.email id="" for="contact_2_email" tooltip="{{__('webCaption.email.caption')}}" label="{{__('webCaption.email.title')}}" maxlength="50" class="form-control" name="contact_2_email"  placeholder="{{__('webCaption.email.title')}}" value="{{old('contact_2_email',$data->contact_2_email )}}"  required="" />
+                       
+                    </div>
+                </div>
+            </div>  
+    
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <x-admin.form.inputs.number id="" for="contact_2_phone" tooltip="{{__('webCaption.phone.caption')}}" label="{{__('webCaption.phone.title')}}" maxlength="20" class="form-control" name="contact_2_phone"  placeholder="{{__('webCaption.phone.title')}}" value="{{old('contact_2_phone',$data->contact_2_phone )}}"   required="" />
+                        
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <x-admin.form.label for="" tooltip="{{__('webCaption.contact_option.caption')}}" value="{{__('webCaption.contact_option.title')}}" class="" />
+                    <div class="form-group">
+                        <x-admin.form.inputs.checkbox id="" for="contact_2_option_viber" tooltip="{{__('webCaption.viber.caption')}}" label="{{__('webCaption.viber.title')}}"  class="form-control" name="contact_2_viber"   value="1" checked="{{( old('contact_2_viber') == '1' || $data->contact_2_viber == '1' ) ? 'checked' : '' }}" /> &ensp;
+
+                        <x-admin.form.inputs.checkbox id="" for="contact_2_option_line" tooltip="{{__('webCaption.line.caption')}}" label="{{__('webCaption.line.title')}}" class="form-control" name="contact_2_line"   value="1" 
+                         checked="{{ ( old('contact_2_line') == '1'|| $data->contact_2_line == '1'  ) ? 'checked' : '' }}" />&ensp;
+
+                        <x-admin.form.inputs.checkbox id="" for="contact_2_option_whatsapp" tooltip="{{__('webCaption.whatsapp.caption')}}" label="{{__('webCaption.whatsapp.title')}}"  class="form-control" name="contact_2_whatsapp"   value="1" 
+                         checked="{{ ( old('contact_2_whatsapp') == '1'  || $data->contact_2_whatsapp == '1'  ) ? 'checked' : '' }}" />&ensp;
+                    </div>    
+                </div>
+            </div>  
+    
+          </div>
+         {{--  --}}
+      </div>
+
+
+   </div>
 
     <div class="card">
         <div class="card-header">
@@ -449,10 +608,10 @@
       </div>
     </div>
 
-    <div class="form-group">
+    {{-- <div class="form-group">
 
       <x-admin.form.inputs.checkbox id="" for="terms_and_services"  tooltip="{{__('webCaption.accept_terms_and_services.caption')}}" label="{{__('webCaption.accept_terms_and_services.title')}}"  class="form-control" name="terms_and_services"   value="1" checked="{{ old('terms_and_services') == '1' ? 'checked' : '' }} {{ ($data->terms_and_services == '1') ? 'checked' :''}}" /> &ensp;
-    </div>
+    </div> --}}
   </section>
   <div class="text-center">
     <input type="hidden" name="id" value="{{$data->id}}" />
@@ -471,7 +630,6 @@
 @push('script')
   <!-- Page js files -->
   <script src="{{ asset(mix('js/scripts/extensions/ext-component-tree.js')) }}"></script>
-  <script src="{{ asset('assets/js/gabs/master.js') }}"></script>
   <script type="text/javascript">
   	$(document).ready(function() {
   		$(".jstree-basic ul li a, .jstree-basic ul li ul li a").each(function() {

@@ -27,7 +27,7 @@
 
                   <div class="col-md-4">
                      <div class="form-group">
-                        <x-admin.form.inputs.text id="" label="{{__('webCaption.gabs_uuid.title')}}" tooltip="{{__('webCaption.gabs_uuid.caption')}}" for="gabs_uuid" maxlength="6" name="gabs_uuid"  placeholder="{{__('webCaption.gabs_uuid.title')}}" value="{{old('gabs_uuid', isset($data->gabs_uuid)?$data->gabs_uuid:'' )}}"  required="required" />
+                        <x-admin.form.inputs.uuid_input  label="{{__('webCaption.gabs_uuid.title')}}" tooltip="{{__('webCaption.gabs_uuid.caption')}}" for="gabs_uuid" maxlength="6" name="gabs_uuid"  placeholder="{{__('webCaption.gabs_uuid.title')}}" value="{{old('gabs_uuid', isset($data->gabs_uuid)?$data->gabs_uuid:'' )}}"  required="required" />
                         
                      </div>
                   </div>
@@ -62,7 +62,6 @@
                   </div>
                </div>
                <div class="row">
-
                   <div class="col-md-4">
                      <div class="form-group">
                         <x-admin.form.inputs.select label="{{__('webCaption.country.title')}}"  tooltip="{{__('webCaption.country.caption')}}"           for="country_id" name="country_id"   placeholder="{{ __('locale.country.caption') }}" customClass="country"  editSelected="{{(isset($data->country_id) && ($data->country_id != null)) ? $data->country_id :'' }}"  required="required" :optionData="$country" />
@@ -71,8 +70,7 @@
                   </div>
                   <div class="col-md-4">
                      <div class="form-group">
-                        <x-admin.form.inputs.select label="{{__('webCaption.state.title')}}"  tooltip="{{__('webCaption.state.caption')}}"  customClass="state" id="" for="state_id" name="state_id" placeholder="{{ __('locale.state.caption') }}" editSelected=""  required="" :optionData="[]" />
-                        
+                        <x-admin.form.inputs.select label="{{__('webCaption.state.title')}}"  tooltip="{{__('webCaption.state.caption')}}"  customClass="state" id="" for="state_id" name="state_id" placeholder="{{ __('locale.state.caption') }}" editSelected=""  required="" :optionData="[]" />   
                      </div>
                   </div>
                   <div class="col-md-4">
@@ -166,7 +164,7 @@
                   </div>
                   <div class="col-md-4">
                      <div class="form-group">
-                        <x-admin.form.inputs.select label="{{__('webCaption.association_member.title')}}" tooltip="{{__('webCaption.association_member.caption')}}"  id="" for="association_member_id" name="association_member_id"  editSelected=""  required="" :optionData="[]" />
+                        <x-admin.form.inputs.multiple_select label="{{__('webCaption.association_member.title')}}" tooltip="{{__('webCaption.association_member.caption')}}"  id="" for="association_member_id" name="association_member_id[]"  editSelected=""  required="" :oldValues="old('association_member_id')"  :optionData="$association" />
                         
                      </div>
                   </div>
@@ -197,21 +195,36 @@
                            </h6>
                         </div>
                         <hr class="m-0 p-0">
+
                         <div class="row m-2">
-                           <div class="col-md-6">
-                              <div class="form-group">
-                                 <x-admin.form.inputs.multiple_file lable="{{__('webCaption.document_upload.title')}}"  id="" caption="{{__('webCaption.document_upload.title')}}" for="document1"  class="form-control" name="document[]"  placeholder="{{__('webCaption.document.title')}}" required=""   multiple="multiple" />
-                                 
-                              </div>
+
+                           @for($i=0;$i<6;$i++)
+                           <div class="col-md-4">      
+                                 <div class="form-group">
+                                   <x-admin.form.inputs.document_file for="document_{{$i}}" label="{{__('webCaption.document_1.title')}}"    name="document[]" />
+
+                                    <x-admin.form.inputs.text id="" for="document_name_{{$i}}" tooltip="{{__('webCaption.document_name.caption')}}" label="{{__('webCaption.document_name.title')}}" maxlength="75" name="document_name[]"  placeholder="{{__('webCaption.document_name.title')}}" value="{{old('document_name')}}"  required="" />
+
+                                 </div>
                            </div>
+                           @endfor
+                           
                         </div>
 
 
                      </div>
                   </div>
+                  
                    <div class="col-md-4">
                       <div class="form-group">
-                          <x-admin.form.inputs.select label="{{__('webCaption.marketing_status.title')}}"  id="" for="marketing_status" name="marketing_status" placeholder="{{__('webCaption.marketing_status.title')}}" editSelected=""  required="" :optionData="[]" />
+                          <x-admin.form.inputs.select label="{{__('webCaption.marketing_status.title')}}"  id="" for="marketing_status" name="marketing_status" placeholder="{{__('webCaption.marketing_status.title')}}" editSelected=""  required="" :optionData="$marketing_status" />
+                          
+                      </div>
+                  </div>
+
+                  <div class="col-md-4">
+                      <div class="form-group">
+                          <x-admin.form.inputs.multiple_select label="{{__('webCaption.deals_in.title')}}"  id="" for="deals_in" name="deals_in[]" placeholder="{{__('webCaption.deals_in.title')}}" :oldValues="old('deals_in')" editSelected=""  required="" :optionData="$deals_in" />
                           
                       </div>
                   </div>
@@ -236,26 +249,20 @@
                   <div class="row">
                      <div class="col-md-4">
                         <div class="form-group">
-                           <x-admin.form.inputs.text id="" for="contact_option" tooltip="{{__('webCaption.name.caption')}}" label="{{__('webCaption.name.title')}}" maxlength="100" class="form-control" name="contact_name[]"  placeholder="{{__('webCaption.name.title')}}" value=""  required="" />
-                           @if($errors->has('contact_name.0'))
-                              <x-admin.form.form_error_messages message="{{ $errors->first('contact_name.0') }}"  />
-                           @endif
+                           <x-admin.form.inputs.text id="" for="contact_option" tooltip="{{__('webCaption.name.caption')}}" label="{{__('webCaption.name.title')}}" maxlength="100" class="form-control" name="contact_1_name"  placeholder="{{__('webCaption.name.title')}}" value="{{old('contact_1_name')}}"  required="" />
+                           
                         </div>
                      </div>
                      <div class="col-md-4">
                         <div class="form-group">
-                           <x-admin.form.inputs.text id="" for="contact_1_designation" tooltip="{{__('webCaption.designation.caption')}}" label="{{__('webCaption.designation.title')}}" maxlength="50" class="form-control" name="contact_designation[]"  placeholder="{{__('webCaption.designation.title')}}" value=""  required="" />
-                           @if($errors->has('contact_designation.0'))
-                              <x-admin.form.form_error_messages message="{{ $errors->first('contact_designation.0') }}"  />
-                           @endif
+                           <x-admin.form.inputs.text id="" for="contact_1_designation" tooltip="{{__('webCaption.designation.caption')}}" label="{{__('webCaption.designation.title')}}" maxlength="50" class="form-control" name="contact_1_designation"  placeholder="{{__('webCaption.designation.title')}}" value="{{old('contact_1_designation')}}"  required="" />
+                          
                         </div>
                      </div>
                      <div class="col-md-4">
                         <div class="form-group">
-                           <x-admin.form.inputs.email id="" for="contact_1_email" tooltip="{{__('webCaption.email.caption')}}" label="{{__('webCaption.email.title')}}" maxlength="50" class="form-control" name="contact_email[]"  placeholder="{{__('webCaption.email.title')}}" value=""  required="" />
-                           @if($errors->has('contact_email.0'))
-                              <x-admin.form.form_error_messages message="{{ $errors->first('contact_email.0') }}"  />
-                           @endif
+                           <x-admin.form.inputs.email id="" for="contact_1_email" tooltip="{{__('webCaption.email.caption')}}" label="{{__('webCaption.email.title')}}" maxlength="50" class="form-control" name="contact_1_email"  placeholder="{{__('webCaption.email.title')}}" value="{{old('contact_1_email')}}"  required="" />
+                           
                         </div>
                      </div>
                   </div>
@@ -263,37 +270,20 @@
                   <div class="row">
                      <div class="col-md-4">
                         <div class="form-group">
-                           <x-admin.form.inputs.number id="" for="contact_1_phone" tooltip="{{__('webCaption.phone.caption')}}" label="{{__('webCaption.phone.title')}}" maxlength="20" class="form-control" name="contact_phone[]"  placeholder="{{__('webCaption.phone.title')}}" value=""  required="" />
-                           @if($errors->has('contact_phone.0'))
-                              <x-admin.form.form_error_messages message="{{ $errors->first('contact_phone.0') }}"  />
-                           @endif
+                           <x-admin.form.inputs.number id="" for="contact_1_phone" tooltip="{{__('webCaption.phone.caption')}}" label="{{__('webCaption.phone.title')}}" maxlength="20" class="form-control" name="contact_1_phone"  placeholder="{{__('webCaption.phone.title')}}" value="{{old('contact_1_phone')}}"  required="" />
+                           
                         </div>
                      </div>
                      <div class="col-md-4">
                         <x-admin.form.label for="" tooltip="{{__('webCaption.contact_option.caption')}}" value="{{__('webCaption.contact_option.title')}}" class="" />
                         <div class="form-group">
-                           @php
+                           <x-admin.form.inputs.checkbox id="" for="contact_1_option_viber" tooltip="{{__('webCaption.viber.caption')}}" label="{{__('webCaption.viber.title')}}"  class="form-control" name="contact_1_viber"   value="1" checked="{{ old('contact_1_viber') == '1' ? 'checked' : '' }}" />
 
-                              $contact_viber =  session()->getOldInput('contact_viber');
-                              $contact_line =  session()->getOldInput('contact_line');
-                              $contact_whatsapp =  session()->getOldInput('contact_whatsapp');
+                           <x-admin.form.inputs.checkbox id="" for="contact_1_option_line" tooltip="{{__('webCaption.line.caption')}}" label="{{__('webCaption.line.title')}}" class="form-control" name="contact_1_line"   value="1" 
+                           checked="{{ old('contact_1_line') == '1' ? 'checked' : '' }}" />
 
-                           $contact_1_option_viber = (isset($contact_viber) && in_array('contact_viber[0]' , $contact_viber) ) ? 'checked' : '';
-                           $contact_1_option_line = (isset($contact_line) && in_array('contact_line[0]' , $contact_line) ) ? 'checked' : ''; 
-                           $contact_1_option_whatsapp =(isset($contact_whatsapp) && in_array('contact_whatsapp[0]' , $contact_whatsapp) ) ? 'checked' : '';
-
-                           $contact_2_option_viber = (isset($contact_viber) && in_array('contact_viber[1]' , $contact_viber) ) ? 'checked' : '';
-                           $contact_2_option_line = (isset($contact_line) && in_array('contact_line[1]' , $contact_line) ) ? 'checked' : ''; 
-                           $contact_2_option_whatsapp =(isset($contact_whatsapp) && in_array('contact_whatsapp[1]' , $contact_whatsapp) ) ? 'checked' : '';
-
-                           @endphp
-                           <x-admin.form.inputs.checkbox id="" for="contact_1_option_viber" tooltip="{{__('webCaption.viber.caption')}}" label="{{__('webCaption.viber.title')}}"  class="form-control" name="contact_viber[]"   value="contact_viber[0]" checked="{{$contact_1_option_viber}}" />
-
-                           <x-admin.form.inputs.checkbox id="" for="contact_1_option_line" tooltip="{{__('webCaption.line.caption')}}" label="{{__('webCaption.line.title')}}" class="form-control" name="contact_line[]"   value="contact_line[0]" 
-                           checked="{{$contact_1_option_line}}" />
-
-                           <x-admin.form.inputs.checkbox id="" for="contact_1_option_whatsapp" tooltip="{{__('webCaption.whatsapp.caption')}}"  label="{{__('webCaption.whatsapp.title')}}"  class="form-control" name="contact_whatsapp[]"   value="contact_whatsapp[0]"
-                             checked="{{$contact_1_option_whatsapp}}" />&ensp; 
+                           <x-admin.form.inputs.checkbox id="" for="contact_1_option_whatsapp" tooltip="{{__('webCaption.whatsapp.caption')}}"  label="{{__('webCaption.whatsapp.title')}}"  class="form-control" name="contact_1_whatsapp"   value="1"
+                             checked="{{ old('contact_1_whatsapp') == '1' ? 'checked' : '' }}" />&ensp; 
                         </div>
                      </div>
                   </div>
@@ -306,26 +296,20 @@
                   <div class="row">
                       <div class="col-md-4">
                           <div class="form-group">
-                              <x-admin.form.inputs.text id="" for="contact_2_name" tooltip="{{__('webCaption.name.caption')}}" label="{{__('webCaption.name.title')}}" maxlength="100" class="form-control" name="contact_name[]"  placeholder="{{__('webCaption.name.title')}}" value=""  required="" />
-                              @if($errors->has('contact_name.1'))
-                              <x-admin.form.form_error_messages message="{{ $errors->first('contact_name.1') }}"  />
-                              @endif
+                              <x-admin.form.inputs.text id="" for="contact_2_name" tooltip="{{__('webCaption.name.caption')}}" label="{{__('webCaption.name.title')}}" maxlength="100" class="form-control" name="contact_2_name"  placeholder="{{__('webCaption.name.title')}}" value="{{old('contact_2_name')}}"  required="" />
+                            
                           </div>
                       </div>
                       <div class="col-md-4">
                           <div class="form-group">
-                              <x-admin.form.inputs.text id="" for="contact_2_designation" tooltip="{{__('webCaption.designation.caption')}}" label="{{__('webCaption.designation.title')}}" maxlength="50" class="form-control" name="contact_designation[]"  placeholder="{{__('webCaption.designation.title')}}" value=""  required="" />
-                              @if($errors->has('contact_designation.1'))
-                              <x-admin.form.form_error_messages message="{{ $errors->first('contact_designation.1') }}"  />
-                              @endif
+                              <x-admin.form.inputs.text id="" for="contact_2_designation" tooltip="{{__('webCaption.designation.caption')}}" label="{{__('webCaption.designation.title')}}" maxlength="50" class="form-control" name="contact_2_designation"  placeholder="{{__('webCaption.designation.title')}}" value="{{old('contact_2_designation')}}"   required="" />
+                            
                           </div>
                       </div>
                       <div class="col-md-4">
                           <div class="form-group">
-                              <x-admin.form.inputs.email id="" for="contact_2_email" tooltip="{{__('webCaption.email.caption')}}" label="{{__('webCaption.email.title')}}" maxlength="50" class="form-control" name="contact_email[]"  placeholder="{{__('webCaption.email.title')}}" value=""  required="" />
-                              @if($errors->has('contact_email.1'))
-                              <x-admin.form.form_error_messages message="{{ $errors->first('contact_email.1') }}"  />
-                              @endif
+                              <x-admin.form.inputs.email id="" for="contact_2_email" tooltip="{{__('webCaption.email.caption')}}" label="{{__('webCaption.email.title')}}" maxlength="50" class="form-control" name="contact_2_email"  placeholder="{{__('webCaption.email.title')}}" value="{{old('contact_2_email')}}"  required="" />
+                             
                           </div>
                       </div>
                   </div>  
@@ -333,22 +317,20 @@
                   <div class="row">
                       <div class="col-md-4">
                           <div class="form-group">
-                              <x-admin.form.inputs.number id="" for="contact_2_phone" tooltip="{{__('webCaption.phone.caption')}}" label="{{__('webCaption.phone.title')}}" maxlength="20" class="form-control" name="contact_phone[]"  placeholder="{{__('webCaption.phone.title')}}" value=""  required="" />
-                              @if($errors->has('contact_phone.1'))
-                              <x-admin.form.form_error_messages message="{{ $errors->first('contact_phone.1') }}"  />
-                              @endif
+                              <x-admin.form.inputs.number id="" for="contact_2_phone" tooltip="{{__('webCaption.phone.caption')}}" label="{{__('webCaption.phone.title')}}" maxlength="20" class="form-control" name="contact_2_phone"  placeholder="{{__('webCaption.phone.title')}}" value="{{old('contact_2_phone')}}"   required="" />
+                              
                           </div>
                       </div>
                       <div class="col-md-4">
                           <x-admin.form.label for="" tooltip="{{__('webCaption.contact_option.caption')}}" value="{{__('webCaption.contact_option.title')}}" class="" />
                           <div class="form-group">
-                              <x-admin.form.inputs.checkbox id="" for="contact_2_option_viber" tooltip="{{__('webCaption.viber.caption')}}" label="{{__('webCaption.viber.title')}}"  class="form-control" name="contact_viber[]"   value="contact_viber[1]" checked="{{$contact_2_option_viber}}" /> &ensp;
+                              <x-admin.form.inputs.checkbox id="" for="contact_2_option_viber" tooltip="{{__('webCaption.viber.caption')}}" label="{{__('webCaption.viber.title')}}"  class="form-control" name="contact_2_viber"   value="1" checked="{{ old('contact_2_viber') == '1' ? 'checked' : '' }}" /> &ensp;
       
-                              <x-admin.form.inputs.checkbox id="" for="contact_2_option_line" tooltip="{{__('webCaption.line.caption')}}" label="{{__('webCaption.line.title')}}" class="form-control" name="contact_line[]"   value="contact_line[1]" 
-                               checked="{{$contact_2_option_line}}" />&ensp;
+                              <x-admin.form.inputs.checkbox id="" for="contact_2_option_line" tooltip="{{__('webCaption.line.caption')}}" label="{{__('webCaption.line.title')}}" class="form-control" name="contact_2_line"   value="1" 
+                               checked="{{ old('contact_2_line') == '1' ? 'checked' : '' }}" />&ensp;
       
-                              <x-admin.form.inputs.checkbox id="" for="contact_2_option_whatsapp" tooltip="{{__('webCaption.whatsapp.caption')}}" label="{{__('webCaption.whatsapp.title')}}"  class="form-control" name="contact_whatsapp[]"   value="contact_whatsapp[1]" 
-                               checked="{{$contact_2_option_whatsapp}}" />&ensp;
+                              <x-admin.form.inputs.checkbox id="" for="contact_2_option_whatsapp" tooltip="{{__('webCaption.whatsapp.caption')}}" label="{{__('webCaption.whatsapp.title')}}"  class="form-control" name="contact_2_whatsapp"   value="1" 
+                               checked="{{ old('contact_2_whatsapp') == '1' ? 'checked' : '' }}" />&ensp;
                           </div>    
                       </div>
                   </div>  
@@ -452,7 +434,7 @@
                         var selected_c = '';
                      }
                      $("#city_id").append('<option value="' + value
-                             .id + '" '+ selected_c +'>' + value.name + '</option>');
+                            .id + '" '+ selected_c +'>' + value.name + '</option>');
                   });
                }
             });
