@@ -74,8 +74,6 @@
 <script src="{{ asset(mix('vendors/js/extensions/jstree.min.js')) }}"></script>
   <!-- Page js files -->
   <script src="{{ asset(mix('js/scripts/extensions/ext-component-tree.js')) }}"></script>
-
-  <script src="{{ asset('assets/js/gabs/master.js') }}"></script>
 				
   <script type="text/javascript">
   	$(document).ready(function() {
