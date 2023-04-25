@@ -22,12 +22,12 @@ class SubTypeController extends Controller
 
     protected $baseUrl      =   '';
     protected $url;
-    public $menuUrl ='admin/masters/vehicle/subtype';
+    public $menuUrl ='admin/masters/vehicle/sub-type';
 
 
     public function __construct(UrlGenerator $url) {
         $this->url = $url;
-        $this->baseUrl =  $this->url->to('/admin/masters/vehicle/subtype');
+        $this->baseUrl =  $this->url->to('/admin/masters/vehicle/sub-type');
     }
 
     public function index(Request $request)
