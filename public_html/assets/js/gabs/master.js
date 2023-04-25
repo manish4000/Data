@@ -50,10 +50,42 @@ function imageValidation(id,maxFileSize,fileType ){
             }
         }
         
-
-
-
 }
+
+
+function documentValidation(id,maxFileSize,fileType ){
+
+    selected = $('#'+id).val().replace(/C:\\fakepath\\/i, '');
+    // $('#'+id+'-selected-file').html(selected);
+    
+    var ext = $('#'+id).val().split('.').pop().toLowerCase();
+    let fi = document.getElementById(id);
+
+    if ($.inArray(ext, fileType) == -1){
+        $('#'+id).val("");
+        $('#'+id+'-doc-ext-error').slideDown("slow");
+        }else{                    
+            $('#'+id+'-doc-ext-error').slideUp("slow");
+        }
+    
+        if (fi.files.length > 0) {
+            for (let i = 0; i <= fi.files.length - 1; i++) {
+      
+                let fsize = fi.files.item(i).size;
+                let file = Math.round((fsize / 1024));
+                // The size of the file.
+                if (file >= maxFileSize) {
+                    $('#'+id).val("");
+                    $('#'+id+'-doc-size-error').slideDown("slow");
+                }else{
+                    $('#'+id+'-doc-size-error').slideUp("slow");
+                } 
+            }
+        }
+        
+}
+
+
 
 function checkTextLimit(id){
     let totalCount = $('#'+id).val();
@@ -61,11 +93,16 @@ function checkTextLimit(id){
     if(totalCount.length>0) len = totalCount.length;
     $('#count_'+id).html(len);
 }
+ 
+
+
+
 
 function generate(id){
     let gen = document.getElementById(id);
-     gen.value = generatePassword();
+    gen.value = generatePassword();
 }
+
 
 let gen = document.getElementById("gen");
 
@@ -75,6 +112,12 @@ function pwdToggle(id) {
     let pwd = document.getElementById(id);
         if (pwd.type == "text") pwd.type = "password";
         else pwd.type = "text";
+    }
+
+function uuidToggle(id) {
+    let uuid = document.getElementById(id);
+        if (uuid.type == "text") uuid.type = "password";
+        else uuid.type = "text";
     }
   
     /* To Generate the password*/
@@ -94,6 +137,8 @@ function pwdToggle(id) {
     return shuffle(password);
     }
 
+
+
     /* To shuffle the password string*/
     function shuffle(str) {
         let arr = str.split("");
@@ -108,7 +153,6 @@ function pwdToggle(id) {
         }
         return arr.join("");
     }
-
 
 
 
