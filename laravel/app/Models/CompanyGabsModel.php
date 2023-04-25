@@ -21,6 +21,8 @@ class CompanyGabsModel extends Model
         'payment_term_id' => 'json',
         'deals_in_id' => 'json',
         'business_type_id' => 'json',
+        'association_member_id' => 'json',
+        'deals_in' => 'json',
         'service_id' => 'json',
         'created_at' => 'datetime:Y-m-d H:i',
         'updated_at' => 'datetime:Y-m-d H:i'
