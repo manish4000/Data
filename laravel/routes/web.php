@@ -474,7 +474,7 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
                 Route::post('/delete-multiple', [VehicleStatusController::class,'deleteMultiple'])->name('delete-multiple');
             });
 
-            Route::group(['prefix' => 'subtype' , 'as' => 'subtype.'],function(){
+            Route::group(['prefix' => 'sub-type' , 'as' => 'subtype.'],function(){
                 Route::get('/', [SubTypeController::class, 'index'])->name('index'); 
                 Route::post('/store', [SubTypeController::class, 'store'])->name('store');
                 Route::post('/update-status', [SubTypeController::class, 'updateStatus'])->name('update-status');      
