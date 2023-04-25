@@ -1243,7 +1243,7 @@ class CompanyController extends Controller
                 }
             }
 
-            CompanyDocument::whereIn('id',$request->delete_document)
+            CompanyDocument::whereIn('id',$request->delete_document);
 
 
         } 
