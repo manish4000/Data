@@ -69,11 +69,12 @@
                             {{ $data->onEachSide(2)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
                         </div>
                         @can('masters-company-marketing-status-delete')
-                            <!-- <div class="px-2 my-2">
+                             <div class="px-2 my-2">
                                 {{-- deleteMultiple() for delete multiple data pass url here  --}}
                                 <x-admin.form.buttons.multipleDelete url="{{route('masters.company.marketing-status.delete-multiple')}}" />
-                            </div> -->
-                        @endcan
+                            </div> 
+                            
+                            @endcan
                         <table class="table" id="master-list">
                             <thead>
                                 <tr>
