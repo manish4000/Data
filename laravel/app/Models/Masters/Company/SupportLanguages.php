@@ -50,8 +50,9 @@ class SupportLanguages extends Model
     {
         return $query->where( function($query) use ($keyword) {
             $query->where('name', 'like', '%'.$keyword.'%')->orWhereHas( 'children', function($query) use ($keyword) {
-                    $query->where('name', 'like', '%'.$keyword.'%');
-            } );
+                    $query->where('name', 'like', '%'.$keyword.'%')->orwhere('language_text','like','%'.$keyword.'%');
+            } )->orwhere('language_text','like','%'.$keyword.'%');
+            
         });
     }
 }
