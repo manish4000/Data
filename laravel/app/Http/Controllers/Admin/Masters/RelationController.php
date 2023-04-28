@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Admin\Masters;
 
 use App\Http\Controllers\Controller;
 use App\Models\Masters\Vehicles\Relation;
+use App\Models\Masters\Vehicles\SubType;
+use App\Models\Masters\Vehicles\Make;
+use App\Models\Masters\Vehicles\VehicleModel;
+use App\Models\Masters\Vehicles\Type;
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Routing\UrlGenerator;
 
@@ -41,7 +44,7 @@ class RelationController extends Controller
             'moduleName' => __('webCaption.menu_masters_vehicle_relation.title'), 
         ];
 
-        if (Auth::user()->can('masters-vehicle-transmission-add')) {
+        if (Auth::user()->can('masters-vehicle-relation-add')) {
             $breadcrumbs[0] = [
                 'link' => $this->baseUrl.'/add',
                 'name' => __('webCaption.add.title'), 
@@ -50,44 +53,42 @@ class RelationController extends Controller
             $breadcrumbs[0] = [];
         }
         
-        $data = Transmission::withCount('children');
+        $data = Relation::with(['type','subtype','make','vehicleModel']);  
 
-        if(  $request->has('search.keyword')) {
-            $data->keywordFilter($request->input('search.keyword')); 
-        }
-        if(  $request->has('search.displayStatus') && !empty($request->input('search.displayStatus'))) {
-            $data->displayStatusFilter($request->input('search.displayStatus')); 
-        }   
+        $types = Type::select('id as value', 'name')->where('parent_id','0')->orderBy('name')->get();
+
+        $subtypes = SubType::select('id as value', 'name')->where('parent_id','0')->orderBy('name')->get();
+
+        $makes = Make::select('id as value', 'name')->where('parent_id','0')->orderBy('name')->get();
+
+        $models = VehicleModel::select('id as value', 'name')->where('parent_id','0')->orderBy('name')->get();
         
-       // if(  !$request->has('search.parentOnlyShowAll')) {
-            $data->parentOnlyFilter();
-        //}
         if($request->has('order_by') &&  $request->has('order') ){
             $data->orderBy($request->order_by, $request->order);
         }
 
-        $data->with(['children'=>function($query) use ($request) {
-            if(  $request->has('search.keyword')) {
-                $query->keywordFilter($request->input('search.keyword')); 
-            }
-            if(  $request->has('search.displayStatus') && !empty($request->input('search.displayStatus'))) {
-                $query->displayStatusFilter($request->input('search.displayStatus')); 
-            }
+        if($request->has('type_id') && $request->input('type_id') != '') {
+            $data->typeFilter($request->input('type_id')); 
+        }
 
-            if($request->has('order_by') != "children_count"){
-                
-                if($request->has('order_by') &&  $request->has('order') ){
-                    $query->orderBy($request->order_by, $request->order);
-                }
-            }
+        if($request->has('subtype_id') && $request->input('subtype_id') != '') {
+            $data->subtypeFilter($request->input('subtype_id')); 
+        }
 
-        } ]); 
+        if($request->has('make_id') && $request->input('make_id') != '') {
+            $data->makeFilter($request->input('make_id')); 
+        }
+
+        if($request->has('model_id') && $request->input('model_id') != '') {
+            $data->modelFilter($request->input('model_id')); 
+        }
 
         $perPage =  (isset($request->perPage) && !empty($request->perPage)) ? $request->perPage : 100;
-
+        
         $data = $data->paginate($perPage);
 
-        return view('content.admin.masters.vechiles.transmissions.list', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs, 'data'=>$data,'perPage' => $perPage]);
+        
+        return view('content.admin.masters.vechiles.relation.list', ['pageConfigs' => $pageConfigs,'data'=> $data, 'types'=>$types, 'subtypes'=>$subtypes, 'makes'=>$makes, 'models'=>$models, 'breadcrumbs' => $breadcrumbs,'perPage' => $perPage]);
     }
 
 
@@ -95,16 +96,24 @@ class RelationController extends Controller
 
     public function add() {
 
-        if (!Auth::user()->can('masters-vehicle-transmission-add')) {
+        if (!Auth::user()->can('masters-vehicle-relation-add')) {
             abort(403);
         }
-        $parent_data = Transmission::select('id as value', 'name', 'parent_id', 'display')->orderBy('name', 'ASC')->where('parent_id', '0')->get();
-        $data = array();
+
+        $types = Type::select('id as value', 'name')->where('parent_id','0')->orderBy('name')->get();
+
+        $subtypes = SubType::select('id as value', 'name')->where('parent_id','0')->orderBy('name')->get();
+
+        $makes = Make::select('id as value', 'name')->where('parent_id','0')->orderBy('name')->get();
+
+        $models = VehicleModel::select('id as value', 'name')->where('parent_id','0')->orderBy('name')->get();
+  
         $breadcrumbs[0] = [
             'link' => $this->baseUrl,
             'name' => __('webCaption.list.title')
         ];
-        return view('content.admin.masters.vechiles.transmissions.create-form',['data' => $data ,'menuUrl' =>$this->menuUrl,'breadcrumbs' =>$breadcrumbs ,'parent_data' => $parent_data  ]);
+
+        return view('content.admin.masters.vechiles.relation.create-form',['menuUrl' =>$this->menuUrl,'breadcrumbs' =>$breadcrumbs,'types'=>$types, 'subtypes'=>$subtypes,'makes'=>$makes,'models'=>$models ]);
     }
     
 
@@ -117,26 +126,29 @@ class RelationController extends Controller
     public function store(Request $request) {
          
         if($request->id){
-            if (!Auth::user()->can('masters-vehicle-transmission-edit')) {
+            if (!Auth::user()->can('masters-vehicle-relation-edit')) {
                 abort(403);
             }
-            $transmission_model =   Transmission::find($request->id);
+            $relation_model =   Relation::find($request->id);
         }else{
-            if (!Auth::user()->can('masters-vehicle-transmission-add')) {
+            if (!Auth::user()->can('masters-vehicle-relation-add')) {
                 abort(403);
             }
-            $transmission_model =   new Transmission;
+            $relation_model =   new Relation;
         }
 
         $validator = Validator::make($request->all(),
           [
-            'display' => 'required',
-            'name' => 'required|unique:transmission,name,'.$request->id.',id,deleted_at,NULL' 
+            'type_id' => 'nullable|numeric',
+            'subtype_id' => 'nullable|numeric',
+            'make_id' => 'nullable|numeric',
+            'model_id' => 'nullable|numeric', 
           ]  ,
           [
-            'name.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.name.title')  ] ),
-            'display.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.display.title')  ] ),
-            'name.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('name')] ),
+            'type_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.type.title')  ] ),
+            'subtype_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.subtype.title')  ] ),
+            'make_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.make.title')  ] ),
+            'model_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.model.title')  ] ),   
           ]);
     
         if ($validator->fails()) {
@@ -145,14 +157,16 @@ class RelationController extends Controller
 
         
 
-                $transmission_model->name       =   $request->name;
-                $transmission_model->parent_id  =   isset($request->parent_id)? $request->parent_id : 0 ;
-                $transmission_model->display    =   $request->display;
-                // $transmission_model->title_languages    =   $request->title_languages;
+                $relation_model->type_id      =   $request->type_id;
+                $relation_model->subtype_id   =   $request->subtype_id;
+                $relation_model->make_id      =   $request->make_id;
+                $relation_model->model_id     =   $request->model_id;
+                $relation_model->is_confirmed =   isset($request->is_confirmed)? "1" : "0" ;
+               
 
-                if($transmission_model->save()){
+                if($relation_model->save()){
                     $message = (isset($request->id)) ? $request->name." ". __('webCaption.alert_updated_successfully.title') : $request->name." ".__('webCaption.alert_added_successfully.title') ;
-                    return redirect()->route('masters.vehicle.transmission.index')->with('success_message' ,$message );
+                    return redirect()->route('masters.vehicle.relation.index')->with('success_message' ,$message );
                 }else{
                     return redirect($this->baseUrl)->with(['error_message' => __('webCaption.alert_somthing_wrong.title') ]);
                 }
@@ -165,10 +179,7 @@ class RelationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
+  
 
     /**
      * Show the form for editing the specified resource.
@@ -178,10 +189,12 @@ class RelationController extends Controller
      */
     public function edit($id)
     {   
-        if (!Auth::user()->can('masters-vehicle-transmission-edit')) {
+        if (!Auth::user()->can('masters-vehicle-relation-edit')) {
             abort(403);
         }
-        $data = Transmission::select('id', 'name','title_languages', 'parent_id', 'display')->where('id', $id)->first();
+
+        $data = Relation::where('id', $id)->first();
+
         $activeSiteLanguages = SiteLanguage::ActiveSiteLanguagesForMaster();
         $breadcrumbs[0] = [
             'link' => $this->baseUrl,
@@ -189,8 +202,17 @@ class RelationController extends Controller
         ];   
 
         //send id as value because dynamic select work with  id as value  name as name  
-        $parent_data = Transmission::select('id as value', 'name', 'parent_id', 'display')->orderBy('name', 'ASC')->where('parent_id', '0')->get();
-        return view('content.admin.masters.vechiles.transmissions.create-form',['data' => $data,'breadcrumbs' =>$breadcrumbs ,'activeSiteLanguages' => $activeSiteLanguages ,'parent_data' => $parent_data ,'menuUrl' =>$this->menuUrl]);
+
+        $types = Type::select('id as value', 'name')->where('parent_id','0')->orderBy('name')->get();
+
+        $subtypes = SubType::select('id as value', 'name')->where('parent_id','0')->orderBy('name')->get();
+
+        $makes = Make::select('id as value', 'name')->where('parent_id','0')->orderBy('name')->get();
+
+        $models = VehicleModel::select('id as value', 'name')->where('parent_id','0')->orderBy('name')->get();
+
+
+        return view('content.admin.masters.vechiles.relation.create-form',['data' => $data,'types'=>$types,'subtypes'=>$subtypes,'makes'=>$makes,'models'=>$models, 'breadcrumbs' =>$breadcrumbs ,'activeSiteLanguages' => $activeSiteLanguages ,'menuUrl' =>$this->menuUrl]);
    
     }
 
@@ -210,14 +232,14 @@ class RelationController extends Controller
      */
     public function destroy(Request $request) {
 
-        if (!Auth::user()->can('masters-vehicle-transmission-delete')) {
+        if (!Auth::user()->can('masters-vehicle-relation-delete')) {
             $result['status']     = false;
             $result['message']    = __('webCaption.alert_delete_access.title'); 
             return response()->json(['result' => $result]);
             abort(403);
         }
 
-        if(Transmission::where('id', $request->id)->firstorfail()->delete()){
+        if(Relation::where('id', $request->id)->firstorfail()->delete()){
             $result['status']     = true;
             $result['message']    = __('webCaption.alert_deleted_successfully.title'); 
         
@@ -232,14 +254,14 @@ class RelationController extends Controller
 
     public function deleteMultiple( Request $request){
 
-        if (!Auth::user()->can('masters-vehicle-transmission-delete')) {
+        if (!Auth::user()->can('masters-vehicle-relation-delete')) {
             $result['status']     = false;
             $result['message']    = __('webCaption.alert_delete_access.title'); 
             return response()->json(['result' => $result]);
             abort(403);
         }
 
-        if(Transmission::whereIn('id', $request->delete_ids)->delete()){
+        if(Relation::whereIn('id', $request->delete_ids)->delete()){
             $result['status']     = true;
             $result['message']    = __('webCaption.alert_deleted_successfully.title') ;
            return response()->json(['result' => $result]);
@@ -257,14 +279,14 @@ class RelationController extends Controller
     public function updateStatus(Request $request){
 
         
-        if (!Auth::user()->can('masters-vehicle-transmission-edit')) {
+        if (!Auth::user()->can('masters-vehicle-relation-edit')) {
             $result['status']     = false;
             $result['message']    = __('webCaption.alert_update_access.title'); 
             return response()->json(['result' => $result]);
             abort(403);
         }
 
-        $__data = Transmission::FindOrFail($request->id);
+        $__data = Relation::FindOrFail($request->id);
 
         if(isset($__data->display)){
             $display =  ($__data->display == "Yes")? "No" : "Yes";
