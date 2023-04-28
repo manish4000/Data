@@ -24,8 +24,6 @@
 		<hr class="m-0 p-0">
     <div class="card-body">
       <div class="row">
-     
-
         <div class="col-lg-4 col-md-6">
           <div class="form-group">
             <x-admin.form.inputs.select  tooltip="{{__('webCaption.type.caption')}}"  label="{{__('webCaption.type.title')}}"  id="" for="type_id" name="type_id" required="" :optionData="$types" editSelected="{{(isset($data->type_id) && ($data->type_id != null))?$data->type_id :''; }}" />

@@ -94,7 +94,7 @@
                             </table>
 
                                     <div class="my-1 mx-3">
-                                        {{ $data->onEachSide(2)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}   
+                                        {{ $data->onEachSide(1)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}   
                                     </div>
                                                         
                         </div>

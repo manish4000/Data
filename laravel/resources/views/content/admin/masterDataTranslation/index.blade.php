@@ -40,7 +40,7 @@
                     <div class="table-responsive">
                         
                             <div class="mb-1 mx-0">   
-                                {{ $data->onEachSide(2)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
+                                {{ $data->onEachSide(1)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
                             </div>
 
                       
@@ -72,7 +72,7 @@
                             <tfoot>
                                 <tr>
                                     <td colspan="5">
-                                        {{ $data->onEachSide(2)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}          
+                                        {{ $data->onEachSide(1)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}          
                                     </td>
                                 </tr>                            
                             </tfoot>

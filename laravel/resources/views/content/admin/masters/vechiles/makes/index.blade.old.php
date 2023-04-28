@@ -115,7 +115,7 @@
                     <div class="">
                       
                             <div class="mt-2">
-                                {{ $data->onEachSide(2)->links('vendor.pagination.bootstrap-4') }}       
+                                {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4') }}       
                             </div>
                          {{--check delete permission  --}}
                        
@@ -213,7 +213,7 @@
 
 
                         <div class="mt-2">
-                            {{ $data->onEachSide(2)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
+                            {{ $data->onEachSide(1)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
                         </div>
                     </div>
                 @else

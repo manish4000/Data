@@ -56,7 +56,7 @@
                                     @endphp
 
                                 <div class="mb-1 mx-0 mt-2">        
-                                    {{ $data->onEachSide(2)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}   
+                                    {{ $data->onEachSide(1)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}   
                                 </div>
                                 @can('main-navigation-common-country-delete')
                                     <!-- <div class="px-2 my-2">
@@ -93,7 +93,7 @@
                             </table>
 
                                     <div class="my-1 mx-3">
-                                        {{ $data->onEachSide(2)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}   
+                                        {{ $data->onEachSide(1)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}   
                                     </div>
                                                         
                         </div>

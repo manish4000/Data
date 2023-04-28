@@ -34,7 +34,7 @@
 					@if(count($groups) > 0)
 					<div class="table-responsive">
 						<div class="mt-2">
-							{{ $groups->onEachSide(2)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
+							{{ $groups->onEachSide(1)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
 						</div>	
 
 						@can('main-navigation-company-menu-group-delete')	
@@ -96,7 +96,7 @@
 							</tbody>
 						</table>
 						<div class="mt-2">
-							{{ $groups->onEachSide(2)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
+							{{ $groups->onEachSide(1)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
 						</div>
 					</div>
 					@else

@@ -74,7 +74,7 @@
                 @if(count($data) > 0 )
                     <div class="">
                         <div class="mt-2">
-                            {{ $data->onEachSide(2)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
+                            {{ $data->onEachSide(1)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
                         </div>
                         @can('masters-vehicle-model-code-delete')
                             <div class="px-2 my-2">
@@ -141,7 +141,7 @@
 
 
                         <div class="mt-2">
-                            {{ $data->onEachSide(2)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
+                            {{ $data->onEachSide(1)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
                         </div>
                     </div>
                 @else

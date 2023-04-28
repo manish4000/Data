@@ -45,7 +45,7 @@
 					@if(count($users) > 0) 
 						<div class="table-responsive">
 							<div class="mt-2 mb-1">
-								{{ $users->onEachSide(2)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
+								{{ $users->onEachSide(1)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
 							</div>
 
 							@can('settings-users-delete')
@@ -132,7 +132,7 @@
 								</tbody>
 							</table>
 							<div class="mt-2">
-								{{ $users->onEachSide(2)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
+								{{ $users->onEachSide(1)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
 							</div>
 						</div>	
 					@else

@@ -34,7 +34,7 @@
 				  	@if(count($roles) > 0)
 						<div class="table-responsive">
 							<div class="mt-2">
-								{{ $data->onEachSide(5)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
+								{{ $data->onEachSide(1)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
 							</div>
 							<table class="table">
 								<thead>
@@ -78,7 +78,7 @@
 								</tbody>
 							</table>
 							<div class="mt-2">
-								{{ $data->onEachSide(5)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
+								{{ $data->onEachSide(1)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
 							</div>
 						</div>
 					@else
