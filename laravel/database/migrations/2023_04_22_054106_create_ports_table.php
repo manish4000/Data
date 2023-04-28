@@ -17,7 +17,6 @@ class CreatePortsTable extends Migration
             $table->id();
             $table->string('name', 50)->unique()->index();
             $table->bigInteger('parent_id')->nullable();
-            $table->bigInteger('type_id')->nullable();
             $table->enum('display', ['Yes', 'No'])->default('Yes');
             $table->longText('title_languages')->nullable();   
             $table->softDeletes();
