@@ -9,9 +9,29 @@
             }
     @endphp
 
+    @php
+
+       $referance = [
+                        [ 'table' => 'subtype','field' => 'type_id','value' => $item->id ,'module' => 'SubType' ,
+                          'url' => route('masters.vehicle.subtype.index',['search[type]' => $item->id ])  
+                        ]
+                    ];
+        
+     $status   =   Helper::__checkReferanceDataExist($referance);  
+
+     $referance_json    = json_encode($referance);            
+  
+    @endphp
+
+
     <tr class="parent-id-{{$item->parent_id}} {{$display}}">
         <td>
-            <x-admin.form.inputs.multiple_select_checkbox id="select{{$item->id}}"   value="{{$item->id}}"  customClass="checkbox"  />            
+           
+            @if($status)
+                <span class="show-referance-data" onclick="showReferanceData('{{$referance_json}}')">   &#x2605;  </span> 
+            @else
+            <x-admin.form.inputs.multiple_select_checkbox id="select{{$item->id}}"  value="{{$item->id}}"  customClass="checkbox"  />            
+            @endif
         </td>
         <td @if($childTdColor != '') class="{{$childTdColor}}" @endif >
             <span style=" margin-left: {{$marginLeft}}">{{$item->id}}</span>
@@ -35,7 +55,8 @@
                 <a href="#" class="load-child-records {{$collapsedClass}}" data-itemId="{{$item->id}}">{{$item->children_count}} <i class="fa {{$caretClass}}"></i> </a>
             @else
                 {{$item->children_count}}
-            @endif                                        
+            @endif 
+                                                   
         </td>
         <td>
             @php

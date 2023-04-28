@@ -135,12 +135,50 @@
   </div>     
 </div>
    
+{{-- model box --}}
+<!-- Button trigger modal -->
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="referanceModal" tabindex="-1" aria-labelledby="referanceModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="referanceModalLabel">Referance Data</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" >
+            <div >
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Module</th>
+                        <th scope="col">Count</th>
+                      </tr>
+                    </thead >
+                    <tbody id="referanceData">
+
+                    </tbody>
+                  </table>
+            </div>
+          
+        </div>
+        {{-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('webCaption.close.caption')}}</button>
+        </div> --}}
+      </div>
+    </div>
+  </div>
+{{-- model box --}}
 <!-- list section end -->
 </section>
 
 {{-- this file include for delete alert box  --}}
 @include('components.admin.alerts.delete-alert-box')
 @include('components.admin.alerts.multiple-delete-alert-box')
+@include('components.admin.alerts.reference-model-box')
 @include('components.admin.filter.order-by')
 <!-- users list ends -->
 
@@ -166,9 +204,14 @@ $('.load-child-records').click( function(event){
         $('.parent-id-' + itemId).hide();
     }
 });
-</script>
 
+</script>
 @endsection
+
+
+
+
+
 
 
  
