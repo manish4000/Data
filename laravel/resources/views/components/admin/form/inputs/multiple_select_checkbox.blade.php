@@ -6,6 +6,8 @@
 ])
 @php 
 $customClass = (isset($customClass)) ? $customClass : '';
+
+
 @endphp
 
 <div class="custom-control  custom-checkbox custom-control-inline">
