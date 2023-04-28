@@ -16,7 +16,7 @@ class SubType extends Model
     protected $table = 'subtype';
     protected $primaryKey = 'id';
    
-    protected $fillable = ['name', 'display','title_languages','parent_id', 'tcv_id', 'jct_ref_id', 'image'];
+    protected $fillable = ['name', 'display','title_languages','parent_id'];
 
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i',
@@ -66,8 +66,14 @@ class SubType extends Model
     }
 
     public function scopeTypeFilter($query, $type_id)
-    {
-        return $query->where('type_id', $type_id);
+    {   
+        return $query->where( function($query) use ($type_id) {
+            $query->where('type_id', $type_id)
+            ->orWhereHas( 'children', function($query) use ($type_id) {
+                    $query->where('type_id', $type_id);
+            } );
+        });
+        
     }
     
 
