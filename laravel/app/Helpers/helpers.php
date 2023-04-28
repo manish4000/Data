@@ -138,6 +138,23 @@ class Helper {
     }
 
 
+   //this method  check the referance of data is exist or not      
+    public static function __checkReferanceDataExist($data){
+        
+        // $response = [];
+
+        foreach($data as $checkReferance){
+            
+           $count = DB::table($checkReferance['table'])->where($checkReferance['field'],$checkReferance['value'] )->count();
+       
+             if($count > 0){
+                return true;
+             }
+        }
+        return false;
+    }
+
+
     public static function dashApplClasses() {
         // Demo
         $fullURL = request()->fullurl();
