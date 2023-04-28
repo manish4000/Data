@@ -1,4 +1,4 @@
-    @php
+@php
         
          $display = ( ($item->parent_id != null) && request()->input('search.parentOnlyShowAll') != 1  ) ? "item-tr-display-none" :'';
          $childTdColor = ( $item->parent_id > 0 )? "child-td-color" :'';
@@ -10,6 +10,7 @@
     @endphp
 
     <tr class="parent-id-{{$item->parent_id}} {{$display}}">
+
         <td>
             <x-admin.form.inputs.multiple_select_checkbox id="select{{$item->id}}"   value="{{$item->id}}"  customClass="checkbox"  />            
         </td>
@@ -76,3 +77,20 @@
            @endcan
         </td>
     </tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

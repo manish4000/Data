@@ -72,7 +72,7 @@
           <div class="card-body">
             @can('masters-vehicle-model-code') 
                 @if(count($data) > 0 )
-                    <div class="table-responsive">
+                    <div class="">
                         <div class="mt-2">
                             {{ $data->onEachSide(2)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
                         </div>
@@ -82,6 +82,12 @@
                                 <x-admin.form.buttons.multipleDelete url="{{route('masters.vehicle.model-code.delete-multiple')}}" />
                             </div>
                         @endcan
+
+
+
+
+
+
                         <table class="table" id="master-list">
                             <thead>
                                 <tr>
@@ -108,6 +114,8 @@
                                         <th data-toggle="tooltip" title="{{__('webCaption.actions.caption')}}" >{{__('webCaption.actions.title')}}</th>
                                 </tr>
                             </thead>
+
+
                             <tbody>
                                 @foreach($data as $item)
                                     @include('content.admin.masters.vechiles.model_code.item-tr', ['item'=>$item])    
@@ -120,6 +128,18 @@
                                             
                             </tbody>                            
                         </table>
+
+
+
+
+                        
+                         
+                       
+
+
+
+
+
                         <div class="mt-2">
                             {{ $data->onEachSide(2)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
                         </div>
