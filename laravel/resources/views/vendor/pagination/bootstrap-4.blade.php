@@ -15,14 +15,13 @@
         @endphp
     <div class="d-flex  row">
 
-    <div class="col-xl-2 col-lg-2 col-md-3 ol-sm-3 pb-2 text-center text-md-left text-xl-left text-lg-left">
+    <div class="col-xl-2 col-lg-2 col-md-3 ol-sm-3 col-5 pb-2 text-center text-md-left text-xl-left text-lg-left">
 
     <div class="dropdown">
-        <button class="btn btn-gray-action dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">Action</button>
+        <button class="btn btn-gray-action dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">{{__('webCaption.actions.title')}}</button>
         <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Delete Multiple</a></li>
+           <li><a class="dropdown-item" href="#">Add Multiple </a></li>
+            <li><a class="dropdown-item" href="#">{{__('webCaption.delete_multiple.title')}} </a></li>
         </ul>
     </div>
     
@@ -31,10 +30,10 @@
 
        
         
-        <div class="col-xl-3 col-sm-3 col-md-3 col-lg-3 text-center pt-50 pb-2">{{__('webCaption.total_records.title')}}:   {{ number_format( $paginator->total()) }}</div>      
+        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-3 col-7  pt-50 pb-2">{{__('webCaption.total_records.title')}}: {{ number_format( $paginator->total()) }}</div>      
 
     
-        <div class="col-sm-5 col-md-6 col-lg-5 col-xl-5 text-center pl-0 pr-0 pl-xl-1 pl-lg-1 pl-md-1 pr-xl-1 pr-lg-1 pr-md-1">  
+        <div class="col-xl-6 col-lg-4 col-md-6 col-sm-5  text-center pl-0 pr-0 pl-xl-1 pl-lg-1 pl-md-1 pr-xl-1 pr-lg-1 pr-md-1">  
             @if ($paginator->hasPages())
             <nav>
                 <ul class="pagination float-right float-none d-inline-flex">
@@ -82,7 +81,7 @@
             </nav>
             @endif
         </div>
-        <div class="col-sm-3 col-md-3 col-lg-2 col-xl-2 text-center pt-25 mt-md-2 mt-xl-0 mt-lg-0">
+        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-3 text-center pt-25 mt-xl-0 mt-lg-0">
             <div class="mb-1">
                 <span class="mr-0">{{__('webCaption.per_page.title')}}</span> 
                 <a class="btn border btn-sm dropdown-toggle"  data-toggle="dropdown" aria-expanded="false">
