@@ -255,8 +255,7 @@ class AccessoriesController extends Controller
 
 
     public function updateStatus(Request $request){
-
-        
+ 
         if (!Auth::user()->can('masters-vehicle-accessories-edit')) {
             $result['status']     = false;
             $result['message']    = __('webCaption.alert_update_access.title'); 
@@ -277,7 +276,6 @@ class AccessoriesController extends Controller
             $result['message']    = __('webCaption.alert_somthing_wrong.title'); 
 
         }
-
 
         return response()->json(['result' => $result]);
     }
