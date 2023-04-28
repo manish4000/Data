@@ -27,6 +27,7 @@
 <script src="{{ asset(mix('js/core/app-menu.js')) }}"></script>
 <script src="{{ asset(mix('js/core/app.js')) }}"></script>
 <script src="{{ asset('assets/dash/assets/js/dash/common.js') }}"></script>
+<script src="{{ asset('assets/dash/assets/js/dash/master.js') }}"></script>
 <!-- END: Theme JS-->
 
 @stack('script')
