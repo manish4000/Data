@@ -7,24 +7,31 @@
     'multiple',
     'imageId',
     'editImageUrl',
-    'fileType',
     'maxFileSize'
 
 ])
 
 @php
 $multiple = (isset($multiple))? $multiple :'';
-$imageId = (isset($imageId))? $imageId :'';
+$imageId = (isset($imageId))?  $imageId :'';
+$fileType = ['jpg','png','jpeg','svg','gif','tiff'];
+
 
 if(isset($editImageUrl)){
-    if(!is_file($editImageUrl )){
-      $editImageUrl = '';
+    if(is_file(public_path().'/'.$editImageUrl)){
+      $editImageUrl = asset($editImageUrl);
+    }else{
+
+        $editImageUrl = asset('assets/images/portrait/small/no-photo.jpg');
     }
+}else{
+    $editImageUrl = asset('assets/images/portrait/small/no-photo.jpg');
 }
-$Types = isset($fileType) ?  $fileType : '';
+
+$Types = $fileType;
 $maxFileSize = isset($maxFileSize) ?  $maxFileSize : '';
 
-$editImageUrl = ((isset($editImageUrl)) &&  !empty($editImageUrl) )? $editImageUrl : asset('assets/images/portrait/small/no-photo.jpg');
+//$editImageUrl = ((isset($editImageUrl)) &&  !empty($editImageUrl) )? $editImageUrl : asset('assets/images/portrait/small/no-photo.jpg');
 
 @endphp
 
