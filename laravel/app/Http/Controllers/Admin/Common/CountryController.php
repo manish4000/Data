@@ -137,7 +137,6 @@ class CountryController extends Controller
             );
 
 
-
             $country_model->name            =   $request->name;
             $country_model->phone_code      =   $request->phone_code;
             $country_model->country_code    =   $request->country_code;

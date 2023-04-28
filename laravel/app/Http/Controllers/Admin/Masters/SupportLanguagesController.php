@@ -83,6 +83,8 @@ class SupportLanguagesController extends Controller
 
         } ]); 
 
+       
+
         $perPage =  (isset($request->perPage) && !empty($request->perPage)) ? $request->perPage : 100;
 
         $data = $data->paginate($perPage);
