@@ -16,7 +16,7 @@ class Type extends Model
     protected $table = 'types';
     protected $primaryKey = 'id';
    
-    protected $fillable = ['name', 'display','title_languages','parent_id', 'tcv_id', 'jct_ref_id', 'image'];
+    protected $fillable = ['name', 'display','title_languages','parent_id'];
 
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i',
