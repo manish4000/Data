@@ -222,6 +222,7 @@
                 @for($i=0;$i<6;$i++)
 
                   @php
+                  $doc_id = '';
                   $doc_name = '';
                   $doc_type = '';
                   @endphp
@@ -239,12 +240,23 @@
                     @endif
                   @endforeach
 
-                  <div class="col-md-4">      
+                  <div class="col-md-4 mb-1" >   
+                    <div class=" border p-1">
+                       
                         <div class="form-group">
+                          <input type="hidden" name="document_id[]" value="{{$doc_id}}">
                           <x-admin.form.inputs.document_file for="document_{{$i}}" label="{{__('webCaption.document_1.title')}}"    name="document[]" />
+                        </div>
+                        <div class="form-group">
+                          <x-admin.form.inputs.text id="" for="document_name_{{$i}}" tooltip="{{__('webCaption.document_name.caption')}}" label="{{__('webCaption.document_name.title')}}" maxlength="75" name="document_name[]"  placeholder="{{__('webCaption.document_name.title')}}" value="{{$doc_type}}"  required="" />
+
+                        </div>
+
+                        <div class="form-group">  
                           @if($doc_name != '')
-                            <x-admin.form.inputs.checkbox id="" for="document_{{$i}}_check" tooltip="{{__('webCaption.line.caption')}}" label="{{__('webCaption.line.title')}}" class="form-control" name="delete_document[]"   value="{{$doc_id}}" 
-                            checked="" />
+                            <x-admin.form.inputs.checkbox id="" for="document_{{$i}}_check" tooltip="{{__('webCaption.delete.caption')}}" label="{{__('webCaption.delete.title')}}" class="form-control" name="delete_document[]"   value="{{$doc_id}}"  checked="" />
+
+                            <a href="#"> view </a>
                               @if($doc_ext == 'pdf')
 
                                 {{-- show pdf preview  --}}
@@ -257,12 +269,8 @@
                               @endif
 
                           @endif
-                         
-                          <x-admin.form.inputs.text id="" for="document_name_{{$i}}" tooltip="{{__('webCaption.document_name.caption')}}" label="{{__('webCaption.document_name.title')}}" maxlength="75" name="document_name[]"  placeholder="{{__('webCaption.document_name.title')}}" value="{{$doc_type}}"  required="" />
-
-                        
-                             
-                        </div>
+                        </div> 
+                    </div>     
                   </div>
                 @endfor
                </div>

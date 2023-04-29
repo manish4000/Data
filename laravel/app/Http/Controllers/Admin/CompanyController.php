@@ -673,7 +673,7 @@ class CompanyController extends Controller
                 //this is for upload multiple files  
 
                 if($request->has('document')){
-
+                   
                     $company_document_model =   new CompanyDocument;
 
                     foreach($request->document as $key => $document){
@@ -907,7 +907,6 @@ class CompanyController extends Controller
      */
     public function update(Request $request, $id)
     {   
-
 
         if (!Auth::user()->can('main-navigation-company-edit')) {
             abort(403);
@@ -1230,56 +1229,97 @@ class CompanyController extends Controller
 
         }
 
-
+     
         if($request->delete_document != '' && $request->delete_document != null){
-            
+
             $document_delete_data =  CompanyDocument::whereIn('id',$request->delete_document)->get();
 
             foreach($document_delete_data as $delete_doc){
 
                 if(is_file(public_path('company_data').'/'.$request->gabs_uuid.'/document/'.$delete_doc->name )){
 
-                    unlink(public_path('company_data').'/'.$company_gabs_model->gabs_uuid.'/logo/'.$delete_doc->name);
+                    unlink(public_path('company_data').'/'.$company_gabs_model->gabs_uuid.'/document/'.$delete_doc->name);
                 }
             }
 
-            CompanyDocument::whereIn('id',$request->delete_document);
+            CompanyDocument::whereIn('id',$request->delete_document)->delete();
 
 
         } 
 
-        //update the company documents  images
-        
-        if($request->has('document')){
+//        update the company documents  images
 
-            foreach($request->document as $key => $document){
+       
+
+        if($request->document_id != null){ 
+
+            foreach($request->document_id as $key => $doc_id){
+
                 
-                $doc = time().rand(1,9999).'_document.'.$document->extension();  
-                $document->move(public_path('company_data').'/'.$request->gabs_uuid.'/document' , $doc);
-                $document_file[$key]['company_id'] = $id;
-                $document_file[$key]['name'] = $doc;
 
-                $document_file[$key]['created_at'] = \Carbon\Carbon::now()->toDateTimeString();
-                $document_file[$key]['updated_at'] = \Carbon\Carbon::now()->toDateTimeString();
- 
+                if($company_document_model = CompanyDocument::where('id',$doc_id)->where('deleted_at',null)->first()){
+
+                    if(isset($request->document) && isset($request->document[$key])){
+                    $document = $request->document[$key];
+                    $doc = time().rand(1,9999).'_document.'.$document->extension(); 
+                    $document->move(public_path('company_data').'/'.$request->gabs_uuid.'/document',$doc);
+                        
+                    $document_file['company_id'] = $id;
+                    $document_file['name'] =  isset($doc)? $doc :null ;
+                    $document_file['order_by'] = $key;
+                    $document_file['document_name'] = isset($request->document_name[$key]) ? $request->document_name[$key] :null ;
+                    $document_file['created_at'] = \Carbon\Carbon::now()->toDateTimeString();
+                    $document_file['updated_at'] = \Carbon\Carbon::now()->toDateTimeString();
+
+                    $company_document_model->update($document_file) ;
+                    $document_file = [];
+
+                    }else{
+                        
+                        $document_file['document_name'] = isset($request->document_name[$key]) ? $request->document_name[$key] :null ;
+                        $company_document_model->update($document_file) ;
+                    }
+
+                }else{
+
+                    if(isset($request->document) && isset($request->document[$key])){
+                        
+                        $document = $request->document[$key];
+                        $doc = time().rand(1,9999).'_document.'.$document->extension(); 
+                        $document->move(public_path('company_data').'/'.$request->gabs_uuid.'/document',$doc);
+
+                        $document_file['company_id'] = $id;
+                        $document_file['name'] = isset($doc)? $doc :null ;
+                        $document_file['order_by'] = $key;
+                        $document_file['document_name'] = isset($request->document_name[$key]) ? $request->document_name[$key] :null ;
+                        $document_file['created_at'] = \Carbon\Carbon::now()->toDateTimeString();
+                        $document_file['updated_at'] = \Carbon\Carbon::now()->toDateTimeString();
+    
+                        $company_document_model =   new CompanyDocument;
+    
+                        $company_document_model->insert($document_file);
+                        $document_file = [];
+                    }
+
+                }
+
+
+
             }
 
-            $company_document_model =   new CompanyDocument;
+           
+            // $old_documents_data =  $company_document_model->where('company_id',$id)->get(['id','name']);
 
-            $old_documents_data =  $company_document_model->where('company_id',$id)->get(['id','name']);
+            // if($old_documents_data != null){
 
-            if($old_documents_data != null){
-
-                foreach($old_documents_data as $old_doc){
-                        if(file_exists(public_path('company_data').'/'.$request->gabs_uuid.'/document/'.$old_doc->name )){
-                            unlink(public_path('company_data').'/'.$request->gabs_uuid.'/document/'.$old_doc->name);
-                        }
-                }
-            }    
-
+            //     foreach($old_documents_data as $old_doc){
+            //             if(file_exists(public_path('company_data').'/'.$request->gabs_uuid.'/document/'.$old_doc->name )){
+            //                 unlink(public_path('company_data').'/'.$request->gabs_uuid.'/document/'.$old_doc->name);
+            //             }
+            //     }
+            // }    
             
-            $company_document_model->where('company_id',$id)->delete(); 
-            $company_document_model->insert($document_file);
+        
 
         }
 

@@ -1,7 +1,11 @@
 @extends('layouts/contentLayoutMaster')
 {{-- @section('title', $pageConfigs['moduleName']) --}}
 
+@if(isset($data->id))
+@section('title', __('webCaption.company_edit.title'))
+@else
 @section('title', __('webCaption.company_add.title'))
+@endif
 
 @section('content')
    <!-- users edit start -->
@@ -27,7 +31,7 @@
 
                   <div class="col-md-4">
                      <div class="form-group">
-                        <x-admin.form.inputs.uuid_input  label="{{__('webCaption.gabs_uuid.title')}}" tooltip="{{__('webCaption.gabs_uuid.caption')}}" for="gabs_uuid" maxlength="6" name="gabs_uuid"  placeholder="{{__('webCaption.gabs_uuid.title')}}" value="{{old('gabs_uuid', isset($data->gabs_uuid)?$data->gabs_uuid:'' )}}"  required="required" />
+                        <x-admin.form.inputs.uuid_input  label="{{__('webCaption.gabs_uuid.title')}}" tooltip="{{__('webCaption.gabs_uuid.caption')}}" for="gabs_uuid" maxlength="6" name="gabs_uuid"  placeholder="{{__('webCaption.gabs_uuid.title')}}" value="{{old('gabs_uuid', (isset($data->gabs_uuid))? $data->gabs_uuid  : '' )}}"  required="required" />
                         
                      </div>
                   </div>
@@ -126,18 +130,11 @@
                      </div>
                   </div>
                   <div class="col-md-4">
-
-                     @php 
-                     $fileType = ['jpg','png'];    
-                     @endphp 
-                     <div class="form-group">
-                        <x-admin.form.inputs.file id="" caption="{{__('webCaption.upload_logo.title')}}" ImageId="logo-preview" for="logo"   name="logo" :fileType="$fileType" maxFileSize="5000"  placeholder="{{__('webCaption.logo.title')}}" required="required" />
-                        
+                       <div class="form-group">
+                        <x-admin.form.inputs.file id="" caption="{{__('webCaption.upload_logo.title')}}" ImageId="logo-preview" for="logo"   name="logo"  maxFileSize="5000"  placeholder="{{__('webCaption.logo.title')}}" required="required" />
                      </div>
                   </div>
                </div>
-
-
             </div>
          </div>
          <div class="card">
@@ -425,7 +422,7 @@
                type: 'POST',
                url: "{{route('company.city-list')}}",
                data: { id : state },
-               success : function(result) {
+               success : function(result){
                   $('#city_id').html('<option value="">Select City</option>');
                   $.each(result.cities, function (key, value) {
                      if(value.id == city){
