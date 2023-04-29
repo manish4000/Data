@@ -6,17 +6,33 @@
          $display = ( ($item->parent_id != null) && $parentOnlyShowAll != 1  ) ? "display:none;" :'';  
             $childTdColor = ( $item->parent_id > 0 )? "child-td-color" :'';
 
-         $marginLeft = '-16px';
+         
          $marginLeft = '-16px';
             if( $item->parent_id > 0 ) {
                 $marginLeft = "0rem;";
             }
     @endphp
 
+
+    @php
+       $referance = [   
+                        // demo send data like this to find relation  
+                        // [ 'table' => 'subtype','field' => 'type_id','value' => $item->id ,'module' => 'SubType' ,
+                        //   'url' => route('masters.vehicle.subtype.index',['search[type]' => $item->id ])  
+                        // ]
+                    ];    
+     $status   = (count($referance) > 0 ) ?  Helper::__checkReferanceDataExist($referance) : false ;  
+     $referance_json    = json_encode($referance);            
+    @endphp
+
     <div class="table_row parent-id-{{$item->parent_id}} " style="{{$display}}">
 
         <div class="make_col">
-            <x-admin.form.inputs.multiple_select_checkbox id="select{{$item->id}}"   value="{{$item->id}}"  customClass="checkbox"  />            
+            @if($status)
+                <span class="show-referance-data" onclick="showReferanceData('{{$referance_json}}')">   &#x2605;  </span> 
+            @else
+            <x-admin.form.inputs.multiple_select_checkbox id="select{{$item->id}}"   value="{{$item->id}}"  customClass="checkbox"  />        
+            @endif        
         </div>
 
         <div class="make_col text-center pl-0 @if($childTdColor != '')  {{$childTdColor}}  @endif "><span style=" margin-left: {{$marginLeft}}">{{$item->id}}</span>
@@ -43,7 +59,7 @@
             @else
                 {{$item->children_count}}
             @endif                                        
-                </div>
+        </div>
         <div class="make_col">
             @php
                 $displayStatusChecked = '';
@@ -54,40 +70,22 @@
     
             <x-admin.form.inputs.listing_checkbox id="list{{$item->id}}"  onclick="changeDisplayStatus('{{$item->id}}','{{route('masters.vehicle.make.update-status')}}')"  dataItemId="{{$item->id}}" dataUrl="{{route('masters.vehicle.make.update-status')}}" 
                value="{{$item->id}}" checked="{{$displayStatusChecked}}"  /> 
-            </div>
+        </div>
 
 
-            <div class="make_col">
-            @can('main-navigation-masters-vehicle-make-edit')
-             <x-admin.form.buttons.edit href="{{ route('masters.vehicle.make.edit', $item->id) }}" />
+        <div class="make_col">
+                @can('main-navigation-masters-vehicle-make-edit')
+                <x-admin.form.buttons.edit href="{{ route('masters.vehicle.make.edit', $item->id) }}" />
+                @endcan
+                &nbsp;
+
+            {{-- pass in  deleteSingleData(id , name ,url ) for delete  --}}
+
+            @can('main-navigation-masters-vehicle-make-delete')
+                <x-admin.form.buttons.delete id="{{$item->id}}" name="{{$item->name}}" url="{{route('masters.vehicle.make.delete')}}" action="{{route('masters.vehicle.make.delete',$item->id)}}" /> 
             @endcan
-            &nbsp;
+        </div>
 
-           {{-- pass in  deleteSingleData(id , name ,url ) for delete  --}}
-
-           @can('main-navigation-masters-vehicle-make-delete')
-            <x-admin.form.buttons.delete id="{{$item->id}}" name="{{$item->name}}" url="{{route('masters.vehicle.make.delete')}}" action="{{route('masters.vehicle.make.delete',$item->id)}}" /> 
-           @endcan
-            </div>
-
-
-        
-
-
-     
-
-        
-
-         
-
-
-           
-            
-            
-
-            
-
-           
 
             
 </div>

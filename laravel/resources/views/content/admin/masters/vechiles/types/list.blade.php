@@ -14,12 +14,12 @@
         <div class="card-body">
           <form method="GET" action="{{route('masters.vehicle.type.index')}}">
             <div class="row">
-                <div class="col-md-6 col-lg-3 col-xl-4">
+                <div class="col-sm-3 col-md-5 col-lg-7 col-xl-7">
                     <div class="form-group">
                         <x-admin.form.inputs.text id="searchKeyword" for="{{__('webCaption.keyword.title')}}" label="{{__('webCaption.keyword.title')}}" tooltip="{{__('webCaption.keyword.caption')}}"  class="form-control" name="search[keyword]"  placeholder="{{__('webCaption.keyword.title')}}" value="{{ request()->input('search.keyword') }}"  required="" />
                     </div>
                 </div>
-                <div class="col-7 col-md-3">
+                <div class="col-7 col-sm-3 col-md-4 col-lg-3">
                     <div class="form-group">
                         <x-admin.form.label for="" value="{{__('webCaption.display_status.title')}}" class="" tooltip="{{__('webCaption.display_status.caption')}}" />
                         <div>
@@ -46,7 +46,7 @@
                         
                     </div> 
                 </div>
-                <div class="col-12 col-sm-5 col-md-5 col-lg-4 col-xl-3 pt-1">
+                <div class="col-md-12  pt-1 text-center">
                     <x-admin.form.buttons.search />
                     <x-admin.form.buttons.reset href="{{route('masters.vehicle.type.index')}}" />
                 </div>
@@ -64,17 +64,17 @@
           <div class="card-body">
             @can('main-navigation-masters-vehicle-type') 
                 @if(count($data) > 0 )
-                    <div class="table-responsive">
+                    <div >
                         <div class="mt-2">
                             {{ $data->onEachSide(1)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
                         </div>
                         @can('main-navigation-masters-vehicle-type-delete')
-                            <div class="px-2 my-2">
+                            <div class="px-0 my-2">
                                 {{-- deleteMultiple() for delete multiple data pass url here  --}}
                                 <x-admin.form.buttons.multipleDelete url="{{route('masters.vehicle.type.delete-multiple')}}" />
                             </div>
                         @endcan
-
+                    <div class="main_table" id="master-list">
                         @php
                         $heading_array = [
                                                 [
@@ -82,7 +82,7 @@
                                                     'orderby' => 'id'
                                                 ] , 
                                                 [
-                                                    'title' => 'name',
+                                                    'title' => 'type',
                                                     'orderby' => 'name'
                                                 ] , 
                                                 [
@@ -102,11 +102,7 @@
 
                         <x-admin.table.table-heading :headingFields="$heading_array"/>
 
-
-
-                        <table class="table" id="master-list">
-
-                            <tbody>
+                        
                                 @foreach($data as $item)
                                     @include('content.admin.masters.vechiles.types.item-tr', ['item'=>$item])    
                                     @if( true || request()->input('search.parentOnlyShowAll') == 1)
@@ -115,9 +111,7 @@
                                         @endforeach 
                                     @endif
                                 @endforeach   
-                                            
-                            </tbody>                            
-                        </table>
+                     </div>                             
                         
                         <div class="mt-2">
                             {{ $data->onEachSide(1)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       

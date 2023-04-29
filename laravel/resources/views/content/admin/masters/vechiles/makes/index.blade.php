@@ -1,9 +1,7 @@
 @extends('layouts/contentLayoutMaster')
 @section('title', $pageConfigs['moduleName'])
 
-@section('page-style')
 
-   @endsection 
 @section('content')
 <!-- users list start -->
 <section>
@@ -68,38 +66,52 @@
           <div class="card-body">
             @can('main-navigation-masters-vehicle-make') 
                 @if(count($data) > 0 )
-                    <div class="">
+                    <div >
                       
                             <div class="mt-2">
+                                @php
+                                    $url = route('masters.vehicle.make.delete-multiple');
+                                @endphp
+
                                 {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4') }}       
                             </div>
                          {{--check delete permission  --}}
                        
                         @can('main-navigation-masters-vehicle-make-delete')
-                            <!-- <div class="px-0 my-2">
+                             <div class="px-0 my-2">
                                 {{-- deleteMultiple() for delete multiple data pass url here  --}}
                                 <x-admin.form.buttons.multipleDelete url="{{route('masters.vehicle.make.delete-multiple')}}" />
-                            </div> -->
+                            </div>
                         @endcan
 
           
           <div class="main_table" id="master-list">
-                            
-             <div class="table_header">
-                <div class="header_col"> <x-admin.form.inputs.multiple_select_checkbox id="checkAll"   value="1"  customClass=""  /> </div>
-                
-                <div class="header_col position-for-filter-heading" ><span style="margin-right:0px;">#</span> <x-admin.filter.order-by-filter-div orderBy="id" /></div>  
+            @php
+            $heading_array = [
+                                    [
+                                        'title' => 'id',
+                                        'orderby' => 'id'
+                                    ] , 
+                                    [
+                                        'title' => 'make',
+                                        'orderby' => 'name'
+                                    ] , 
+                                    [
+                                        'title' => 'no_of_children',
+                                        'orderby' => 'children_count'
+                                    ] , 
+                                    [
+                                        'title' => 'display_status',
+                                        'orderby' => 'display'
+                                    ] , 
+                                    [
+                                        'title' => 'actions',
+                                        'orderby' => null
+                                    ]  
+                             ];
+            @endphp
 
-                <div class="header_col position-for-filter-heading " data-toggle="tooltip" title="{{__('webCaption.make.caption')}}"> {{__('webCaption.make.title')}} <x-admin.filter.order-by-filter-div orderBy="name" /></div>
-
-                <div class="header_col position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.no_of_children.caption')}}" >{{__('webCaption.no_of_children.title')}} <x-admin.filter.order-by-filter-div orderBy="children_count" />
-                               </div>
-                <div class="header_col position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.display_status.caption')}}"  >{{__('webCaption.display_status.title')}} <x-admin.filter.order-by-filter-div orderBy="display" />
-                                           </div>
-                <div class="header_col" data-toggle="tooltip" title="{{__('webCaption.actions.caption')}}" >{{__('webCaption.actions.title')}}
-                                </div>                                        
-          </div>
-                 
+            <x-admin.table.table-heading :headingFields="$heading_array"/>                
                          
                    @foreach($data as $item)
                       @include('content.admin.masters.vechiles.makes.item-tr', ['item'=>$item])    
@@ -109,9 +121,8 @@
                          @endforeach                                        
                        @endif
               @endforeach   
-                                            
-                                                      
-    </div>
+                                                                               
+             </div>
 
 
 
@@ -121,7 +132,7 @@
 
 
                         <div class="mt-2">
-                            {{ $data->onEachSide(1)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
+                            {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4') }}       
                         </div>
                     </div>
                 @else

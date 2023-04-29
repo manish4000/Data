@@ -1,11 +1,12 @@
     @php
-        
-         $display = ( ($item->parent_id != null) && request()->input('search.parentOnlyShowAll') != 1  ) ? "item-tr-display-none" :'';
-         $childTdColor = ( $item->parent_id > 0 )? "child-td-color" :'';
+           $parentOnlyShowAll  = (request()->input('search.parentOnlyShowAll') != null) ? 1 : 0;
+           $display = ( ($item->parent_id != null) && $parentOnlyShowAll != 1  ) ? "display:none;" :'';  
+            $childTdColor = ( $item->parent_id > 0 )? "child-td-color" :'';
+        // $childTdColor = ( $item->parent_id > 0 )? "child-td-color" :'';
 
-         $marginLeft = '0';
+         $marginLeft = '-16px';
             if( $item->parent_id > 0 ) {
-                $marginLeft = "1.5rem;";
+                $marginLeft = "0rem;";
             }
     @endphp
 
@@ -17,30 +18,30 @@
                         ]
                     ];
         
-     $status   =   Helper::__checkReferanceDataExist($referance);  
+     $status   = (count($referance) > 0 ) ?  Helper::__checkReferanceDataExist($referance) : false ;  
 
      $referance_json    = json_encode($referance);            
   
     @endphp
 
 
-    <tr class="parent-id-{{$item->parent_id}} {{$display}}">
-        <td>
+    <div class="table_row parent-id-{{$item->parent_id}}"  style="{{$display}}">
+        <div class="make_col">
            
             @if($status)
                 <span class="show-referance-data" onclick="showReferanceData('{{$referance_json}}')">   &#x2605;  </span> 
             @else
             <x-admin.form.inputs.multiple_select_checkbox id="select{{$item->id}}"  value="{{$item->id}}"  customClass="checkbox"  />            
             @endif
-        </td>
-        <td @if($childTdColor != '') class="{{$childTdColor}}" @endif >
+        </div>
+        <div class="make_col text-center pl-0 @if($childTdColor != '') {{$childTdColor}} @endif ">
             <span style=" margin-left: {{$marginLeft}}">{{$item->id}}</span>
-        </td>
-        <td @if($childTdColor != '') class="{{$childTdColor}}" @endif>
+        </div>
+        <div class="make_col" @if($childTdColor != '') class="{{$childTdColor}}" @endif>
              @php echo  str_ireplace( request()->input('search.keyword'), '<span class="heighlight-string" >'. request()->input('search.keyword').'</span>',$item->name) @endphp
-        </td>
+        </div>
 
-        <td>
+        <div class="make_col">
             @if( $item->children_count > 0 )
                 @php
                     $collapsedClass = 'collasped';
@@ -57,8 +58,8 @@
                 {{$item->children_count}}
             @endif 
                                                    
-        </td>
-        <td>
+        </div>
+        <div class="make_col">
             @php
                 $displayStatusChecked = '';
                 if( strcasecmp($item->display, 'Yes') == 0) {
@@ -68,8 +69,8 @@
     
             <x-admin.form.inputs.listing_checkbox id="list{{$item->id}}"  onclick="changeDisplayStatus('{{$item->id}}','{{route('masters.vehicle.type.update-status')}}')"  dataItemId="{{$item->id}}" dataUrl="{{route('masters.vehicle.type.update-status')}}" 
                value="{{$item->id}}" checked="{{$displayStatusChecked}}"  /> 
-        </td>
-        <td>
+        </div>
+        <div class="make_col">
             @can('main-navigation-masters-vehicle-type-edit')
              <x-admin.form.buttons.edit href="{{ route('masters.vehicle.type.edit', $item->id) }}" />
             @endcan
@@ -80,5 +81,5 @@
            @can('main-navigation-masters-vehicle-type-delete')
             <x-admin.form.buttons.delete id="{{$item->id}}" name="{{$item->name}}" url="{{route('masters.vehicle.type.delete')}}" action="{{route('masters.vehicle.type.delete',$item->id)}}" /> 
            @endcan
-        </td>
-    </tr>
+        </div>
+</div>
