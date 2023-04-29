@@ -911,7 +911,7 @@ class CompanyController extends Controller
         if (!Auth::user()->can('main-navigation-company-edit')) {
             abort(403);
         } 
-
+      
         $request->validate(
             [
             'company_name' => 'required|max:255|unique:companies_gabs,company_name,'.$request->id.',id,deleted_at,NULL',
@@ -934,13 +934,14 @@ class CompanyController extends Controller
             'plan_id' => 'nullable|numeric',
             'business_type_id.*' => 'nullable|numeric',
             'marketing_status' => 'nullable|numeric',
-            'association_member_id' => 'nullable|numeric',
+            'association_member_id.*' => 'nullable|numeric',
             'permit_no' => "nullable|string|max:250",
             'admin_comment' => 'nullable|string|max:250',
             'contact_1_name' => 'nullable|string|max:100',
             'contact_1_email' => 'nullable|email|max:50',
             'contact_1_designation.*' => 'nullable|string|max:50',
             'contact_1_phone' => 'nullable|string|max:20',
+            'deals_in.*' => 'nullable|numeric',
 
             'contact_2_name' => 'nullable|string|max:100',
             'contact_2_email' => 'nullable|email|max:50',
@@ -1011,8 +1012,8 @@ class CompanyController extends Controller
                 'marketing_status.numeric' => __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.marketing_status.title')] ),
 
                 'business_type_id.*.numeric' => __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.business_type.title')] ),
-
-                'association_member_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=>  __('webCaption.association_member.title')] ),
+                'deals_in.*.numeric' => __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.deals_in.title')] ),
+                'association_member_id.*.numeric' => __('webCaption.validation_nemuric.title', ['field'=>  __('webCaption.association_member.title')] ),
 
                 'permit_no.string'=> __('webCaption.validation_string.title', ['field'=> __('webCaption.permit_number.title') ] ),
                 'permit_no.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.permit_number.title')  ,"max" => "250"] ),
@@ -1062,6 +1063,8 @@ class CompanyController extends Controller
         );
 
         if($request->has('business_type_id')) {
+
+    
     
             if(is_array($request->business_type_id) && count($request->business_type_id) > 0){
             
@@ -1078,7 +1081,6 @@ class CompanyController extends Controller
             }
         }
 
-        
         $company_gabs_model = CompanyGabsModel::find($request->id);
 
         $old_logo_name = $company_gabs_model->logo;
@@ -1096,6 +1098,11 @@ class CompanyController extends Controller
             $company_gabs_model->password =  Hash::make($request->password);  
         }
 
+        if($request->has('deals_in')) {
+            if(is_array($request->deals_in) && count($request->deals_in) > 0){
+                $deals_in   = json_encode($request->deals_in);
+            }
+        }
         // $company_gabs_model->gabs_uuid = $request->gabs_uuid;  
         $company_gabs_model->email = $request->email;  
         $company_gabs_model->status = $request->status;  
@@ -1127,7 +1134,7 @@ class CompanyController extends Controller
         $company_gabs_model->contact_2_email = $request->contact_2_email;  
         $company_gabs_model->contact_2_phone = $request->contact_2_phone;  
         $company_gabs_model->contact_2_designation = $request->contact_2_designation;  
-
+        $company_gabs_model->deals_in =  (isset($deals_in)) ? $deals_in : null; 
         $company_gabs_model->contact_2_line = isset($request->contact_2_line) ? $request->contact_2_line :'0' ;  
         $company_gabs_model->contact_2_viber = isset($request->contact_2_viber) ? $request->contact_2_viber : '0' ;  
         $company_gabs_model->contact_2_whatsapp = isset($request->contact_2_whatsapp) ? $request->contact_2_whatsapp : '0'; 
