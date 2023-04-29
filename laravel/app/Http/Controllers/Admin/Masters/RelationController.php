@@ -11,7 +11,6 @@ use App\Models\Masters\Vehicles\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Routing\UrlGenerator;
-
 use App\Models\SiteLanguage;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,14 +26,13 @@ class RelationController extends Controller
     protected $url;
     public $menuUrl ='admin/masters/vehicle/relation';
 
-
     public function __construct(UrlGenerator $url) {
         $this->url = $url;
         $this->baseUrl =  $this->url->to('/admin/masters/vehicle/relation');
     }
 
-    public function index(Request $request)
-    {    
+    public function index(Request $request){
+
         if (!Auth::user()->can('masters-vehicle-relation')) {
             abort(403);
         }
@@ -87,7 +85,6 @@ class RelationController extends Controller
         
         $data = $data->paginate($perPage);
 
-        
         return view('content.admin.masters.vechiles.relation.list', ['pageConfigs' => $pageConfigs,'data'=> $data, 'types'=>$types, 'subtypes'=>$subtypes, 'makes'=>$makes, 'models'=>$models, 'breadcrumbs' => $breadcrumbs,'perPage' => $perPage]);
     }
 
@@ -116,14 +113,14 @@ class RelationController extends Controller
         return view('content.admin.masters.vechiles.relation.create-form',['menuUrl' =>$this->menuUrl,'breadcrumbs' =>$breadcrumbs,'types'=>$types, 'subtypes'=>$subtypes,'makes'=>$makes,'models'=>$models ]);
     }
     
-
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
+
+    public function store(Request $request){
          
         if($request->id){
             if (!Auth::user()->can('masters-vehicle-relation-edit')) {
@@ -151,26 +148,21 @@ class RelationController extends Controller
             'model_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.model.title')  ] ),   
           ]);
     
-        if ($validator->fails()) {
+        if ($validator->fails()){
             return redirect()->back()->with('errors', $validator->errors() )->withInput();
         }
-
-        
-
                 $relation_model->type_id      =   $request->type_id;
                 $relation_model->subtype_id   =   $request->subtype_id;
                 $relation_model->make_id      =   $request->make_id;
                 $relation_model->model_id     =   $request->model_id;
                 $relation_model->is_confirmed =   isset($request->is_confirmed)? "1" : "0" ;
-               
 
                 if($relation_model->save()){
                     $message = (isset($request->id)) ? $request->name." ". __('webCaption.alert_updated_successfully.title') : $request->name." ".__('webCaption.alert_added_successfully.title') ;
                     return redirect()->route('masters.vehicle.relation.index')->with('success_message' ,$message );
                 }else{
                     return redirect($this->baseUrl)->with(['error_message' => __('webCaption.alert_somthing_wrong.title') ]);
-                }
-                
+                }                
             }
 
     /**
@@ -180,13 +172,13 @@ class RelationController extends Controller
      * @return \Illuminate\Http\Response
      */
   
-
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function edit($id)
     {   
         if (!Auth::user()->can('masters-vehicle-relation-edit')) {
@@ -213,7 +205,6 @@ class RelationController extends Controller
 
 
         return view('content.admin.masters.vechiles.relation.create-form',['data' => $data,'types'=>$types,'subtypes'=>$subtypes,'makes'=>$makes,'models'=>$models, 'breadcrumbs' =>$breadcrumbs ,'activeSiteLanguages' => $activeSiteLanguages ,'menuUrl' =>$this->menuUrl]);
-   
     }
 
     /**
@@ -230,7 +221,8 @@ class RelationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request) {
+
+    public function destroy(Request $request){
 
         if (!Auth::user()->can('masters-vehicle-relation-delete')) {
             $result['status']     = false;
@@ -271,14 +263,10 @@ class RelationController extends Controller
             $result['message']    = __('webCaption.alert_somthing_wrong.title'); 
             return response()->json(['result' => $result]);
         }
-
-        
     }
-
 
     public function updateStatus(Request $request){
 
-        
         if (!Auth::user()->can('masters-vehicle-relation-edit')) {
             $result['status']     = false;
             $result['message']    = __('webCaption.alert_update_access.title'); 
@@ -299,7 +287,6 @@ class RelationController extends Controller
             $result['message']    = __('webCaption.alert_somthing_wrong.title'); 
 
         }
-
 
         return response()->json(['result' => $result]);
     }
