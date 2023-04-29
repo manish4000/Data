@@ -62,10 +62,7 @@ use Illuminate\Support\Facades\Auth;
 
 // Auth::routes();
 
-
-
 Auth::routes();
-
 
 Route::get('google-v3-recaptcha', [GoogleV3CaptchaController::class, 'index']);
 Route::post('validate-g-recaptcha', [GoogleV3CaptchaController::class, 'validateGCaptch']);
@@ -126,7 +123,6 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
     Route::resource('site-languages', 'Admin\SiteLanguageController');
     Route::post('site-languages/delete', [SiteLanguageController::class, 'destroy'])->name('site-languages.destroy');
 
-
     Route::resource('menu', 'Admin\MenuController');
     Route::resource('permissions', 'Admin\PermissionController');
     Route::post('permissions/delete', 'Admin\PermissionController@destroy');
@@ -136,11 +132,11 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
     Route::resource('vehicle-type', 'Admin\Masters\TypeController');
 
     Route::group(['prefix' =>'accounts' ,'as' => 'accounts.','namespace' => 'Admin' ],function(){
-        Route::group(['prefix' =>'billing' ,'as' => 'billing.' ],function(){
-            Route::get('/',function(){
-                return view('content.admin.accounts.billing.create');
-            } )->name('index');
-        });
+        // Route::group(['prefix' =>'billing' ,'as' => 'billing.' ],function(){
+        //     Route::get('/',function(){
+        //         return view('content.admin.accounts.billing.create');
+        //     } )->name('index');
+        // });
     
     });
 
@@ -281,7 +277,6 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
 
         });
 
-     
         //route Common
         
         Route::group(['prefix' => 'common','as' => 'common.'],function(){
@@ -622,17 +617,17 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
 
         Route::group(['prefix' => 'billing' ,'as' => 'billing.'],function(){
 
-            // Route::group(['prefix' => 'discount','as' => 'discount.'],function(){
-            //     Route::get('/', [DiscountController::class, 'index'])->name('index'); 
-            //     Route::post('/store', [DiscountController::class, 'store'])->name('store');
-            //     Route::post('/update-status', [DiscountController::class, 'updateStatus'])->name('update-status');      
-            //     Route::post('/delete', [DiscountController::class, 'destroy'])->name('delete');
-            //     Route::get('/edit/{id}', [DiscountController::class, 'edit'])->name('edit');
-            //     Route::get('/add', [DiscountController::class, 'add'])->name('add');
-            //     Route::get('/create', [DiscountController::class, 'create'])->name('create');
-            //     Route::post('/getChildList', [DiscountController::class,'getChildList']);
-            //     Route::post('/delete-multiple', [DiscountController::class,'deleteMultiple'])->name('delete-multiple');
-            // });
+            Route::group(['prefix' => 'discount','as' => 'discount.'],function(){
+                Route::get('/', [DiscountController::class, 'index'])->name('index'); 
+                Route::post('/store', [DiscountController::class, 'store'])->name('store');
+                Route::post('/update-status', [DiscountController::class, 'updateStatus'])->name('update-status');      
+                Route::post('/delete', [DiscountController::class, 'destroy'])->name('delete');
+                Route::get('/edit/{id}', [DiscountController::class, 'edit'])->name('edit');
+                Route::get('/add', [DiscountController::class, 'add'])->name('add');
+                Route::get('/create', [DiscountController::class, 'create'])->name('create');
+                Route::post('/getChildList', [DiscountController::class,'getChildList']);
+                Route::post('/delete-multiple', [DiscountController::class,'deleteMultiple'])->name('delete-multiple');
+            });
 
             Route::group(['prefix' => 'payment-mode' , 'as' => 'payment-mode.'],function(){
                 Route::get('/', [PaymentModeController::class, 'index'])->name('index'); 

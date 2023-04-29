@@ -11,7 +11,9 @@
 
 use App\Http\Controllers\Dash\Auth\LoginController;
 use App\Http\Controllers\Dash\LanguageController;
+use App\Http\Controllers\Dash\SocialMediaActionController;
 use App\Http\Controllers\Dash\StateCityController;
+
 use Illuminate\Support\Facades\Route;
 
 
@@ -33,6 +35,8 @@ Route::middleware('dash')->name('dash')->group(function(){
 
         Route::post('state-list','Dash/StateCityController@stateList')->name('state-list');
         Route::post('city-list','Dash/StateCityController@cityList')->name('city-list');
+
+        Route::post('social-media-action',[SocialMediaActionController::class,'socialMedia'])->name('social-media-action');
 
         Route::group(['prefix'=>'stock-manager','namespace'=>'Dash','as' => 'stock-manager.'],function(){
             Route::get('/',function(){ return view('dash.content.blank',['message' => " Stock Manager listing Page "]); });
@@ -66,8 +70,8 @@ Route::middleware('dash')->name('dash')->group(function(){
         });
 
         Route::group(['prefix'=>'members','namespace'=>'Dash','as' => 'members.'],function(){
-            Route::get('/',function(){ return view('dash.content.blank',['message' => "Members listing Page "]);  });
-            Route::get('/create',function(){ return view('dash.content.blank' ,['message' => " Add New Member Page "]); });
+            // Route::get('/',function(){ return view('dash.content.blank',['message' => "Members listing Page "]);  });
+            Route::get('/create',function(){ return view('dash.content.members.create'); });
         });
         Route::group(['prefix'=>'company','namespace'=>'Dash','as' => 'company.'],function(){
             Route::get('/create',function(){ return view('dash.content.company.create'); });
