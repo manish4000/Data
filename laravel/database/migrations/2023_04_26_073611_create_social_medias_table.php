@@ -18,7 +18,7 @@ class CreateSocialMediasTable extends Migration
             $table->string('name', 100)->require();
             $table->string('icon',255);
             $table->string('base_url',100);
-            $table->enum('display', ['Yes', 'No'])->default('No');   
+            $table->enum('display', ['Yes', 'No'])->default('Yes');   
             $table->softDeletes();
             $table->timestamps();
         });

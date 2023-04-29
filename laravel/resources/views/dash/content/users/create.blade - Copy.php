@@ -239,33 +239,43 @@ $old_permissions = (session()->getOldInput('permissions') != null ) ? session()-
 					<div class="row">
 						<div class="col-6">
 							<div class="form-group">
-								<x-dash.form.inputs.select tooltip="{{__('webCaption.social_media.caption')}}" label="{{__('webCaption.social_media.title')}}"  id="" for="social_media1" name="social_media[]" placeholder="{{ __('locale.social_media.caption') }}" editSelected=""  required="" :optionData="$social_media" />
+								<x-dash.form.inputs.text maxlength="100" tooltip="{{__('webCaption.facebook.caption')}}" label="{{__('webCaption.facebook.title')}}"  id="" for="facebook" name="facebook" placeholder="{{ __('locale.facebook.caption') }}" value="{{(isset($user->facebook) && !empty($user->facebook)) ? $user->facebook :''; }}" required="" />
 							</div>
 						</div>
-						<div class="col-md-5">
+
+						<div class="col-6">
 							<div class="form-group">
-								<x-dash.form.inputs.text maxlength="100" tooltip="{{__('webCaption.value.caption')}}" label="{{__('webCaption.value.title')}}"  id="" for="value1" name="social_value[]" placeholder="{{ __('locale.value.caption') }}" value="" required="" />
+								<x-dash.form.inputs.text maxlength="100" tooltip="{{__('webCaption.instagram.caption')}}" label="{{__('webCaption.instagram.title')}}"  id="" for="instagram" name="instagram" placeholder="{{ __('locale.instagram.caption') }}" value="{{(isset($user->instagram) && !empty($user->instagram)) ? $user->instagram :''; }}" required="" />
 							</div>
-						</div>
-						<div class="col-md-1">
-							<button id="rowAdder" type="button" class="btn btn-dark">ADD</button>
 						</div>
 					</div>
-				{{-- <div class="row">
-						@foreach ($social_media->salesSocialMedia as $value) 
-						<div class="col-md-6">
+
+					<div class="row">
+						<div class="col-6">
 							<div class="form-group">
-								<x-dash.form.inputs.select tooltip="{{__('webCaption.social_media.caption')}}" label="{{__('webCaption.social_media.title')}}"  id="" for="social_media1" name="social_media[]" placeholder="{{ __('locale.social_media.caption') }}" editSelected="{{$value->social_media_id}}"  required="" :optionData="$social_media" />
+								<x-dash.form.inputs.text maxlength="100" tooltip="{{__('webCaption.twitter.caption')}}" label="{{__('webCaption.twitter.title')}}"  id="" for="twitter" name="twitter" placeholder="{{ __('locale.twitter.caption') }}" value="{{(isset($user->twitter) && !empty($user->twitter)) ? $user->twitter :''; }}" required="" />
+							</div>	
+						</div>
+
+						<div class="col-6">
+							<div class="form-group">
+								<x-dash.form.inputs.text maxlength="100" tooltip="{{__('webCaption.linked_in.caption')}}" label="{{__('webCaption.linked_in.title')}}"  id="" for="linked_in" name="linked_in" placeholder="{{ __('locale.linked_in.caption') }}" value="{{(isset($user->linked_in) && !empty($user->linked_in)) ? $user->linked_in :''; }}" required="" />
 							</div>
 						</div>
-						<div class="col-md-6">
+					</div>
+
+					<div class="row">
+						<div class="col-6">
 							<div class="form-group">
-								<x-dash.form.inputs.text maxlength="100" tooltip="{{__('webCaption.value.caption')}}" label="{{__('webCaption.value.title')}}"  id="" for="value1" name="social_value[]" placeholder="{{ __('locale.value.caption') }}" value="{{$value->value}}" required="" />
+								<x-dash.form.inputs.text maxlength="100" tooltip="{{__('webCaption.youtube.caption')}}" label="{{__('webCaption.youtube.title')}}"  id="" for="youtube" name="youtube" placeholder="{{ __('locale.youtube.caption') }}" value="{{(isset($user->youtube) && !empty($user->youtube)) ? $user->youtube :''; }}" required="" />
 							</div>
 						</div>
-						@endforeach
-					</div> --}}
-					<div id="socialInput"></div>
+						{{-- <div class="col-md-6">
+							<div class="form-group">
+								<x-dash.form.inputs.select tooltip="{{__('webCaption.status.caption')}}" label="{{__('webCaption.status.title')}}"  id="" for="status" name="status" placeholder="{{ __('locale.Parent.caption') }}" editSelected="{{(isset($user->status) && ($user->status != null))?$user->status :''; }}"  required="required" :optionData="$status" />
+							</div>
+						</div> --}}
+					</div>
 
 					<div class="row">
 						<div class="col-md-12">
@@ -284,7 +294,9 @@ $old_permissions = (session()->getOldInput('permissions') != null ) ? session()-
 											</li>
 										@else
 											<li>
-												<x-dash.form.inputs.checkbox  name="permissions[]"  for="{{$permission->id}}permission" label="{{ $permission->title }}" checked="{{ ( isset($user) && (!empty($permission->permission_slug)) && $user->can($permission->permission_slug)) || in_array($permission->id,$old_permissions) ? 'checked' :''; }}"  value="{{ $permission->id }}"  customClass="form-check-input"  />
+												
+													<x-dash.form.inputs.checkbox  name="permissions[]"  for="{{$permission->id}}permission" label="{{ $permission->title }}" checked="{{ ( isset($user) && (!empty($permission->permission_slug)) && $user->can($permission->permission_slug)) || in_array($permission->id,$old_permissions) ? 'checked' :''; }}"  value="{{ $permission->id }}"  customClass="form-check-input"  />
+												
 											</li>
 										@endif
 									@endforeach
@@ -293,6 +305,37 @@ $old_permissions = (session()->getOldInput('permissions') != null ) ? session()-
 							@endif
 						</div>
 					</div>
+						
+
+					{{-- <div class="row">
+						<div class="col-md-12">
+							<x-dash.form.label for="" value="{{__('webCaption.permission.title')}}" class="" />
+							@if ($permissions)
+							<div class="jstree-basic">
+								<ul>
+									@foreach ( $permissions as $permission )
+										@if(count($permission->menuChild) > 0)
+											<li class="jstree-open">
+												<label class="form-check-label">
+													<x-dash.form.inputs.checkbox  name="permissions[]" label="{{ $permission->title }}" checked="{{( isset($user) && $user->can($permission->permission_slug)) ?'checked' :''; }}"  value="{{ $permission->id }}"  customClass="form-check-input"  />
+													
+												</label>
+												 @include('content.admin.user.child_list',['items' => $permission->menuChild ]) 												
+											 
+											</li>
+										@else
+											<li>
+												<label class="form-check-label">
+													<x-dash.form.inputs.checkbox  name="permissions[]" label="{{ $permission->title }}" checked="{{ ( isset($user) && $user->can($permission->permission_slug)) ?'checked' :''; }}"  value="{{ $permission->id }}"  customClass="form-check-input"  />
+												</label>
+											</li>
+										@endif
+									@endforeach
+								</ul>
+							</div>
+							@endif
+						</div>
+					</div> --}}
 			</div>
 		</div>
 		<div class="form-group text-center">
@@ -404,27 +447,5 @@ $old_permissions = (session()->getOldInput('permissions') != null ) ? session()-
 		   }
 		});
 	 }
-
-	$("#rowAdder").click(function () {
-		var allowedNumber = 10;
-  if($('#socialInput .row').length < allowedNumber){
-		let randx = Math.floor((Math.random() * 100) + 1);
-		$.ajax ({
-		type: 'POST',
-		url: "{{route('dashsocial-media-action')}}",
-		data: {id:randx},
-		success : function(result) {
-			$('#socialInput').append(result);
-			$(document).ready(function() { $('.select2').select2(); });
-		}
-		});
-	}else{
-		alert("You can not add any more");
-	}
-    });
- 
-	function delete_social(id){
-		$('.delete_social'+id).remove();
-	}
   </script>
 @endpush

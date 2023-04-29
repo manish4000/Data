@@ -50,6 +50,7 @@ class CompanyUsers extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
     public function permissions()
     {
         return $this->belongsToMany(CompanyMenuGroupMenu::class, 'company_user_permissions','company_user_id','company_menu_id');
@@ -67,6 +68,11 @@ class CompanyUsers extends Authenticatable
         return $this->belongsTo(CompanyGabsModel::class,'company_id','id');
     }
 
+    public function companySalesTeam(){
+        return $this->hasOne(CompanySalesTeam::class,'company_user_id','id');
+    }
+
+
 
     public function checkPermissions($permissions = null) {
 
@@ -76,7 +82,7 @@ class CompanyUsers extends Authenticatable
         // if( in_array(1, $userRoles) ) {
         //     return TRUE;
         // }
-        if(  $permissions != null ) {
+        if($permissions != null) {
             return   ($this->permissions()->where('company_menu_id', $permissions)->count() > 0) ? TRUE :FALSE;
            // return ($this->permissions()->whereIn('company_permission_id', $permissions)->count() >  0)?TRUE:FALSE;
         }
