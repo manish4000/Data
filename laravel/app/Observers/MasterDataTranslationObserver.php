@@ -54,9 +54,9 @@ class MasterDataTranslationObserver
         $masterDataTransModal  =  new MasterDataTranslation;
 
         $oldName =  $modal->getOriginal()['name'];                
-        $oldParentId =  $modal->getOriginal()['parent_id'];                
+        $oldParentId =  (isset($modal->getOriginal()['parent_id'])) ? $modal->getOriginal()['parent_id'] : 0 ;                
         $newName =  isset($modal->getChanges()['name'])? $modal->getChanges()['name'] : $modal->getOriginal()['name'] ;
-        $newParentId =  isset($modal->getChanges()['parent_id'])? $modal->getChanges()['parent_id'] : $modal->getOriginal()['parent_id'] ;
+        $newParentId = (isset($modal->parent_id)) ? (isset($modal->getChanges()['parent_id'])? $modal->getChanges()['parent_id'] : $modal->getOriginal()['parent_id']) : 0 ;
 
         //when parent is update and parent become child
         if(($oldParentId != $newParentId) && $newParentId != 0 ){
