@@ -15,7 +15,7 @@ class CreateDepartmentsCompanyTable extends Migration
     {
         Schema::create('departments_company', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50)->unique()->index();
+            $table->string('name', 50);
             $table->bigInteger('parent_id')->nullable();
             $table->bigInteger('type_id')->nullable();
             $table->enum('display', ['Yes', 'No'])->default('Yes');
