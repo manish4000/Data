@@ -68,21 +68,18 @@
                 @if(count($data) > 0 )
                     <div >
                       
-                            <div class="mt-2">
-                                @php
-                                    $url = route('masters.vehicle.make.delete-multiple');
-                                @endphp
+                                                       
+                               <div class="mt-2">
 
-                                {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4') }}       
-                            </div>
+                                   @if (Auth::guard('web')->user()->can('main-navigation-masters-vehicle-make-delete'))		
+                                       {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4',['multiple_delete_url' => route('masters.vehicle.make.delete-multiple') ] ) }}  
+                                   @else
+                                        {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4') }}  
+                                   @endif
+                               </div>
+                          
                          {{--check delete permission  --}}
-                       
-                        @can('main-navigation-masters-vehicle-make-delete')
-                             <div class="px-0 my-2">
-                                {{-- deleteMultiple() for delete multiple data pass url here  --}}
-                                <x-admin.form.buttons.multipleDelete url="{{route('masters.vehicle.make.delete-multiple')}}" />
-                            </div>
-                        @endcan
+
 
           
           <div class="main_table" id="master-list">
@@ -123,16 +120,14 @@
               @endforeach   
                                                                                
              </div>
-
-
-
-
-
-
-
+                   
 
                         <div class="mt-2">
-                            {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4') }}       
+                            @if (Auth::guard('web')->user()->can('main-navigation-masters-vehicle-make-delete'))		
+                            {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4',['multiple_delete_url' => route('masters.vehicle.make.delete-multiple') ] ) }}  
+                            @else
+                                {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4') }}  
+                            @endif
                         </div>
                     </div>
                 @else
