@@ -196,15 +196,22 @@
                         <div class="row m-2">
 
                            @for($i=0;$i<6;$i++)
-                           <div class="col-md-4">      
-                                 <div class="form-group">
-                                   <x-admin.form.inputs.document_file for="document_{{$i}}" label="{{__('webCaption.document_1.title')}}"    name="document[]" />
+                             
+                              <div class="col-md-4 mb-1">  
+                                 <div class=" border p-1">    
+                                    <div class="form-group">
+                                    <x-admin.form.inputs.document_file for="document_{{$i}}" label="{{__('webCaption.document_1.title')}}"    name="document[]" />
 
-                                    <x-admin.form.inputs.text id="" for="document_name_{{$i}}" tooltip="{{__('webCaption.document_name.caption')}}" label="{{__('webCaption.document_name.title')}}" maxlength="75" name="document_name[]"  placeholder="{{__('webCaption.document_name.title')}}" value="{{old('document_name')}}"  required="" />
+                                       <x-admin.form.inputs.text id="" for="document_name_{{$i}}" tooltip="{{__('webCaption.document_name.caption')}}" label="{{__('webCaption.document_name.title')}}" maxlength="75" name="document_name[]"  placeholder="{{__('webCaption.document_name.title')}}" value="{{old('document_name')}}"  required="" />
 
-                                 </div>
-                           </div>
+                                    </div>
+                                    </div>
+                              
+                           </div> 
                            @endfor
+
+
+
                            
                         </div>
 
