@@ -1,5 +1,5 @@
 <link href="{{asset('assets/css/select2.min.css')}}" rel="stylesheet" />
-<link href="{{asset('assets/css/gabs/custom.css')}}" rel="stylesheet" />
+<link href="{{asset('assets/css/gabs/custom.css')}}?ver=1" rel="stylesheet" />
 
 <link rel="stylesheet" href="{{ asset(mix('vendors/css/vendors.min.css')) }}" />
 <link rel="stylesheet" href="{{ asset(mix('vendors/css/ui/prism.min.css')) }}" />
