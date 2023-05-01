@@ -49,12 +49,14 @@ Route::middleware('dash')->name('dash')->group(function(){
 
       
         Route::group(['prefix'=>'profile','as' => 'profile.','namespace'=>'Dash'],function(){
-            // Route::get('/','ProfileController@edit')->name('index');
-            // Route::post('update','ProfileController@updateProfile')->name('update');
+             Route::get('/','ProfileController@edit')->name('index');
 
-             Route::get('/',function(){
-                return view('dash.content.company.profile');
-             });
+         Route::post('update','ProfileController@updateProfile')->name('update');
+
+            //  Route::get('/',function(){     return view('dash.content.company.profile');
+            //  });
+
+            
 
             //  Route::group(['prefix'=>'profile','as' => 'profile.'],function(){
             //     Route::get('/',function(){ return view('dash.content.company.profile'); });
@@ -71,7 +73,15 @@ Route::middleware('dash')->name('dash')->group(function(){
 
         Route::group(['prefix'=>'members','namespace'=>'Dash','as' => 'members.'],function(){
             // Route::get('/',function(){ return view('dash.content.blank',['message' => "Members listing Page "]);  });
-            Route::get('/create',function(){ return view('dash.content.members.create'); });
+            Route::get('/','ClientController@index')->name('index');
+            Route::get('/create','ClientController@create')->name('create');
+            Route::post('/store','ClientController@store')->name('store');
+            Route::get('edit/{id}','ClientController@edit')->name('edit');
+            Route::post('/delete', 'ClientController@destroy')->name('delete'); 
+            Route::post('/delete-multiple','ClientController@deleteMultiple')->name('delete-multiple');   
+            Route::post('login-from-admin','ClientController@loginFromAdmin')->name('login-form-admin');
+            // // Route::get('/create',function(){ return view('dash.content.members.create'); });
+            // Route::get('/',function(){ return view('dash.content.members.create'); });
         });
         Route::group(['prefix'=>'company','namespace'=>'Dash','as' => 'company.'],function(){
             Route::get('/create',function(){ return view('dash.content.company.create'); });

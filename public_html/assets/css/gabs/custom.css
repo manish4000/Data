@@ -53,7 +53,7 @@
 .main_table > .table_header { width:100%; background:#f3f2f7; display:table-row; font-weight:bold; border:#ebe9f1 1px solid; border-left:none; border-right:none;}
 .main_table > .table_header > .header_col { display:table-cell; padding: 6px 20px;width:auto; vertical-align:middle; text-align:left; border:#ebe9f1 1px solid; border-left:none; border-right:none;}
 .main_table > .table_header > .header_col:hover  {background:#dfd7ef;}
-.main_table > .table_header > .header_col:active {background:#dfd7ef;}
+.main_table > .table_header > .header_col.active {background:#dfd7ef;}
 
 
 .main_table > .table_row {border-bottom: #f3f2f7 1px solid; display:table-row; width:100%; }
