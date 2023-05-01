@@ -1,6 +1,7 @@
 
         @php
-       // dd($elements);
+
+        $multiple_delete_url = (isset($multiple_delete_url)) ? $multiple_delete_url :'' ;
 
         $currentPage = $paginator->currentPage() ;
         $offset = 0 ;
@@ -9,6 +10,8 @@
         }
 
             $request_params = request()->all();
+
+    
             $selected_per_page =  isset($request_params['perPage'])? $request_params['perPage'] : $paginator->perPage();
             unset( $request_params['perPage']);
     
@@ -21,7 +24,7 @@
         <button class="btn btn-gray-action dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">{{__('webCaption.actions.title')}}</button>
         <ul class="dropdown-menu">
            <li><a class="dropdown-item" href="#">Add Multiple </a></li>
-            <li><a class="dropdown-item" href="#">{{__('webCaption.delete_multiple.title')}} </a></li>
+            <li><a class="dropdown-item" onclick="deleteMultiple('{{$multiple_delete_url}}')">{{__('webCaption.delete_multiple.title')}} </a></li>
         </ul>
     </div>
     
