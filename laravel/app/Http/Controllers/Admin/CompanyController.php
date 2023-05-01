@@ -256,13 +256,13 @@ class CompanyController extends Controller
 
         $status = json_decode(json_encode($this->status));
 
-        $country = Country::get(['id as value' ,'name']);
+        $country = Country::orderBy('name')->get(['id as value' ,'name']);
         $perPage =  (isset($request->perPage) && !empty($request->perPage)) ? $request->perPage : 100;
 
         $data = $data->paginate($perPage);
         
-        $plans = CompanyPlanModel::select('id as value','title as name')->get();
-        $BusinessTypes = BusinessType::select('id as value','name')->whereNotNull('name')->get();
+        $plans = CompanyPlanModel::select('id as value','title as name')->orderBy('title')->get();
+        $BusinessTypes = BusinessType::select('id as value','name')->whereNotNull('name')->orderBy('name')->get();
         
         return view('content.admin.company.list',['plans' => $plans,'BusinessTypes' => $BusinessTypes,'pageConfigs' => $pageConfigs,'status' => $status,'country' => $country ,'breadcrumbs' => $breadcrumbs,'data' =>$data]);
     }
@@ -294,25 +294,25 @@ class CompanyController extends Controller
             ];
 
        
-        $country = Country::get(['id as value' ,'name']);
+        $country = Country::orderBy('name')->get(['id as value' ,'name']);
 
         //$cities = DB::select('SELECT  id as value ,name FROM cities');
 
-        $BusinessTypes = BusinessType::select('id as value','name')->whereNotNull('name')->where('is_service', 'No')->get();
+        $BusinessTypes = BusinessType::select('id as value','name')->whereNotNull('name')->where('is_service', 'No')->orderBy('name')->get();
 
         $status = json_decode(json_encode($this->status));
 
         $permissions = CompanyMenuGroupMenu::where('parent_id', 0)->get();
-        $regions = Region::select('id as value','name')->get(); 
-        $association =   Association::select('id as value','name')->get();  
-        $deals_in = DealIns::select('id as value','name')->get();
-        $marketing_status = MarketingStatus::select('id as value','name')->get();    
+        $regions = Region::select('id as value','name')->orderBy('name')->get(); 
+        $association =   Association::select('id as value','name')->orderBy('name')->get();  
+        $deals_in = DealIns::select('id as value','name')->orderBy('name')->get();
+        $marketing_status = MarketingStatus::select('id as value','name')->orderBy('name')->get();    
         
         // $siteLang =  SiteLanguage::where('alias',app()->getLocale())->first();
         // $defaultLang = SiteLanguage::where('alias',app()->getLocale())->value('id');    
         //return self::select(DB:raw('sum("json_extract('json_details', '$.salary')") ('title_languages->'.$siteLang->id.'->title as name')
 
-        $plans = CompanyPlanModel::select('id as value','title as name')->get();
+        $plans = CompanyPlanModel::select('id as value','title as name')->orderBy('title')->get();
     
         // $types = Type::Select('id as value','name','title_languages->'.$siteLang->id.'->title as language_name')->get();        
  
@@ -711,7 +711,7 @@ class CompanyController extends Controller
 
     public function stateList(Request $request){
 
-        $state_list = StateModel::where('country_id',$request->id)->get();
+        $state_list = StateModel::where('country_id',$request->id)->orderBy('name')->get();
 
         return response()->json( [ 'states' => $state_list]);
 
@@ -720,7 +720,7 @@ class CompanyController extends Controller
 
     public function cityList(Request $request){
 
-        $cities_list = CityModel::where('state_id',$request->id)->get();
+        $cities_list = CityModel::where('state_id',$request->id)->orderBy('name')->get();
         return response()->json( [ 'cities' => $cities_list]);
     }
 
@@ -861,11 +861,11 @@ class CompanyController extends Controller
             'name' => 'list'
         ];
 
-        $country = Country::get(['id as value' ,'name']);
+        $country = Country::orderBy('name')->get(['id as value' ,'name']);
 
         
 
-        $BusinessTypes = BusinessType::whereNotNull('name')->where('is_service', 'No')->get([ "id as value", "name"]);
+        $BusinessTypes = BusinessType::whereNotNull('name')->where('is_service', 'No')->orderBy('name')->get([ "id as value", "name"]);
         
 
         $status = json_decode(json_encode($this->status));
@@ -880,16 +880,16 @@ class CompanyController extends Controller
         $company_tel_country_code = (isset($telephone[0]))? $telephone[0] :null;  
 
         
-        $plans = CompanyPlanModel::select('id as value','title as name')->get();
+        $plans = CompanyPlanModel::select('id as value','title as name')->orderBy('name')->get();
         $data->business_type_id  = json_decode($data->business_type_id);
         $data->association_member_id  = json_decode($data->association_member_id);
         $data->deals_in  = json_decode($data->deals_in);
 
         $permissions = CompanyMenuGroupMenu::where('parent_id', 0)->get();
-        $regions = Region::select('id as value','name')->get(); 
-        $association =   Association::select('id as value','name')->get();  
-        $deals_in = DealIns::select('id as value','name')->get();
-        $marketing_status = MarketingStatus::select('id as value','name')->get();    
+        $regions = Region::select('id as value','name')->orderBy('name')->get(); 
+        $association =   Association::select('id as value','name')->orderBy('name')->get();  
+        $deals_in = DealIns::select('id as value','name')->orderBy('name')->get();
+        $marketing_status = MarketingStatus::select('id as value','name')->orderBy('name')->get();    
         
        
         $country_phone_code =  Country::select('phone_code as value' ,'country_code' ,DB::raw("CONCAT(country_code,' (',phone_code ,')' ) AS name"))->where('phone_code','!=' ,null)->where('country_code','!=' ,null)->get(['phone_code','country_code']);
@@ -1206,8 +1206,7 @@ class CompanyController extends Controller
             $company_user_permissions =   CompanyPlanPermissionModel::where('company_plan_id',$request->plan_id)->value('permissions');
 
 
-            if($request->has('password')){
-
+            if(!empty($request->input('password')) ){
                 $company_user_data = [
                     'name' => $request->company_name,
                     'email' => $request->email,
