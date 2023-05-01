@@ -3,11 +3,10 @@
 ])
 
 
-<div class="container-fluid" id="master-list">
+<div class="table_header" id="master-list" >
 
-<div class="row row_table">
     
-    <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 ">    
+    <div class="header_col position-for-filter-heading">    
         <x-admin.form.inputs.multiple_select_checkbox id="checkAll"   value="1"  customClass=""  />
     </div>
     
@@ -21,7 +20,7 @@
             @endphp
 
 
-                <div class="col-xl col-lg col-md-2 col-sm col {{$active_class}} " data-toggle="tooltip"
+                <div class="header_col position-for-filter-heading {{$active_class}} " data-toggle="tooltip"
                  title="<?php echo __('webCaption.'.$fields['title'].'.caption') ?>">
                     <?php echo __('webCaption.'.$fields['title'].'.title') ?>
                     
