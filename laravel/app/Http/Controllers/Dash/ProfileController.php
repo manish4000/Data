@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dash;
 
 use App\Http\Controllers\Controller;
+use App\Models\CityModel;
 use App\Models\CompanyModel;
 use App\Models\Dash\CompanyUsers;
 use App\Models\Masters\Company\Association;
@@ -11,6 +12,7 @@ use App\Models\Masters\Company\MarketingStatus;
 use App\Models\Masters\Country;
 use App\Models\Masters\Vehicles\Make;
 use App\Models\Region;
+use App\Models\StateModel;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Support\Facades\Auth;
@@ -199,13 +201,36 @@ class ProfileController extends Controller
         }
 
         if($request->has('association_member_id')) {
-
             if(is_array($request->association_member_id) && count($request->association_member_id) > 0){
                 $association_member_id   = json_encode($request->association_member_id);
+                $association_member_name = Association::select('name')->where('name','!=',null)->whereIn('id',$request->association_member_id)->get()->toArray();
+                $association_member_name = (empty($association_member_name))? null: implode(',', array_column( $association_member_name,'name' ));
             }
         }
 
 
+        if(!empty($request->region_id)){
+            $region_name = Region::where('id',$request->region_id)->get()->value('name');
+        }
+
+        if(!empty($request->country_id)){
+            $country_name = Country::where('id',$request->country_id)->get()->value('name');
+        }
+        $country_name =  (isset($country_name)) ? $country_name : null; 
+
+        if(!empty($request->city_id)){
+            $city_name = CityModel::where('id',$request->city_id)->get()->value('name');
+        }
+
+        $city_name =  (isset($city_name)) ? $city_name : null;
+
+        if(!empty($request->state_id)){
+            $state_name = StateModel::where('id',$request->state_id)->get()->value('name');
+        }
+         $state_name =  (isset($state_name)) ? $state_name : null; 
+
+            
+        $region_name =  (isset($region_name)) ? $region_name : null; 
         // $company_model->company_name = $request->company_name;  
 
         // $company_model->email = $request->email;  
@@ -216,6 +241,8 @@ class ProfileController extends Controller
 
        // $telephone =  ($request->telephone)? $request->country_code."_".$request->telephone : null;   
         $association_member_id = (isset($association_member_id)) ? $association_member_id : null;  
+
+        $association_member_name = (isset($association_member_name)) ? $association_member_name : null;  
 
         // $company_model->skype_id = $request->skype_id;  
         // $company_model->website = $request->website; 
@@ -251,22 +278,27 @@ class ProfileController extends Controller
         // $company_model->linkedin = $request->linkedin;  
 
           $business_type_id =  (isset($business_type_id)) ? $business_type_id : null;  
-         $business_type =  (isset($business_type)) ? $business_type : null; 
+         $business_type =  (isset($business_type)) ? $business_type : null;
+
         $data = [
 
             "company_name" => $request->company_name,
             "email" => $request->email,
             "city_id" => $request->city_id,
+            "city_name" => $city_name,
             "state_id" => $request->state_id,
+            "state_name" => $request->state_name,
             "country_id" => $request->country_id,
             "skype_id" => $request->skype_id,
             "website" => $request->website,
             "permit_no" => $request->permit_no,
             "address" => $request->address,
             "telephone" => $telephone,
-             "association_member_id" =>$association_member_id,
+            "association_member_id" =>$association_member_id,
+            "association_member_name" =>$association_member_name,
             "postcode" => $request->postcode,
             "region_id" => $request->region_id,
+            "region_name" => $region_name,
             "contact_1_name" => $request->contact_1_name,  
             "contact_1_email" => $request->contact_1_email,  
             "contact_1_phone" => $request->contact_1_phone,  
