@@ -19,10 +19,10 @@ return new class extends Migration
             $table->string('city_name',100)->nullable();
             $table->string('region_name',100)->nullable();
             $table->string('package_name',100)->nullable();
-            $table->string('association_member_name',100)->nullable();
+            $table->longText('association_member_name')->nullable();
             $table->string('marketing_status_name',100)->nullable();
             $table->string('plan_name',100)->nullable();
-            $table->string('deals_in_name',100)->nullable();
+            $table->longText('deals_in_name')->nullable();
         });
     }
 
