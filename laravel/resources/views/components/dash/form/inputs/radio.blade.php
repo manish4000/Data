@@ -5,17 +5,15 @@
     'placeholder',
     'value',
     'checked',
-    'required'
+    'required',
+    'customClass'
 ])
 
 @php
-$border ="";
-    if($required == "required"){
-        $border ="border-color:red";
-    }
+    $customClass = (isset($customClass)) ? $customClass : '';
 @endphp
 
-<div class="form-check form-check-inline">
-    <input style="{{$border}}"  type="radio" name='{{ $name }}' class="custom-control-input" id="{{ $for }}" value="{{ $value }}" {{$checked}} >
-    <label style="{{$border}}"  class="custom-control-label" for="{{ $for }}">{{ $label }}</label>
+<div class="custom-control custom-checkbox d-inline ">
+    <input   type="radio" name='{{ $name }}' class="custom-control-input {{$customClass}}" id="{{ $for }}" value="{{ $value }}" {{$checked}} >
+    <label  class="custom-control-label" for="{{ $for }}">{{ $label }}</label>
 </div>
