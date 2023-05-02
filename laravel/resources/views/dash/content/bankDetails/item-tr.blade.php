@@ -17,7 +17,7 @@
     <td >{{$item->swift_code}}    </td>
     <td>
 
-        <x-dash.form.inputs.listing_checkbox id="list{{$item->id}}"  onclick="changeDisplayStatus('{{$item->id}}','{{route('dashbank-details.status')}}')"  dataItemId="{{$item->id}}" dataUrl="{{route('dashbank-details.status')}}" 
+        <x-dash.form.inputs.listing_checkbox id="list{{$item->id}}"  onclick="changeDisplayStatus('{{$item->id}}','{{route('dashbank-details.status')}}')"  dataItemId="{{$item->id}}"  dataUrl="{{route('dashbank-details.status')}}" 
             value="{{$item->id}}" checked="{{($item->status == 1)? 'checked' :''}}"  /> 
     </td>
 <td>

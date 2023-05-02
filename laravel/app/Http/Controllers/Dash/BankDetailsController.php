@@ -248,7 +248,7 @@ class BankDetailsController extends Controller
         }
 
         $bank_detail_model->bank_name = $request->bank_name;
-        $bank_detail_model->dealer_name = $request->dealer_name;
+        // $bank_detail_model->dealer_name = $request->dealer_name;
         $bank_detail_model->branch_name = $request->branch_name;
         $bank_detail_model->branch_code = $request->branch_code;
         $bank_detail_model->country_id = $request->country_id;
@@ -262,7 +262,7 @@ class BankDetailsController extends Controller
         $bank_detail_model->iban_no = $request->iban_no;
         $bank_detail_model->account_currency = $request->account_currency;
         $bank_detail_model->reason_for_remittance = $request->reason_for_remittance;
-        $bank_detail_model->display_order = $request->display_order;
+        // $bank_detail_model->display_order = $request->display_order;
         $bank_detail_model->jumvea_account = (isset($request->jumvea_account)) ? "1" : "0" ;
         
         if($bank_detail_model->save()){

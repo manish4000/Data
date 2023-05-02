@@ -18,7 +18,7 @@ class CompanyBankDetails extends Model implements CipherSweetEncrypted
         return $query->where( function($query) use ($keyword) {
             $query->where('bank_name', 'like', '%'.$keyword.'%')
                ->orWhere('branch_name' ,'like','%'.$keyword.'%')
-               ->orWhere('dealer_name' ,'like','%'.$keyword.'%')
+            //    ->orWhere('dealer_name' ,'like','%'.$keyword.'%')
                ->orWhere('branch_code' ,'like','%'.$keyword.'%')
                ->orWhere('account_name' ,'like','%'.$keyword.'%')
                ->orWhere('swift_code' ,'like','%'.$keyword.'%');
