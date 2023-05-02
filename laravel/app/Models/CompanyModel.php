@@ -11,7 +11,7 @@ class CompanyModel extends Model
     protected $table = 'companies';
 
     protected $fillable = [
-        'company_name','email','skype_id', 'address', 'postcode','city_id', 'state_id', 'country_id', 'website','email',''
+        'company_name','email','skype_id', 'address', 'postcode','city_id','state_name','city_name', 'state_id', 'country_id','country_name', 'website'
     ];
 
 }
