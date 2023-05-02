@@ -15,8 +15,9 @@ $multiple = (isset($multiple))? $multiple :'';
 $required = (isset($required))? $required :'';
 $imageId = (isset($imageId))? $imageId :'';
 
-$editImageUrl = (isset($editImageUrl) && !empty($editImageUrl) )? $editImageUrl :asset('assets/images/portrait/small/no-photo.jpg');
+$editImageUrl = (isset($editImageUrl) && !empty($editImageUrl) )? asset($editImageUrl) :asset('assets/images/portrait/small/no-photo.jpg');
 
+$fileType = ['jpg','png','jpeg','svg','gif','tiff'];
 
 @endphp
 
