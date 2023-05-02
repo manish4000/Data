@@ -1,0 +1,39 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::table('company_bank_details', function (Blueprint $table) {
+            $table->string('branch_name',50)->change();
+            $table->string('branch_code',20)->change();
+            // $table->string('account_name',50)->nullable()->change();
+            $table->string('iban_no',30)->nullable()->change();
+            // $table->string('account_number',30)->change();
+            $table->string('swift_code',20)->change();
+            $table->unsignedBigInteger('account_currency')->change();
+           
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('company_bank_details', function (Blueprint $table) {
+        
+        });
+    }
+};
