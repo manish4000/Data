@@ -140,7 +140,7 @@
                         <div class="form-group">
                         <x-dash.form.label for="" value="{{__('webCaption.bank_logo.title')}}" class=""
                                 tooltip="{{__('webCaption.bank_logo.caption')}}" required="" />   
-                        <img src="http://india/gabs-new/laravel/resources/views/dash/content/bankDetails/banklogo/bank_logo_image.png" width="100%" height="100%" alt="BankLogo" name="bank_logo" for="bank_logo" value="{{old('bank_logo', isset($data->bank_logo)?$data->bank_logo:'' )}}" required="">
+                        <img src="{{asset('assets/dash/assets/images/banklogo/bank_logo_image.png')}}" width="100%" height="100%" alt="BankLogo" name="bank_logo" for="bank_logo" value="{{old('bank_logo', isset($data->bank_logo)?$data->bank_logo:'' )}}" required="">
                             <!-- <x-dash.form.inputs.text  for="branch_name"  maxlength="255" tooltip="{{__('webCaption.branch_name.caption')}}" label="{{__('webCaption.branch_name.title')}}"  name="branch_name"  placeholder="{{__('webCaption.branch_name.title')}}" value="{{old('branch_name', isset($data->branch_name)?$data->branch_name:'' )}}"  required="" /> -->
                         </div>
                     </div>
