@@ -46,7 +46,7 @@
 									<x-dash.form.buttons.multipleDelete url="{{route('dashbank-details.delete-multiple')}}" />
 									@endif
 
-									<x-dash.listing-view list="true" grid="true" />
+							{{-- <x-dash.listing-view list="true" grid="true" /> --}}
 							</div>
 	
 							@if(Session::has('list-type') && Session::get('list-type') == 'grid' )
