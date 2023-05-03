@@ -71,14 +71,14 @@
             
             <div class="col-md-4">
                 <div class="form-group">
-                  <x-admin.form.inputs.select label="{{__('webCaption.country.title')}}" for="country_id" tooltip="{{__('webCaption.country.caption')}}" name="country_id" 
+                  <x-admin.form.inputs.select onChange="stateLists('country_id','state_id')" label="{{__('webCaption.country.title')}}" for="country_id" tooltip="{{__('webCaption.country.caption')}}" name="country_id" 
                    placeholder="{{ __('locale.country.caption') }}" customClass="country"  editSelected="{{ old('country_id',$data->country_id)}}"  required="required" :optionData="$country" />
                     
                 </div>
             </div>
             <div class="col-md-4">
               <div class="form-group">
-                <x-admin.form.inputs.select label="{{__('webCaption.state.title')}}" customClass="state"  tooltip="{{__('webCaption.state.caption')}}" id="" for="state_id" name="state_id" placeholder="{{ __('locale.state.caption') }}" editSelected="{{old('state_id',$data->state_id)}}"  required="" :optionData="[]" />
+                <x-admin.form.inputs.select onChange="cityList('state_id','city_id')" label="{{__('webCaption.state.title')}}" customClass="state"  tooltip="{{__('webCaption.state.caption')}}" id="" for="state_id" name="state_id" placeholder="{{ __('locale.state.caption') }}" editSelected="{{old('state_id',$data->state_id)}}"  required="" :optionData="[]" />
               </div>
           </div>
           <div class="col-md-4">
@@ -628,6 +628,7 @@
       <x-admin.form.buttons.update />  
   </div>
   </form>
+  @include('components.admin.form.country_state_city')
 @endsection
 
 
@@ -636,7 +637,15 @@
   <!-- vendor files -->
   <script src="{{ asset(mix('vendors/js/extensions/jstree.min.js')) }}"></script>
 @endsection
+  @php
+  $country_id = (isset($data->country_id))? $data->country_id : '' ;
+  $state_id =   (isset($data->state_id)) ? $data->state_id :'' ;
+  $city_id =   (isset($data->city_id)) ? $data->city_id :'' ;
 
+  // $city_id = session()->getOldInput('city_id');
+  // $state_id =  (isset($state_id)) ? $state_id : ( (isset($data->state_id)) ? $data->state_id :'' );
+  // $city_id =  (isset($city_id)) ? $city_id : ( (isset($data->city_id)) ? $data->city_id :'' );
+  @endphp 
 @push('script')
   <!-- Page js files -->
   <script src="{{ asset(mix('js/scripts/extensions/ext-component-tree.js')) }}"></script>
@@ -654,90 +663,18 @@
   	})
   </script>
 
-  @php
-  $state_id = session()->getOldInput('state_id');
-  $city_id = session()->getOldInput('city_id');
-  $state_id =  (isset($state_id)) ? $state_id : ( (isset($data->state_id)) ? $data->state_id :'' );
-  $city_id =  (isset($city_id)) ? $city_id : ( (isset($data->city_id)) ? $data->city_id :'' );
-  @endphp 
+  <script>
 
+    let country_id =  "{{$country_id}}";
+    let state_id = "{{$state_id}}";
+    let city_id = "{{$city_id}}";
 
-<script>
-  $(document).ready(function() {
-    
-    var  country  = $('.country').find(":selected").val();
-    var  state  =   "<?php echo $state_id ; ?>";
-    var  city  = "<?php echo $city_id; ?>";
-  
-    if(country){
-            stateList(country,state);
+    if(country_id != ''){
+      stateLists('country_id','state_id',state_id);
     }
-     
-    if(state){
-            cityList(state,city);
-    }
-          
-    $('.country').on('change', function(){
-     
-          var selectCountry  = $(this).val();  
-          stateList(selectCountry);        
-    });
-    $('.state').on('change', function () {
-      
-          var selectState  = $(this).val();  
-          cityList(selectState);
-    });
-    
-    
-      function stateList(country , selected_state = ''){
-    
-        $.ajax ({
-                      type: 'POST',
-                      url: "{{route('company.state-list')}}",
-                      data: { id : country },
-                      success : function(result) {
-    
-                        $('#state_id').html('<option value="">Select State</option>');
-                          $.each(result.states, function (key, value) {
-    
-                            if(value.id == selected_state){
-                              var selected_s = 'selected';
-                            }else{
-                              var selected_s = '';
-                            }
-                              $("#state_id").append('<option value="' + value
-                                  .id + '" '+ selected_s + '>' + value.name + '</option>');
-                          });
-                          $('#city_id').html('<option value="">Select City</option>');
-                      }
-               });
-    
-      }
-    
-    
-      function cityList(state,selected_city =''){
-    
-      $.ajax ({
-                type: 'POST',
-                url: "{{route('company.city-list')}}",
-                data: { id : state },
-                success : function(result) {
-                  $('#city_id').html('<option value="">Select City</option>');
-                    $.each(result.cities, function (key, value) {
-    
-                      if(value.id == selected_city){
-                              var selected_c = 'selected';
-                            }else{
-                              var selected_c = '';
-                            }
-    
-                        $("#city_id").append('<option value="' + value
-                            .id + '" '+ selected_c +'>' + value.name + '</option>');
-                    });
-                }
-            });
-      }
-  });
-</script>
 
+    if(city_id != ''){
+      cityList('state_id','city_id',city_id,state_id);
+    }
+  </script>
 @endpush
