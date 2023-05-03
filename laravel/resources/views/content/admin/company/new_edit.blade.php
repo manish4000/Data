@@ -8,9 +8,7 @@
 
 
 <form action="{{route('company.update',$data->id)}}" method="POST"  enctype="multipart/form-data">
-  @if($errors->any())
-  {{ implode('', $errors->all('<div>:message</div>')) }}
-@endif
+
   @csrf
   <section class="form-control-repeater">
     <div class="card">
