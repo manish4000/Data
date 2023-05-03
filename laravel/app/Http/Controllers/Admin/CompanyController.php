@@ -671,6 +671,7 @@ class CompanyController extends Controller
                         'address' =>       $request->address,
                         'telephone' =>     $telephone ,
                         'postcode' =>      $request->postcode,
+                        'updated_by' =>     Auth::user()->id,
                         'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
                         'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
                     ];
@@ -1139,7 +1140,6 @@ class CompanyController extends Controller
             }
         }
         
-
 
         if($request->has('deals_in')) {
             if(is_array($request->deals_in) && count($request->deals_in) > 0){
