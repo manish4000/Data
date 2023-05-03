@@ -60,7 +60,7 @@ class AssociationController extends Controller
         }   
         
        // if(  !$request->has('search.parentOnlyShowAll')) {
-            $data->parentOnlyFilter();
+        $data->parentOnlyFilter();
         //}
         if($request->has('order_by') &&  $request->has('order') ){
             $data->orderBy($request->order_by, $request->order);
@@ -99,12 +99,14 @@ class AssociationController extends Controller
             abort(403);
         }
         $parent_data = Association::select('id as value', 'name', 'parent_id', 'display')->orderBy('name', 'ASC')->where('parent_id', '0')->get();
+
+        $country = Country::select('id as value', 'name')->where('parent_id','0')->orderBy('name')->get();
         
         $breadcrumbs[0] = [
             'link' => $this->baseUrl,
             'name' => __('webCaption.list.title')
         ];
-        return view('content.admin.masters.company.associations.create-form',['menuUrl' =>$this->menuUrl,'breadcrumbs' =>$breadcrumbs ,'parent_data' => $parent_data  ]);
+        return view('content.admin.masters.company.associations.create-form',['menuUrl' =>$this->menuUrl,'breadcrumbs' =>$breadcrumbs ,'parent_data' => $parent_data, 'country'=>$country ]);
     }
     
 
@@ -143,8 +145,6 @@ class AssociationController extends Controller
             return redirect()->back()->with('errors', $validator->errors() )->withInput();
         }
 
-        
-
                 $association_model->name       =   $request->name;
                 $association_model->parent_id  =   isset($request->parent_id)? $request->parent_id : 0 ;
                 $association_model->display    =   $request->display;
@@ -158,17 +158,6 @@ class AssociationController extends Controller
                 }
                 
             }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.

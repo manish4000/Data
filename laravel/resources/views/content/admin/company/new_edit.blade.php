@@ -638,13 +638,16 @@
   <script src="{{ asset(mix('vendors/js/extensions/jstree.min.js')) }}"></script>
 @endsection
   @php
-  $country_id = (isset($data->country_id))? $data->country_id : '' ;
-  $state_id =   (isset($data->state_id)) ? $data->state_id :'' ;
-  $city_id =   (isset($data->city_id)) ? $data->city_id :'' ;
 
-  // $city_id = session()->getOldInput('city_id');
-  // $state_id =  (isset($state_id)) ? $state_id : ( (isset($data->state_id)) ? $data->state_id :'' );
-  // $city_id =  (isset($city_id)) ? $city_id : ( (isset($data->city_id)) ? $data->city_id :'' );
+
+
+  $state_id = session()->getOldInput('state_id');
+  $city_id = session()->getOldInput('city_id');
+
+
+  $state_id =  (isset($state_id)) ? $state_id : ( (isset($data->state_id)) ? $data->state_id :'' );
+  $city_id =  (isset($city_id)) ? $city_id : ( (isset($data->city_id)) ? $data->city_id :'' );
+ 
   @endphp 
 @push('script')
   <!-- Page js files -->
