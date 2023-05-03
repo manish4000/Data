@@ -32,7 +32,7 @@ Route::middleware('dash')->name('dash')->group(function(){
 
     Route::group(['middleware' => 'dashauth'], function () {
 
-
+        Route::post('country-list','Dash/StateCityController@countryList')->name('country-list');
         Route::post('state-list','Dash/StateCityController@stateList')->name('state-list');
         Route::post('city-list','Dash/StateCityController@cityList')->name('city-list');
 
@@ -72,17 +72,15 @@ Route::middleware('dash')->name('dash')->group(function(){
         });
 
         Route::group(['prefix'=>'members','namespace'=>'Dash','as' => 'members.'],function(){
-            // Route::get('/',function(){ return view('dash.content.blank',['message' => "Members listing Page "]);  });
             Route::get('/','ClientController@index')->name('index');
             Route::get('/create','ClientController@create')->name('create');
             Route::post('/store','ClientController@store')->name('store');
             Route::get('edit/{id}','ClientController@edit')->name('edit');
             Route::post('/delete', 'ClientController@destroy')->name('delete'); 
             Route::post('/delete-multiple','ClientController@deleteMultiple')->name('delete-multiple');   
-            Route::post('login-from-admin','ClientController@loginFromAdmin')->name('login-form-admin');
-            // // Route::get('/create',function(){ return view('dash.content.members.create'); });
-            // Route::get('/',function(){ return view('dash.content.members.create'); });
+            Route::post('/update-status','ClientController@updateStatus')->name('update-status');  
         });
+        
         Route::group(['prefix'=>'company','namespace'=>'Dash','as' => 'company.'],function(){
             Route::get('/create',function(){ return view('dash.content.company.create'); });
         });
