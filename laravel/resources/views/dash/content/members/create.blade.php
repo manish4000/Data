@@ -8,7 +8,6 @@
 <div>
     <form action="{{route('dashmembers.store')}}" method="POST" enctype="multipart/form-data">
         @csrf
-
         <div class="card card-primary">
             <div class="card-header">
                 <h4 class="card-title">
@@ -22,6 +21,7 @@
                     {{__('webCaption.account_details.title')}}
                 </h4>
             </div>
+            <hr class="m-0 p-0">
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4">
@@ -47,7 +47,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-4 col-4">
                                 <div class="form-group">
                                     <x-dash.form.inputs.name_prefix label="{{__('webCaption.title.title')}}"
                                         tooltip="{{__('webCaption.title.caption')}}" for="title" name="title"
@@ -60,7 +60,7 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-8 col-8">
                                 <div class="form-group">
                                     <x-dash.form.inputs.text id="" label="{{__('webCaption.name.title')}}"
                                         tooltip="{{__('webCaption.name.caption')}}" for="name" class="form-control"
@@ -160,6 +160,7 @@
                     {{__('webCaption.contact_details.title')}}
                 </h4>
             </div>
+            <hr class="m-0 p-0">
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-12">
@@ -195,7 +196,7 @@
                                 required="" />
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-6">
                         <div class="form-group">
                             <x-dash.form.inputs.select label="{{__('webCaption.city.title')}}"
                                 tooltip="{{__('webCaption.city.caption')}}" for="local_city" name="city"
@@ -204,9 +205,8 @@
                                 required="" />
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
+
+                    <div class="col-md-4 col-6">
                         <div class="form-group">
                             <x-dash.form.inputs.text id="" for="zip_code"
                                 tooltip="{{__('webCaption.zip_code.caption')}}"
@@ -250,6 +250,7 @@
                     {{__('webCaption.general_details.title')}}
                 </h4>
             </div>
+            <hr class="m-0 p-0">
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4">
@@ -271,7 +272,7 @@
                                 required="" />
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-2 col-6">
                         <div class="form-group">
                             <x-dash.form.inputs.date for="birth_date" tooltip="{{__('webCaption.birth_date.caption')}}"
                                 label="{{__('webCaption.birth_date.title')}}" class="form-control" name="birth_date"
@@ -279,9 +280,7 @@
                                 value="{{old('birth_date', isset($data->id)?$data->birth_date:'' )}}" required="" />
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-2 col-6">
                         <div class="form-group">
                             <x-dash.form.inputs.date for="anniversary_date"
                                 tooltip="{{__('webCaption.anniversary_date.caption')}}"
@@ -308,6 +307,7 @@
                     {{__('webCaption.social.title')}}
                 </h4>
             </div>
+            <hr class="m-0 p-0">
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4">
@@ -369,6 +369,7 @@
                     {{__('webCaption.crm.title')}}
                 </h4>
             </div>
+            <hr class="m-0 p-0">
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4">
@@ -410,7 +411,7 @@
                                 required="" />
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-2 col-6">
                         <div class="form-group">
                             <x-dash.form.inputs.date for="next_follow_up_date"
                                 tooltip="{{__('webCaption.next_follow_up_date.caption')}}"
@@ -420,7 +421,7 @@
                                 required="" />
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-2 col-6">
                         <div class="form-group">
                             <x-dash.form.label for="" value="{{__('webCaption.broker.title')}}" class=""
                                 tooltip="{{__('webCaption.broker.caption')}}" required="required" />
@@ -460,28 +461,20 @@
                     {{__('webCaption.opening_balance.title')}}
                 </h4>
             </div>
+            <hr class="m-0 p-0">
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
                             <x-dash.form.inputs.text for="opening_balance"
                                 tooltip="{{__('webCaption.opening_balance.caption')}}"
-                                label="{{__('webCaption.opening_balance.title')}}" maxlength="100" class="form-control"
+                                label="{{__('webCaption.opening_balance.title')}}" maxlength="20" class="form-control"
                                 name="opening_balance" placeholder="{{__('webCaption.opening_balance.title')}}"
                                 value="{{old('opening_balance', isset($data->id)?$data->opening_balance:'' )}}"
                                 required="" />
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="form-group">
-                            <x-dash.form.inputs.select label="{{__('webCaption.currency.title')}}"
-                                tooltip="{{__('webCaption.currency.caption')}}" for="currency" name="currency"
-                                placeholder="{{ __('locale.currency.caption') }}" customClass="currency"
-                                editSelected="{{(isset($data->id) && ($data->id != null)) ? $data->currency :'' }}"
-                                required="" />
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
                         <div class="form-group">
                             <x-dash.form.label for="" value="{{__('webCaption.opening_balance_type.title')}}" class=""
                                 tooltip="{{__('webCaption.opening_balance_type.caption')}}" required="" />
@@ -502,9 +495,16 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-2 col-6">
+                        <div class="form-group">
+                            <x-dash.form.inputs.select label="{{__('webCaption.currency.title')}}"
+                                tooltip="{{__('webCaption.currency.caption')}}" for="currency" name="currency"
+                                placeholder="{{ __('locale.currency.caption') }}" customClass="currency"
+                                editSelected="{{(isset($data->id) && ($data->id != null)) ? $data->currency :'' }}"
+                                required="" />
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-6">
                         <div class="form-group">
                             <x-dash.form.inputs.date for="opening_balance_date"
                                 tooltip="{{__('webCaption.opening_balance_date.caption')}}"
@@ -532,6 +532,7 @@
                     {{__('webCaption.upload_image.title')}}
                 </h4>
             </div>
+            <hr class="m-0 p-0">
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4">
@@ -548,81 +549,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- <div class="card card-primary">
-            <div class="card-header">
-                <h4 class="card-title">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="feather feather-info font-medium-3 mr-1">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <line x1="12" y1="16" x2="12" y2="12"></line>
-                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                    </svg>
-                    {{__('webCaption.information.title')}}
-                </h4>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <x-dash.form.inputs.text for="slogan" tooltip="{{__('webCaption.slogan.caption')}}"
-                                label="{{__('webCaption.slogan.title')}}" class="form-control" name="slogan"
-                                placeholder="{{__('webCaption.slogan.title')}}"
-                                value="{{old('slogan', isset($data->title)?$data->slogan:'' )}}" required="required" />
-                            @if ($errors->has('slogan'))
-                            <x-dash.form.form_error_messages message="{{ $errors->first('slogan') }}" />
-                            @endif
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <x-dash.form.inputs.textarea id="" for="hp_welcome_text"
-                                tooltip="{{__('webCaption.hp_welcome_text.caption')}}"
-                                label="{{__('webCaption.hp_welcome_text.title')}}" maxlength="250" class="form-control"
-                                name="hp_welcome_text" placeholder="{{__('webCaption.hp_welcome_text.title')}}"
-                                value="{{old('hp_welcome_text', isset($data->hp_welcome_text)?$data->hp_welcome_text:'' )}}"
-                                required="" />
-                            @if($errors->has('hp_welcome_text'))
-                            <x-dash.form.form_error_messages message="{{ $errors->first('hp_welcome_text') }}" />
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <x-dash.form.inputs.textarea id="" for="members_of"
-                                tooltip="{{__('webCaption.members_of.caption')}}"
-                                label="{{__('webCaption.members_of.title')}}" maxlength="250" class="form-control"
-                                name="members_of" placeholder="{{__('webCaption.members_of.title')}}"
-                                value="{{old('members_of', isset($data->members_of)?$data->members_of:'' )}}"
-                                required="" />
-                            @if($errors->has('members_of'))
-                            <x-dash.form.form_error_messages message="{{ $errors->first('members_of') }}" />
-                            @endif
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <x-dash.form.inputs.textarea id="" for="about_company_text"
-                                tooltip="{{__('webCaption.about_company_text.caption')}}"
-                                label="{{__('webCaption.about_company_text.title')}}" maxlength="250"
-                                class="form-control" name="about_company_text"
-                                placeholder="{{__('webCaption.about_company_text.title')}}"
-                                value="{{old('about_company_text', isset($data->about_company_text)?$data->about_company_text:'' )}}"
-                                required="" />
-                            @if($errors->has('about_company_text'))
-                            <x-dash.form.form_error_messages message="{{ $errors->first('about_company_text') }}" />
-                            @endif
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div> -->
         <div class="form-group text-center">
             <input type="hidden" name="id" value="@if(isset($data->id) && !empty($data->id)){{$data->id}}@endif" />
             @if(isset($data->id))
