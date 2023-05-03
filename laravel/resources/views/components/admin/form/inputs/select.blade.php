@@ -10,8 +10,15 @@
     'id',
     'editSelected',
     'tooltip',
-    'customClass'
+    'customClass',
+    'onChange'
 ])
+
+{{-- @php
+if(isset($onChange)){
+    echo $onChange;
+}
+@endphp --}}
 
 <?php  $customClass = (isset($customClass)) ? $customClass :''; ?>
 
@@ -22,7 +29,9 @@
 
     <select  class=" <?php echo  $customClass ?> select2"  name="{{$name}}"
     
-       @if(isset($for)) id="{{ $for }}" @endif  {{ $required }}>
+       @if(isset($for)) id="{{ $for }}" @endif  {{ $required }} 
+        @if(isset($onChange)) onchange="{{$onChange}}" @endif    
+         >
 
               <option value=""> Select </option>
           @if(isset($optionData) && count($optionData) > 0)
