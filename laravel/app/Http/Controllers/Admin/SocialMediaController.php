@@ -221,6 +221,7 @@ class SocialMediaController extends Controller
         }
 
         $data = SocialMedia::find($request->id);
+        
         if(is_file(public_path('social_media').'/'.$data->icon )){
             unlink(public_path('social_media').'/'.$data->icon);
         }
