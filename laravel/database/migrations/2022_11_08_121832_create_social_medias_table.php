@@ -15,9 +15,9 @@ class CreateSocialMediasTable extends Migration
     {
         Schema::create('social_medias', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 30)->unique()->index();
-            $table->string('url', 30);
-            $table->string('icon', 15)->nullable();
+            $table->string('name', 50);
+            $table->string('url', 100)->nullable();
+            $table->string('icon')->nullable();
             $table->enum('display', ['Yes', 'No'])->default('Yes');
             $table->softDeletes();
             $table->timestamps();
