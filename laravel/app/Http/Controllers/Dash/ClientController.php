@@ -216,6 +216,9 @@ class ClientController extends Controller
             'opening_balance_date.date' => __('webCaption.validation_date.title', ['field'=> __('webCaption.opening_balance_date.title')] ),
             'registration_date.date' => __('webCaption.validation_date.title', ['field'=> __('webCaption.registration_date.title')] ),
 
+            'opening_balance.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.opening_balance.title'), "max" => "20" ] ),
+            'opening_balance.string'=> __('webCaption.validation_string.title', ['field'=> __('webCaption.opening_balance.title') ] ),
+
             'email_1.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.email_1.title') ] ),
             'email_1.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.email_1.title') ,"max" => "45"] ),
             'email_1.unique'=> __('webCaption.validation_unique.title', ['field'=> $request->input('email_1') ] ),
