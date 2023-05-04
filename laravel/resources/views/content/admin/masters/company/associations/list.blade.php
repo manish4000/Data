@@ -82,6 +82,12 @@
                                         </th>                                                
                                         <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.association.caption')}}"> {{__('webCaption.association.title')}}<x-admin.filter.order-by-filter-div orderBy="name" />
                                         </th>
+                                        <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.country.caption')}}"> {{__('webCaption.country.title')}}<x-admin.filter.order-by-filter-div orderBy="country" />
+                                        </th>
+                                        <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.logo.caption')}}"> {{__('webCaption.logo.title')}}<x-admin.filter.order-by-filter-div orderBy="logo" />
+                                        </th>
+                                        <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.text.caption')}}"> {{__('webCaption.text.title')}}<x-admin.filter.order-by-filter-div orderBy="text" />
+                                        </th>
                                         <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.no_of_children.caption')}}" >{{__('webCaption.no_of_children.title')}}<x-admin.filter.order-by-filter-div orderBy="children_count" />
                                         </th>
                                         <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.display_status.caption')}}"  >

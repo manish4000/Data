@@ -6,7 +6,7 @@
 @endif
 
 @section('content')
-<form action="{{ route('masters.company.association.store')}}" method="POST">
+<form action="{{ route('masters.company.association.store')}}" method="POST" enctype='multipart/form-data'>
 @csrf
 <section >
   <div class="card">
@@ -26,10 +26,30 @@
       <div class="row">
         <div class="col-lg-4 col-md-6">
           <div class="form-group">
-            <x-admin.form.inputs.text tooltip="{{__('webCaption.association.caption')}}" label="{{__('webCaption.association.title')}}" maxlength="50" for="name"   name="name"  placeholder="{{ __('webCaption.association.title') }}" value="{{old('name', isset($data->name)?$data->name:'' )}}"  required="required" />
+            <x-admin.form.inputs.text tooltip="{{__('webCaption.association.caption')}}" label="{{__('webCaption.association.title')}}" maxlength="50" for="name"   name="name"  placeholder="{{ __('webCaption.association.title') }}" value="{{old('name', isset($data->id)?$data->name:'' )}}"  required="required" />
           </div>    
         </div>
 
+        <div class="col-lg-4 col-md-6">
+          <div class="form-group">
+            <x-admin.form.inputs.select  tooltip="{{__('webCaption.country.caption')}}"  label="{{__('webCaption.country.title')}}"  id="" for="country" name="country" required="" :optionData="$country" editSelected="{{(isset($data->country) && ($data->country != null))?$data->country :''; }}" />
+           </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="form-group">
+              @php
+                $editImageUrl = (isset($data->logo)) ? "masters/association/".$data->logo : '';
+              @endphp
+            <x-admin.form.inputs.file id="" caption="{{__('webCaption.logo.title')}}" editImageUrl="{{$editImageUrl}}" ImageId="logo-preview" for="logo"  name="logo"  maxFileSize="5000"  placeholder="{{__('webCaption.logo.title')}}" required="" />     
+          </div>    
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="form-group">
+            <x-admin.form.inputs.textarea tooltip="{{__('webCaption.text.caption')}}" label="{{__('webCaption.text.title')}}" maxlength="1000" for="text"   name="text"  placeholder="{{ __('webCaption.text.title') }}" value="{{old('text', isset($data->text)?$data->text:'' )}}"  required="" />
+          </div>    
+        </div>
         
         <div class="col-lg-4 col-md-6">
           <div class="form-group">
