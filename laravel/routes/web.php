@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\Common\CountryController;
 use App\Http\Controllers\Admin\Common\StateController;
 use App\Http\Controllers\Admin\CommonController;
 use App\Http\Controllers\Admin\SocialMediaController;
+use App\Http\Controllers\Admin\CurrencyController;
+use App\Http\Controllers\Admin\NationalityController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StaterkitController;
 use App\Http\Controllers\Admin\LanguageController;
@@ -32,6 +34,8 @@ use App\Http\Controllers\Admin\Masters\MarketingStatusController;
 use App\Http\Controllers\Admin\Masters\SubTypeController;
 use App\Http\Controllers\Admin\Masters\ModelCodeController;
 use App\Http\Controllers\Admin\Masters\DealsInController;
+use App\Http\Controllers\Admin\Masters\MessengerController;
+use App\Http\Controllers\Admin\Masters\BankController;
 use App\Http\Controllers\Admin\Masters\DiscountController;
 use App\Http\Controllers\Admin\Masters\MakeController;
 use App\Http\Controllers\Admin\Masters\User\DepartmentController;
@@ -361,6 +365,30 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
             Route::post('/delete-multiple', [SocialMediaController::class,'deleteMultiple'])->name('delete-multiple');
         });
 
+        Route::group(['prefix' => 'currency' , 'as' => 'currency.'],function(){
+            Route::get('/', [CurrencyController::class, 'index'])->name('index'); 
+            Route::post('/store', [CurrencyController::class, 'store'])->name('store');
+            Route::post('/update-status', [CurrencyController::class, 'updateStatus'])->name('update-status');      
+            Route::post('/delete', [CurrencyController::class, 'destroy'])->name('delete');
+            Route::get('/edit/{id}', [CurrencyController::class, 'edit'])->name('edit');
+            Route::get('/add', [CurrencyController::class, 'add'])->name('add');
+            Route::get('/create', [CurrencyController::class, 'create'])->name('create');
+            Route::post('/getChildList', [CurrencyController::class,'getChildList']);
+            Route::post('/delete-multiple', [CurrencyController::class,'deleteMultiple'])->name('delete-multiple');
+        });
+
+        Route::group(['prefix' => 'nationality' , 'as' => 'nationality.'],function(){
+            Route::get('/', [NationalityController::class, 'index'])->name('index'); 
+            Route::post('/store', [NationalityController::class, 'store'])->name('store');
+            Route::post('/update-status', [NationalityController::class, 'updateStatus'])->name('update-status');      
+            Route::post('/delete', [NationalityController::class, 'destroy'])->name('delete');
+            Route::get('/edit/{id}', [NationalityController::class, 'edit'])->name('edit');
+            Route::get('/add', [NationalityController::class, 'add'])->name('add');
+            Route::get('/create', [NationalityController::class, 'create'])->name('create');
+            Route::post('/getChildList', [NationalityController::class,'getChildList']);
+            Route::post('/delete-multiple', [NationalityController::class,'deleteMultiple'])->name('delete-multiple');
+        });
+
         Route::group(['prefix' => 'vehicle' ,'as' => 'vehicle.'],function(){
             //routes of type module 
             Route::group(['prefix' => 'type','as' => 'type.'],function(){
@@ -583,6 +611,30 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
                 Route::get('/create', [DealsInController::class, 'create'])->name('create');
                 Route::post('/getChildList', [DealsInController::class,'getChildList']);
                 Route::post('/delete-multiple', [DealsInController::class,'deleteMultiple'])->name('delete-multiple');
+            });
+
+            Route::group(['prefix' => 'messenger' , 'as' => 'messenger.'],function(){
+                Route::get('/', [MessengerController::class, 'index'])->name('index'); 
+                Route::post('/store', [MessengerController::class, 'store'])->name('store');
+                Route::post('/update-status', [MessengerController::class, 'updateStatus'])->name('update-status');      
+                Route::post('/delete', [MessengerController::class, 'destroy'])->name('delete');
+                Route::get('/edit/{id}', [MessengerController::class, 'edit'])->name('edit');
+                Route::get('/add', [MessengerController::class, 'add'])->name('add');
+                Route::get('/create', [MessengerController::class, 'create'])->name('create');
+                Route::post('/getChildList', [MessengerController::class,'getChildList']);
+                Route::post('/delete-multiple', [MessengerController::class,'deleteMultiple'])->name('delete-multiple');
+            });
+
+            Route::group(['prefix' => 'bank' , 'as' => 'bank.'],function(){
+                Route::get('/', [BankController::class, 'index'])->name('index'); 
+                Route::post('/store', [BankController::class, 'store'])->name('store');
+                Route::post('/update-status', [BankController::class, 'updateStatus'])->name('update-status');      
+                Route::post('/delete', [BankController::class, 'destroy'])->name('delete');
+                Route::get('/edit/{id}', [BankController::class, 'edit'])->name('edit');
+                Route::get('/add', [BankController::class, 'add'])->name('add');
+                Route::get('/create', [BankController::class, 'create'])->name('create');
+                Route::post('/getChildList', [BankController::class,'getChildList']);
+                Route::post('/delete-multiple', [BankController::class,'deleteMultiple'])->name('delete-multiple');
             });
 
         });
