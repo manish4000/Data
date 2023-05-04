@@ -36,6 +36,7 @@ class CreateCompanySalesTeamTable extends Migration
             $table->unsignedBigInteger('local_city_id')->nullable();
             $table->string('local_city', 100)->nullable();
             $table->string('local_zip_code', 15)->nullable();
+            $table->enum('same_as_local', ['0','1'])->default(0);
             $table->string('permanent_address', 250)->nullable();
             $table->unsignedBigInteger('permanent_country_id')->nullable();
             $table->string('permanent_country', 100)->nullable();
@@ -47,7 +48,8 @@ class CreateCompanySalesTeamTable extends Migration
             $table->string('phone_1', 25)->nullable();
             $table->string('phone_2', 25)->nullable();
             $table->string('skype', 35)->nullable();
-            $table->longText('language')->nullable();
+            $table->longText('language_id')->nullable();
+            $table->longText('language_name')->nullable();
             $table->unsignedBigInteger('religion_id')->nullable();
             $table->string('religion', 100)->nullable();
             $table->date('anniversary_date')->nullable();
