@@ -172,7 +172,7 @@ class TestimonialController extends Controller
         }
 
             $user =   Auth::guard('dash')->user();
-            $folder =     CompanyGabsModel::where('id',$user->company_id)->value('gabs_uuid');   
+            $folder =   CompanyGabsModel::where('id',$user->company_id)->value('gabs_uuid');   
 
             $testmonail_model->title = $request->title; 
             $testmonail_model->company_user_id = $user->company_id; 

@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\DB;
 class SocialMediaActionController extends Controller
 {
     public function socialMedia(Request $request){
-        //$states  =   DB::table('states')->where('country_id',$request->id)->get();
         $socialMedia  =   DB::table('social_medias')->select('id as value', 'name')->where('deleted_at',NULL)->get();
         
         $randVal = rand(111,999);
