@@ -16,6 +16,9 @@ class CreateAssociationTable extends Migration
         Schema::create('association', function (Blueprint $table) {
             $table->id();
             $table->string('name', 50)->unique()->index();
+            $table->unsignedBigInteger('country')->nullable();
+            $table->string('logo')->nullable();
+            $table->mediumText('text')->nullable();
             $table->bigInteger('parent_id')->nullable();
             $table->enum('display', ['Yes', 'No'])->default('Yes');
             $table->longText('title_languages')->nullable();   
