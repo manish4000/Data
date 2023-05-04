@@ -13,7 +13,14 @@
     'customClass'
 ])
 
-<?php  $customClass = (isset($customClass)) ? $customClass :''; ?>
+<?php  $customClass = (isset($customClass)) ? $customClass :''; 
+
+    /* if(isset($editSelected)){
+        echo $editSelected;
+    } */
+
+?>
+
 
 <div class="form-label">
     @if (isset($label))
@@ -40,7 +47,7 @@
 
 <div class="m-0">
     @if($errors->has($name))
-    <x-admin.form.form_error_messages message="{{ $errors->first($name) }}"  />
+    <x-dash.form.form_error_messages message="{{ $errors->first($name) }}"  />
     @endif
 </div>
 
