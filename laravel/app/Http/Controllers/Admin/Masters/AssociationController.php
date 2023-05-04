@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Masters;
 
 use App\Http\Controllers\Controller;
 use App\Models\Masters\Company\Association;
+use App\Models\Masters\Country;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Validator;
@@ -51,6 +52,8 @@ class AssociationController extends Controller
         }
         
         $data = Association::withCount('children');
+        $__data = Association::with('country');
+        $country = Country::select('id as value', 'name')->orderBy('name')->get();
 
         if(  $request->has('search.keyword')) {
             $data->keywordFilter($request->input('search.keyword')); 
@@ -87,7 +90,7 @@ class AssociationController extends Controller
 
         $data = $data->paginate($perPage);
 
-        return view('content.admin.masters.company.associations.list', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs, 'data'=>$data,'perPage' => $perPage]);
+        return view('content.admin.masters.company.associations.list', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs, 'data'=>$data,'perPage' => $perPage, '__data'=>$__data, 'country'=>$country]);
     }
 
 
@@ -98,14 +101,16 @@ class AssociationController extends Controller
         if (!Auth::user()->can('masters-company-association-add')) {
             abort(403);
         }
-        $parent_data = Association::select('id as value', 'name', 'parent_id', 'display')->orderBy('name', 'ASC')->where('parent_id', '0')->get();
 
-        $country = Country::select('id as value', 'name')->where('parent_id','0')->orderBy('name')->get();
+        $parent_data = Association::select('id as value', 'name', 'parent_id', 'display')->orderBy('name', 'ASC')->where('parent_id', '0')->get();
         
         $breadcrumbs[0] = [
             'link' => $this->baseUrl,
             'name' => __('webCaption.list.title')
         ];
+
+        $country = Country::select('id as value', 'name')->orderBy('name')->get();
+
         return view('content.admin.masters.company.associations.create-form',['menuUrl' =>$this->menuUrl,'breadcrumbs' =>$breadcrumbs ,'parent_data' => $parent_data, 'country'=>$country ]);
     }
     
@@ -117,12 +122,16 @@ class AssociationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
+
+        $old_logo_name = '';
          
         if($request->id){
             if (!Auth::user()->can('masters-company-association-edit')) {
                 abort(403);
             }
             $association_model =   Association::find($request->id);
+
+            $association_model =   $request->logo;
         }else{
             if (!Auth::user()->can('masters-company-association-add')) {
                 abort(403);
@@ -133,12 +142,24 @@ class AssociationController extends Controller
         $validator = Validator::make($request->all(),
           [
             'display' => 'required',
-            'name' => 'required|unique:association,name,'.$request->id.',id,deleted_at,NULL' 
+            'name' => 'required|unique:association,name,'.$request->id.',id,deleted_at,NULL',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5000',
+            'country' => 'nullable|numeric',
+            'text'  =>  'nullable|max:1000',
           ]  ,
           [
             'name.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.name.title')  ] ),
             'display.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.display.title')  ] ),
             'name.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('name')] ),
+
+            'logo.image'=> __('webCaption.validation_image.title', ['field'=> __('webCaption.logo.title') ] ),
+            'logo.mimes'=> __('webCaption.validation_mimes.title', ['field'=> __('webCaption.logo.title') ,"fileTypes" => "jpeg,png,jpg,gif"] ),
+            'logo.max'=> __('webCaption.validation_max_file.title', ['field'=> __('webCaption.logo.title') ,"max" => "5000"] ),
+
+            'country.numeric' => __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.country.title') ] ),
+
+            'text.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.text.title'), "max" => "1000" ] ),
+            //'text.string'=> __('webCaption.validation_string.title', ['field'=> __('webCaption.text.title') ] ),
           ]);
     
         if ($validator->fails()) {
@@ -146,6 +167,19 @@ class AssociationController extends Controller
         }
 
                 $association_model->name       =   $request->name;
+                $association_model->country    =   $request->country;
+
+                if($request->has('logo')){
+                    $logo = time().'.'.$request->logo->extension();
+                    $request->logo->move(public_path('masters/association'), $logo);
+                    $association_model->logo   =   $logo;
+
+                    if(is_file(public_path('masters/association').'/'.$old_logo_name )){
+                        unlink(public_path('masters/association').'/'.$old_logo_name);
+                    }
+                }
+
+                $association_model->text       =   $request->text;
                 $association_model->parent_id  =   isset($request->parent_id)? $request->parent_id : 0 ;
                 $association_model->display    =   $request->display;
                 // $association_model->title_languages    =   $request->title_languages;
@@ -170,7 +204,9 @@ class AssociationController extends Controller
         if (!Auth::user()->can('masters-company-association-edit')) {
             abort(403);
         }
-        $data = Association::select('id', 'name','title_languages', 'parent_id', 'display')->where('id', $id)->first();
+        
+        $data = Association::select('*')->where('id', $id)->first();
+
         $activeSiteLanguages = SiteLanguage::ActiveSiteLanguagesForMaster();
         $breadcrumbs[0] = [
             'link' => $this->baseUrl,
@@ -180,18 +216,12 @@ class AssociationController extends Controller
         //send id as value because dynamic select work with  id as value  name as name  
         $parent_data = Association::select('id as value', 'name', 'parent_id', 'display')->orderBy('name', 'ASC')->where('parent_id', '0')->get();
 
-        return view('content.admin.masters.company.associations.create-form',['data' => $data,'breadcrumbs' =>$breadcrumbs ,'activeSiteLanguages' => $activeSiteLanguages ,'parent_data' => $parent_data ,'menuUrl' =>$this->menuUrl]);
+        $country = Country::select('id as value', 'name')->orderBy('name')->get();
+
+        return view('content.admin.masters.company.associations.create-form',['data' => $data,'breadcrumbs' =>$breadcrumbs ,'activeSiteLanguages' => $activeSiteLanguages ,'parent_data' => $parent_data ,'menuUrl' =>$this->menuUrl, 'country'=>$country]);
    
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
- 
     /**
      * Remove the specified resource from storage.
      *
@@ -205,6 +235,12 @@ class AssociationController extends Controller
             $result['message']    = __('webCaption.alert_delete_access.title'); 
             return response()->json(['result' => $result]);
             abort(403);
+        }
+
+        $data = Association::find($request->id);
+        
+        if(is_file(public_path('masters/association').'/'.$data->logo )){
+            unlink(public_path('masters/association').'/'.$data->logo);
         }
 
         if(Association::where('id', $request->id)->firstorfail()->delete()){
@@ -229,6 +265,14 @@ class AssociationController extends Controller
             abort(403);
         }
 
+        $data = Association::whereIn('id', $request->delete_ids)->get();
+        
+        foreach($data as $item){
+            if(is_file(public_path('masters/association').'/'.$item->logo)){
+                unlink(public_path('masters/association').'/'.$item->logo);
+            }
+        }
+
         if(Association::whereIn('id', $request->delete_ids)->delete()){
             $result['status']     = true;
             $result['message']    = __('webCaption.alert_deleted_successfully.title') ;
@@ -238,9 +282,7 @@ class AssociationController extends Controller
             $result['status']     = false;
             $result['message']    = __('webCaption.alert_somthing_wrong.title'); 
             return response()->json(['result' => $result]);
-        }
-
-        
+        }        
     }
 
 
@@ -267,7 +309,6 @@ class AssociationController extends Controller
             $result['message']    = __('webCaption.alert_somthing_wrong.title'); 
 
         }
-
 
         return response()->json(['result' => $result]);
     }
