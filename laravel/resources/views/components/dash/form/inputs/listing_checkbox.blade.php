@@ -16,3 +16,5 @@
      value="{{$value}}"   {{$checked}}>
     <label  class="custom-control-label" for="{{$id}}"></label>
 </div>
+
+{{-- this checkbox for listing with onclick method  --}}
