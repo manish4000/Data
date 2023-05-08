@@ -20,6 +20,8 @@ $(document ).ready(function() {
 });
 
 
+
+
 function imageValidation(id,maxFileSize,fileType ){
 
 
