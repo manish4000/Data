@@ -42,6 +42,9 @@
                         <a class="dropdown-item" href="#"><i class="me-50" data-feather="credit-card"></i> Pricing</a>
                         <a class="dropdown-item" href="#"><i class="me-50" data-feather="help-circle"></i> FAQ</a> --}}
                         <a class="dropdown-item" href="{{route('dashlogout')}}"><i class="me-50" data-feather="power"></i> Logout</a>
+                        @if (Auth::guard('dash')->user()->can('company-gabs-billing-info'))	
+                        <a class="dropdown-item" href="{{route('dashbilling-info')}}"> Billing info </a>
+                        @endif
                     </div>
                 </li>
             </ul>
