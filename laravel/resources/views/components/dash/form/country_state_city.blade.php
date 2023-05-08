@@ -1,24 +1,25 @@
+@push('script')
 <script>
  
- function stateLists(country_field_id , state_filed_id ,selected_state = ''){
-
+ function stateLists(country_field_id , state_field_id ,selected_state = ''){
+    
     let  country  = $('#'+country_field_id).find(":selected").val();
-
+    
     if(country){
         $.ajax ({
             type: 'POST',
-            url: "{{route('company.state-list')}}",
+            url: "{{route('dashstate-list')}}",
             data: { id : country },
             success : function(result) {
 
-            $('#'+state_filed_id).html('<option value="">Select State</option>');
+            $('#'+state_field_id).html('<option value="">Select State</option>');
             $.each(result.states, function (key, value) {
                 if(value.id == selected_state){
                     var selected_s = 'selected';
                 }else{
                     var selected_s = '';
                 }
-                $("#"+state_filed_id).append('<option value="' + value
+                $("#"+state_field_id).append('<option value="' + value
                         .id + '" '+ selected_s + '>' + value.name + '</option>');
             });
            
@@ -41,7 +42,7 @@ function cityList(state_field_id,city_filed_id,selected_city = '',state_id =''){
     if(state){
          $.ajax ({
             type: 'POST',
-            url: "{{route('company.city-list')}}",
+            url: "{{route('dashcity-list')}}",
             data: { id : state },
             success : function(result) {
                 
@@ -61,3 +62,4 @@ function cityList(state_field_id,city_filed_id,selected_city = '',state_id =''){
     }
 
 </script> 
+@endpush
