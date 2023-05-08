@@ -7,9 +7,9 @@ use App\Http\Controllers\Admin\Common\ReligionController;
 use App\Http\Controllers\Admin\Common\CountryController;
 use App\Http\Controllers\Admin\Common\StateController;
 use App\Http\Controllers\Admin\CommonController;
-use App\Http\Controllers\Admin\SocialMediaController;
-use App\Http\Controllers\Admin\CurrencyController;
-use App\Http\Controllers\Admin\NationalityController;
+use App\Http\Controllers\Admin\Common\SocialMediaController;
+use App\Http\Controllers\Admin\Common\CurrencyController;
+use App\Http\Controllers\Admin\Common\NationalityController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StaterkitController;
 use App\Http\Controllers\Admin\LanguageController;
@@ -99,8 +99,15 @@ Route::post('change-view',function(Request $request){
 
 Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
 
-    Route::post('check-reference-data',[CommonController::class,'checkReferanceData'])->name('check-reference-data');
 
+    //common methods 
+
+    Route::post('check-reference-data',[CommonController::class,'checkReferanceData'])->name('check-reference-data');
+    //upload images in temprary file and get 
+    Route::post('/upload-documents', [CommonController::class, 'uploadDocuments'])->name('multiple-image-upload-temp');
+    Route::post('/fetch-document', [CommonController::class, 'fetchDocuments'])->name('get-images-temp');
+    Route::post('/delete-document', [CommonController::class, 'deleteDocument'])->name('delete-temp-image');
+    //common methods end 
     Route::get('data-migrate','Admin\DataImportController@importData');
 
     Route::group(['as' => 'users.','prefix' => 'users'] ,function(){
@@ -171,8 +178,10 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
 
    // Company old  Routes
     Route::group(['prefix' => 'company'], function () {
+
         Route::get('/', [CompanyController::class, 'index'])->name('company');
         Route::post('/store', [CompanyController::class, 'store'])->name('company-store');
+
         Route::post('/update', [CompanyController::class, 'update'])->name('company-update');
         Route::post('/update-status', [CompanyController::class, 'updateStatus'])->name('company-update-status');   
         Route::post('/delete/{id}', [CompanyController::class, 'destroy'])->name('company-delete');

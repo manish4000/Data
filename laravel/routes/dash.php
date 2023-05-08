@@ -13,10 +13,9 @@ use App\Http\Controllers\Dash\Auth\LoginController;
 use App\Http\Controllers\Dash\LanguageController;
 use App\Http\Controllers\Dash\SocialMediaActionController;
 use App\Http\Controllers\Dash\StateCityController;
+use App\Http\Controllers\Dash\Erp\PaymentsController;
 
 use Illuminate\Support\Facades\Route;
-
-
 
 Route::middleware('dash')->name('dash')->group(function(){
 
@@ -36,23 +35,52 @@ Route::middleware('dash')->name('dash')->group(function(){
         Route::post('state-list','Dash/StateCityController@stateList')->name('state-list');
         Route::post('city-list','Dash/StateCityController@cityList')->name('city-list');
 
-        Route::post('social-media-action',[SocialMediaActionController::class,'socialMedia'])->name('social-media-action');
+
+
+        Route::group(['prefix'=>'accounts','namespace'=>'Dash\Accounts','as' => 'accounts.'],function(){
+
+            Route::group(['prefix'=>'payments','as' => 'payments.'],function(){
+                Route::get('drcrnotes',function(){
+                    return view('dash.content.accounts.payments.drcrnotes'); 
+                })->name('drcrnotes');
+
+                Route::get('/','PaymentsController@index')->name('index');
+                Route::get('/create','PaymentsController@create')->name('create');
+                Route::post('/store','PaymentsController@store')->name('store');
+                Route::get('edit/{id}','PaymentsController@edit')->name('edit');
+                Route::post('/delete', 'PaymentsController@destroy')->name('delete'); 
+                Route::post('/delete-multiple','PaymentsController@deleteMultiple')->name('delete-multiple');
+                Route::post('/update-status','PaymentsController@updateStatus')->name('update-status');
+            });
+        });
+
+
+        Route::post('social-media-action', function(){
+            return view('dash.content.users.social_media_action');
+        })->name('social-media-action');
 
         Route::group(['prefix'=>'stock-manager','namespace'=>'Dash','as' => 'stock-manager.'],function(){
             Route::get('/',function(){ return view('dash.content.blank',['message' => " Stock Manager listing Page "]); });
             Route::get('/create',function(){ return view('dash.content.blank' ,['message' => " Add New Stock Manager  Page "]);  });
         });
 
-        Route::group(['prefix'=>'inquries','namespace'=>'Dash','as' => 'inquries.'],function(){
-            Route::get('/',function(){ return view('dash.content.blank',['message' => "Inquries listing Page "]); });
+        Route::group(['prefix'=>'inquiries','namespace'=>'Dash','as' => 'inquiries.'],function(){
+            Route::get('/',function(){ return  view('dash.content.blank',['message' => "Inquiry Manager listing Page "]);  });
+            Route::get('/create',function(){ return view('dash.content.inquiry.create'); });
+        });
+        Route::group(['prefix'=>'vehicles','namespace'=>'Dash','as' => 'vehicles.'],function(){
+            Route::get('/',function(){ return  view('dash.content.blank',['message' => "vehicles listing Page "]);  });
+            Route::get('/create',function(){ return view('dash.content.vehicles.create'); });
         });
 
-      
+        Route::get('billing-info',function(){
+            return view('dash.content.billing_info');  })->name('billing-info');
+
         Route::group(['prefix'=>'profile','as' => 'profile.','namespace'=>'Dash'],function(){
              Route::get('/','ProfileController@edit')->name('index');
 
          Route::post('update','ProfileController@updateProfile')->name('update');
-
+        
             //  Route::get('/',function(){     return view('dash.content.company.profile');
             //  });
 
@@ -68,7 +96,7 @@ Route::middleware('dash')->name('dash')->group(function(){
 
         Route::group(['prefix'=>'proforma-manager','namespace'=>'Dash','as' => 'proforma-manager.'],function(){
             Route::get('/',function(){ return view('dash.content.blank',['message' => "Proforma Manager listing Page "]);  });
-            Route::get('/create',function(){ return view('dash.content.blank' ,['message' => " Add New Proforma Manager Page "]); });
+            Route::get('/create',function(){ return view('dash.content.proforma.create'); });
         });
 
         Route::group(['prefix'=>'members','namespace'=>'Dash','as' => 'members.'],function(){
@@ -83,6 +111,9 @@ Route::middleware('dash')->name('dash')->group(function(){
         
         Route::group(['prefix'=>'company','namespace'=>'Dash','as' => 'company.'],function(){
             Route::get('/create',function(){ return view('dash.content.company.create'); });
+
+
+
         });
 
         Route::get('/logout','Dash\Auth\LoginController@logout')->name('logout');
@@ -119,6 +150,18 @@ Route::middleware('dash')->name('dash')->group(function(){
 
         Route::post('state-list','Dash\BankDetailsController@stateList')->name('state-list');
         Route::post('city-list','Dash\BankDetailsController@cityList')->name('city-list');
+
+        Route::group(['prefix'=>'masters','namespace'=>'Dash','as' => 'masters.'],function(){
+
+            Route::group(['prefix'=>'erp','namespace'=>'Dash','as' => 'erp.'],function(){
+
+                Route::group(['prefix'=>'vendor','namespace'=>'Dash','as' => 'vendor.'],function(){
+                    Route::get('/',function(){ return  view('dash.content.masters.erp.vendor.create');  });
+                    Route::get('/create',function(){ return view('dash.content.masters.erp.vendor.create'); });
+                });
+            });
+
+        });
 
     });
 
