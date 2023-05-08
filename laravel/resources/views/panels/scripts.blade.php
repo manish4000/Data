@@ -65,8 +65,8 @@ $.ajaxSetup({
 });
 </script>
 
-<script src="{{ asset('assets/js/gabs/common.js') }}?ver=1"></script>
-<script src="{{ asset('assets/js/gabs/master.js') }}?ver=1"></script>
+<script src="{{ asset('assets/js/gabs/common.js') }}?ver=2"></script>
+<script src="{{ asset('assets/js/gabs/master.js') }}?ver=2"></script>
 {{-- page script --}}
 @yield('page-script')
 

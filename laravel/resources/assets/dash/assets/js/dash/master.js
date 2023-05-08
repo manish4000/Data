@@ -34,10 +34,17 @@
 
 
     /* To toggle password visibility*/
-    function pwdToggle(id) {
+    function pwdToggle(id, btnid) {
         let pwd = document.getElementById(id);
-            if (pwd.type == "text") pwd.type = "password";
-            else pwd.type = "text";
+            if (pwd.type == "text"){ 
+                pwd.type = "password";
+                $('#'+btnid).html('<i class="fa fa-eye"></i>');
+            }
+            else{ 
+                pwd.type = "text";
+                $('#'+btnid).html('<i class="fa fa-eye-slash"></i>');
+            }
+
         }
       
         /* To Generate the password*/
