@@ -14,7 +14,7 @@
         <div class="card-body">
           <form method="GET" action="{{route('masters.social-media.index')}}">
             <div class="row">
-                <div class="col-sm-4 col-md-5 col-lg-3 col-xl-4">
+                <div class="col-sm-3 col-md-5 col-lg-7 col-xl-7">
                     <div class="form-group">
                         <x-admin.form.inputs.text id="searchKeyword" for="{{__('webCaption.keyword.title')}}" label="{{__('webCaption.keyword.title')}}" tooltip="{{__('webCaption.keyword.caption')}}"  class="form-control" name="search[keyword]"  placeholder="{{__('webCaption.keyword.title')}}" value="{{ request()->input('search.keyword') }}"  required="" />
                     </div>
@@ -33,7 +33,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 pt-1 ">
+                <div class="col-md-12  pt-1 text-center">
                     <x-admin.form.buttons.search />
                     <x-admin.form.buttons.reset href="{{route('masters.social-media.index')}}" />
                 </div>
@@ -73,7 +73,7 @@
                                         </th>
                                         <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.url.caption')}}" >{{__('webCaption.url.title')}}<x-admin.filter.order-by-filter-div orderBy="url" />
                                         </th>
-                                        <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.icon.caption')}}" >{{__('webCaption.icon.title')}}<x-admin.filter.order-by-filter-div orderBy="icon" />
+                                        <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.icon.caption')}}" >{{__('webCaption.icon.title')}}
                                         </th>
                                         <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.display_status.caption')}}"  >
                                             {{__('webCaption.display_status.title')}} <x-admin.filter.order-by-filter-div orderBy="display" />
@@ -83,7 +83,7 @@
                             </thead>
                             <tbody>
                                 @foreach($data as $item)
-                                    @include('content.admin.masters.social_media.item-tr', ['item'=>$item])    
+                                    @include('content.admin.masters.common.social_media.item-tr', ['item'=>$item])    
                                 @endforeach   
                                             
                             </tbody>                            
