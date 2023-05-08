@@ -26,19 +26,19 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <x-dash.form.label for="" value="{{__('webCaption.status.title')}}" class=""
-                                tooltip="{{__('webCaption.status.caption')}}" required="required" />
+                            <x-dash.form.label for="" value="{{__('webCaption.member_login.title')}}" class=""
+                                tooltip="{{__('webCaption.member_login.caption')}}" required="required" />
                             <div>
                                 <div class="form-check-inline">
-                                    <x-dash.form.inputs.radio for="active" tooltip="{{__('webCaption.active.caption')}}"
+                                    <x-dash.form.inputs.radio for="active" tooltip="{{__('webCaption.yes.caption')}}"
                                         class="border border-danger" name="status"
-                                        label="{{__('webCaption.active.title')}}" value="Active"
+                                        label="{{__('webCaption.yes.title')}}" value="Active"
                                         checked="{{ (old('display') == 'Active') || (!isset($data->id))  ? 'checked' : '' }} {{ isset($data->status) ? $data->status == 'Active' ? 'checked=checked' :'' :'' }} "
                                         required="required" />&ensp;
 
                                     <x-dash.form.inputs.radio for="deactive" class="border border-danger" name="status"
-                                        tooltip="{{__('webCaption.deactive.caption')}}"
-                                        label="{{__('webCaption.deactive.title')}}" value="Deactive" required="required"
+                                        tooltip="{{__('webCaption.no.caption')}}" label="{{__('webCaption.no.title')}}"
+                                        value="Deactive" required="required"
                                         checked="{{ old('display') == 'Deactive' ? 'checked' : '' }} {{ isset($data->status) ? $data->status == 'Deactive' ? 'checked=checked' :'' :'' }} "
                                         required="required" />&ensp;
                                 </div>
@@ -46,8 +46,33 @@
                         </div>
                     </div>
                     <div class="col-md-4">
+                        <div class="form-group">
+                            <x-dash.form.inputs.number for="customer_uid"
+                                tooltip="{{__('webCaption.customer_uid.caption')}}"
+                                label="{{__('webCaption.customer_uid.title')}}" class="form-control" name="customer_uid"
+                                placeholder="{{__('webCaption.customer_uid.title')}}"
+                                value="{{old('customer_uid', isset($data->id)?$data->customer_uid:'' )}}"
+                                required="required" />
+                            @if ($errors->has('customer_uid'))
+                            <x-dash.form.form_error_messages message="{{ $errors->first('customer_uid') }}" />
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-6">
+                        <div class="form-group">
+                            <x-dash.form.label for="" value="{{__('webCaption.broker.title')}}" class=""
+                                tooltip="{{__('webCaption.broker.caption')}}" required="required" />
+                            <div>
+                                <x-dash.form.inputs.checkbox for="broker" name="broker" class="form-control"
+                                    label="{{__('webCaption.yes.title')}}" value="1"
+                                    checked="{{ old('broker') == 'No' ? 'checked' : '' }} {{ isset($data->broker) ? $data->broker == 'Yes' ? 'checked=checked' :'' :'' }}"
+                                    customClass="custom-control-inline" required="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
                         <div class="row">
-                            <div class="col-md-4 col-4">
+                            <div class="col-md-3 col-4">
                                 <div class="form-group">
                                     <x-dash.form.inputs.name_prefix label="{{__('webCaption.title.title')}}"
                                         tooltip="{{__('webCaption.title.caption')}}" for="title" name="title"
@@ -60,7 +85,7 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="col-md-8 col-8">
+                            <div class="col-md-9 col-8 pl-0">
                                 <div class="form-group">
                                     <x-dash.form.inputs.text id="" label="{{__('webCaption.name.title')}}"
                                         tooltip="{{__('webCaption.name.caption')}}" for="name" class="form-control"
@@ -73,31 +98,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <x-dash.form.inputs.text id="" label="{{__('webCaption.company_name.title')}}"
                                 tooltip="{{__('webCaption.company_name.caption')}}" for="company_name"
                                 class="form-control" maxlength="100" name="company_name"
                                 placeholder="{{__('webCaption.company_name.title')}}"
-                                value="{{old('company_name', isset($data->id)?$data->company_name:'' )}}"
-                                required="required" />
+                                value="{{old('company_name', isset($data->id)?$data->company_name:'' )}}" required="" />
                             @if($errors->has('company_name'))
                             <x-dash.form.form_error_messages message="{{ $errors->first('company_name') }}" />
-                            @endif
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <x-dash.form.inputs.number for="customer_uid"
-                                tooltip="{{__('webCaption.customer_uid.caption')}}"
-                                label="{{__('webCaption.customer_uid.title')}}" class="form-control" name="customer_uid"
-                                placeholder="{{__('webCaption.customer_uid.title')}}"
-                                value="{{old('customer_uid', isset($data->id)?$data->customer_uid:'' )}}"
-                                required="required" />
-                            @if ($errors->has('customer_uid'))
-                            <x-dash.form.form_error_messages message="{{ $errors->first('customer_uid') }}" />
                             @endif
                         </div>
                     </div>
@@ -122,8 +131,6 @@
                                 required="<?php echo (!isset($data->id))? 'required' :''; ?>" />
                         </div>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
                             <x-dash.form.inputs.email id="" for="email_2" tooltip="{{__('webCaption.email_2.caption')}}"
@@ -132,21 +139,56 @@
                                 value="{{old('email_2', isset($data->id)?$data->email_2:'' )}}" required="" />
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <x-dash.form.inputs.number for="mobile_1" maxlength="20"
-                                tooltip="{{__('webCaption.mobile_1.caption')}}"
-                                label="{{__('webCaption.mobile_1.title')}}" class="form-control" name="mobile_1"
-                                placeholder="{{__('webCaption.mobile_1.title')}}"
-                                value="{{old('mobile_1', isset($data->id)?$data->mobile_1:'' )}}" required="required" />
-                            @if ($errors->has('mobile_1'))
-                            <x-dash.form.form_error_messages message="{{ $errors->first('mobile_1') }}" />
-                            @endif
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-3 col-4">
+                                <div class="form-group">
+                                    <x-dash.form.inputs.select tooltip="{{__('webCaption.country_code.caption')}}"
+                                        label="{{__('webCaption.country_code.title')}}" id="" for="country_code_1"
+                                        name="country_code" required="" :optionData="[]"
+                                        editSelected="{{(isset($data->country_code) && ($data->country_code != null)) ? $data->country_code : ''; }}" />
+                                </div>
+                            </div>
+                            <div class="col-md-9 col-8 pl-0">
+                                <div class="form-group">
+                                    <x-dash.form.inputs.number for="mobile_1" maxlength="20"
+                                        tooltip="{{__('webCaption.mobile_1.caption')}}"
+                                        label="{{__('webCaption.mobile_1.title')}}" class="form-control" name="mobile_1"
+                                        placeholder="{{__('webCaption.mobile_1.title')}}"
+                                        value="{{old('mobile_1', isset($data->id)?$data->mobile_1:'' )}}"
+                                        required="required" />
+                                    @if ($errors->has('mobile_1'))
+                                    <x-dash.form.form_error_messages message="{{ $errors->first('mobile_1') }}" />
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-3 col-4">
+                                <div class="form-group">
+                                    <x-dash.form.inputs.select tooltip="{{__('webCaption.country_code.caption')}}"
+                                        label="{{__('webCaption.country_code.title')}}" id="" for="country_code_2"
+                                        name="country_code" required="" :optionData="[]"
+                                        editSelected="{{(isset($data->country_code) && ($data->country_code != null)) ? $data->country_code : ''; }}" />
+                                </div>
+                            </div>
+                            <div class="col-md-9 col-8 pl-0">
+                                <div class="form-group">
+                                    <x-dash.form.inputs.number for="mobile_2" maxlength="20"
+                                        tooltip="{{__('webCaption.mobile_2.caption')}}"
+                                        label="{{__('webCaption.mobile_2.title')}}" class="form-control" name="mobile_2"
+                                        placeholder="{{__('webCaption.mobile_2.title')}}"
+                                        value="{{old('mobile_2', isset($data->id)?$data->mobile_2:'' )}}" required="" />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
         <div class="card card-primary">
             <div class="card-header">
                 <h4 class="card-title">
@@ -224,15 +266,6 @@
                                 required="" />
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <x-dash.form.inputs.number for="mobile_2" maxlength="20"
-                                tooltip="{{__('webCaption.mobile_2.caption')}}"
-                                label="{{__('webCaption.mobile_2.title')}}" class="form-control" name="mobile_2"
-                                placeholder="{{__('webCaption.mobile_2.title')}}"
-                                value="{{old('mobile_2', isset($data->id)?$data->mobile_2:'' )}}" required="" />
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -268,7 +301,8 @@
                             <x-dash.form.inputs.select label="{{__('webCaption.nationality.title')}}"
                                 tooltip="{{__('webCaption.nationality.caption')}}" for="nationality" name="nationality"
                                 placeholder="{{ __('locale.nationality.caption') }}" customClass="nationality"
-                                editSelected="{{(isset($data->id) && ($data->id != null)) ? $data->nationality :'' }}"
+                                :optionData="$country"
+                                editSelected="{{(isset($data->nationality) && ($data->nationality != null)) ? $data->nationality :'' }}"
                                 required="" />
                         </div>
                     </div>
@@ -277,7 +311,8 @@
                             <x-dash.form.inputs.date for="birth_date" tooltip="{{__('webCaption.birth_date.caption')}}"
                                 label="{{__('webCaption.birth_date.title')}}" class="form-control" name="birth_date"
                                 placeholder="{{__('webCaption.birth_date.title')}}"
-                                value="{{old('birth_date', isset($data->id)?$data->birth_date:'' )}}" required="" />
+                                value="{{old('birth_date', isset($data->birth_date)?$data->birth_date:'' )}}"
+                                required="" />
                         </div>
                     </div>
                     <div class="col-md-2 col-6">
@@ -304,13 +339,14 @@
                         <line x1="12" y1="16" x2="12" y2="12"></line>
                         <line x1="12" y1="8" x2="12.01" y2="8"></line>
                     </svg>
-                    {{__('webCaption.social.title')}}
+                    {{__('webCaption.social_media.title')}}
                 </h4>
             </div>
             <hr class="m-0 p-0">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-4">
+                @include('components.dash.form.inputs.social_media', ['id' => 'social_media_company', 'name' => 'company_social_media'])
+                    <!-- <div class="col-md-4">
                         <div class="form-group">
                             <x-dash.form.inputs.text_with_icon for="facebook"
                                 tooltip="{{__('webCaption.facebook.caption')}}"
@@ -340,8 +376,6 @@
                                 value="{{old('twitter', isset($data->id)?$data->twitter:'' )}}" required="" />
                         </div>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
                             <x-dash.form.inputs.text_with_icon for="linked_in"
@@ -351,7 +385,7 @@
                                 placeholder="{{__('webCaption.linked_in.title')}}"
                                 value="{{old('linked_in', isset($data->id)?$data->linked_in:'' )}}" required="" />
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -421,18 +455,7 @@
                                 required="" />
                         </div>
                     </div>
-                    <div class="col-md-2 col-6">
-                        <div class="form-group">
-                            <x-dash.form.label for="" value="{{__('webCaption.broker.title')}}" class=""
-                                tooltip="{{__('webCaption.broker.caption')}}" required="required" />
-                            <div>
-                                <x-dash.form.inputs.checkbox for="broker" name="broker" class="form-control"
-                                    label="{{__('webCaption.broker.title')}}" value="1"
-                                    checked="{{ old('broker') == 'No' ? 'checked' : '' }} {{ isset($data->broker) ? $data->broker == 'Yes' ? 'checked=checked' :'' :'' }}"
-                                    customClass="custom-control-inline" required="" />
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
                 <div class="row">
                     <div class="col-md-12">
@@ -464,7 +487,16 @@
             <hr class="m-0 p-0">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-2 col-6">
+                        <div class="form-group">
+                            <x-dash.form.inputs.select label="{{__('webCaption.currency.title')}}"
+                                tooltip="{{__('webCaption.currency.caption')}}" for="currency" name="currency"
+                                placeholder="{{ __('locale.currency.caption') }}" customClass="currency"
+                                editSelected="{{(isset($data->currency) && ($data->currency != null)) ? $data->currency :'' }}"
+                                required="" />
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-6">
                         <div class="form-group">
                             <x-dash.form.inputs.text for="opening_balance"
                                 tooltip="{{__('webCaption.opening_balance.caption')}}"
@@ -493,15 +525,6 @@
                                         required="" />&ensp;
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-md-2 col-6">
-                        <div class="form-group">
-                            <x-dash.form.inputs.select label="{{__('webCaption.currency.title')}}"
-                                tooltip="{{__('webCaption.currency.caption')}}" for="currency" name="currency"
-                                placeholder="{{ __('locale.currency.caption') }}" customClass="currency"
-                                editSelected="{{(isset($data->id) && ($data->id != null)) ? $data->currency :'' }}"
-                                required="" />
                         </div>
                     </div>
                     <div class="col-md-2 col-6">
@@ -538,12 +561,36 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             @php
-                            $editImageUrl = (isset($data->id)) ?"dash/visiting_card_img/".$data->visiting_card_img: '';
+                            $editImageUrl = (isset($data->id)) ?"dash/user_image/".$data->user_image: '';
+                            @endphp
+                            <x-dash.form.inputs.file id="" caption="{{__('webCaption.user_image.title')}}"
+                                editImageUrl="{{$editImageUrl}}" ImageId="user_image-preview" for="user_image"
+                                name="user_image" maxFileSize="5000" placeholder="{{__('webCaption.user_image.title')}}"
+                                required="" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @php
+                            $editImageUrl = (isset($data->id))
+                            ?"dash/visiting_card_img/".$data->visiting_card_img:
+                            '';
                             @endphp
                             <x-dash.form.inputs.file id="" caption="{{__('webCaption.visiting_card_img.title')}}"
                                 editImageUrl="{{$editImageUrl}}" ImageId="visiting_card_img-preview"
                                 for="visiting_card_img" name="visiting_card_img" maxFileSize="5000"
                                 placeholder="{{__('webCaption.visiting_card_img.title')}}" required="" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @php
+                            $editImageUrl = (isset($data->id)) ?"dash/company_logo/".$data->company_logo: '';
+                            @endphp
+                            <x-dash.form.inputs.file id="" caption="{{__('webCaption.company_logo.title')}}"
+                                editImageUrl="{{$editImageUrl}}" ImageId="company_logo-preview" for="company_logo"
+                                name="company_logo" maxFileSize="5000"
+                                placeholder="{{__('webCaption.company_logo.title')}}" required="" />
                         </div>
                     </div>
                 </div>

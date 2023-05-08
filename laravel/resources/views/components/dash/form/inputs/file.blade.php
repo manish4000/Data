@@ -18,6 +18,7 @@ $imageId = (isset($imageId))? $imageId :'';
 $editImageUrl = (isset($editImageUrl) && !empty($editImageUrl) )? asset($editImageUrl) :asset('assets/images/portrait/small/no-photo.jpg');
 
 $fileType = ['jpg','png','jpeg','svg','gif','tiff'];
+$maxFileSize = isset($maxFileSize) ?  $maxFileSize : '';
 
 @endphp
 
@@ -32,8 +33,8 @@ $fileType = ['jpg','png','jpeg','svg','gif','tiff'];
 
     <div class="media-body mt-75 ml-1">
         <label for="{{ $for }}" class="btn btn-sm btn-primary mb-75 mr-75">{{ $caption }}  @if(isset($required) && !empty($required)) &nbsp; <span  style="font-size: 14px;font-weight:bolder"> * </span>  @endif </label>
-        <input type="file" name="{{ $name }}" id="{{ $for }}" hidden accept="image/*"  {{$multiple}} {{$required}} />
-        <p>Allowed JPEG, JPG, PNG, GIF or BMP. Max size of 5MiB</p>
+        <input type="file" name="{{ $name }}" id="{{ $for }}" hidden accept="image/*"  {{$multiple}} {{$required}} /><br/>
+        <p class="input_file_instruction">Allowed <?php echo  (isset($fileType))?implode(',',$fileType) : ''; ?>. Max size of <?php echo $maxFileSize ?> KB</p>
     </div>
 
 </div>

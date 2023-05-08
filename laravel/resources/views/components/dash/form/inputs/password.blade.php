@@ -38,7 +38,7 @@
         >
         <div class="input-group-append">
             <button class="btn btn-outline-primary" title="{{__('webCaption.generate_password.caption')}}"  data-toggle="tooltip" onclick="generate('{{$for}}')"  type="button"><i class="fa fa-key" aria-hidden="true"></i></button>
-            <button class="btn btn-outline-primary" title="{{__('webCaption.show_password.caption')}}" data-toggle="tooltip"  onclick="pwdToggle('{{$for}}')" type="button"><i class="fa fa-eye" aria-hidden="true"></i></button>
+            <button class="btn btn-outline-primary" title="{{__('webCaption.show_password.caption')}}" data-toggle="tooltip"  onclick="pwdToggle('{{$for}}', this.id)" id="eye_main_{{$for}}" type="button"><i class="fa fa-eye" aria-hidden="true"></i></button>
         </div>
     </div>
 @else
@@ -53,7 +53,7 @@
             value='' {{ $required }}
             >
             <div class="input-group-append">
-                <button class="btn btn-outline-primary" title="{{__('webCaption.show_password.caption')}}" data-toggle="tooltip"  onclick="pwdToggle('{{$for}}')" type="button"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                <button class="btn btn-outline-primary" title="{{__('webCaption.show_password.caption')}}" data-toggle="tooltip"  onclick="pwdToggle('{{$for}}', this.id)" id="eye_confirm_{{$for}}" type="button"><i class="fa fa-eye" aria-hidden="true"></i></button>
             </div>
     </div>        
 @endif

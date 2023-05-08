@@ -14,7 +14,7 @@
         <div class="card-body">
           <form method="GET" action="{{route('masters.company.association.index')}}">
             <div class="row">
-                <div class="col-sm-4 col-md-5 col-lg-3 col-xl-4">
+                <div class="col-sm-3 col-md-5 col-lg-7 col-xl-7">
                     <div class="form-group">
                         <x-admin.form.inputs.text id="searchKeyword" for="{{__('webCaption.keyword.title')}}" label="{{__('webCaption.keyword.title')}}" tooltip="{{__('webCaption.keyword.caption')}}"  class="form-control" name="search[keyword]"  placeholder="{{__('webCaption.keyword.title')}}" value="{{ request()->input('search.keyword') }}"  required="" />
                     </div>
@@ -35,18 +35,22 @@
                 </div>
                 <div class="col-5 col-sm-3 col-md-3 col-lg-2 col-xl-2">
                     <div class="row">
-                        <div class="col-12 col-md-10">
+                        <div class="col-md-10">
                             <div class="form-group">
                                 <x-admin.form.label for=""  value="{{__('webCaption.parent_only.title')}}" class="" tooltip="{{__('webCaption.parent_only.caption')}}" />
 
                                 <x-admin.form.inputs.checkbox for="searchParentOnlyShowAll"  name="search[parentOnlyShowAll]" tooltip="{{__('webCaption.show_all.caption')}}" label="{{__('webCaption.show_all.title')}}" checked="{{ (request()->input('search.parentOnlyShowAll') == 1)  ?'checked' :''; }}"  value="1"  customClass="form-check-input"  />
-                                
+                              
                             </div>
-                        </div>
-                        
+                        </div>                        
                     </div> 
                 </div>
-                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 pt-1 ">
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                    <div class="form-group">
+                        <x-admin.form.inputs.select  tooltip="{{__('webCaption.country.caption')}}"  label="{{__('webCaption.country.title')}}" for="country" name="search[country]" required="" :optionData="$country" editSelected="{{ request()->input('search.country') }}" />
+                       </div>
+                </div>
+                <div class="col-md-12 pt-1 text-center">
                     <x-admin.form.buttons.search />
                     <x-admin.form.buttons.reset href="{{route('masters.company.association.index')}}" />
                 </div>
@@ -84,10 +88,10 @@
                                         </th>
                                         <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.country.caption')}}"> {{__('webCaption.country.title')}}<x-admin.filter.order-by-filter-div orderBy="country" />
                                         </th>
-                                        <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.logo.caption')}}"> {{__('webCaption.logo.title')}}<x-admin.filter.order-by-filter-div orderBy="logo" />
+                                        <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.logo.caption')}}"> {{__('webCaption.logo.title')}} 
                                         </th>
-                                        <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.text.caption')}}"> {{__('webCaption.text.title')}}<x-admin.filter.order-by-filter-div orderBy="text" />
-                                        </th>
+                                        <!-- <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.text.caption')}}"> {{__('webCaption.text.title')}}<x-admin.filter.order-by-filter-div orderBy="text" />
+                                        </th> -->
                                         <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.no_of_children.caption')}}" >{{__('webCaption.no_of_children.title')}}<x-admin.filter.order-by-filter-div orderBy="children_count" />
                                         </th>
                                         <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.display_status.caption')}}"  >

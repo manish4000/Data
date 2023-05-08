@@ -32,27 +32,6 @@
 
         <div class="col-lg-4 col-md-6">
           <div class="form-group">
-            <x-admin.form.inputs.select  tooltip="{{__('webCaption.country.caption')}}"  label="{{__('webCaption.country.title')}}"  id="" for="country" name="country" required="" :optionData="$country" editSelected="{{(isset($data->country) && ($data->country != null))?$data->country :''; }}" />
-           </div>
-        </div>
-
-        <div class="col-lg-4 col-md-6">
-          <div class="form-group">
-              @php
-                $editImageUrl = (isset($data->logo)) ? "masters/association/".$data->logo : '';
-              @endphp
-            <x-admin.form.inputs.file id="" caption="{{__('webCaption.logo.title')}}" editImageUrl="{{$editImageUrl}}" ImageId="logo-preview" for="logo"  name="logo"  maxFileSize="5000"  placeholder="{{__('webCaption.logo.title')}}" required="" />     
-          </div>    
-        </div>
-
-        <div class="col-lg-4 col-md-6">
-          <div class="form-group">
-            <x-admin.form.inputs.textarea tooltip="{{__('webCaption.text.caption')}}" label="{{__('webCaption.text.title')}}" maxlength="1000" for="text"   name="text"  placeholder="{{ __('webCaption.text.title') }}" value="{{old('text', isset($data->text)?$data->text:'' )}}"  required="" />
-          </div>    
-        </div>
-        
-        <div class="col-lg-4 col-md-6">
-          <div class="form-group">
             <x-admin.form.inputs.select  tooltip="{{__('webCaption.select_parent.caption')}}"  label="{{__('webCaption.select_parent.title')}}"  id="" for="parent_id" name="parent_id" placeholder="{{__('webCaption.select_parent.title')}}"  required="" :optionData="$parent_data" editSelected="{{(isset($data->parent_id) && ($data->parent_id != null))?$data->parent_id :''; }}" />
           </div>
         </div>
@@ -70,6 +49,27 @@
                       </div>
                     </div>
             </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="form-group">
+            <x-admin.form.inputs.select  tooltip="{{__('webCaption.country.caption')}}"  label="{{__('webCaption.country.title')}}"  id="" for="country" name="country" required="" :optionData="$country" editSelected="{{(isset($data->country) && ($data->country != null))?$data->country :''; }}" />
+           </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="form-group">
+              @php
+                $editImageUrl = (isset($data->logo)) ? "master/association/".$data->logo : '';
+              @endphp
+            <x-admin.form.inputs.file id="" caption="{{__('webCaption.logo.title')}}" editImageUrl="{{$editImageUrl}}" ImageId="logo-preview" for="logo"  name="logo"  maxFileSize="5000"  placeholder="{{__('webCaption.logo.title')}}" required="" />     
+          </div>    
+        </div>
+
+        <div class="col-lg-12 col-md-12">
+          <div class="form-group">
+            <x-admin.form.inputs.textarea tooltip="{{__('webCaption.text.caption')}}" label="{{__('webCaption.text.title')}}" maxlength="1000" for="text"   name="text"  placeholder="{{ __('webCaption.text.title') }}" value="{{old('text', isset($data->text)?$data->text:'' )}}"  required="" />
+          </div>    
         </div>
       </div>       
     </div>

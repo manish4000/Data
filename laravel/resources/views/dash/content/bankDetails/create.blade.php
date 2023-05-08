@@ -40,17 +40,17 @@
           <hr class="m-0 p-0">
           <div class="card-body">
               <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-5">
                     <div class="form-group">
                         <x-dash.form.inputs.text  for="account_name"  maxlength="50" tooltip="{{__('webCaption.account_name.caption')}}" label="{{__('webCaption.account_name.title')}}"  name="account_name"  placeholder="{{__('webCaption.account_name.title')}}" value="{{old('account_name', isset($data->account_name)?$data->account_name:'' )}}"  required="" />
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-5">
                     <div class="form-group">
                         <x-dash.form.inputs.number  for="account_number"  maxlength="30" tooltip="{{__('webCaption.account_number.caption')}}" label="{{__('webCaption.account_number.title')}}"  name="account_number"  placeholder="{{__('webCaption.account_number.title')}}" value="{{old('account_number', isset($data->account_number)?$data->account_number:'' )}}"  required="required" />
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <div class="form-group">
                          <x-dash.form.inputs.select label="{{__('webCaption.account_currency.title')}}"  tooltip="{{__('webCaption.account_currency.caption')}}" for="account_currency" name="account_currency" 
                         placeholder="{{ __('locale.account_currency.caption') }}" customClass="account_currency"  editSelected=""  required="" :optionData="[]" />   
@@ -86,27 +86,33 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <x-dash.form.label for="" tooltip="{{__('webCaption.display_status.caption')}}" value="{{__('webCaption.display_status.title')}}" class="" />
-                    <div class="form-group form-check-inline">
-                        <x-dash.form.inputs.radio for="Yes" tooltip="{{__('webCaption.yes.caption')}}"  class="border border-danger" name="display_status" label="{{__('webCaption.yes.title')}}"  value="Yes"  required="required" checked="{{ old('display_status') == 'yes' ? 'checked' : '' }} {{ isset($data->display_status) ? $data->display_status == 'Yes' ? 'checked=checked' :'' :'' }} " required="required" /> 
-
-                        <x-dash.form.inputs.radio for="No" class="border border-danger" name="display_status" tooltip="{{__('webCaption.no.caption')}}" label="{{__('webCaption.no.title')}}" value="No"  required="required"  checked="{{ old('display_status') == 'No' ? 'checked' : '' }} {{ isset($data->display_status) ? $data->display_status == 'No' ? 'checked=checked' :'' :'' }} " required="required" />
-
-                         @if($errors->has('display_status'))
-                        <x-dash.form.form_error_messages message="{{ $errors->first('display_status') }}"  />
-                        @endif
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <x-dash.form.label for="" tooltip="{{__('webCaption.primary_bank.caption')}}" value="{{__('webCaption.primary_bank.title')}}" class=""/>
-                    <div class="form-group form-check-inline">
-                        <x-dash.form.inputs.radio for="Yes" tooltip="{{__('webCaption.yes.caption')}}"  class="border border-danger" name="primary_bank" label="{{__('webCaption.yes.title')}}"  value="Yes"  required="required" checked="{{ old('primary_bank') == 'yes' ? 'checked' : '' }} {{ isset($data->primary_bank) ? $data->primary_bank == 'Yes' ? 'checked=checked' :'' :'' }} " required="required" />
-            
-                        <x-dash.form.inputs.radio for="No" class="border border-danger" name="primary_bank" tooltip="{{__('webCaption.no.caption')}}" label="{{__('webCaption.no.title')}}" value="No"  required="required"  checked="{{ old('primary_bank') == 'No' ? 'checked' : '' }} {{ isset($data->primary_bank) ? $data->primary_bank == 'No' ? 'checked=checked' :'' :'' }} " required="required" />
-
-                        @if($errors->has('primary_bank'))
-                        <x-dash.form.form_error_messages message="{{ $errors->first('primary_bank') }}"  />
-                        @endif
+                    <div class="row">
+                        <div class="col-md-6 col-6">
+                            <div class="form-group">
+                                <x-dash.form.label for="" value="{{__('webCaption.display_status.title')}}" class="" 
+                                tooltip="{{__('webCaption.display_status.caption')}}" />
+                                <div>
+                                    <div class=" form-check-inline">
+                                    <x-dash.form.inputs.radio for="Yes" tooltip="{{__('webCaption.yes.caption')}}"  class="border border-danger" name="display_status" label="{{__('webCaption.yes.title')}}" placeholder="" value="yes"  required="required"  checked="{{ (isset($user->companySalesTeam->display_status) && $user->companySalesTeam->display_status == 'Active') ? 'checked' : 'checked' }}" />&ensp;
+                                        
+                                    <x-dash.form.inputs.radio for="No" class="border border-danger" name="display_status" tooltip="{{__('webCaption.no.caption')}}" label="{{__('webCaption.no.title')}}" placeholder="" value="no"  required="required"  checked="{{ (isset($user->companySalesTeam->display_status) && $user->companySalesTeam->display_status == 'Blocked') ? 'checked' : '' }}" />&ensp;
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-6">
+                            <div class="form-group">
+                                <x-dash.form.label for="" value="{{__('webCaption.primary_bank.title')}}" class="" 
+                                tooltip="{{__('webCaption.primary_bank.caption')}}" />
+                                <div>
+                                    <div class=" form-check-inline">
+                                    <x-dash.form.inputs.radio for="yes" tooltip="{{__('webCaption.yes.caption')}}"  class="border border-danger" name="primary_bank" label="{{__('webCaption.yes.title')}}" placeholder="" value="yes"  required="required"  checked="{{ (isset($user->companySalesTeam->primary_bank) && $user->companySalesTeam->primary_bank == 'Blocked') ? 'checked' : '' }}" />&ensp;
+                                        
+                                    <x-dash.form.inputs.radio for="no" class="border border-danger" name="primary_bank" tooltip="{{__('webCaption.no.caption')}}" label="{{__('webCaption.no.title')}}" placeholder="" value="no"  required="required"  checked="{{ (isset($user->companySalesTeam->primary_bank) && $user->companySalesTeam->primary_bank == 'Active') ? 'checked' : 'checked' }}" />&ensp;
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div> 
             </div>  

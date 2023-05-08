@@ -32,16 +32,14 @@
 
         <div class="col-lg-4 col-md-6">
           <div class="form-group">
-            <x-admin.form.inputs.select  tooltip="{{__('webCaption.country.caption')}}"  label="{{__('webCaption.country.title')}}" for="country_id" name="country_id" required="" :optionData="$country" editSelected="{{(isset($data->country_id) && !empty($data->country_id))?$data->country_id :''; }}" />
-           </div>
-        </div>
-
-       
-        
-        <div class="col-lg-4 col-md-6">
-          <div class="form-group">
             <x-admin.form.inputs.select  tooltip="{{__('webCaption.select_parent.caption')}}"  label="{{__('webCaption.select_parent.title')}}"  id="" for="parent_id" name="parent_id" placeholder="{{__('webCaption.select_parent.title')}}"  required="" :optionData="$parent_data" editSelected="{{(isset($data->parent_id) && ($data->parent_id != null))?$data->parent_id :''; }}" />
           </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="form-group">
+            <x-admin.form.inputs.select  tooltip="{{__('webCaption.country.caption')}}"  label="{{__('webCaption.country.title')}}" for="country_id" name="country_id" required="" :optionData="$country" editSelected="{{(isset($data->country_id) && !empty($data->country_id))?$data->country_id :''; }}" />
+           </div>
         </div>
 
         <div class="col-lg-6 col-md-6">

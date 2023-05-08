@@ -22,17 +22,16 @@
             @php echo str_ireplace( request()->input('search.keyword'), '<span class="heighlight-string">'.
                 request()->input('search.keyword').'</span>',$item->name) @endphp
         </td>
-        <td> @if(isset($item->country)) {{$item->country}} @endif</td>
+        <td> @if(isset($item->country_name)) {{$item->country_name}} @endif</td>
         <td>
-            @if(!empty($item->logo) && isset($item->logo) && is_file(public_path('masters/association').'/'.$item->logo))
-            <img src="{{asset('masters/association')}}/{{$item->logo}}" alt="logo" class="rounded" id="logo-preview" width="60"
+            @if(!empty($item->logo) && isset($item->logo) && is_file(public_path('master/association').'/'.$item->logo))
+            <img src="{{asset('master/association')}}/{{$item->logo}}" alt="logo" class="rounded" id="logo-preview" width="60"
                 height="60">
             @else
             <img src="{{asset('assets/images/portrait/small/no-photo.jpg')}}" alt="logo" class="rounded"
                 id="logo-preview" width="60" height="60">
             @endif
         </td>
-        <td>{{$item->text}}</td>
 
         <td>
             @if( $item->children_count > 0 )

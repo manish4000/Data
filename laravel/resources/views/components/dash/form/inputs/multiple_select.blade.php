@@ -9,7 +9,10 @@
     'optionData',
     'oldValues',
     'required',
-    'editSelected'
+    'editSelected',
+    'optionImg',
+    'customClass',
+    'onChange'
 ])
 
 @php
@@ -17,6 +20,7 @@ $border ="";
     if($required == "required"){
         $border ="border:1px solid red;";
     }
+    $customClass = (isset($customClass)) ? $customClass : '';
 @endphp
 
 
@@ -32,14 +36,16 @@ $border ="";
     </label>
     @endif
 
-    <select  class="select2" data-autofill="true" multiple data-is-parent="false"  name="{{ $name }}" id="{{ $for }}" {{ $required }}>
+    <select  class="select2 <?php echo  $customClass; ?>" data-autofill="true" multiple data-is-parent="false"  name="{{ $name }}" id="{{ $for }}" {{ $required }}
+        @if(isset($onChange)) onchange="{{$onChange}}" @endif 
+        >
         <option value="">Select</option>
         @if(isset($optionData) && count($optionData)>0)
             @foreach($optionData as $option)
                 @php $sel = ''; @endphp
                 @if(is_array($oldValues) && in_array( $option->value, $oldValues)) @php $sel = 'selected="selected"'; @endphp 
                 @elseif(isset($editSelected) && is_array($editSelected) && in_array($option->value, $editSelected)) @php $sel = 'selected="selected"'; @endphp @endif
-                <option value="{{$option->value}}" {{$sel}}>{{$option->name}}</option>
+                <option value="{{$option->value}}" {{$sel}} title="@if(isset($optionImg)){{$optionImg}}/{{$option->logo}} @endif">{{$option->name}}</option>
             @endforeach
         @endif
     </select>
@@ -49,7 +55,9 @@ $border ="";
     <script>
         
     $(document ).ready(function() {
-        $('.select2').select2();
+        $('.select2').select2({
+            closeOnSelect: false,
+        });
     });
         
     </script>
