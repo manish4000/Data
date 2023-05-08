@@ -146,7 +146,6 @@ class MessengerController extends Controller
             /* 'logo.image'=> __('webCaption.validation_image.title', ['field'=> __('webCaption.logo.title') ] ), */
             'logo.mimes'=> __('webCaption.validation_mimes.title', ['field'=> __('webCaption.logo.title') ,"fileTypes" => "jpeg,png,jpg,gif"] ),
             'logo.max'=> __('webCaption.validation_max_file.title', ['field'=> __('webCaption.logo.title') ,"max" => "5000"] ),
-            'url.required' => __('webCaption.validation_required.title', ['field' => __('webCaption.url.title')]),
             'url.url' => __('webCaption.validation_url.title', ['field'=> __('webCaption.url.title') ] ),
           ]);
     

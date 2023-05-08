@@ -49,9 +49,10 @@ class Messenger extends Model
     public function scopeKeywordFilter($query, $keyword)
     {
         return $query->where( function($query) use ($keyword) {
-            $query->where('name', 'like', '%'.$keyword.'%')->orWhereHas( 'children', function($query) use ($keyword) {
-                    $query->where('name', 'like', '%'.$keyword.'%');
+            $query->where('name', 'like', '%'.$keyword.'%')->orWhere('url', 'like', '%'.$keyword.'%')->orWhereHas( 'children', function($query) use ($keyword) {
+                    $query->where('name', 'like', '%'.$keyword.'%')->orWhere('url', 'like', '%'.$keyword.'%');
             } );
+            
         });
     }
 }

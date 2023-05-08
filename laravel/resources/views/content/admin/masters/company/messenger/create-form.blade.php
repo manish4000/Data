@@ -32,16 +32,14 @@
 
         <div class="col-lg-4 col-md-6">
           <div class="form-group">
-            <x-admin.form.inputs.text tooltip="{{__('webCaption.chat_url.caption')}}" label="{{__('webCaption.chat_url.title')}}" for="url"   name="url"  placeholder="{{ __('webCaption.chat_url.title') }}" value="{{old('url', isset($data->url)?$data->url:'' )}}"  required="required" />
-          </div>    
+            <x-admin.form.inputs.select  tooltip="{{__('webCaption.select_parent.caption')}}"  label="{{__('webCaption.select_parent.title')}}"  id="" for="parent_id" name="parent_id" placeholder="{{__('webCaption.select_parent.title')}}"  required="" :optionData="$parent_data" editSelected="{{(isset($data->parent_id) && ($data->parent_id != null)) ? $data->parent_id :''; }}" />
+          </div>
         </div>
 
-       
-        
         <div class="col-lg-4 col-md-6">
           <div class="form-group">
-            <x-admin.form.inputs.select  tooltip="{{__('webCaption.select_parent.caption')}}"  label="{{__('webCaption.select_parent.title')}}"  id="" for="parent_id" name="parent_id" placeholder="{{__('webCaption.select_parent.title')}}"  required="" :optionData="$parent_data" editSelected="{{(isset($data->parent_id) && ($data->parent_id != null))?$data->parent_id :''; }}" />
-          </div>
+            <x-admin.form.inputs.text tooltip="{{__('webCaption.chat_url.caption')}}" label="{{__('webCaption.chat_url.title')}}" for="url"   name="url"  placeholder="{{ __('webCaption.chat_url.title') }}" value="{{old('url', isset($data->url)?$data->url:'' )}}"  required="" />
+          </div>    
         </div>
 
         <div class="col-lg-6 col-md-6">

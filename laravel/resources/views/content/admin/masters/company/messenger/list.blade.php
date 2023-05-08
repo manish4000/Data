@@ -14,7 +14,7 @@
         <div class="card-body">
           <form method="GET" action="{{route('masters.company.messenger.index')}}">
             <div class="row">
-                <div class="col-sm-4 col-md-5 col-lg-3 col-xl-4">
+                <div class="col-sm-3 col-md-5 col-lg-7 col-xl-7">
                     <div class="form-group">
                         <x-admin.form.inputs.text id="searchKeyword" for="{{__('webCaption.keyword.title')}}" label="{{__('webCaption.keyword.title')}}" tooltip="{{__('webCaption.keyword.caption')}}"  class="form-control" name="search[keyword]"  placeholder="{{__('webCaption.keyword.title')}}" value="{{ request()->input('search.keyword') }}"  required="" />
                     </div>
@@ -22,8 +22,9 @@
                 <div class="col-7 col-sm-3 col-md-4 col-lg-3">
                     <div class="form-group">
                         <x-admin.form.label for="" value="{{__('webCaption.display_status.title')}}" class="" tooltip="{{__('webCaption.display_status.caption')}}" />
+                        {{-- <label for="displayStatusLabel" data-toggle="tooltip" title="{{__('webCaption.display_status.caption')}}" >{{__('webCaption.display_status.title')}}</label> --}}
                         <div>
-                                <div class="form-check form-check-inline">
+                            <div class="form-check form-check-inline">
                                 <x-admin.form.inputs.radio for="searchDisplayStatusOn" class="border border-danger" name="search[displayStatus]" tooltip="{{__('webCaption.yes.caption')}}" label="{{__('webCaption.yes.title')}}" value="Yes"  required=""  checked="{{ (request()->input('search.displayStatus') ) == 'Yes' ? 'checked' : '' }}" required="" />&ensp;
                                     
                                 <x-admin.form.inputs.radio for="searchDisplayStatusOff" class="border border-danger" name="search[displayStatus]" label="{{__('webCaption.no.title')}}" tooltip="{{__('webCaption.no.caption')}}" value="No"  required=""  checked="{{ (request()->input('search.displayStatus') ) == 'No' ? 'checked' : '' }}" required="" />&ensp;
@@ -35,7 +36,7 @@
                 </div>
                 <div class="col-5 col-sm-3 col-md-3 col-lg-2 col-xl-2">
                     <div class="row">
-                        <div class="col-12 col-md-10">
+                        <div class="col-md-10 ">
                             <div class="form-group">
                                 <x-admin.form.label for=""  value="{{__('webCaption.parent_only.title')}}" class="" tooltip="{{__('webCaption.parent_only.caption')}}" />
 
@@ -46,7 +47,7 @@
                         
                     </div> 
                 </div>
-                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 pt-1 ">
+                <div class="col-md-12  pt-1 text-center">
                     <x-admin.form.buttons.search />
                     <x-admin.form.buttons.reset href="{{route('masters.company.messenger.index')}}" />
                 </div>
@@ -82,7 +83,7 @@
                                         </th>                                                
                                         <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.messenger.caption')}}"> {{__('webCaption.messenger.title')}}<x-admin.filter.order-by-filter-div orderBy="name" />
                                         </th>
-                                        <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.logo.caption')}}"> {{__('webCaption.logo.title')}}<x-admin.filter.order-by-filter-div orderBy="logo" />
+                                        <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.logo.caption')}}"> {{__('webCaption.logo.title')}}
                                         </th>
                                         <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.no_of_children.caption')}}" >{{__('webCaption.no_of_children.title')}}<x-admin.filter.order-by-filter-div orderBy="children_count" />
                                         </th>
