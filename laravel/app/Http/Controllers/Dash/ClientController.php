@@ -95,9 +95,6 @@ class ClientController extends Controller
         $country = Country::select('id as value','name')->orderBy('name')->get();
         $port = Ports::select('id as value','name')->where('parent_id','0')->orderBy('name')->get();
         $religion = Religion::select('id as value','name')->where('parent_id','0')->orderBy('name')->get();
-        // $cities = CityModel::select('id as value','name')->orderBy('name')->get();
-        // $states = StateModel::select('id as value','name')->orderBy('name')->get();
-        // $nationality = Netionality::select('id as value','name')->orderBy('name')->get();
         // $rating = Rating::select('id as value','name')->orderBy('name')->get();
         // $stage = Stage::select('id as value','name')->orderBy('name')->get();
         // $term = Term::select('id as value','name')->orderBy('name')->get();
@@ -131,7 +128,7 @@ class ClientController extends Controller
             'title'        => 'required|string',
             'status'        => 'required',
             'name'          => 'required|max:100',
-            'company_name'  => 'required',
+            //'company_name'  => 'required',
             'customer_uid'  => 'required|numeric',
             'password'      => 'nullable|min:8',
             'email_1'       => 'required|max:45|unique:clients,email_1,'.$request->id. ',id,deleted_at,NULL',
@@ -174,9 +171,7 @@ class ClientController extends Controller
         [
             'title.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.title.title') ] ),
             'title.string'=> __('webCaption.validation_string.title', ['field'=> __('webCaption.title.title') ] ),
-            'company_name.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.company_name.title') ] ),
-            'company_name.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.company_name.title') ,"max" => "255"] ),
-            'company_name.unique'=> __('webCaption.validation_unique.title', ['field'=> $request->input('company_name') ] ),
+            //'company_name.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.company_name.title') ] ),
             'name.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.name.title') ] ),
             'name.max' => __('webCaption.validation_max.title', ['field'=> __('webCaption.name.title') ] ),
             'customer_uid.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.customer_uid.title') ] ),
@@ -289,6 +284,7 @@ class ClientController extends Controller
           $ClientModel->opening_balance_date = $request->opening_balance_date;
           $ClientModel->opening_balance_type = $request->opening_balance_type;
           $ClientModel->currency = $request->currency;
+
           if($request->has('visiting_card_img')){
                    
             $visiting_card_img = time().'.'.$request->visiting_card_img->extension();  
@@ -334,9 +330,6 @@ class ClientController extends Controller
         $country = Country::select('id as value','name')->orderBy('name')->get();
         $port = Ports::select('id as value','name')->where('parent_id','0')->orderBy('name')->get();
         $religion = Religion::select('id as value','name')->where('parent_id','0')->orderBy('name')->get();
-        // $cities = CityModel::select('id as value','name')->orderBy('name')->get();
-        // $states = StateModel::select('id as value','name')->orderBy('name')->get();
-        // $nationality = Netionality::select('id as value','name')->orderBy('name')->get();
         // $rating = Rating::select('id as value','name')->orderBy('name')->get();
         // $stage = Stage::select('id as value','name')->orderBy('name')->get();
         // $term = Term::select('id as value','name')->orderBy('name')->get();
