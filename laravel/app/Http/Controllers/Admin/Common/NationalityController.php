@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Common;
 
 use App\Http\Controllers\Controller;
 use App\Models\Masters\Nationality;
@@ -87,7 +87,7 @@ class NationalityController extends Controller
 
         $data = $data->paginate($perPage);
 
-        return view('content.admin.masters.nationality.list', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs, 'data'=>$data,'perPage' => $perPage]);
+        return view('content.admin.masters.common.nationality.list', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs, 'data'=>$data,'perPage' => $perPage]);
     }
 
 
@@ -104,7 +104,7 @@ class NationalityController extends Controller
             'link' => $this->baseUrl,
             'name' => __('webCaption.list.title')
         ];
-        return view('content.admin.masters.nationality.create-form',['data' => $data ,'menuUrl' =>$this->menuUrl,'breadcrumbs' =>$breadcrumbs ,'parent_data' => $parent_data  ]);
+        return view('content.admin.masters.common.nationality.create-form',['data' => $data ,'menuUrl' =>$this->menuUrl,'breadcrumbs' =>$breadcrumbs ,'parent_data' => $parent_data  ]);
     }
     
 
@@ -190,7 +190,7 @@ class NationalityController extends Controller
 
         //send id as value because dynamic select work with  id as value  name as name  
         $parent_data = Nationality::select('id as value', 'name', 'parent_id', 'display')->orderBy('name', 'ASC')->where('parent_id', '0')->get();
-        return view('content.admin.masters.nationality.create-form',['data' => $data,'breadcrumbs' =>$breadcrumbs ,'activeSiteLanguages' => $activeSiteLanguages ,'parent_data' => $parent_data ,'menuUrl' =>$this->menuUrl]);
+        return view('content.admin.masters.common.nationality.create-form',['data' => $data,'breadcrumbs' =>$breadcrumbs ,'activeSiteLanguages' => $activeSiteLanguages ,'parent_data' => $parent_data ,'menuUrl' =>$this->menuUrl]);
    
     }
 
