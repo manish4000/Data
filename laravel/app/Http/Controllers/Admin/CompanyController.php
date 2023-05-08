@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\CityModel;
 use App\Models\Company\CompanyContactPersonDetails;
 use App\Models\Company\CompanyDocument;
+use App\Models\Company\CompanyDocumentTemp;
 use App\Models\Company\CompanyMenuGroupMenu;
 use App\Models\Company\CompanyPlanModel;
 use App\Models\Company\CompanyPlanPermissionModel;
@@ -28,6 +29,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
+use File;
 
 class CompanyController extends Controller
 {       
@@ -334,9 +337,14 @@ class CompanyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+
+
+
+
     public function store(Request $request)
     {       
-      
+        
         if($request->id){
             if (!Auth::user()->can('main-navigation-company-edit')) {
                 abort(403);
@@ -732,16 +740,45 @@ class CompanyController extends Controller
 
                 //this is for upload multiple files  
 
+                // if($request->has('document')){
+                   
+                //     $company_document_model =   new CompanyDocument;
+
+                //     foreach($request->document as $key => $document){
+                        
+                //         $doc = time().rand(1,9999).'_document.'.$document->extension();  
+                //         $document->move(public_path('company_data').'/'.$folder.'/document' , $doc);
+                //         $document_file['company_id'] = $company_gabs_model->id;
+                //         $document_file['name'] = $doc;
+                //         $document_file['order_by'] = $key;
+                //         $document_file['document_name'] = (isset($request->document_name[$key])) ? $request->document_name[$key] :null ;
+                //         $document_file['created_at'] = \Carbon\Carbon::now()->toDateTimeString();
+                //         $document_file['updated_at'] = \Carbon\Carbon::now()->toDateTimeString();
+
+                //         $company_document_model->insert($document_file);
+
+                //         $document_file = [];
+                //     }
+                // }
+                
                 if($request->has('document')){
                    
                     $company_document_model =   new CompanyDocument;
 
                     foreach($request->document as $key => $document){
                         
-                        $doc = time().rand(1,9999).'_document.'.$document->extension();  
-                        $document->move(public_path('company_data').'/'.$folder.'/document' , $doc);
+                        $from = public_path('gabs_companies/documents_temp/').$document;
+
+                        $to = public_path('company_data').'/'.$folder.'/document'.$document;
+                        $newFolder = public_path('company_data').'/'.$folder;
+
+                        if(!File::isDirectory($newFolder)){
+                            File::makeDirectory($newFolder, 0777, true, true);
+                        }
+                        
+                        File::move($from ,$to);
                         $document_file['company_id'] = $company_gabs_model->id;
-                        $document_file['name'] = $doc;
+                        $document_file['name'] = $document;
                         $document_file['order_by'] = $key;
                         $document_file['document_name'] = (isset($request->document_name[$key])) ? $request->document_name[$key] :null ;
                         $document_file['created_at'] = \Carbon\Carbon::now()->toDateTimeString();
@@ -751,9 +788,11 @@ class CompanyController extends Controller
 
                         $document_file = [];
                     }
-
-
                 }
+
+
+                
+
 
 
                     $message = (isset($request->id)) ? __('webCaption.alert_updated_successfully.title') : __('webCaption.alert_added_successfully.title') ;

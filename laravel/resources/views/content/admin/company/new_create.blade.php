@@ -7,6 +7,18 @@
 @section('title', __('webCaption.company_add.title'))
 @endif
 
+
+
+
+@section('page-style')
+  <!-- Page css files -->
+  <link rel="stylesheet" href="{{ asset(mix('css/base/plugins/forms/pickers/form-flat-pickr.css')) }}">
+  <link rel="stylesheet" href="{{ asset(mix('css/base/plugins/forms/pickers/form-pickadate.css')) }}">
+  <link rel="stylesheet" href="{{asset(mix('vendors/css/extensions/dragula.min.css'))}}">
+ 
+@endsection
+
+
 @section('content')
    <!-- users edit start -->
 
@@ -196,7 +208,14 @@
 
                         <div class="row m-2">
 
-                           @for($i=0;$i<6;$i++)
+                           @include('components.admin.form.inputs.multiple_image_upload_dropzone',
+                              [ 'action' => route('multiple-image-upload-temp') ,
+                                'deleteTempImage' => route('delete-temp-image'),
+                                'acceptedFiles' => ".jpeg,.jpg,.png,.gif",
+                                'table' => "company_documents_temp",
+                                'uploadPath'   => "gabs_companies/documents_temp/"                           
+                              ])
+                           {{-- @for($i=0;$i<6;$i++)
                              
                               <div class="col-md-4 mb-1">  
                                  <div class=" border p-1">    
@@ -209,16 +228,13 @@
                                     </div>
                               
                            </div> 
-                           @endfor
-
-
-
+                           @endfor --}}
+                       
                            
-                        </div>
-
-
                      </div>
                   </div>
+               </div>
+
                   
                    <div class="col-md-4">
                       <div class="form-group">
@@ -402,7 +418,13 @@
          {{-- <div class="form-group">
             <x-admin.form.inputs.checkbox id="" for="terms_and_services"  tooltip="{{__('webCaption.accept_terms_and_services.caption')}}" label="{{__('webCaption.accept_terms_and_services.title')}}"  class="form-control" name="terms_and_services"   value="1" checked="{{ old('terms_and_services') == '1' ? 'checked' : '' }}" /> &ensp;
          </div> --}}
+
+         
+
+
       </section>
+
+
       <div class="text-center">
          <input type="hidden" name="id" value="@if(isset($data->id) && !empty($data->id)){{$data->id}}@endif" />
          @if(isset($data->id)) <x-admin.form.buttons.update />   @else <x-admin.form.buttons.create />    @endif
@@ -410,11 +432,41 @@
    </form>
 
 
+         {{--  --}}
+
    @include('components.admin.form.country_state_city')
+ 
 @endsection
 
+@section('page-script') 
+  <!-- Page js files -->
+
+@endsection  
+
 @push('script')
- 
+<script src="{{ asset(mix('vendors/js/extensions/dragula.min.js')) }}"></script>
+<script>
+     dragula([document.getElementById('card-drag-area')])
+    .on('drag', function(el) {
+      console.log('Drag '+el);
+      console.log();
+      el.className = el.className.replace('ex-moved', '');
+      console.log(el);
+    }).on('drop', function(el) {
+      console.log('Drop '+el);
+      el.className += ' ex-moved';
+      console.log(el);
+    }).on('over', function(el, container) {
+      console.log('Over'+el);
+      el.className = el.className.replace('ex-over', '');
+      
+      console.log(container);
+    }).on('out', function(el, container) {
+      console.log('Out'+el);
+      el.className += ' ex-over';
+      console.log(container);
+    });
+</script>
   <script>
 
          let  country_id  = "old('country_id')";
@@ -428,5 +480,6 @@
     if(city_id != ''){
       cityList('state_id','city_id',city_id,state_id);
     }
+
   </script>
 @endpush
