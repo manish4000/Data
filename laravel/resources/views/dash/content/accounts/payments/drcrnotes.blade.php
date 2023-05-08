@@ -88,7 +88,7 @@
                             <x-dash.form.inputs.textarea  for="purpose" maxlength="500"  tooltip="{{__('webCaption.purpose.caption')}}" label="{{__('webCaption.purpose.title')}}"   name="purpose"  placeholder="{{__('webCaption.purpose.title')}}" value="{{old('purpose', isset($data->purpose)?$data->purpose:'' )}}"/>
                         </div>
                     </div>
-                    <div class="col-md-12 pb-1">
+                    <div class="col-md-12">
                         <div class="form-group">
                             <x-dash.form.inputs.textarea  for="admin_memo" maxlength="500"  tooltip="{{__('webCaption.admin_memo.caption')}}" label="{{__('webCaption.admin_memo.title')}}"   name="admin_memo"  placeholder="{{__('webCaption.admin_memo.title')}}" value="{{old('admin_memo', isset($data->admin_memo)?$data->admin_memo:'' )}}"/>
                         </div>
