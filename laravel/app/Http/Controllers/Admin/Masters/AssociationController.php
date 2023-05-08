@@ -69,6 +69,10 @@ class AssociationController extends Controller
             $data->orderBy($request->order_by, $request->order);
         }
 
+        if($request->has('search.country') && $request->input('search.country') != '') {
+            $data->countryFilter($request->input('search.country')); 
+        }
+
         $data->with(['children'=>function($query) use ($request) {
             if(  $request->has('search.keyword')) {
                 $query->keywordFilter($request->input('search.keyword')); 
@@ -124,15 +128,17 @@ class AssociationController extends Controller
     public function store(Request $request) {
 
         $old_logo_name = '';
-         
+
         if($request->id){
+
             if (!Auth::user()->can('masters-company-association-edit')) {
                 abort(403);
             }
             $association_model =   Association::find($request->id);
-
-            $association_model =   $request->logo;
+          
+            $old_logo_name =   $association_model->logo;
         }else{
+
             if (!Auth::user()->can('masters-company-association-add')) {
                 abort(403);
             }
@@ -166,23 +172,31 @@ class AssociationController extends Controller
             return redirect()->back()->with('errors', $validator->errors() )->withInput();
         }
 
-                $association_model->name       =   $request->name;
-                $association_model->country    =   $request->country;
-
+                $association_model->name       =    $request->name;
+            
+                if(isset($request->country) && !empty($request->country)){
+                    $association_model->country    =   $request->country;
+    
+                    $country_name = Country::where('id',$request->country)->get()->value('name');
+                    $association_model->country_name    =   $country_name;
+                }else{
+                    $association_model->country  = NULL;
+                    $association_model->country_name  = NULL;
+                }
+                
                 if($request->has('logo')){
                     $logo = time().'.'.$request->logo->extension();
-                    $request->logo->move(public_path('masters/association'), $logo);
+                    $request->logo->move(public_path('master/association'), $logo);
                     $association_model->logo   =   $logo;
 
-                    if(is_file(public_path('masters/association').'/'.$old_logo_name )){
-                        unlink(public_path('masters/association').'/'.$old_logo_name);
+                    if(is_file(public_path('master/association').'/'.$old_logo_name )){
+                        unlink(public_path('master/association').'/'.$old_logo_name);
                     }
                 }
-
+                
                 $association_model->text       =   $request->text;
                 $association_model->parent_id  =   isset($request->parent_id)? $request->parent_id : 0 ;
                 $association_model->display    =   $request->display;
-                // $association_model->title_languages    =   $request->title_languages;
 
                 if($association_model->save()){
                     $message = (isset($request->id)) ? $request->name." ". __('webCaption.alert_updated_successfully.title') : $request->name." ".__('webCaption.alert_added_successfully.title') ;
@@ -204,10 +218,11 @@ class AssociationController extends Controller
         if (!Auth::user()->can('masters-company-association-edit')) {
             abort(403);
         }
-        
+
         $data = Association::select('*')->where('id', $id)->first();
 
         $activeSiteLanguages = SiteLanguage::ActiveSiteLanguagesForMaster();
+        
         $breadcrumbs[0] = [
             'link' => $this->baseUrl,
             'name' => __('webCaption.list.title')
@@ -239,8 +254,8 @@ class AssociationController extends Controller
 
         $data = Association::find($request->id);
         
-        if(is_file(public_path('masters/association').'/'.$data->logo )){
-            unlink(public_path('masters/association').'/'.$data->logo);
+        if(is_file(public_path('master/association').'/'.$data->logo )){
+            unlink(public_path('master/association').'/'.$data->logo);
         }
 
         if(Association::where('id', $request->id)->firstorfail()->delete()){
@@ -268,8 +283,8 @@ class AssociationController extends Controller
         $data = Association::whereIn('id', $request->delete_ids)->get();
         
         foreach($data as $item){
-            if(is_file(public_path('masters/association').'/'.$item->logo)){
-                unlink(public_path('masters/association').'/'.$item->logo);
+            if(is_file(public_path('master/association').'/'.$item->logo)){
+                unlink(public_path('master/association').'/'.$item->logo);
             }
         }
 

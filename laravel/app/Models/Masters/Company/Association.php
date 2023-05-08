@@ -14,13 +14,17 @@ class Association extends Model
     protected $table = 'association';
     protected $primaryKey = 'id';
 
-    protected $fillable = ['name','title_languages','display', 'parent_id'];
+    protected $fillable = ['name','title_languages','display', 'parent_id','country','logo','text','country_name'];
 
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i',
         'updated_at' => 'datetime:Y-m-d H:i',
         'title_languages' => 'json'
     ];
+
+    public function country(){
+        return $this->belongsTo(Country::class,'country','id');
+    }
 
     public function parent() {
         return $this->belongsToOne(__CLASS__, 'parent_id', 'id');
@@ -53,5 +57,16 @@ class Association extends Model
                     $query->where('name', 'like', '%'.$keyword.'%');
             } );
         });
+    }
+
+    public function scopeCountryFilter($query, $country)
+    {   
+        return $query->where( function($query) use ($country) {
+            $query->where('country', $country)
+            ->orWhereHas( 'children', function($query) use ($country) {
+                    $query->where('country', $country);
+            } );
+        });
+        
     }
 }

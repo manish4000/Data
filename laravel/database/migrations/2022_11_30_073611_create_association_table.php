@@ -17,6 +17,7 @@ class CreateAssociationTable extends Migration
             $table->id();
             $table->string('name', 50)->unique()->index();
             $table->unsignedBigInteger('country')->nullable();
+            $table->string('country_name',100)->nullable();
             $table->string('logo')->nullable();
             $table->mediumText('text')->nullable();
             $table->bigInteger('parent_id')->nullable();
