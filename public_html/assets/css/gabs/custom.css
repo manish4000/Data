@@ -21,6 +21,7 @@
 }
 .position-for-filter-heading{
     position: relative;
+    font-size:11px;
     
 }
 .character-counter-div{
@@ -79,3 +80,10 @@
 
 
 }
+
+.dropzone {
+    min-height: 350px;
+    border: 2px dashed #7367f0;
+    background: #f8f8f8;
+    position: relative;
+  }

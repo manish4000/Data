@@ -23,4 +23,13 @@
 }
 .character-counter-div{
     float : right;
+    font-size:11px;
 }
+/* Component of File Blade css  Start*/
+.input_file_instruction{
+    font-size: 11px;
+    line-height:15px;
+    font-style:italic;
+}
+/* Component of File Blade css End*/
+
