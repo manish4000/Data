@@ -29,7 +29,7 @@ $customClass = isset($customClass) ? $customClass : '';
 @endif
 
 <input
-    type="number" 
+    type="text" 
     @if (isset($for)) id="{{$for}}" onkeyup="checkTextLimit('{{$for}}');"  @endif
 
     @if (isset($maxlength))  maxlength="{{$maxlength}}" @endif 
