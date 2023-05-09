@@ -18,7 +18,7 @@
         @endphp
     <div class="d-flex  row">
 
-    <div class="col-xl-2 col-lg-2 col-md-3 ol-sm-3 col-5 pb-2 text-center text-md-left text-xl-left text-lg-left">
+    <div class="col-xl-2 col-lg-2 col-md-3 ol-sm-3 col-5 text-center text-md-left text-xl-left text-lg-left">
 
     <div class="dropdown">
         <button class="btn btn-gray-action dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">{{__('webCaption.actions.title')}}</button>
