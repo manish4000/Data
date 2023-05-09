@@ -12,7 +12,7 @@
 				<div class="card-body">
 					<form method="GET" action="{{route('dashusers.index')}}">
 						<div class="d-flex justify-content-between align-items-center  row pt-0 pb-2">
-							<div class="col-md-3">
+							<div class="col-md-7">
 								{{-- <div class="form-group">
 									<label for="keyword" title="{{__('webCaption.keyword.caption')}}"  data-toggle="tooltip"> {{__('webCaption.keyword.title')}} </label>
 									<input type="text" class="form-control" id="searchKeyword" placeholder="Keyword" name="search[keyword]" value="{{ request()->input('search.keyword') }}" />
@@ -23,12 +23,12 @@
 								</div>
 
 							</div>
-							<div class="col-md-3">
+							<div class="col-md-5">
 								<div class="form-group">
 									<x-dash.form.inputs.select label="{{__('webCaption.status.title')}}" tooltip="{{__('webCaption.status.caption')}}"   for="{{__('webCaption.status.title')}}" name="search[status]" placeholder="{{ __('locale.status.caption') }}" editSelected="{{ request()->input('search.status')}}"  required="" :optionData="$status" />
 								</div>
 							</div>
-							<div class="col-md-3">
+							<div class="col-md-12 text-center">
 								<x-dash.form.buttons.search />
 								<x-dash.form.buttons.reset  href="{{route('dashusers.index')}}"/>
 							</div>

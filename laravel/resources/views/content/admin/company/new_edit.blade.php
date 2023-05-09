@@ -255,7 +255,7 @@
                         <div class="form-group">  
                           @if($doc_name != '')
                             <x-admin.form.inputs.checkbox id="" for="document_{{$i}}_check" tooltip="{{__('webCaption.delete.caption')}}" label="{{__('webCaption.delete.title')}}" class="form-control" name="delete_document[]"   value="{{$doc_id}}"  checked="" />
-
+                            {{$doc_name}}
                             <a href="#"> view </a>
                               @if($doc_ext == 'pdf')
 
