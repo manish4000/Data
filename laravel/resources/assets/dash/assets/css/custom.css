@@ -33,3 +33,9 @@
 }
 /* Component of File Blade css End*/
 
+.text_relative
+{
+    position: relative;
+    top:-1px;
+}
+

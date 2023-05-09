@@ -4,4 +4,4 @@
     'color'
 ])
 
-<button  type="submit" class="btn {{$color}} mr-1"> <i class="{{$iconClass}}"></i> {{$value}}  </button>
+<button  type="button" class="btn {{$color}} mr-1"> <i class="{{$iconClass}}"></i> {{$value}}  </button>
