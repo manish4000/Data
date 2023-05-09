@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('company_documents_temp', function (Blueprint $table) {
             $table->id();
-            $table->string('file_name');
+            $table->string('name');
             $table->integer('order_by');
             $table->string('session_id');
             $table->timestamps();

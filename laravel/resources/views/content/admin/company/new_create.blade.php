@@ -212,8 +212,11 @@
                               [ 'action' => route('multiple-image-upload-temp') ,
                                 'deleteTempImage' => route('delete-temp-image'),
                                 'acceptedFiles' => ".jpeg,.jpg,.png,.gif",
-                                'table' => "company_documents_temp",
-                                'uploadPath'   => "gabs_companies/documents_temp/"                           
+                                'tempTable' => "company_documents_temp",
+                                'table' => "",
+                                'editableImagesPath'=> '',
+                                'uploadPath'   => "gabs_companies/documents_temp/",
+                                'editableImages' => [],                           
                               ])
                            {{-- @for($i=0;$i<6;$i++)
                              

@@ -37,15 +37,15 @@ class CommonController extends Controller
         if($image->move(public_path('/').$request->uploadPath,$imageName)){
            
              $data = [
-                "file_name" => $imageName,
+                "name" => $imageName,
                 "order_by" => 1,
                 'created_at'=> \Carbon\Carbon::now()->toDateTimeString(),
                 'updated_at'=> \Carbon\Carbon::now()->toDateTimeString(),
                 "session_id" =>  Session::getId()
             ];
 
-            if(DB::table($request->table)->insert($data)){
-                return response()->json([ 'status'=> 'success' , 'file_name' => $imageName]);
+            if(DB::table($request->tempTable)->insert($data)){
+                return response()->json([ 'status'=> 'success' , 'name' => $imageName]);
             }
             
         }else{
@@ -56,51 +56,58 @@ class CommonController extends Controller
 
 
     public function deleteDocument(Request $request){
-        if($request->id && $request->table){
 
-            $data = DB::table($request->table)->where('id',$request->id)->first();
+    
 
-            if(DB::table($request->table)->where('id',$request->id)->delete()){
+        if($request->id && $request->tempTable){
 
-                if(is_file(public_path('/').$request->uploadPath.$data->file_name )){
-                    unlink(public_path('/').$request->uploadPath.$data->file_name);
+            $data = DB::table($request->tempTable)->where('id',$request->id)->first();
+
+            if(DB::table($request->tempTable)->where('id',$request->id)->exists()){
+                
+                if(DB::table($request->tempTable)->where('id',$request->id)->delete()){
+                    if(is_file(public_path('/').$request->uploadPath.$data->name )){
+                        unlink(public_path('/').$request->uploadPath.$data->name);
+                    }
+                    return response()->json([ 'status'=> true ,'message' => 'deleted successfully']);
+                }else{
+                    return response()->json([ 'status'=> false ,'message' => 'somthig went wromg' ]);
                 }
-                return response()->json([ 'status'=> true ,'message' => 'deleted successfully']);
-            }else{
-                return response()->json([ 'status'=> false ,'message' => 'somthig went wromg' ]);
             }
+
+            if(isset($request->table) && isset($request->name) ){
+
+             $edit_image =   DB::table($request->table)->where('name',$request->name)->first();
+
+             if((isset($edit_image->name)) && (isset($request->editableImagesPath)) ){
+
+                 if(is_file(public_path('/').$request->editableImagesPath.$edit_image->name )){
+                     unlink(public_path('/').$request->editableImagesPath.$edit_image->name);
+                 }
+             }
+                if(DB::table($request->table)->where('name',$request->name)->update(['deleted_at' => \Carbon\Carbon::now()->toDateTimeString()])){
+                    return response()->json([ 'status'=> true ,'message' => 'deleted successfully']);
+                }else{
+                    return response()->json([ 'status'=> false ,'message' => 'somthig went wromg' ]);
+                }
+            }
+
+
+         
+
+           
         }
     }
 
     public function fetchDocuments(Request $request){
 
         $session_id = Session::getId();
+        $uploadPath = $request->uploadPath;
+        $data = DB::table($request->tempTable)->where('session_id',$session_id)->orderBy('created_at','DESC')->first();
 
-        $data = DB::table($request->table)->where('session_id',$session_id)->orderBy('created_at','DESC')->first();
+            return view('components.admin.view.dropzone-image',['data'=> $data,'uploadPath' => $uploadPath]);
 
 
-
-            return view('components.admin.view.dropzone-image',['data'=> $data]);
-
-        // $view =  view('components.admin.view.dropzone-image',['data'=> $data]);
-
-        // $output = '';
-
-        //         $output .=   '<div class="col-xl-2 col-md-6 col-sm-12 draggable" id="photo'.$data->id.'">
-        //         <div class="card">
-        //             <div class="card-body m-0 p-0 p-1 image-rotate-manage" id="imgTag'.$data->id.'">
-        //                 <img src="'.asset('gabs_companies/documents_temp/'.$data->file_name).'" class="img-fluid rounded" alt="avatar img" />
-        //                 <input type="text" name="document_name[]" value="'.$data->file_name.'" >
-        //             </div>
-        //         <div class="form-group mt-1">
-        //             <input type="hidden" name="document[]" value="'.$data->file_name.'" >
-        //             <x-admin.form.inputs.text id="" for="website"   name="document_name[]"    required="" />
-        //         </div> 
-
-        //         </div>
-        //     </div>';
-        
-        // return response(['image' => $view]);
     }
    
 }

@@ -5,6 +5,11 @@
 
 @section('content')
 <!-- users edit start -->
+@section('page-style')
+  <!-- Page css files -->
+  <link rel="stylesheet" href="{{asset(mix('vendors/css/extensions/dragula.min.css'))}}">
+ 
+@endsection
 
 
 <form action="{{route('company.update',$data->id)}}" method="POST"  enctype="multipart/form-data">
@@ -218,7 +223,7 @@
                </div>
                <hr class="m-0 p-0">
 
-               <div class="row m-2">
+               {{-- <div class="row m-2">
                 @for($i=0;$i<6;$i++)
 
                   @php
@@ -232,7 +237,7 @@
                       @php
                           $doc_id = $item->id;
                           $doc_name = $item->name;
-                          // $ext =  explode(".",$doc_name);
+                       
                           $doc_ext = pathinfo($doc_name, PATHINFO_EXTENSION);
                           $doc_type = $item->document_name;  
                       @endphp
@@ -259,13 +264,13 @@
                             <a href="#"> view </a>
                               @if($doc_ext == 'pdf')
 
-                                {{-- show pdf preview  --}}
+
 
                               @elseif($doc_ext == 'xls' || $doc_ext == 'xlsx' )
 
-                                      {{-- show excel preview  --}}
+                            
                               @else
-                                  {{-- show other perview  --}}
+                               
                               @endif
 
                           @endif
@@ -273,8 +278,18 @@
                     </div>     
                   </div>
                 @endfor
-               </div>
+               </div> --}}
 
+               @include('components.admin.form.inputs.multiple_image_upload_dropzone',
+               [ 'action' => route('multiple-image-upload-temp') ,
+                 'deleteTempImage' => route('delete-temp-image'),
+                 'acceptedFiles' => ".jpeg,.jpg,.png,.gif",
+                 'tempTable' => "company_documents_temp",
+                 'table' => "company_documents",
+                 'uploadPath'   => "gabs_companies/documents_temp/",
+                 'editableImagesPath' => 'company_data/'.$data->gabs_uuid.'/document',
+                 'editableImages' => $data->documents,                           
+               ])
 
             </div>
          </div>
@@ -650,6 +665,20 @@
 @push('script')
   <!-- Page js files -->
   <script src="{{ asset(mix('js/scripts/extensions/ext-component-tree.js')) }}"></script>
+  <script src="{{ asset(mix('vendors/js/extensions/dragula.min.js')) }}"></script>
+  <script>
+    dragula([document.getElementById('card-drag-area')])
+   .on('drag', function(el) {
+     el.className = el.className.replace('ex-moved', '');
+   }).on('drop', function(el) {
+     el.className += ' ex-moved';
+   }).on('over', function(el, container) {
+     el.className = el.className.replace('ex-over', '');
+   }).on('out', function(el, container) {
+     el.className += ' ex-over';
+ 
+   });
+</script>
   <script type="text/javascript">
   	$(document).ready(function() {
   		$(".jstree-basic ul li a, .jstree-basic ul li ul li a").each(function() {

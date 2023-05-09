@@ -15,9 +15,15 @@ $session_id = Session::getId();
 $doc_file = DB::table('company_documents_temp')->where('session_id',$session_id)->get();
 
    @endphp
-<section id="draggable-cards">
+<section id="draggable-cards my-2">
 <div class="row" id="card-drag-area">
+   @if(isset($editableImages))
 
+      @foreach($editableImages as $data)
+         @include('components.admin.view.dropzone-image',['data' => $data ,'uploadPath' => $uploadPath ,'editableImagesPath' => $editableImagesPath ])
+      @endforeach
+
+   @endif
 </div>
 </section>
 
@@ -49,7 +55,7 @@ $doc_file = DB::table('company_documents_temp')->where('session_id',$session_id)
             'x-csrf-token': CSRF_TOKEN
         },
         params: {
-         table: "{{$table}}",
+         tempTable: "{{$tempTable}}",
          uploadPath : "{{$uploadPath}}"
          },
         clickable:true,
@@ -63,12 +69,18 @@ $doc_file = DB::table('company_documents_temp')->where('session_id',$session_id)
             $.ajax({
             url: "{{route('get-images-temp')}}",
             type: 'post',
-            data: {table: "{{$table}}"},
+            data: { tempTable: "{{$tempTable}}",
+                    uploadPath : "{{$uploadPath}}"
+               },
             success: function(response){
                $('#card-drag-area').append(response);
             }
             });
+        },
+        complete:function(){
+         alert("complete");
         }
+        
       
 
  
@@ -83,7 +95,10 @@ $doc_file = DB::table('company_documents_temp')->where('session_id',$session_id)
             url: "{{$deleteTempImage}}",
             
             data: { id : imageId ,
-               table: "{{$table}}",
+               tempTable: "{{$tempTable}}",
+               name : fileName,
+               table : "{{$table}}",
+               editableImagesPath:"{{$editableImagesPath}}",
                uploadPath : "{{$uploadPath}}"
             },
             success : function(result) {

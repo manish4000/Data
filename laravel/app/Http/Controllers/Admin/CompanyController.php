@@ -765,6 +765,8 @@ class CompanyController extends Controller
                    
                     $company_document_model =   new CompanyDocument;
 
+                    $company_temp_document_model  = new CompanyDocumentTemp;
+
                     foreach($request->document as $key => $document){
                         
                         $from = public_path('gabs_companies/documents_temp/').$document;
@@ -775,7 +777,7 @@ class CompanyController extends Controller
                         if(!File::isDirectory($newFolder)){
                             File::makeDirectory($newFolder, 0777, true, true);
                         }
-                        
+
                         File::move($from ,$to);
                         $document_file['company_id'] = $company_gabs_model->id;
                         $document_file['name'] = $document;
@@ -786,6 +788,10 @@ class CompanyController extends Controller
 
                         $company_document_model->insert($document_file);
 
+                        //delete the temp file from database 
+ 
+                        $company_temp_document_model->where('file_name',$document)->delete();
+                        
                         $document_file = [];
                     }
                 }
@@ -1006,6 +1012,7 @@ class CompanyController extends Controller
     public function update(Request $request, $id)
     {   
 
+
         if (!Auth::user()->can('main-navigation-company-edit')) {
             abort(403);
         } 
@@ -1028,7 +1035,7 @@ class CompanyController extends Controller
             'skype_id'=> 'nullable|string|max:25',
             'website'=> 'nullable|string|max:75',
             'logo'=> 'nullable|image|mimes:jpeg,png,jpg,gif|max:6120',
-            'document.*'=> 'nullable|mimes:jpeg,png,jpg,gif,pdf|max:6120',
+            // 'document.*'=> 'nullable|mimes:jpeg,png,jpg,gif,pdf|max:6120',
             'plan_id' => 'nullable|numeric',
             'business_type_id.*' => 'nullable|numeric',
             'marketing_status' => 'nullable|numeric',
@@ -1103,8 +1110,8 @@ class CompanyController extends Controller
                 'logo.max'=> __('webCaption.validation_max_file.title', ['field'=> __('webCaption.logo.title'),"max" => "6120"] ),
 
                 // 'document.*.image' => __('webCaption.validation_image.title', ['field'=> "Document"] ),
-                'document.*.mimes'=> __('webCaption.validation_mimes.title', ['field'=> __('webCaption.document.title'),"fileTypes" => "jpeg,png,jpg,gif,pdf"] ),
-                'document.*.max'=> __('webCaption.validation_max_file.title', ['field'=> __('webCaption.document.title'),"max" => "6120"] ),
+                // 'document.*.mimes'=> __('webCaption.validation_mimes.title', ['field'=> __('webCaption.document.title'),"fileTypes" => "jpeg,png,jpg,gif,pdf"] ),
+                // 'document.*.max'=> __('webCaption.validation_max_file.title', ['field'=> __('webCaption.document.title'),"max" => "6120"] ),
 
                 'plan_id.numeric' => __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.plan.title')] ),
                 'marketing_status.numeric' => __('webCaption.validation_nemuric.title', ['field'=> __('webCaption.marketing_status.title')] ),
@@ -1391,23 +1398,25 @@ class CompanyController extends Controller
         }
 
      
-        if($request->delete_document != '' && $request->delete_document != null){
+        // if($request->delete_document != '' && $request->delete_document != null){
 
-            $document_delete_data =  CompanyDocument::whereIn('id',$request->delete_document)->get();
+        //     $document_delete_data =  CompanyDocument::whereIn('id',$request->delete_document)->get();
 
-            foreach($document_delete_data as $delete_doc){
+        //     foreach($document_delete_data as $delete_doc){
 
-                if(is_file(public_path('company_data').'/'.$request->gabs_uuid.'/document/'.$delete_doc->name )){
+        //         if(is_file(public_path('company_data').'/'.$request->gabs_uuid.'/document/'.$delete_doc->name )){
 
-                    unlink(public_path('company_data').'/'.$company_gabs_model->gabs_uuid.'/document/'.$delete_doc->name);
-                }
-            }
+        //             unlink(public_path('company_data').'/'.$company_gabs_model->gabs_uuid.'/document/'.$delete_doc->name);
+        //         }
+        //     }
 
-            CompanyDocument::whereIn('id',$request->delete_document)->delete();
+        //     CompanyDocument::whereIn('id',$request->delete_document)->delete();
+
+        // } 
 
 
-        } 
 
+        
 //        update the company documents  images
 
        
