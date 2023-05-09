@@ -16,7 +16,6 @@
        <div class="card-footer row m-0 p-0 p-1">
           <div class="col-3 m-0 p-0 text-left">1</div>
           <div class="col-9 m-0 p-0 text-right">
-          <i data-feather="maximize" title="Click to view enlarge" class="cursor-pointer action-icons" onclick="EnLargeSlider({{$data->order_by}});"></i>
      
           <i data-feather="trash-2" class="text-danger cursor-pointer action-icons"
            onclick="deleteTempDocumentImage('{{$data->id}}','{{$data->file_name}}')"></i>
