@@ -13,7 +13,8 @@ use App\Http\Controllers\Dash\Auth\LoginController;
 use App\Http\Controllers\Dash\LanguageController;
 use App\Http\Controllers\Dash\SocialMediaActionController;
 use App\Http\Controllers\Dash\StateCityController;
-use App\Http\Controllers\Dash\Erp\PaymentsController;
+use App\Http\Controllers\Dash\Masters\ExpensesController;
+use App\Http\Controllers\Dash\Masters\VendorTypeController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -41,7 +42,7 @@ Route::middleware('dash')->name('dash')->group(function(){
 
             Route::group(['prefix'=>'payments','as' => 'payments.'],function(){
                 Route::get('drcrnotes',function(){
-                    return view('dash.content.accounts.payments.drcrnotes'); 
+                    return view('dash.content.accounts.payments.drcrnotes');
                 })->name('drcrnotes');
 
                 Route::get('/','PaymentsController@index')->name('index');
@@ -151,13 +152,40 @@ Route::middleware('dash')->name('dash')->group(function(){
         Route::post('state-list','Dash\BankDetailsController@stateList')->name('state-list');
         Route::post('city-list','Dash\BankDetailsController@cityList')->name('city-list');
 
-        Route::group(['prefix'=>'masters','namespace'=>'Dash','as' => 'masters.'],function(){
+        Route::group(['prefix'=>'masters','namespace'=>'Dash\Masters','as' => 'masters.'],function(){
 
-            Route::group(['prefix'=>'erp','namespace'=>'Dash','as' => 'erp.'],function(){
+            Route::group(['prefix'=>'erp','as' => 'erp.'],function(){
 
-                Route::group(['prefix'=>'vendor','namespace'=>'Dash','as' => 'vendor.'],function(){
+                Route::group(['prefix'=>'vendor','as' => 'vendor.'],function(){
                     Route::get('/',function(){ return  view('dash.content.masters.erp.vendor.create');  });
                     Route::get('/create',function(){ return view('dash.content.masters.erp.vendor.create'); });
+                });
+                Route::group(['prefix'=>'shipid','as' => 'shipid.'],function(){
+                    Route::get('/create',function(){ return view('dash.content.masters.erp.shipid.create'); });
+                });
+
+                Route::group(['prefix'=>'expenses','as' => 'expenses.'],function(){
+                    // Route::get('/',function(){ return view('dash.content.masters.erp.expenses.create'); });
+                    Route::get('/','ExpensesController@index')->name('index');
+                    Route::get('/create','ExpensesController@create')->name('create');
+                    Route::post('/store','ExpensesController@store')->name('store');
+                    Route::get('edit/{id}','ExpensesController@edit')->name('edit');
+                    Route::post('/delete', 'ExpensesController@destroy')->name('delete'); 
+                    Route::post('/delete-multiple','ExpensesController@deleteMultiple')->name('delete-multiple');
+                    Route::post('/update-status','ExpensesController@updateStatus')->name('update-status');
+                });
+
+                Route::group(['prefix'=>'vendor-type','as' => 'vendor-type.'],function(){
+                    // Route::get('/',function(){ return view('dash.content.masters.erp.expenses.create'); });
+                    Route::get('/','VendorTypeController@index')->name('index');
+                    Route::get('/create','VendorTypeController@create')->name('create');
+                    Route::post('/store','VendorTypeController@store')->name('store');
+                    Route::post('/add','VendorTypeController@add')->name('add');
+                    Route::post('/getChildList','VendorTypeController@getChildList');
+                    Route::get('edit/{id}','VendorTypeController@edit')->name('edit');
+                    Route::post('/delete', 'VendorTypeController@destroy')->name('delete'); 
+                    Route::post('/delete-multiple','VendorTypeController@deleteMultiple')->name('delete-multiple');   
+                    Route::post('/update-status','VendorTypeController@updateStatus')->name('update-status');  
                 });
             });
 

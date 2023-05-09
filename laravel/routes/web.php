@@ -561,6 +561,10 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
         });
         
         Route::group(['prefix' => 'company' , 'as' => 'company.'],function(){
+
+            Route::group(['prefix' => 'association-bank' , 'as' => 'association-bank.'],function(){
+                Route::get('/',function(){view('content.admin.masters.company.association_bank.create-form');});
+            });
             
             Route::group(['prefix' => 'association' , 'as' => 'association.'],function(){
                 Route::get('/', [AssociationController::class, 'index'])->name('index'); 
