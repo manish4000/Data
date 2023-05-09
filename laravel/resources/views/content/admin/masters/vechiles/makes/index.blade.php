@@ -9,10 +9,11 @@
     <div class="col-12">
             <!-- filter  -->
       <div class="card">
-        <div class="card-header">
-          <h4 class="card-title" data-toggle="tooltip" data-placement="right" title="{{__('webCaption.search_filter.caption')}}">{{__('webCaption.search_filter.title')}}</h4>                    
+        <div class="card-header py-75">
+          <h4 class="card-title " data-toggle="tooltip" data-placement="right" title="{{__('webCaption.search_filter.caption')}}">{{__('webCaption.search_filter.title')}}</h4>                    
         </div>
-        <div class="card-body">
+        <hr class="m-0 p-0">
+        <div class="card-body py-75">
           <form method="GET" action="{{route('masters.vehicle.make.index')}}">
             <div class="row">
                 <div class="col-sm-3 col-md-5 col-lg-7 col-xl-7">
@@ -48,7 +49,7 @@
                         
                     </div> 
                 </div>
-                <div class="col-md-12  pt-1 text-center">
+                <div class="col-md-12  pt-50 text-center">
                     <x-admin.form.buttons.search />
                     <x-admin.form.buttons.reset href="{{route('masters.vehicle.make.index')}}" />
                 </div>
@@ -63,13 +64,13 @@
                     
         <div class="card">
         <!-- Basic Tables start -->
-          <div class="card-body">
+          <div class="card-body py-75">
             @can('main-navigation-masters-vehicle-make') 
                 @if(count($data) > 0 )
                     <div >
                       
                                                        
-                               <div class="mt-2">
+                               <div class="pt-25 pb-1">
 
                                    @if (Auth::guard('web')->user()->can('main-navigation-masters-vehicle-make-delete'))		
                                        {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4',['multiple_delete_url' => route('masters.vehicle.make.delete-multiple') ] ) }}  
@@ -181,4 +182,11 @@ $('.load-child-records').click( function(event){
 @endsection
 
 
+<style type="text/css">
+.main_table > .table_header > .position-for-filter-heading:first-child { width:50px !important;}
+.main_table > .table_header > .header_col:hover > .fa-arrows-up-down:before{ color:#dfd7ef;}
 
+
+
+
+</style>
