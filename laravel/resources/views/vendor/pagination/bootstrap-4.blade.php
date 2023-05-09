@@ -16,7 +16,7 @@
             unset( $request_params['perPage']);
     
         @endphp
-    <div class="d-flex  row">
+    <div class="d-flex row align-middle">
 
     <div class="col-xl-2 col-lg-2 col-md-3 ol-sm-3 col-5 text-center text-md-left text-xl-left text-lg-left">
 
@@ -33,7 +33,7 @@
 
        
         
-        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-3 col-7  pt-50 pb-2">{{__('webCaption.total_records.title')}}: {{ number_format( $paginator->total()) }}</div>      
+        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-3 col-7  pt-50">{{__('webCaption.total_records.title')}}: {{ number_format( $paginator->total()) }}</div>      
 
     
         <div class="col-xl-6 col-lg-4 col-md-6 col-sm-5  text-center pl-0 pr-0 pl-xl-1 pl-lg-1 pl-md-1 pr-xl-1 pr-lg-1 pr-md-1">  
