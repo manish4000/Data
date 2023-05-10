@@ -44,7 +44,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <x-dash.form.inputs.text  for="youtube_url" maxlength="250"  tooltip="{{__('webCaption.youtube_url.caption')}}" label="{{__('webCaption.youtube_url.title')}}"   name="youtube_url"  placeholder="{{__('webCaption.youtube_url.title')}}" value="{{old('youtube_url', isset($data->youtube_url)?$data->youtube_url:'' )}}"/>
+                            <x-dash.form.inputs.text  for="YouTube_url" maxlength="250"  tooltip="{{__('webCaption.youtube_url.caption')}}" label="{{__('webCaption.youtube_url.title')}}"   name="youtube_url"  placeholder="{{__('webCaption.youtube_url.title')}}" value="{{old('youtube_url', isset($data->youtube_url)?$data->youtube_url:'' )}}"/>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -58,7 +58,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <x-dash.form.label for="" value="{{__('webCaption.display_status.title')}}" class="" 
-                            tooltip="{{__('webCaption.display_status.caption')}}" />
+                            tooltip="{{__('webCaption.display_status.caption')}}"/>
                             <div>
                                 <div class=" form-check-inline">
                                 <x-dash.form.inputs.radio for="Yes" tooltip="{{__('webCaption.yes.caption')}}"  class="border border-danger" name="display_status" label="{{__('webCaption.yes.title')}}" placeholder="" value="yes"  required="required"  checked="{{ (isset($user->companySalesTeam->display_status) && $user->companySalesTeam->display_status == 'Active') ? 'checked' : 'checked' }}" />&ensp;
@@ -79,22 +79,28 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="form-group">
-                            <x-dash.form.inputs.date  for="posted_date"  maxlength="255" tooltip="{{__('webCaption.posted_date.caption')}}" label="{{__('webCaption.posted_date.title')}}"   name="posted_date"  placeholder="{{__('webCaption.posted_date.title')}}" value="{{old('posted_date', isset($data->posted_date)?$data->posted_date:'' )}}"  required="required" />
+                        <div class="row">
+                            <div class="col-md-6 col-6">
+                                <div class="form-group">
+                                    <x-dash.form.inputs.date  for="posted_date"  maxlength="255" tooltip="{{__('webCaption.posted_date.caption')}}" label="{{__('webCaption.posted_date.title')}}"   name="posted_date"  placeholder="{{__('webCaption.posted_date.title')}}" value="{{old('posted_date', isset($data->posted_date)?$data->posted_date:'' )}}"  required="required" />
+                                </div>
+                            </div>
+                            @php
+                            $old_verified_buyer =  session()->getOldInput('verified_buyer');
+                            $verified_buyer =   (isset($old_verified_buyer) && $old_verified_buyer == 1  ) ? 'checked' : ((isset($data->verified_buyer) && $data->verified_buyer == 1)? 'checked' :'' );
+                            @endphp
+                        
+                            <div class="col-md-6 col-6">
+                                <x-dash.form.label for="" value="{{__('webCaption.verified_buyer.caption')}}" class="" />
+                                <div class="form-group">
+                                    <x-dash.form.inputs.checkbox  name="verified_buyer"  for="" label="{{__('webCaption.verified_buyer.caption')}}" checked="{{$verified_buyer}}"  value="1"  customClass="form-check-input"  />
+                                    @if ($errors->has('verified_buyer'))
+                                        <x-dash.form.form_error_messages message="{{ $errors->first('verified_buyer') }}" />
+                                    @endif
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-						<div class="form-group">
-							<x-dash.form.label for="" value="{{__('webCaption.testimonial_by.title')}}" class="" tooltip="{{__('webCaption.testimonial_by.caption')}}" />
-							<div>
-								<div class=" form-check-inline">
-								<x-dash.form.inputs.radio for="Buyer" tooltip="{{__('webCaption.buyer.caption')}}"  class="border border-danger" name="testimonial_by" label="{{__('webCaption.buyer.title')}}" placeholder="" value="buyer"  required="required"  checked="{{ (isset ($user->companySalesTeam->testimonial_by) && $user->companySalesTeam->testimonial_by == 'Active') ? 'checked' : 'checked' }}" />&ensp;
-									
-								<x-dash.form.inputs.radio for="Dealer" class="border border-danger" name="testimonial_by" tooltip="{{__('webCaption.dealer.caption')}}" label="{{__('webCaption.dealer.title')}}" placeholder="" value="dealer"  required="required"  checked="{{ (isset($user->companySalesTeam->testimonial_by) && $user->companySalesTeam->testimonial_by == 'Blocked') ? 'checked' : '' }}" />&ensp;
-								</div>
-							</div>
-						</div>
-					</div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <x-dash.form.inputs.select label="{{__('webCaption.country.title')}}"  tooltip="{{__('webCaption.country.caption')}}" for="country_id" name="country_id" 
@@ -113,13 +119,13 @@
                     </div>
                     
                     @php
-                    $old_show_person_name =  session()->getOldInput('show_person_name');
+                    $old_show_person_name = session()->getOldInput('show_person_name');
                     $show_person_name =   (isset($old_show_person_name) && $old_show_person_name == 1  ) ? 'checked' : ((isset($data->show_person_name) && $data->show_person_name == 1)? 'checked' :'' );
                     @endphp
 
                     <div class="col-md-4">
                         <div class="row">
-                            <div class="col-md-6 col-6">
+                            <div class="col-md-5">
                                 <x-dash.form.label for="show_person_name" value="{{__('webCaption.show_name.title')}}"  class="" />
                                 <div class="form-group">
                                     <x-dash.form.inputs.checkbox  name="show_person_name"  for="show_person_name" label="{{__('webCaption.show_name.title')}}" checked="{{$show_person_name}}"  value="1"  customClass="form-check-input"/>
@@ -128,21 +134,20 @@
                                     @endif
                                 </div>
                             </div>
-                                    @php
-                                    $old_verified_buyer =  session()->getOldInput('verified_buyer');
-                                    $verified_buyer =   (isset($old_verified_buyer) && $old_verified_buyer == 1  ) ? 'checked' : ((isset($data->verified_buyer) && $data->verified_buyer == 1)? 'checked' :'' );
-                                    @endphp
-                              
-                            <div class="col-md-6 col-6">
-                                <x-dash.form.label for="" value="{{__('webCaption.verified_buyer.caption')}}" class="" />
+                                    
+                            <div class="col-md-7">
                                 <div class="form-group">
-                                    <x-dash.form.inputs.checkbox  name="verified_buyer"  for="" label="{{__('webCaption.verified_buyer.caption')}}" checked="{{$verified_buyer}}"  value="1"  customClass="form-check-input"  />
-                                    @if ($errors->has('verified_buyer'))
-                                        <x-dash.form.form_error_messages message="{{ $errors->first('verified_buyer') }}" />
-                                    @endif
-                                </div>
-                            </div>
-                       </div>
+                                  <x-dash.form.label for="" value="{{__('webCaption.testimonial_by.title')}}" class="" tooltip="{{__('webCaption.testimonial_by.caption')}}" />
+                                <div>
+								<div class=" form-check-inline">
+								<x-dash.form.inputs.radio for="Buyer" tooltip="{{__('webCaption.buyer.caption')}}"  class="border border-danger" name="testimonial_by" label="{{__('webCaption.buyer.title')}}" placeholder="" value="buyer"  required="required"  checked="{{ (isset ($user->companySalesTeam->testimonial_by) && $user->companySalesTeam->testimonial_by == 'Active') ? 'checked' : 'checked' }}" />&ensp;
+									
+								<x-dash.form.inputs.radio for="Dealer" class="border border-danger" name="testimonial_by" tooltip="{{__('webCaption.dealer.caption')}}" label="{{__('webCaption.dealer.title')}}" placeholder="" value="dealer"  required="required"  checked="{{ (isset($user->companySalesTeam->testimonial_by) && $user->companySalesTeam->testimonial_by == 'Blocked') ? 'checked' : '' }}" />&ensp;
+								</div>
+							</div>
+						</div>
+					</div>
+                    </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
@@ -151,14 +156,14 @@
                     </div>     
                     <div class="col-md-4">
                         <div class="row">
-                            <div class="col-md-4 col-5">
+                            <div class="col-md-4 col-5 pr-0">
                                 <div class="form-group">
                                     <x-dash.form.inputs.select  tooltip="{{__('webCaption.country_code.caption')}}"  label="{{__('webCaption.country_code.title')}}"  id="" for="country_code" name="country_code"  required="" :optionData="$country_phone_code"  editSelected="{{(isset($country_code) && ($country_code != null)) ? $country_code : ''; }}" />
                                 </div>
                             </div>
                             <div class="col-md-8 col-7">
                                 <div class="form-group">
-                                    <x-dash.form.inputs.number id="" for="phone"  tooltip="{{__('webCaption.phone.caption')}}" label="{{__('webCaption.phone.title')}}" maxlength="20"  name="phone"  placeholder="{{__('webCaption.phone.title')}}" value="{{old('phone', isset($data->phone)?$data->phone:'' )}}"  required="" />
+                                    <x-dash.form.inputs.number id="" for="Mobile"  tooltip="{{__('webCaption.mobile.caption')}}" label="{{__('webCaption.mobile.title')}}" maxlength="20"  name="mobile"  placeholder="{{__('webCaption.mobile.title')}}" value="{{old('mobile', isset($data->mobile)?$data->mobile:'' )}}"  required="" />
                                 </div>
                             </div>
                         </div> 
