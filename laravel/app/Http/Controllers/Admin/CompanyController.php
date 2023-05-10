@@ -242,6 +242,8 @@ class CompanyController extends Controller
 
         if($request->has('order_by') &&  $request->has('order') ){
             $data->orderBy($request->order_by, $request->order);
+        }else{
+            $data->orderBy('created_at','DESC');
         }
 
 
@@ -376,7 +378,7 @@ class CompanyController extends Controller
             "telephone" => "nullable|string|max:20",
             "country_code" => "required_with:telephone",
             "skype_id"=> "nullable|string|max:25",
-            "website"=> "nullable|string|max:20",
+            "website"=> "nullable|string|max:75",
             "logo"=> "nullable|image|mimes:jpeg,png,jpg,gif|max:6120",
             "plan_id" => "nullable|numeric",
             "business_type_id"    => "nullable|array",
@@ -445,7 +447,7 @@ class CompanyController extends Controller
                 'skype_id.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.skype.title')  ,"max" => "25"] ),
 
                 'website.string'=> __('webCaption.validation_string.title', ['field'=> __('webCaption.website.title') ] ),
-                'website.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.website.title')  ,"max" => "20"] ),
+                'website.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.website.title')  ,"max" => "75"] ),
 
                 'logo.image'=> __('webCaption.validation_image.title', ['field'=> __('webCaption.logo.title') ] ),
                 'logo.mimes'=> __('webCaption.validation_mimes.title', ['field'=> __('webCaption.logo.title') ,"fileTypes" => "jpeg,png,jpg,gif"] ),

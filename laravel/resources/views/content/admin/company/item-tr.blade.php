@@ -4,9 +4,11 @@
         <x-admin.form.inputs.multiple_select_checkbox id="select{{$item->id}}"   value="{{$item->id}}"  customClass="checkbox"  />            
     </td>
     <td> {{ $item->id}}</td>
-    {{-- <td> @php echo  str_ireplace( request()->input('search.keyword'), '<span style="background-color:#ffff00">'. request()->input('search.keyword').'</span>',$item->name) @endphp </td> --}}
+
     <td> @php echo  str_ireplace( request()->input('search.keyword'), '<span style="background-color:#ffff00">'. request()->input('search.keyword').'</span>',$item->company_name) @endphp </td>
-    <td>  {{ $item->email}} </td>
+    <td> 
+        @php echo  str_ireplace( request()->input('search.keyword'), '<span style="background-color:#ffff00">'. request()->input('search.keyword').'</span>',$item->email) @endphp 
+    </td>
     <td>  {{ $item->status}} </td>
     {{-- <td>  {{ $item->user->name}} </td> --}}
     <td>
