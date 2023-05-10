@@ -20,6 +20,9 @@
                     </svg>
                     {{__('webCaption.vehicle_details.title')}}
                 </h4>
+                <div class="offset-auto">
+                    <x-dash.form.buttons.custom color="btn-success" value="{{__('webCaption.reply.title')}}" />
+                </div>
             </div>
             <hr class="m-0 p-0">
             <div class="card-body">
@@ -215,31 +218,6 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="row">
-                            <div class="col-md-4 col-4 pr-0">
-                                <div class="form-group">
-                                    <x-dash.form.inputs.select tooltip="{{__('webCaption.country_code.caption')}}"
-                                        label="{{__('webCaption.country_code.title')}}" id="" for="country_code_1"
-                                        name="country_code" required="" :optionData="[]"
-                                        editSelected="{{(isset($data->country_code) && ($data->country_code != null)) ? $data->country_code : ''; }}" />
-                                </div>
-                            </div>
-                            <div class="col-md-8 col-8">
-                                <div class="form-group">
-                                    <x-dash.form.inputs.number for="phone" maxlength="20"
-                                        tooltip="{{__('webCaption.phone.caption')}}"
-                                        label="{{__('webCaption.phone.title')}}" class="form-control" name="phone"
-                                        placeholder="{{__('webCaption.phone.title')}}"
-                                        value="{{old('phone', isset($data->phone)?$data->phone:'' )}}"
-                                        required="required" />
-                                    @if ($errors->has('phone'))
-                                    <x-dash.form.form_error_messages message="{{ $errors->first('phone') }}" />
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
                         <div class="form-group">
                             <x-dash.form.inputs.select label="{{__('webCaption.country.title')}}"
                                 tooltip="{{__('webCaption.country.caption')}}" for="local_country" name="country"
@@ -288,6 +266,37 @@
                                         label="{{__('webCaption.dealer.title')}}" value="Dealer" required="required"
                                         checked="{{ old('display') == 'Dealer' ? 'checked' : '' }} {{ isset($data->customer_type) ? $data->customer_type == 'Dealer' ? 'checked=checked' :'' :'' }} "
                                         required="required" />&ensp;
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-3 col-4">
+                                <div class="form-group">
+                                    <x-dash.form.inputs.select tooltip="{{__('webCaption.country_code.caption')}}"
+                                        label="{{__('webCaption.country_code.title')}}" id="" for="country_code_1"
+                                        name="country_code" required="" :optionData="[]"
+                                        editSelected="{{(isset($data->country_code) && ($data->country_code != null)) ? $data->country_code : ''; }}" />
+                                </div>
+                            </div>
+                            <div class="col-md-5 col-8 pr-md-0 pl-0">
+                                <div class="form-group">
+                                    <x-dash.form.inputs.number for="mobile" maxlength="20"
+                                        tooltip="{{__('webCaption.mobile.caption')}}"
+                                        label="{{__('webCaption.mobile.title')}}" class="form-control" name="mobile"
+                                        placeholder="{{__('webCaption.mobile.title')}}"
+                                        value="{{old('mobile', isset($data->mobile)?$data->mobile:'' )}}"
+                                        required="required" />
+                                    @if ($errors->has('mobile'))
+                                    <x-dash.form.form_error_messages message="{{ $errors->first('mobile') }}" />
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    @include('components.dash.form.inputs.messenger_common', ['id' =>
+                                    'messenger', 'name' => 'messenger'])
                                 </div>
                             </div>
                         </div>
@@ -377,20 +386,12 @@
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
-                            <x-dash.form.inputs.textarea id="" for="admin_comment"
-                                tooltip="{{__('webCaption.admin_comment.caption')}}"
-                                label="{{__('webCaption.admin_comment.title')}}" maxlength="1000" class="form-control"
-                                name="admin_comment" placeholder="{{__('webCaption.admin_comment.title')}}"
-                                value="{{old('admin_comment', isset($data->admin_comment)?$data->admin_comment:'' )}}"
+                            <x-dash.form.inputs.textarea id="" for="dealer_comment"
+                                tooltip="{{__('webCaption.dealer_comment.caption')}}"
+                                label="{{__('webCaption.dealer_comment.title')}}" maxlength="1000" class="form-control"
+                                name="dealer_comment" placeholder="{{__('webCaption.dealer_comment.title')}}"
+                                value="{{old('dealer_comment', isset($data->dealer_comment)?$data->dealer_comment:'' )}}"
                                 required="" />
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <x-dash.form.inputs.textarea id="" for="reply" tooltip="{{__('webCaption.reply.caption')}}"
-                                label="{{__('webCaption.reply.title')}}" maxlength="1000" class="form-control"
-                                name="reply" placeholder="{{__('webCaption.reply.title')}}"
-                                value="{{old('reply', isset($data->reply)?$data->reply:'' )}}" required="" />
                         </div>
                     </div>
                 </div>
@@ -407,3 +408,11 @@
     </form>
 </div>
 @endsection
+
+@push('script')
+<script>
+$(document).ready(function() {
+    messengerImageCode();
+});
+</script>
+@endpush

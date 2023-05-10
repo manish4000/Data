@@ -69,24 +69,31 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="row">
-                        <div class="col-md-4 col-5 pr-0">
-                            <div class="form-group">
-                            <x-dash.form.inputs.select tooltip="{{__('webCaption.country_code.caption')}}"  label="{{__('webCaption.country_code.title')}}"  id="" for="country_code" name="country_code"  required="" :optionData="[]"  editSelected="{{(isset($country_code) && ($country_code != null)) ? $country_code : ''; }}" />
-                            </div>
-                        </div>
-                        <div class="col-md-8 col-7">
-                            <div class="form-group">
-                                <x-dash.form.inputs.number id="" for="telephone" tooltip="{{__('webCaption.telephone.caption')}}" label="{{__('webCaption.telephone.title')}}" maxlength="20"  name="telephone"  placeholder="{{__('webCaption.telephone.title')}}" value="{{old('telephone', isset($data->telephone)?$data->telephone:'' )}}"  required="required" />
-                            </div>
-                        </div>
-                    </div> 
-                </div>
-                <div class="col-md-4">
                     <div class="form-group">
                         <x-dash.form.inputs.text  for="website" maxlength="50"  tooltip="{{__('webCaption.website.caption')}}" label="{{__('webCaption.website.title')}}"   name="website"  placeholder="{{__('webCaption.website.title')}}" value="{{old('website', isset($data->website)?$data->website:'' )}}" />
                     </div>
                 </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-3 col-5">
+                            <div class="form-group">
+                            <x-dash.form.inputs.select tooltip="{{__('webCaption.country_code.caption')}}"  label="{{__('webCaption.country_code.title')}}"  id="" for="country_code" name="country_code"  required="" :optionData="[]"  editSelected="{{(isset($country_code) && ($country_code != null)) ? $country_code : ''; }}" />
+                            </div>
+                        </div>
+                        <div class="col-md-5 col-7 px-0">
+                            <div class="form-group">
+                                <x-dash.form.inputs.number id="" for="Mobile" tooltip="{{__('webCaption.mobile.caption')}}" label="{{__('webCaption.mobile.title')}}" maxlength="20"  name="mobile"  placeholder="{{__('webCaption.mobile.title')}}" value="{{old('mobile', isset($data->mobile)?$data->mobile:'' )}}"  required="required" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @include('components.dash.form.inputs.messenger_common', ['id' =>
+                                'messenger_1', 'name' => 'messenger_1'])
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+                
                 <div class="col-md-4">
                     <div class="form-group">
                         <x-dash.form.inputs.file id="" caption="{{__('webCaption.logo.title')}}" ImageId="logo-image-preview" for="logo" editImageUrl="{{ isset($data->logo)? asset('company_data/'.$imageFolder.'/billing_info/'.$data->logo) :''}}"    name="logo"  placeholder="{{__('webCaption.logo.title')}}" required="" />
@@ -158,16 +165,22 @@
                         <x-dash.form.inputs.email  for="email"  maxlength="45" tooltip="{{__('webCaption.email.caption')}}" label="{{__('webCaption.email.title')}}"   name="email"  placeholder="{{__('webCaption.email.title')}}" value="{{old('email', isset($data->email)?$data->email:'' )}}"/>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="row">
-                        <div class="col-md-4 col-5 pr-0">
+                        <div class="col-md-3 col-5">
                             <div class="form-group">
                                 <x-dash.form.inputs.select  tooltip="{{__('webCaption.country_code.caption')}}"  label="{{__('webCaption.country_code.title')}}"  id="" for="country_code2" name="country_code"  required="" :optionData="[]"  editSelected="{{(isset($country_code) && ($country_code != null)) ? $country_code : ''; }}" />
                             </div>
                         </div>
-                        <div class="col-md-8 col-7">
+                        <div class="col-md-5 col-7 px-0">
                             <div class="form-group">
-                                <x-dash.form.inputs.number id="" for="phone"  tooltip="{{__('webCaption.phone.caption')}}" label="{{__('webCaption.phone.title')}}" maxlength="20"  name="phone"  placeholder="{{__('webCaption.phone.title')}}" value="{{old('phone', isset($data->phone)?$data->phone:'' )}}"  required="" />
+                                <x-dash.form.inputs.number id="" for="Mobile"  tooltip="{{__('webCaption.mobile.caption')}}" label="{{__('webCaption.mobile.title')}}" maxlength="20"  name="mobile"  placeholder="{{__('webCaption.mobile.title')}}" value="{{old('mobile', isset($data->mobile)?$data->mobile:'' )}}"  required="" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @include('components.dash.form.inputs.messenger_common', ['id' =>
+                                'messenger_2', 'name' => 'messenger_2'])
                             </div>
                         </div>
                     </div> 
@@ -193,16 +206,22 @@
                         <x-dash.form.inputs.email  for="email"  maxlength="45" tooltip="{{__('webCaption.email.caption')}}" label="{{__('webCaption.email.title')}}"   name="email"  placeholder="{{__('webCaption.email.title')}}" value="{{old('email', isset($data->email)?$data->email:'' )}}" />
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="row">
-                        <div class="col-md-4 col-5 pr-0">
+                        <div class="col-md-3 col-5">
                             <div class="form-group">
                                 <x-dash.form.inputs.select  tooltip="{{__('webCaption.country_code.caption')}}"  label="{{__('webCaption.country_code.title')}}"  id="" for="country_code3" name="country_code"  required="" :optionData="[]"  editSelected="{{(isset($country_code) && ($country_code != null)) ? $country_code : ''; }}" />
                             </div>
                         </div>
-                        <div class="col-md-8 col-7">
+                        <div class="col-md-5 col-7 px-0">
                             <div class="form-group">
-                                <x-dash.form.inputs.number id="" for="phone"  tooltip="{{__('webCaption.phone.caption')}}" label="{{__('webCaption.phone.title')}}" maxlength="20"  name="phone"  placeholder="{{__('webCaption.phone.title')}}" value="{{old('phone', isset($data->phone)?$data->phone:'' )}}"  required="" />
+                                <x-dash.form.inputs.number id="" for="Mobile"  tooltip="{{__('webCaption.mobile.caption')}}" label="{{__('webCaption.mobile.title')}}" maxlength="20"  name="mobile"  placeholder="{{__('webCaption.mobile.title')}}" value="{{old('mobile', isset($data->mobile)?$data->mobile:'' )}}"  required="" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @include('components.dash.form.inputs.messenger_common', ['id' =>
+                                'messenger_3', 'name' => 'messenger_3'])
                             </div>
                         </div>
                     </div> 
@@ -224,4 +243,14 @@
 
 @push('script')
 <script src="{{ asset('assets/dash/assets/js/dash/master.js') }}"></script>
+@endpush
+
+@push('script')
+<script>
+
+$(document).ready(function() {
+    messengerImageCode();
+});
+
+</script>
 @endpush
