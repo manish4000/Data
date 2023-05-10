@@ -54,7 +54,7 @@
                     <div class="col-md-4">
                         <div class="row">
                             <div class="col-md-6 col-6">
-                               <div class="form-group">
+                                <div class="form-group">
                                     <x-dash.form.inputs.date  for="etd_date"  tooltip="{{__('webCaption.etd_date.caption')}}" label="{{__('webCaption.etd_date.title')}}"  name="etd_date"  placeholder="{{__('webCaption.etd_date.title')}}" value="{{old('etd_date', isset($data->etd_date)?$data->etd_date:'' )}}"/>
                                 </div>
                             </div>
@@ -80,7 +80,6 @@
                             <x-dash.form.inputs.select  for="destination_port"  tooltip="{{__('webCaption.destination_port.caption')}}" label="{{__('webCaption.destination_port.title')}}"  name="destination_port"  placeholder="{{__('webCaption.destination_port.title')}}" value="{{old('destination_port', isset($data->destination_port)?$data->destination_port:'' )}}"/>
                         </div>
                     </div>
-
 
 
                 </div>
