@@ -1,8 +1,8 @@
 @extends('layouts/contentLayoutMaster')
 @if(isset($data->id) && !empty($data->id))
-@section('title', __('webCaption.business_type.title'). ' ' .__('webCaption.edit.title') )
+@section('title', __('webCaption.association_bank.title'). ' ' .__('webCaption.edit.title') )
 @else
-@section('title', __('webCaption.business_type.title').' '. __('webCaption.add.title') )
+@section('title', __('webCaption.association_bank.title').' '. __('webCaption.add.title') )
 @endif
 
 @section('content')
