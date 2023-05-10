@@ -195,7 +195,7 @@ class AssociationController extends Controller
                 }
                 
                 $association_model->text       =   $request->text;
-                $association_model->parent_id  =   isset($request->parent_id)? $request->parent_id : 0 ;
+                $association_model->parent_id  =   isset($request->parent_id)? $request->parent_id :'0' ;
                 $association_model->display    =   $request->display;
 
                 if($association_model->save()){

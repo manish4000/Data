@@ -99,12 +99,12 @@ class RegionController extends Controller
             abort(403);
         }
         $parent_data = Region::select('id as value', 'name', 'parent_id', 'display')->orderBy('name', 'ASC')->where('parent_id', '0')->get();
-        $data = array();
+   
         $breadcrumbs[0] = [
             'link' => $this->baseUrl,
             'name' => __('webCaption.list.title')
         ];
-        return view('content.admin.masters.common.region.create-form',['data' => $data ,'menuUrl' =>$this->menuUrl,'breadcrumbs' =>$breadcrumbs ,'parent_data' => $parent_data  ]);
+        return view('content.admin.masters.common.region.create-form',['menuUrl' =>$this->menuUrl,'breadcrumbs' =>$breadcrumbs ,'parent_data' => $parent_data  ]);
     }
     
 
@@ -146,7 +146,7 @@ class RegionController extends Controller
         
 
                 $region_model->name       =   $request->name;
-                $region_model->parent_id  =   isset($request->parent_id)? $request->parent_id : 0 ;
+                $region_model->parent_id  =   isset($request->parent_id)? $request->parent_id : '0' ;
                 $region_model->display    =   $request->display;
                 // $region_model->title_languages    =   $request->title_languages;
                 

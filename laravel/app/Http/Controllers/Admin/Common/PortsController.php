@@ -146,7 +146,7 @@ class PortsController extends Controller
         
 
                 $ports_model->name       =   $request->name;
-                $ports_model->parent_id  =   isset($request->parent_id)? $request->parent_id : 0 ;
+                $ports_model->parent_id  =   isset($request->parent_id)? $request->parent_id : '0' ;
                 $ports_model->display    =   $request->display;
                 // $ports_model->title_languages    =   $request->title_languages;
                 

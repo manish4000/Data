@@ -99,12 +99,12 @@ class CurrencyController extends Controller
             abort(403);
         }
         $parent_data = Currency::select('id as value', 'name', 'parent_id', 'display')->orderBy('name', 'ASC')->where('parent_id', '0')->get();
-        $data = array();
+     
         $breadcrumbs[0] = [
             'link' => $this->baseUrl,
             'name' => __('webCaption.list.title')
         ];
-        return view('content.admin.masters.common.currency.create-form',['data' => $data ,'menuUrl' =>$this->menuUrl,'breadcrumbs' =>$breadcrumbs ,'parent_data' => $parent_data  ]);
+        return view('content.admin.masters.common.currency.create-form',['menuUrl' =>$this->menuUrl,'breadcrumbs' =>$breadcrumbs ,'parent_data' => $parent_data  ]);
     }
     
 
@@ -131,7 +131,7 @@ class CurrencyController extends Controller
         $validator = Validator::make($request->all(),
           [
             'display' => 'required',
-            'name' => 'required|unique:nationalities,name,'.$request->id.',id,deleted_at,NULL', 
+            'name' => 'required|unique:currencies,name,'.$request->id.',id,deleted_at,NULL', 
             'currency_symbol' => 'nullable|string|max:10',
             'title'   =>   'nullable|string|max:100',
           ]  ,
@@ -139,8 +139,12 @@ class CurrencyController extends Controller
             'name.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.name.title')  ] ),
             'display.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.display.title')  ] ),
             'name.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('name')] ),
-            'currency_symbol.string' => __('webCaption.validation_string.title', ['field'=> __('webCaption.currency_symbol.title'), 'max'=>'10' ] ),
-            'title.string' => __('webCaption.validation_string.title', ['field'=> __('webCaption.title.title'), 'max'=>'100' ] ),
+            
+            'currency_symbol.string' => __('webCaption.validation_string.title', ['field'=> __('webCaption.currency_symbol.title') ] ),
+            'currency_symbol.max' => __('webCaption.validation_max.title', ['field'=> __('webCaption.currency_symbol.title'), 'max'=>'10' ] ),
+
+            'title.string' => __('webCaption.validation_string.title', ['field'=> __('webCaption.title.title') ] ),
+            'title.max' => __('webCaption.validation_max.title', ['field'=> __('webCaption.title.title'), 'max'=>'100' ] ),
           ]);
     
         if ($validator->fails()) {
@@ -148,7 +152,7 @@ class CurrencyController extends Controller
         }
 
                 $currency_model->name       =   $request->name;
-                $currency_model->parent_id  =   isset($request->parent_id)? $request->parent_id : 0 ;
+                $currency_model->parent_id  =   isset($request->parent_id)? $request->parent_id : '0' ;
                 $currency_model->display    =   $request->display;
                 $currency_model->currency_symbol  =   $request->currency_symbol;
                 $currency_model->title   =   $request->title;

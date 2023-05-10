@@ -99,12 +99,12 @@ class AccessoriesController extends Controller
             abort(403);
         }
         $parent_data = Accessories::select('id as value', 'name', 'parent_id', 'display')->orderBy('name', 'ASC')->where('parent_id', '0')->get();
-        $data = array();
+      
         $breadcrumbs[0] = [
             'link' => $this->baseUrl,
             'name' => __('webCaption.list.title')
         ];
-        return view('content.admin.masters.vechiles.accessories.create-form',['data' => $data ,'menuUrl' =>$this->menuUrl,'breadcrumbs' =>$breadcrumbs ,'parent_data' => $parent_data  ]);
+        return view('content.admin.masters.vechiles.accessories.create-form',['menuUrl' =>$this->menuUrl,'breadcrumbs' =>$breadcrumbs ,'parent_data' => $parent_data  ]);
     }
     
 
@@ -146,7 +146,7 @@ class AccessoriesController extends Controller
         
 
                 $accessories_model->name       =   $request->name;
-                $accessories_model->parent_id  =   isset($request->parent_id)? $request->parent_id : 0 ;
+                $accessories_model->parent_id  =   isset($request->parent_id)? $request->parent_id : '0' ;
                 $accessories_model->display    =   $request->display;
                 // $accessories_model->title_languages    =   $request->title_languages;
 
