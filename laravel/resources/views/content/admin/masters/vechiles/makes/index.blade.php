@@ -13,8 +13,8 @@
           <h4 class="card-title " data-toggle="tooltip" data-placement="right" title="{{__('webCaption.search_filter.caption')}}">{{__('webCaption.search_filter.title')}}</h4>                    
         </div>
         <hr class="m-0 p-0">
-        <div class="card-body py-75">
-          <form method="GET" action="{{route('masters.vehicle.make.index')}}">
+        <div class="card-body pt-75 pb-75">
+          <form method="GET" action="{{route('masters.vehicle.make.index')}}" style="margin-bottom:0px !important;">
             <div class="row">
                 <div class="col-sm-3 col-md-5 col-lg-7 col-xl-7">
                     <div class="form-group">
@@ -49,7 +49,7 @@
                         
                     </div> 
                 </div>
-                <div class="col-md-12  pt-50 text-center">
+                <div class="col-md-12  pt-0 text-center">
                     <x-admin.form.buttons.search />
                     <x-admin.form.buttons.reset href="{{route('masters.vehicle.make.index')}}" />
                 </div>
@@ -64,13 +64,13 @@
                     
         <div class="card">
         <!-- Basic Tables start -->
-          <div class="card-body py-75">
+          <div class="card-body pt-75 pb-0">
             @can('main-navigation-masters-vehicle-make') 
                 @if(count($data) > 0 )
                     <div >
                       
                                                        
-                               <div class="pt-25 pb-1">
+                               <div class="pt-25 pb-25">
 
                                    @if (Auth::guard('web')->user()->can('main-navigation-masters-vehicle-make-delete'))		
                                        {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4',['multiple_delete_url' => route('masters.vehicle.make.delete-multiple') ] ) }}  
@@ -123,7 +123,7 @@
              </div>
                    
 
-                        <div class="mt-2">
+                        <div class="mt-75">
                             @if (Auth::guard('web')->user()->can('main-navigation-masters-vehicle-make-delete'))		
                             {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4',['multiple_delete_url' => route('masters.vehicle.make.delete-multiple') ] ) }}  
                             @else
@@ -183,8 +183,55 @@ $('.load-child-records').click( function(event){
 
 
 <style type="text/css">
-.main_table > .table_header > .position-for-filter-heading:first-child { width:50px !important;}
-.main_table > .table_header > .header_col:hover > .fa-arrows-up-down:before{ color:#dfd7ef;}
+
+
+
+
+.main_table > .table_header > .common_heading:hover  {background:transparent !important; }
+.main_table > .table_header > .common_heading  { border:#ebe9f1 1px solid; border-left:0px; border-right:0px;}
+.main_table > .table_header > .heading_col { display:table-cell;} 
+.common_heading { }
+.heading_col { border:#ebe9f1 1px solid; border-left:0px; border-right:0px; padding:6px 0 7px 0px;}
+.main_table > .table_header > .common_heading:first-child { width:5% !important; padding:6px 10px !important;}
+/* .main_table > .table_header > .heading_col:nth-child(2) { width:5% !important; padding:6px 21px !important;}
+.main_table > .table_header > .heading_col:nth-child(3) { width:49% !important; padding:6px 10px !important;}
+.main_table > .table_header > .heading_col:nth-child(4) { width:14% !important;padding:6px 0px 6px 21px !important;}
+.main_table > .table_header > .heading_col:nth-child(5) { width:14% !important; padding:6px 0px 6px 21px;}
+.main_table > .table_header > .heading_col:nth-child(6) { width:15% !important;padding:6px 0px !important;text-align:center;}  */
+
+/* .main_table > .table_row > .make_col:first-child { width:5% !important; padding:6px 10px !important;}
+.main_table > .table_row > .make_col:nth-child(2) { width:5% !important; padding:6px 10px !important;}
+.main_table > .table_row > .make_col:nth-child(3) { width:49% !important; padding:6px 10px !important;}
+.main_table > .table_row > .make_col:nth-child(4) { width:14% !important; padding:6px 0px !important;text-align:center;}
+.main_table > .table_row > .make_col:nth-child(5) { width:14% !important; padding:6px 0px !important; text-align:center;}
+.main_table > .table_row > .make_col:nth-child(6) { width:15% !important;padding:6px 0px !important;text-align:center;}  */
+
+
+.heading_col-1-2 {width:5%;}
+.heading_col-3 {width:42.8571% ;}
+.heading_col-4-5 {width:28.5714%;}
+.heading_col-5-6 {width:28.5714%;}
+
+
+.heading_col-1-6 {
+   width: calc(100% / 6);
+}
+
+.heading_col-4-6 {
+   width: calc(100% / 6 * 2);
+}
+
+
+
+
+
+
+
+@media only screen and ( min-width:768px ) and ( max-width:1023px ) {
+.heading_col { border:#ebe9f1 1px solid; border-left:0px; border-right:0px; padding:6px 0 26px 16px;}
+.filter-short { top:10px;}
+}
+
 
 
 

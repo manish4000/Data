@@ -6,7 +6,7 @@
 <div class="table_header" id="master-list" >
 
     
-    <div class="header_col position-for-filter-heading">    
+    <div class="header_col position-for-filter-heading common_heading wt-1">    
         <x-admin.form.inputs.multiple_select_checkbox id="checkAll"   value="1"  customClass=""  />
     </div>
     
@@ -17,10 +17,12 @@
                 
             @php
                 $active_class = (isset(request()->order_by) && (request()->order_by == $fields['orderby'] ) )? 'active' :'';
+                
+                $hover_class =  ($fields['orderby'] !== null) ? "header_col" : "" ; 
             @endphp
 
-
-                <div class="header_col position-for-filter-heading {{$active_class}} " data-toggle="tooltip"
+                
+                <div class=" {{$hover_class}} position-for-filter-heading {{$active_class}} heading_col" data-toggle="tooltip"
                  title="<?php echo __('webCaption.'.$fields['title'].'.caption') ?>">
                     <?php echo __('webCaption.'.$fields['title'].'.title') ?>
                     
