@@ -90,10 +90,10 @@
                             </thead>
                             <tbody>
                                 @foreach($data as $item)
-                                    @include('dash.content.masters.erp.vendor-type.item-tr', ['item'=>$item])    
+                                    @include('dash.content.masters.erp.vendor_type.item-tr', ['item'=>$item])    
                                     @if( true || request()->input('search.parentOnlyShowAll') == 1)
                                         @foreach($item->children as $childItem)
-                                            @include('dash.content.masters.erp.vendor-type.item-tr', ['item'=>$childItem])    
+                                            @include('dash.content.masters.erp.vendor_type.item-tr', ['item'=>$childItem])    
                                         @endforeach 
                                     @endif
                                 @endforeach   

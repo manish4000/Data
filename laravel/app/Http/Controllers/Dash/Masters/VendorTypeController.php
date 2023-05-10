@@ -87,7 +87,7 @@ class VendorTypeController extends Controller
 
         $data = $data->paginate($perPage);
 
-        return view('dash.content.masters.erp.vendor-type.list', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs, 'data'=>$data,'perPage' => $perPage]);
+        return view('dash.content.masters.erp.vendor_type.list', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs, 'data'=>$data,'perPage' => $perPage]);
     }
 
 
@@ -104,7 +104,7 @@ class VendorTypeController extends Controller
             'link' => $this->baseUrl,
             'name' => __('webCaption.list.title')
         ];
-        return view('dash.content.masters.erp.vendor-type.create-form',['data' => $data ,'menuUrl' =>$this->menuUrl,'breadcrumbs' =>$breadcrumbs ,'parent_data' => $parent_data  ]);
+        return view('dash.content.masters.erp.vendor_type.create-form',['data' => $data ,'menuUrl' =>$this->menuUrl,'breadcrumbs' =>$breadcrumbs ,'parent_data' => $parent_data  ]);
     }
     
 
@@ -190,7 +190,7 @@ class VendorTypeController extends Controller
 
         //send id as value because dynamic select work with  id as value  name as name  
         $parent_data = VendorType::select('id as value', 'name', 'parent_id', 'display')->orderBy('name', 'ASC')->where('parent_id', '0')->get();
-        return view('dash.content.masters.erp.vendor-type.create-form',['data' => $data,'breadcrumbs' =>$breadcrumbs ,'activeSiteLanguages' => $activeSiteLanguages ,'parent_data' => $parent_data ,'menuUrl' =>$this->menuUrl]);
+        return view('dash.content.masters.erp.vendor_type.create-form',['data' => $data,'breadcrumbs' =>$breadcrumbs ,'activeSiteLanguages' => $activeSiteLanguages ,'parent_data' => $parent_data ,'menuUrl' =>$this->menuUrl]);
    
     }
 

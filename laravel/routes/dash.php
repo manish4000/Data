@@ -15,6 +15,8 @@ use App\Http\Controllers\Dash\SocialMediaActionController;
 use App\Http\Controllers\Dash\StateCityController;
 use App\Http\Controllers\Dash\Masters\ExpensesController;
 use App\Http\Controllers\Dash\Masters\VendorTypeController;
+use App\Http\Controllers\Dash\MAsters\MainCategoryController;
+use App\Http\Controllers\Dash\Masters\SubCategoryController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +33,13 @@ Route::middleware('dash')->name('dash')->group(function(){
     });
 
     Route::group(['middleware' => 'dashauth'], function () {
+
+
+        //upload images in temprary file and get 
+        Route::post('/upload-documents',  'Dash/CommomController@uploadDocuments')->name('multiple-image-upload-temp');
+        Route::post('/fetch-document', 'Dash/CommomController@fetchDocuments')->name('get-images-temp');
+        Route::post('/delete-document', 'Dash/CommomController@deleteDocument')->name('delete-temp-image');
+        //common methods end 
 
         Route::post('country-list','Dash/StateCityController@countryList')->name('country-list');
         Route::post('state-list','Dash/StateCityController@stateList')->name('state-list');
@@ -154,6 +163,29 @@ Route::middleware('dash')->name('dash')->group(function(){
 
         Route::group(['prefix'=>'masters','namespace'=>'Dash\Masters','as' => 'masters.'],function(){
 
+            Route::group(['prefix'=>'spare-parts','as' => 'spare-parts.'],function(){
+
+                Route::group(['prefix'=>'main-category','as' => 'main-category.'],function(){
+                    Route::get('/','MainCategoryController@index')->name('index');
+                    Route::get('/create','MainCategoryController@create')->name('create');
+                    Route::post('/store','MainCategoryController@store')->name('store');
+                    Route::get('edit/{id}','MainCategoryController@edit')->name('edit');
+                    Route::post('/delete', 'MainCategoryController@destroy')->name('delete'); 
+                    Route::post('/delete-multiple','MainCategoryController@deleteMultiple')->name('delete-multiple');
+                    Route::post('/update-status','MainCategoryController@updateStatus')->name('update-status');
+                });
+
+                Route::group(['prefix'=>'sub-category','as' => 'sub-category.'],function(){
+                    Route::get('/','SubCategoryController@index')->name('index');
+                    Route::get('/create','SubCategoryController@create')->name('create');
+                    Route::post('/store','SubCategoryController@store')->name('store');
+                    Route::get('edit/{id}','SubCategoryController@edit')->name('edit');
+                    Route::post('/delete', 'SubCategoryController@destroy')->name('delete'); 
+                    Route::post('/delete-multiple','SubCategoryController@deleteMultiple')->name('delete-multiple');
+                    Route::post('/update-status','SubCategoryController@updateStatus')->name('update-status');
+                });
+            });
+
             Route::group(['prefix'=>'erp','as' => 'erp.'],function(){
 
                 Route::group(['prefix'=>'vendor','as' => 'vendor.'],function(){
@@ -187,6 +219,18 @@ Route::middleware('dash')->name('dash')->group(function(){
                     Route::post('/delete-multiple','VendorTypeController@deleteMultiple')->name('delete-multiple');   
                     Route::post('/update-status','VendorTypeController@updateStatus')->name('update-status');  
                 });
+            });
+
+            Route::group(['prefix'=>'crm','as' => 'crm.'],function(){
+
+                Route::group(['prefix'=>'black-list','as' => 'black-list.'],function(){
+                    Route::get('/create',function(){ return view('dash.content.masters.crm.blacklist.create'); })->name('create');
+                });
+                
+                Route::group(['prefix'=>'mail-service','as' => 'mail-service.'],function(){
+                    Route::get('/create',function(){ return view('dash.content.masters.crm.mail_service.create'); })->name('create');
+                });
+
             });
 
         });
