@@ -40,12 +40,12 @@
           <hr class="m-0 p-0">
           <div class="card-body">
               <div class="row">
-                <div class="col-md-5">
+                <div class="col-md-6">
                     <div class="form-group">
                         <x-dash.form.inputs.text  for="account_name"  maxlength="50" tooltip="{{__('webCaption.account_name.caption')}}" label="{{__('webCaption.account_name.title')}}"  name="account_name"  placeholder="{{__('webCaption.account_name.title')}}" value="{{old('account_name', isset($data->account_name)?$data->account_name:'' )}}"  required="" />
                     </div>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-4">
                     <div class="form-group">
                         <x-dash.form.inputs.number  for="account_number"  maxlength="30" tooltip="{{__('webCaption.account_number.caption')}}" label="{{__('webCaption.account_number.title')}}"  name="account_number"  placeholder="{{__('webCaption.account_number.title')}}" value="{{old('account_number', isset($data->account_number)?$data->account_number:'' )}}"  required="required" />
                     </div>
@@ -185,14 +185,14 @@
                             <x-dash.form.inputs.text  for="iban_no"  maxlength="30" tooltip="{{__('webCaption.iban_no.caption')}}" label="{{__('webCaption.iban_no.title')}}"  name="iban_no"  placeholder="{{__('webCaption.iban_no.title')}}" value="{{old('iban_no', isset($data->iban_no)?$data->iban_no:'' )}}"  required="" />
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <x-dash.form.inputs.textarea id="" for="reason_for_remittance" tooltip="{{__('webCaption.reason_for_remittance.caption')}}"  label="{{__('webCaption.reason_for_remittance.title')}}" maxlength="250" class="form-control" name="reason_for_remittance"  placeholder="{{__('webCaption.reason_for_remittance.title')}}" value="{{old('reason_for_remittance', isset($data->reason_for_remittance)?$data->reason_for_remittance:'' )}}"  required="" />
-                        </div>
-                    </div>
                     <div class="col-md-8">
                         <div class="form-group">
                             <x-dash.form.inputs.textarea id="" for="bank_address" tooltip="{{__('webCaption.bank_address.caption')}}"  label="{{__('webCaption.bank_address.title')}}" maxlength="250" class="form-control" name="bank_address"  placeholder="{{__('webCaption.bank_address.title')}}" value="{{old('bank_address', isset($data->bank_address)?$data->bank_address:'' )}}"  required="" />   
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <x-dash.form.inputs.textarea id="" for="reason_for_remittance" tooltip="{{__('webCaption.reason_for_remittance.caption')}}"  label="{{__('webCaption.reason_for_remittance.title')}}" maxlength="250" class="form-control" name="reason_for_remittance"  placeholder="{{__('webCaption.reason_for_remittance.title')}}" value="{{old('reason_for_remittance', isset($data->reason_for_remittance)?$data->reason_for_remittance:'' )}}"  required="" />
                         </div>
                     </div>
                 </div>

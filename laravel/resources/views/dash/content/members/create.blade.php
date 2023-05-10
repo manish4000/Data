@@ -26,6 +26,19 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
+                            <x-dash.form.inputs.number for="customer_uid"
+                                tooltip="{{__('webCaption.customer_uid.caption')}}"
+                                label="{{__('webCaption.customer_uid.title')}}" class="form-control" name="customer_uid"
+                                placeholder="{{__('webCaption.customer_uid.title')}}"
+                                value="{{old('customer_uid', isset($data->id)?$data->customer_uid:'' )}}"
+                                required="required" />
+                            @if ($errors->has('customer_uid'))
+                            <x-dash.form.form_error_messages message="{{ $errors->first('customer_uid') }}" />
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-6">
+                        <div class="form-group">
                             <x-dash.form.label for="" value="{{__('webCaption.member_login.title')}}" class=""
                                 tooltip="{{__('webCaption.member_login.caption')}}" required="required" />
                             <div>
@@ -43,19 +56,6 @@
                                         required="required" />&ensp;
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <x-dash.form.inputs.number for="customer_uid"
-                                tooltip="{{__('webCaption.customer_uid.caption')}}"
-                                label="{{__('webCaption.customer_uid.title')}}" class="form-control" name="customer_uid"
-                                placeholder="{{__('webCaption.customer_uid.title')}}"
-                                value="{{old('customer_uid', isset($data->id)?$data->customer_uid:'' )}}"
-                                required="required" />
-                            @if ($errors->has('customer_uid'))
-                            <x-dash.form.form_error_messages message="{{ $errors->first('customer_uid') }}" />
-                            @endif
                         </div>
                     </div>
                     <div class="col-md-2 col-6">
@@ -149,7 +149,7 @@
                                         editSelected="{{(isset($data->country_code) && ($data->country_code != null)) ? $data->country_code : ''; }}" />
                                 </div>
                             </div>
-                            <div class="col-md-9 col-8 pl-0">
+                            <div class="col-md-5 col-8 pr-md-0 pl-0">
                                 <div class="form-group">
                                     <x-dash.form.inputs.number for="mobile_1" maxlength="20"
                                         tooltip="{{__('webCaption.mobile_1.caption')}}"
@@ -160,6 +160,12 @@
                                     @if ($errors->has('mobile_1'))
                                     <x-dash.form.form_error_messages message="{{ $errors->first('mobile_1') }}" />
                                     @endif
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    @include('components.dash.form.inputs.messenger_common', ['id' =>
+                                    'messenger_1', 'name' => 'messenger_1'])
                                 </div>
                             </div>
                         </div>
@@ -174,13 +180,19 @@
                                         editSelected="{{(isset($data->country_code) && ($data->country_code != null)) ? $data->country_code : ''; }}" />
                                 </div>
                             </div>
-                            <div class="col-md-9 col-8 pl-0">
+                            <div class="col-md-5 col-8 pr-md-0 pl-0">
                                 <div class="form-group">
                                     <x-dash.form.inputs.number for="mobile_2" maxlength="20"
                                         tooltip="{{__('webCaption.mobile_2.caption')}}"
                                         label="{{__('webCaption.mobile_2.title')}}" class="form-control" name="mobile_2"
                                         placeholder="{{__('webCaption.mobile_2.title')}}"
                                         value="{{old('mobile_2', isset($data->id)?$data->mobile_2:'' )}}" required="" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    @include('components.dash.form.inputs.messenger_common', ['id' =>
+                                    'messenger_2', 'name' => 'messenger_2'])
                                 </div>
                             </div>
                         </div>
@@ -345,7 +357,8 @@
             <hr class="m-0 p-0">
             <div class="card-body">
                 <div class="row">
-                @include('components.dash.form.inputs.social_media', ['id' => 'social_media_company', 'name' => 'company_social_media'])
+                    @include('components.dash.form.inputs.social_media', ['id' => 'social_media_company', 'name' =>
+                    'company_social_media'])
                     <!-- <div class="col-md-4">
                         <div class="form-group">
                             <x-dash.form.inputs.text_with_icon for="facebook"
@@ -618,6 +631,10 @@ $local_city_id = (isset($local_city)) ? $local_city : ( (isset($data->city)) ? $
 
 @push('script')
 <script>
+$(document).ready(function() {
+    messengerImageCode();
+});
+
 $(document).ready(function() {
     var local_country = $('#local_country').find(":selected").val();
     var local_state = "<?php echo $local_state_id; ?>";
