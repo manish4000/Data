@@ -7,7 +7,7 @@
 @section('content')
 <div>
     <form action="{{route('dashaccounts.payments.drcrnotes')}}" method="POST" enctype="multipart/form-data">
-        @csrf
+    @csrf
         <div class="card card-primary">
             <div class="card-header">
                 <h4 class="card-title">
@@ -90,7 +90,7 @@
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
-                            <x-dash.form.inputs.textarea  for="admin_memo" maxlength="500"  tooltip="{{__('webCaption.admin_memo.caption')}}" label="{{__('webCaption.admin_memo.title')}}"   name="admin_memo"  placeholder="{{__('webCaption.admin_memo.title')}}" value="{{old('admin_memo', isset($data->admin_memo)?$data->admin_memo:'' )}}"/>
+                            <x-dash.form.inputs.textarea  for="dealer_comment" maxlength="500"  tooltip="{{__('webCaption.dealer_comment.caption')}}" label="{{__('webCaption.dealer_comment.title')}}"   name="dealer_comment"  placeholder="{{__('webCaption.dealer_comment.title')}}" value="{{old('dealer_comment', isset($data->dealer_comment)?$data->dealer_comment:'' )}}"/>
                         </div>
                     </div>
 
