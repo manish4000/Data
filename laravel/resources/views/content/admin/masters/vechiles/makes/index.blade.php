@@ -218,7 +218,7 @@ $('.load-child-records').click( function(event){
 }
 
 .heading_col-4-6 {
-   width: calc(100% / 6 * 2);
+   width: calc(100% / 6 * 3);
 }
 
 
