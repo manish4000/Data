@@ -1,4 +1,4 @@
-@extends('layouts/contentLayoutMaster',['activeUrl' => $menuUrl])
+@extends('layouts/contentLayoutMaster')
 @if(isset($data->id) && !empty($data->id))
 @section('title', __('webCaption.business_type.title'). ' ' .__('webCaption.edit.title') )
 @else
@@ -90,7 +90,7 @@
                                 value="{{old('iban_no', isset($data->iban_no)?$data->iban_no:'' )}}" required="" />
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6">
+                    <div class="col-lg-12 col-md-6">
                         <div class="form-group">
                             <x-admin.form.inputs.textarea tooltip="{{__('webCaption.bank_address.caption')}}"
                                 label="{{__('webCaption.bank_address.title')}}" maxlength="250" for="bank_address"
@@ -107,15 +107,7 @@
                                 value="{{old('name', isset($data->name)?$data->name:'' )}}" required="required" />
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="form-group">
-                            <x-admin.form.inputs.select tooltip="{{__('webCaption.select_parent.caption')}}"
-                                label="{{__('webCaption.select_parent.title')}}" id="" for="parent_id" name="parent_id"
-                                placeholder="{{__('webCaption.select_parent.title')}}" required=""
-                                :optionData="$parent_data"
-                                editSelected="{{(isset($data->parent_id) && ($data->parent_id != null))?$data->parent_id :''; }}" />
-                        </div>
-                    </div>
+
                     <div class="col-lg-4 col-md-6">
                         <div class="form-group">
                             <x-admin.form.label for="" value="{{__('webCaption.display.title')}}" class=""
