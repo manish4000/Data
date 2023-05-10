@@ -158,18 +158,18 @@
  
              <div class="col-md-4">
                  <div class="form-group">
-                   <x-admin.form.inputs.multiple_select tooltip="{{__('webCaption.business_type.caption')}}" label="{{__('webCaption.business_type.title')}}"  id="" for="business_type_id" name="business_type_id[]" placeholder="{{__('webCaption.business_type_id.title')}}" :editSelected="$editSelected" :oldValues="old('business_type_id')"  required="" :optionData="$business_types" />
+                   <x-dash.form.inputs.multiple_select tooltip="{{__('webCaption.business_type.caption')}}" label="{{__('webCaption.business_type.title')}}"  id="" for="business_type_id" name="business_type_id[]" placeholder="{{__('webCaption.business_type_id.title')}}" :editSelected="$editSelected" :oldValues="old('business_type_id')"  required="" :optionData="$business_types" />
                  </div>
              </div>
              
              <div class="col-md-4">
                  <div class="form-group">
-                   <x-admin.form.inputs.multiple_select label="{{__('webCaption.association_member.title')}}"  tooltip="{{__('webCaption.association_member.caption')}}"   id="" for="association_member_id" name="association_member_id[]"   required="" :editSelected="$associationEditSelected"  :oldValues="old('association_member_id')" :optionData="$association" />
+                   <x-dash.form.inputs.multiple_select label="{{__('webCaption.association_member.title')}}"  tooltip="{{__('webCaption.association_member.caption')}}"   id="" for="association_member_id" name="association_member_id[]"   required="" :editSelected="$associationEditSelected"  :oldValues="old('association_member_id')" :optionData="$association" />
                  </div>
              </div>
              <div class="col-md-4">
                <div class="form-group">
-                 <x-admin.form.inputs.select label="{{__('webCaption.region.title')}}"  id="" for="region_id" name="region_id" placeholder="{{__('webCaption.region.title')}}" editSelected="{{old('region_id',$data->region_id)}}" required="" :optionData="$regions" />   
+                 <x-dash.form.inputs.select label="{{__('webCaption.region.title')}}"  id="" for="region_id" name="region_id" placeholder="{{__('webCaption.region.title')}}" editSelected="{{old('region_id',$data->region_id)}}" required="" :optionData="$regions" />   
                </div>
             </div>
          </div>  
@@ -177,7 +177,7 @@
          <div class="row">
              <div class="col-md-8">
                  <div class="form-group">
-                   <x-admin.form.inputs.textarea id="" for="permit_number" label="{{__('webCaption.permit_number.title')}}" tooltip="{{__('webCaption.permit_number.caption')}}" maxlength="250"  name="permit_no"  placeholder="{{__('webCaption.permit_no.title')}}" 
+                   <x-dash.form.inputs.textarea id="" for="permit_number" label="{{__('webCaption.permit_number.title')}}" tooltip="{{__('webCaption.permit_number.caption')}}" maxlength="250"  name="permit_no"  placeholder="{{__('webCaption.permit_no.title')}}" 
                    value="{{old('permit_no' ,$data->permit_no)}}"  required="" />
                  </div>
             </div>

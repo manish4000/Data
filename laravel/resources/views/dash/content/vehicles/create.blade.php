@@ -43,9 +43,9 @@
                             </div>
                         </div>
                            
-                              <div class="col-md-4">
+                              <div class="col-md-4 col-12">
                                  <div class="row">
-                                        <div class="col-md-7">
+                                        <div class="col-md-7 col-6">
                                             <div class="form-group">
                                                 <x-dash.form.inputs.text  for="stock_number"  maxlength="20" tooltip="{{__('webCaption.stock_number.caption')}}" label="{{__('webCaption.stock_number.title')}}"  class="form-control" name="stock_number"  placeholder="{{__('webCaption.stock_number.title')}}" value="{{old('stock_number', isset($data->title)?$data->stock_number:'' )}}"  required="required" />
                                                     @if ($errors->has('title'))
@@ -54,7 +54,7 @@
                                             </div>
                                         </div>
 
-                                            <div class="col-md-5 pt-2">                     
+                                            <div class="col-md-5 col-6 pt-2 pr-0 mt-50">                     
                                                 <div class="form-group">
                                                     <!-- <x-dash.form.label for="" value="{{__('webCaption.auto_increment.title')}}" class="" tooltip="{{__('webCaption.auto_increment.caption')}}" /> -->
 
@@ -423,9 +423,9 @@
 
                                                 <div class="col-md-2 col-6">
                                                     <div class="form-group">
-                                                       <x-dash.form.inputs.select label="{{__('webCaption.odometer_status.title')}}" 
-                                                        tooltip="{{__('webCaption.odometer_status.caption')}}" for="odometer_status" name="membership"
-                                                         placeholder="{{ __('locale.odometer_status.caption') }}" customClass="vehicle_type"  editSelected="{{(isset($data->membership) && ($data->membership != null)) ? $data->odometer_status :'' }}"    />
+                                                       <x-dash.form.inputs.select label="{{__('webCaption.odometer.title')}}" 
+                                                        tooltip="{{__('webCaption.odometer.caption')}}" for="odometer" name="membership"
+                                                         placeholder="{{ __('locale.odometer.caption') }}" customClass="vehicle_type"  editSelected="{{(isset($data->membership) && ($data->membership != null)) ? $data->odometer :'' }}"    />
                                                          @if($errors->has('membership'))
                                                          <x-dash.form.form_error_messages message="{{ $errors->first('membership') }}"  />
                                                         @endif
@@ -509,7 +509,7 @@
 
                                                 <div class="col-md-2 col-6">
                                                     <div class="form-group">
-                                                       <x-dash.form.inputs.text label="{{__('webCaption.seating_capacity.title')}}" maxlength="3"  for="seating_capacity"  tooltip="{{__('webCaption.seating_capacity.caption')}}"   class="form-control" name="seating_capacity"  placeholder="{{__('webCaption.seating_capacity.title')}}" value="{{old('seating_capacity', isset($data->title)?$data->seating_capacity:'' )}}"   />
+                                                       <x-dash.form.inputs.text label="{{__('webCaption.seating.title')}}" maxlength="3"  for="seating"  tooltip="{{__('webCaption.seating.caption')}}"   class="form-control" name="seating"  placeholder="{{__('webCaption.seating.title')}}" value="{{old('seating', isset($data->title)?$data->seating:'' )}}"   />
                                                         @if ($errors->has('title'))
                                                         <x-dash.form.form_error_messages message="{{ $errors->first('vehicle_title') }}" />
                                                          @endif
@@ -540,24 +540,112 @@
                                                    </div>
                                               </div>
 
-                                              
+
+                                              <div class="col-md-4 col-6">
+                                                  <div class="row">
+                                                     <div class="col-md-4">
+                                                         <div class="form-group">
+                                                             <x-dash.form.inputs.text label="{{__('webCaption.deck_l.title')}}"  for="deck_l"  tooltip="{{__('webCaption.deck_l.caption')}}"   class="form-control" name="deck_l"  placeholder="{{__('webCaption.deck_l.title')}}" value="{{old('m3', isset ($data->title)?$data->deck_l:'' )}}"   />
+                                                             @if ($errors->has('title'))
+                                                              <x-dash.form.form_error_messages message="{{    $errors->first('vehicle_title') }}" />
+                                                               @endif
+                                                          </div>
+                                                       </div> 
+                                                       <div class="col-md-4">
+                                                         <div class="form-group">
+                                                             <x-dash.form.inputs.text label="{{__('webCaption. deck_w.title')}}"  for="deck_w"  tooltip="{{__('webCaption.deck_w.caption')}}"   class="form-control" name="deck_w"  placeholder="{{__('webCaption.deck_w.title')}}" value="{{old('m3', isset ($data->title)?$data->deck_w:'' )}}"   />
+                                                             @if ($errors->has('title'))
+                                                              <x-dash.form.form_error_messages message="{{    $errors->first('vehicle_title') }}" />
+                                                               @endif
+                                                          </div>
+                                                       </div> 
+                                                       <div class="col-md-4">
+                                                         <div class="form-group">
+                                                             <x-dash.form.inputs.text label="{{__('webCaption. deck_h.title')}}"  for="deck_h"  tooltip="{{__('webCaption.deck_h.caption')}}"   class="form-control" name="deck_h"  placeholder="{{__('webCaption.deck_h.title')}}" value="{{old('m3', isset ($data->title)?$data->deck_h:'' )}}"   />
+                                                             @if ($errors->has('title'))
+                                                              <x-dash.form.form_error_messages message="{{    $errors->first('vehicle_title') }}" />
+                                                               @endif
+                                                          </div>
+                                                       </div> 
+                                                    </div>
+                                              </div>
+
+
+                                                      <div class="col-md-2">
+                                                         <div class="form-group">
+                                                             <x-dash.form.inputs.text label="{{__('webCaption. tire_size.title')}}" maxlength="10"  for="tire_size"  tooltip="{{__('webCaption.tire_size.caption')}}"   class="form-control" name="tire_size"  placeholder="{{__('webCaption.tire_size.title')}}" value="{{old('m3', isset ($data->title)?$data->tire_size:'' )}}"   />
+                                                             @if ($errors->has('title'))
+                                                              <x-dash.form.form_error_messages message="{{    $errors->first('vehicle_title') }}" />
+                                                               @endif
+                                                          </div>
+                                                       </div> 
+
+
+
+                                                       <div class="col-md-2">
+                                                         <div class="form-group">
+                                                             <x-dash.form.inputs.text label="{{__('webCaption. front_tire_condition.title')}}"  for="front_tire_condition"  tooltip="{{__('webCaption.front_tire_condition.caption')}}"   class="form-control" name="front_tire_condition"  placeholder="{{__('webCaption.front_tire_condition.title')}}" value="{{old('m3', isset ($data->title)?$data->front_tire_condition:'' )}}"   />
+                                                             @if ($errors->has('title'))
+                                                              <x-dash.form.form_error_messages message="{{    $errors->first('vehicle_title') }}" />
+                                                               @endif
+                                                          </div>
+                                                       </div> 
+
+
+                                                       <div class="col-md-2">
+                                                         <div class="form-group">
+                                                             <x-dash.form.inputs.text label="{{__('webCaption. rear_tire_condition.title')}}"  for="rear_tire_condition"  tooltip="{{__('webCaption.rear_tire_condition.caption')}}"   class="form-control" name="rear_tire_condition"  placeholder="{{__('webCaption.rear_tire_condition.title')}}" value="{{old('m3', isset ($data->title)?$data->rear_tire_condition:'' )}}"   />
+                                                             @if ($errors->has('title'))
+                                                              <x-dash.form.form_error_messages message="{{    $errors->first('vehicle_title') }}" />
+                                                               @endif
+                                                          </div>
+                                                       </div> 
+
+                                                       <div class="col-md-2">
+                                                         <div class="form-group">
+                                                             <x-dash.form.inputs.text label="{{__('webCaption. rear_tire_type.title')}}"  for="rear_tire_type"  tooltip="{{__('webCaption.rear_tire_type.caption')}}"   class="form-control" name="rear_tire_type"  placeholder="{{__('webCaption.rear_tire_type.title')}}" value="{{old('m3', isset ($data->title)?$data->rear_tire_type:'' )}}"   />
+                                                             @if ($errors->has('title'))
+                                                              <x-dash.form.form_error_messages message="{{    $errors->first('vehicle_title') }}" />
+                                                               @endif
+                                                          </div>
+                                                       </div> 
+
+
+                                                       <div class="col-md-4">
+                                                         <div class="form-group">
+                                                             <x-dash.form.inputs.text label="{{__('webCaption.hours.title')}}" maxlength="20"  for="hours"  tooltip="{{__('webCaption.hours.caption')}}"   class="form-control" name="hours"  placeholder="{{__('webCaption.hours.title')}}" value="{{old('m3', isset ($data->title)?$data->hours:'' )}}"   />
+                                                             @if ($errors->has('title'))
+                                                              <x-dash.form.form_error_messages message="{{    $errors->first('vehicle_title') }}" />
+                                                               @endif
+                                                          </div>
+                                                       </div>
+
+
+                                                       <div class="col-md-4">
+                                                         <div class="form-group">
+                                                             <x-dash.form.inputs.text label="{{__('webCaption.horse_power.title')}}"  for="horse_power"  tooltip="{{__('webCaption.horse_power.caption')}}"   class="form-control" name="horse_power"  placeholder="{{__('webCaption.horse_power.title')}}" value="{{old('m3', isset ($data->title)?$data->horse_power:'' )}}"   />
+                                                             @if ($errors->has('title'))
+                                                              <x-dash.form.form_error_messages message="{{    $errors->first('vehicle_title') }}" />
+                                                               @endif
+                                                          </div>
+                                                       </div>                                    
 
                                                 
                                                  
 
                                         <div class="col-md-4 mt-1"> 
-                                            <x-dash.form.inputs.checkbox for="sell_with_warranty" tooltip="{{__('webCaption.sell_with_warranty.caption')}}"  label="{{__('webCaption.sell_with_warranty.title')}}" name="sell_with_warranty"  placeholder="{{__('webCaption.sell_with_warranty.title')}}" value="1" checked="{{ (isset($user->companySalesTeam->sell_with_warranty) && $user->companySalesTeam->sell_with_warranty == '1') ? 'checked' : ''}}" required="" />
+                                            <x-dash.form.inputs.checkbox for="sell_with_warranty" tooltip="{{__('webCaption.sell_with_warranty.caption')}}" labelClass="fs-5 text_relative"  label="{{__('webCaption.sell_with_warranty.title')}}" name="sell_with_warranty"  placeholder="{{__('webCaption.sell_with_warranty.title')}}" value="1" checked="{{ (isset($user->companySalesTeam->sell_with_warranty) && $user->companySalesTeam->sell_with_warranty == '1') ? 'checked' : ''}}" required="" />
                                       </div>
 
 
                                       <div class="col-md-4 mt-1"> 
-                                          <x-dash.form.inputs.checkbox for="service_book_available" tooltip="{{__('webCaption.service_book_available.caption')}}"  label="{{__('webCaption.service_book_available.title')}}" name="service_book_available"  placeholder="{{__('webCaption.service_book_available.title')}}" value="1" checked="{{ (isset($user->companySalesTeam->service_book_available) && $user->companySalesTeam->service_book_available == '1') ? 'checked' : ''}}" required="" />
+                                          <x-dash.form.inputs.checkbox for="service_book_available" tooltip="{{__('webCaption.service_book_available.caption')}}" labelClass="fs-5 text_relative" label="{{__('webCaption.service_book_available.title')}}" name="service_book_available"  placeholder="{{__('webCaption.service_book_available.title')}}" value="1" checked="{{ (isset($user->companySalesTeam->service_book_available) && $user->companySalesTeam->service_book_available == '1') ? 'checked' : ''}}" required="" />
 
                                       </div>
 
 
                                       <div class="col-md-4 mt-1"> 
-                                          <x-dash.form.inputs.checkbox for="owners_manual_available" tooltip="{{__('webCaption.owners_manual_available.caption')}}"  label="{{__('webCaption.owners_manual_available.title')}}" name="owners_manual_available"  placeholder="{{__('webCaption.owners_manual_available.title')}}" value="1" checked="{{ (isset($user->companySalesTeam->owners_manual_available) && $user->companySalesTeam->owners_manual_available == '1') ? 'checked' : ''}}" required="" />
+                                          <x-dash.form.inputs.checkbox for="owners_manual_available" tooltip="{{__('webCaption.owners_manual_available.caption')}}" labelClass="fs-5 text_relative" label="{{__('webCaption.owners_manual_available.title')}}" name="owners_manual_available"  placeholder="{{__('webCaption.owners_manual_available.title')}}" value="1" checked="{{ (isset($user->companySalesTeam->owners_manual_available) && $user->companySalesTeam->owners_manual_available == '1') ? 'checked' : ''}}" required="" />
                                       </div>
 
                     </div>
@@ -581,9 +669,9 @@
                                <x-dash.form.inputs.checkbox for="comfort" tooltip="{{__('webCaption.comfort.caption')}}" labelClass="fw-bolder fs-5"   label="{{__('webCaption.comfort.title')}}" name="comfort"  placeholder="{{__('webCaption.comfort.title')}}" value="1" checked="{{ (isset($user->companySalesTeam->verification) && $user->companySalesTeam->verification == '1') ? 'checked' : ''}}" required="" />
                           
                           
-                               <div class="row pl-2">
+                               <div class="row pl-2 ">
                                @for($i=1; $i<=13; $i++)
-                                  <div class="col-md-3">
+                                  <div class="col-md-3 ">
                                       <x-dash.form.inputs.checkbox for="comfort" tooltip="{{__('webCaption.comfort.caption')}}"  label="{{__('webCaption.comfort.title')}}" name="comfort"  placeholder="{{__('webCaption.comfort.title')}}" value="1" checked="{{ (isset($user->companySalesTeam->verification) && $user->companySalesTeam->verification == '1') ? 'checked' : ''}}" required="" />
                                   </div>
 
@@ -672,7 +760,7 @@
                                 <x-dash.form.label class="fw-bold fs-5" for="" value="{{__('webCaption.good_points.title')}}"  tooltip="{{__('webCaption.good_points.caption')}}" /></div>
 
                                @for($i=1; $i<=13; $i++)
-                                  <div class="col-md-3">
+                                  <div class="col-md-3 pl-3">
                                       <x-dash.form.inputs.checkbox for="good_points" tooltip="{{__('webCaption.good_points.caption')}}"  label="{{__('webCaption.good_points.title')}}" name="good_points"  placeholder="{{__('webCaption.good_points.title')}}" value="1" checked="{{ (isset($user->companySalesTeam->verification) && $user->companySalesTeam->verification == '1') ? 'checked' : ''}}" required="" />
                                   </div>
 
@@ -687,7 +775,7 @@
 
 
                                @for($i=1; $i<=13; $i++)
-                                  <div class="col-md-3">
+                                  <div class="col-md-3 pl-3">
                                       <x-dash.form.inputs.checkbox for="bad_points" tooltip="{{__('webCaption.bad_points.caption')}}"  label="{{__('webCaption.bad_points.title')}}" name="other_features"  placeholder="{{__('webCaption.bad_points.title')}}" value="1" checked="{{ (isset($user->companySalesTeam->verification) && $user->companySalesTeam->verification == '1') ? 'checked' : ''}}" required="" />
                                   </div>
 
@@ -718,15 +806,15 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                     <x-dash.form.inputs.textarea for="other_options" maxlength="2000" rows="8" tooltip="{{__('webCaption.other_options.caption')}}"  label="{{__('webCaption.other_options.title')}}" name="other_options"  placeholder="{{__('webCaption.other_options.title')}}" value="{{ old('other_options', isset($user->companySalesTeam->other_options) ? $user->companySalesTeam->other_options :'') }}" required="" />
-                                    <small>Other Options will display on vehicle detail page.</small>
+                                    <small><x-dash.form.label for="" value="{{__('webCaption.other_options_detail.title')}}" class="" tooltip="{{__('webCaption.other_options_detail.caption')}}" /></small>
                                 </div>
                         </div>
 
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                    <x-dash.form.inputs.textarea for="remarks" maxlength="2000" rows="8" tooltip="{{__('webCaption.remarks.caption')}}"  label="{{__('webCaption.remarks.title')}}" name="remarks"  placeholder="{{__('webCaption.remarks.title')}}" value="{{ old('remarks', isset($user->companySalesTeam->remarks) ? $user->companySalesTeam->remarks :'') }}" required="" />
-                                    <small>Remarks are for internal use only.</small>
+                                    <x-dash.form.inputs.textarea for="remarks" maxlength="1000" rows="8" tooltip="{{__('webCaption.remarks.caption')}}"  label="{{__('webCaption.remarks.title')}}" name="remarks"  placeholder="{{__('webCaption.remarks.title')}}" value="{{ old('remarks', isset($user->companySalesTeam->remarks) ? $user->companySalesTeam->remarks :'') }}" required="" />
+                                    <small><x-dash.form.label for="" value="{{__('webCaption.remarks_internal.title')}}" class="" tooltip="{{__('webCaption.remarks_internal.caption')}}" /></small>
                                 </div>
                         </div>
 
@@ -846,12 +934,12 @@
 
                           <img src="{{asset('assets/dash/assets/images/image/inspection-sheet-img.jpg')}}"  alt="rating" class="img-fluid mx-auto d-block mb-2" required="" />
                            
-                           <p class="mb-0"><strong class="fs-6">Instruction to use :</strong></p>
-                           <p>To mark on the inspection sheet follow the below steps :</p>
+                           <p class="mb-0"><strong class="fs-6"><x-dash.form.label for="" value="{{__('webCaption.instruction_to_use.title')}}" class=""  /></strong></p>
+                           <p><x-dash.form.label for="" value="{{__('webCaption.mark_steps.title')}}" class=""  /></p>
                           <ol>
-                              <li class="pb-1">Bring mouse pointer on the related value. e.g. If you want to mark "Scratch (fist size)" then bring the mouse pointer on the "A1".</li>
-                              <li class="pb-1">Now drag the value where ever you want to mark on the sheet.</li>
-                              <li>To remove or delete any mark from inspection sheet, click on the marked place and use "Delete" or "Backspace" key to delete the value and click to update.</li>
+                              <li class="pb-1"><x-dash.form.label for="" value="{{__('webCaption.bring_mouse.title')}}" class=""  /></li>
+                              <li class="pb-1"><x-dash.form.label for="" value="{{__('webCaption.now_drag.title')}}" class=""  /></li>
+                              <li> <x-dash.form.label for="" value="{{__('webCaption.mark_delete.title')}}" class=""  /></li>
                           </ol>
 
 
@@ -911,9 +999,7 @@
               <div class="card-body">
                   <div class="row">
                         <div class="col-12">
-                            <p>1. Stock Number, Vehicle Status, Type, Make and Model are mandatory fields.<br>
-                                <br>
-                               2. Information of Odometer Status, Interior Grade, Exterior Grade, Engine No., Tire Size, Front Tire Condition, RearTire Condition, Rear Tire Type, Horse Power, Deck Size (LxWxH), Warranty, Service Book, Owners Manual will not show on JCT right now.
+                            <p><x-dash.form.label for="" value="{{__('webCaption.important_note_detail.title')}}" class=""  />
                            </p>
                         </div>        
 
@@ -927,7 +1013,10 @@
                   <div class="col-12">
                         <div class="form-group text-center">
 			               <input type="hidden" name="id" value="@if(isset($user->id) && !empty($user->id)){{$user->id}}@endif" />
-		             	   @if(isset($user->id)) 	<x-dash.form.buttons.update /> @else <x-dash.form.buttons.create/> @endif 
+		             	   @if(isset($user->id)) <x-dash.form.buttons.update /> @else <x-dash.form.buttons.create/> @endif 
+
+
+                           
 		              </div>
                    </div>
              </div>

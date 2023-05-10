@@ -24,10 +24,10 @@
 ?>
 
 
-<div class="form-label">
+<div>
     @if (isset($label))
        <label  @if (isset($tooltip)) title="{{$tooltip}}"  @endif   data-toggle="tooltip"  @if(isset($for)) for='{{ $for }}' @endif > {{ $label }}
-         @if(isset($required) && !empty($required)) <span class="text-danger" style="font-size: 14px;font-weight: bolder"> * </span>  @endif  </label>
+         @if(isset($required) && !empty($required)) <span class="text-danger" style="font-weight: bolder"> * </span>  @endif  </label>
     @endif
 
     <select  class=" <?php echo  $customClass ?> select2"  name="{{$name}}"

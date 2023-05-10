@@ -69,7 +69,7 @@ $customClass = isset($customClass) ? $customClass : '';
 @endphp
 
 @if (isset($label) && isset($for)) 
-  <label  @if (isset($tooltip)) title="{{$tooltip}}"  @endif   data-toggle="tooltip" for='{{ $for }}'>{{ $label }}  @if(isset($required) && !empty($required)) <span class="text-danger" style="font-size: 14px;font-weight: bolder"> * </span>  @endif </label>
+  <label  @if (isset($tooltip)) title="{{$tooltip}}"  @endif   data-toggle="tooltip" for='{{ $for }}'>{{ $label }}  @if(isset($required) && !empty($required)) <span class="text-danger" style="font-weight: bolder"> * </span>  @endif </label>
 @endif
 
 @if (isset($maxlength) && isset($for) )

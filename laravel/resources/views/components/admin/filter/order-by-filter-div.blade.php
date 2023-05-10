@@ -8,11 +8,12 @@ $orderBy_request = isset(request()->order_by)? request()->order_by :'';
 
 switch ($order) {
     case 'asc':
-        $icon = "fa-solid fa-arrow-down-short-wide";
+    $icon = "fa-solid fa-arrow-down-long"; 
   
         break;
     case 'desc':
-        $icon = "fa-solid fa-arrow-up-wide-short";
+     
+        $icon = "fa-solid fa-arrow-up-long";
 
         break;
 }
@@ -20,7 +21,7 @@ switch ($order) {
 if($orderBy_request == $orderBy ){
      $icon = $icon;
 }else{
-    $icon ="fa-solid fa-arrows-up-down";
+    $icon ="";
   
 }
 @endphp
