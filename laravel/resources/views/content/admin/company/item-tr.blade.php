@@ -5,9 +5,20 @@
     </td>
     <td> {{ $item->id}}</td>
 
-    <td> @php echo  str_ireplace( request()->input('search.keyword'), '<span style="background-color:#ffff00">'. request()->input('search.keyword').'</span>',$item->company_name) @endphp </td>
+    <td>
+        @if( request()->input('search.keyword') != '' && (stristr($item->company_name , request()->input('search.keyword'))))
+            <span style="background-color:#ffff00"> {{$item->company_name}} </span>
+        @else
+            {{$item->company_name}}
+        @endif
+    </td>
     <td> 
-        @php echo  str_ireplace( request()->input('search.keyword'), '<span style="background-color:#ffff00">'. request()->input('search.keyword').'</span>',$item->email) @endphp 
+        @if( request()->input('search.keyword') != '' && (stristr($item->email , request()->input('search.keyword'))))
+        <span style="background-color:#ffff00"> {{$item->email}} </span>
+        @else
+            {{$item->email}}
+        @endif
+
     </td>
     <td>  {{ $item->status}} </td>
     {{-- <td>  {{ $item->user->name}} </td> --}}
