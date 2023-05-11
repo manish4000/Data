@@ -792,7 +792,7 @@ class CompanyController extends Controller
 
                         //delete the temp file from database 
  
-                        $company_temp_document_model->where('file_name',$document)->delete();
+                        $company_temp_document_model->where('name',$document)->delete();
                         
                         $document_file = [];
                     }
