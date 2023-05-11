@@ -76,13 +76,7 @@ $doc_file = DB::table('company_documents_temp')->where('session_id',$session_id)
                $('#card-drag-area').append(response);
             }
             });
-        },
-        complete:function(){
-         alert("complete");
-        }
-        
-      
-
+        }      
  
     });
 
