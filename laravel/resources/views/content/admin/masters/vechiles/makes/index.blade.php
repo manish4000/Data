@@ -88,23 +88,28 @@
             $heading_array = [
                                     [
                                         'title' => 'id',
-                                        'orderby' => 'id'
+                                        'orderby' => 'id',
+                                        'classes' => 'width_5 text-center'
                                     ] , 
                                     [
                                         'title' => 'make',
-                                        'orderby' => 'name'
+                                        'orderby' => 'name',
+                                        'classes' => 'width_45 width_xs_70'
                                     ] , 
                                     [
                                         'title' => 'no_of_children',
-                                        'orderby' => 'children_count'
+                                        'orderby' => 'children_count',
+                                        'classes' => 'width_15 width_xs_46'
                                     ] , 
                                     [
                                         'title' => 'display_status',
-                                        'orderby' => 'display'
+                                        'orderby' => 'display',
+                                        'classes' => 'width_14 width_xs_46'
                                     ] , 
                                     [
                                         'title' => 'actions',
-                                        'orderby' => null
+                                        'orderby' => null,
+                                        'classes' => 'width_12 width_xs_100 text-center width_md_15'
                                     ]  
                              ];
             @endphp
@@ -182,58 +187,3 @@ $('.load-child-records').click( function(event){
 @endsection
 
 
-<style type="text/css">
-
-
-
-
-.main_table > .table_header > .common_heading:hover  {background:transparent !important; }
-.main_table > .table_header > .common_heading  { border:#ebe9f1 1px solid; border-left:0px; border-right:0px;}
-.main_table > .table_header > .heading_col { display:table-cell;} 
-.common_heading { }
-.heading_col { border:#ebe9f1 1px solid; border-left:0px; border-right:0px; padding:6px 0 7px 0px;}
-.main_table > .table_header > .common_heading:first-child { width:5% !important; padding:6px 10px !important;}
-/* .main_table > .table_header > .heading_col:nth-child(2) { width:5% !important; padding:6px 21px !important;}
-.main_table > .table_header > .heading_col:nth-child(3) { width:49% !important; padding:6px 10px !important;}
-.main_table > .table_header > .heading_col:nth-child(4) { width:14% !important;padding:6px 0px 6px 21px !important;}
-.main_table > .table_header > .heading_col:nth-child(5) { width:14% !important; padding:6px 0px 6px 21px;}
-.main_table > .table_header > .heading_col:nth-child(6) { width:15% !important;padding:6px 0px !important;text-align:center;}  */
-
-/* .main_table > .table_row > .make_col:first-child { width:5% !important; padding:6px 10px !important;}
-.main_table > .table_row > .make_col:nth-child(2) { width:5% !important; padding:6px 10px !important;}
-.main_table > .table_row > .make_col:nth-child(3) { width:49% !important; padding:6px 10px !important;}
-.main_table > .table_row > .make_col:nth-child(4) { width:14% !important; padding:6px 0px !important;text-align:center;}
-.main_table > .table_row > .make_col:nth-child(5) { width:14% !important; padding:6px 0px !important; text-align:center;}
-.main_table > .table_row > .make_col:nth-child(6) { width:15% !important;padding:6px 0px !important;text-align:center;}  */
-
-
-.heading_col-1-2 {width:5%;}
-.heading_col-3 {width:42.8571% ;}
-.heading_col-4-5 {width:28.5714%;}
-.heading_col-5-6 {width:28.5714%;}
-
-
-.heading_col-1-6 {
-   width: calc(100% / 6);
-}
-
-.heading_col-4-6 {
-   width: calc(100% / 6 * 3);
-}
-
-
-
-
-
-
-
-@media only screen and ( min-width:768px ) and ( max-width:1023px ) {
-.heading_col { border:#ebe9f1 1px solid; border-left:0px; border-right:0px; padding:6px 0 26px 16px;}
-.filter-short { top:10px;}
-}
-
-
-
-
-
-</style>

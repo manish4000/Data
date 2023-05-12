@@ -6,23 +6,19 @@
 <div class="table_header" id="master-list" >
 
     
-    <div class="header_col position-for-filter-heading common_heading wt-1">    
+    <div class="header_col position-for-filter-heading common_heading">    
         <x-admin.form.inputs.multiple_select_checkbox id="checkAll"   value="1"  customClass=""  />
     </div>
     
     @if(isset($headingFields) && is_array($headingFields))
-
-
-            @foreach($headingFields as $fields)
-                
+            @foreach($headingFields as $fields)           
             @php
-                $active_class = (isset(request()->order_by) && (request()->order_by == $fields['orderby'] ) )? 'active' :'';
-                
-                $hover_class =  ($fields['orderby'] !== null) ? "header_col" : "" ; 
-            @endphp
+                $active_class = (isset(request()->order_by) && (request()->order_by == $fields['orderby'] ) )? 'active' :'';                
+                $hover_class =  ($fields['orderby'] !== null) ? "header_col" : "" ;
 
-                
-                <div class=" {{$hover_class}} position-for-filter-heading {{$active_class}} heading_col" data-toggle="tooltip"
+                $extra_classes =  ($fields['classes'] !== null) ? $fields['classes'] : "" ;
+            @endphp                
+                <div class=" {{$hover_class}} position-for-filter-heading {{$active_class}} heading_col {{$extra_classes}}" data-toggle="tooltip"
                  title="<?php echo __('webCaption.'.$fields['title'].'.caption') ?>">
                     <?php echo __('webCaption.'.$fields['title'].'.title') ?>
                     
