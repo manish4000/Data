@@ -74,13 +74,13 @@
                             <x-dash.form.label for="" value="{{__('webCaption.status.title')}}" class="" tooltip="{{__('webCaption.status.caption')}}" required="required" />
                             <div>
                                 <div class="form-check-inline">
-                                    <x-dash.form.inputs.radio for="yes" tooltip="{{__('webCaption.yes.caption')}}"
+                                    <x-dash.form.inputs.radio for="active" tooltip="{{__('webCaption.active.caption')}}"
                                     class="border border-danger" name="status"
-                                    label="{{__('webCaption.yes.title')}}" value="Yes"
+                                    label="{{__('webCaption.active.title')}}" value="active"
                                     checked="checked" required="required" />&ensp;
 
-                                    <x-dash.form.inputs.radio for="no" class="border border-danger" name="status"
-                                    tooltip="{{__('webCaption.no.caption')}}" label="{{__('webCaption.no.title')}}" value="No" checked="" required="required" />&ensp;
+                                    <x-dash.form.inputs.radio for="deactive" class="border border-danger" name="status"
+                                    tooltip="{{__('webCaption.deactive.caption')}}" label="{{__('webCaption.deactive.title')}}" value="deactive" checked="" required="required" />&ensp;
                                 </div>
                             </div>
                         </div>
