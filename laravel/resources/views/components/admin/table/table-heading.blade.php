@@ -3,7 +3,7 @@
 ])
 
 
-<div class="table_header" id="master-list" >
+<div class="table_header " id="master-list" >
 
     
     <div class="header_col position-for-filter-heading common_heading">    

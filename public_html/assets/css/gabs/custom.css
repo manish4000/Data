@@ -56,9 +56,9 @@
 .heading_col { border:#ebe9f1 1px solid; border-left:0px; border-right:0px; padding:6px 0 7px 0px;}
 .main_table > .table_header > .common_heading:first-child { width:5% !important; padding:6px 10px !important;}
 
- .main_table > .table_row > .make_col:first-child { width:5% !important; padding:6px 10px !important;}
 
-.width_5 { width:5% !important;}
+
+/* .width_5 { width:5% !important;}
 .width_10 { width:10% !important;}
 .width_12 { width:12% !important;}
 .width_13 { width:13% !important;}
@@ -80,7 +80,7 @@
 .width_85 { width:85% !important;}
 .width_90 { width:90% !important;}
 .width_95 { width:95% !important;}
-.width_100 { width:100% !important;}
+.width_100 { width:100% !important;} */
 
 
 
@@ -103,19 +103,19 @@
 .main_table > .table_header { display: inline-block;}
 .main_table > .table_header > .header_col {display:inline-flex; padding:6px 18px; border:none;} 
 .main_table > .table_row { display: inline-block;}
-.main_table > .table_row > .make_col {display:inline-flex; padding: 10px 18px; border-bottom:none; }
+
 
 .filter-short {top:-4px;left:-8px;}
 .heading_col { border:none; border-left:0px; border-right:0px; padding:6px 0 7px 16px;}
 
 
 .main_table > .table_header > .common_heading:first-child {width:14% !important;padding:6px 10px !important;}
-.width_xs_20 { width:20% !important;}
+/* .width_xs_20 { width:20% !important;}
 .width_xs_25 { width:25% !important;}
 .width_xs_56 { width:56% !important;}
 .width_xs_70 { width:70% !important;}
 .width_xs_46 { width:46% !important;}
-.width_xs_100 { width:100% !important;}
+.width_xs_100 { width:100% !important;} */
 
 .fa-archive, .fa-edit { position:relative; top:3px;}
 

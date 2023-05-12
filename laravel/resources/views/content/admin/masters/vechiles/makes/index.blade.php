@@ -187,3 +187,20 @@ $('.load-child-records').click( function(event){
 @endsection
 
 
+<style>
+.main_table > .table_row > .make_col:first-child {width:0%; padding: 3px 20px !important; }
+
+
+@media only screen and ( min-width:320px ) and ( max-width:767px ){
+
+.xs_width_50 { width:49% !important;}
+.main_table > .table_row > .make_col {display: inline-block !important; border-bottom:none !important;padding: 5px 12px !important;}
+
+.main_table > .table_row {background:#fbfafa;padding: 0px 18px !important;border-bottom:#cac6d7 1px solid !important;}
+
+
+
+}
+
+
+</style>

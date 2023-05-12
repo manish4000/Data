@@ -27,7 +27,8 @@
 
     <div class="table_row parent-id-{{$item->parent_id}} " style="{{$display}}">
 
-        <div class="make_col wt-1">
+        <div class="make_col width_5 xs_width_50">
+            
             @if($status)
                 <span class="show-referance-data" onclick="showReferanceData('{{$referance_json}}')">   &#x2605;  </span> 
             @else
@@ -35,16 +36,21 @@
             @endif        
         </div>
 
-        <div class="make_col text-center width_5 width_xs_20 @if($childTdColor != '')  {{$childTdColor}}  @endif "><span style="">{{$item->id}}</span>
+        <div class="make_col  width_5 xs_width_50 @if($childTdColor != '')  {{$childTdColor}}  @endif ">
+            <div style="color:#aaa9a9;">ID</div>
+            <span style="">{{$item->id}}</span>
         </div>
 
-               <div  class="make_col width_45 width_xs_70 @if($childTdColor != '') {{$childTdColor}}  @endif" >
-             @php echo  str_ireplace( request()->input('search.keyword'), '<span class="heighlight-string" >'. request()->input('search.keyword').'</span>',$item->name) @endphp
-        </div>
+          <div  class="make_col width_45 xs_width_50 @if($childTdColor != '') {{$childTdColor}}  @endif" >
+               <div style="color:#aaa9a9;">Make</div>
+
+               @php echo  str_ireplace( request()->input('search.keyword'), '<span class="heighlight-string" >'. request()->input('search.keyword').'</span>',$item->name) @endphp
+          </div>
        
 
-        <div class="make_col width_15 width_xs_25 text-center"> 
-            @if( $item->children_count > 0 )
+        <div class="make_col width_15 xs_width_50 "> 
+              <div style="color:#aaa9a9;">No. Of Child</div>
+              @if( $item->children_count > 0 )
                 @php
                     $collapsedClass = 'collasped';
                     $caretClass = 'fa-caret-right';
@@ -60,7 +66,9 @@
                 {{$item->children_count}}
             @endif                                        
         </div>
-        <div class="make_col width_13 width_xs_20 text-center">
+        <div class="make_col width_13 xs_width_50 ">
+           <div style="color:#aaa9a9;">Display Status</div>
+
             @php
                 $displayStatusChecked = '';
                 if( strcasecmp($item->display, 'Yes') == 0) {
@@ -73,7 +81,8 @@
         </div>
 
 
-        <div class="make_col width_12 width_xs_25 text-center width_md_15">
+        <div class="make_col width_12 xs_width_50  width_md_15">
+           <div style="color:#aaa9a9; padding-top:13px;">Action</div>
                 @can('main-navigation-masters-vehicle-make-edit')
                 <x-admin.form.buttons.edit href="{{ route('masters.vehicle.make.edit', $item->id) }}" />
                 @endcan

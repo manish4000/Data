@@ -17,6 +17,8 @@ use App\Http\Controllers\Dash\Masters\ExpensesController;
 use App\Http\Controllers\Dash\Masters\VendorTypeController;
 use App\Http\Controllers\Dash\MAsters\MainCategoryController;
 use App\Http\Controllers\Dash\Masters\SubCategoryController;
+use App\Http\Controllers\Dash\Masters\YardsController;
+use App\Http\Controllers\Dash\Masters\RatingController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -34,12 +36,14 @@ Route::middleware('dash')->name('dash')->group(function(){
 
     Route::group(['middleware' => 'dashauth'], function () {
 
-
+        Route::group(['prefix'=>'accounts','namespace'=>'Dash'],function(){
         //upload images in temprary file and get 
-        Route::post('/upload-documents',  'Dash/CommomController@uploadDocuments')->name('multiple-image-upload-temp');
-        Route::post('/fetch-document', 'Dash/CommomController@fetchDocuments')->name('get-images-temp');
-        Route::post('/delete-document', 'Dash/CommomController@deleteDocument')->name('delete-temp-image');
+        Route::post('/upload-documents',  'CommonController@uploadDocuments')->name('multiple-image-upload-temp');
+        Route::post('/fetch-document', 'CommonController@fetchDocuments')->name('get-images-temp');
+        Route::post('/delete-document', 'CommonController@deleteDocument')->name('delete-temp-image');
+        Route::post('/rotate-image', 'CommonController@rotateImage')->name('rotate-image');
         //common methods end 
+        });
 
         Route::post('country-list','Dash/StateCityController@countryList')->name('country-list');
         Route::post('state-list','Dash/StateCityController@stateList')->name('state-list');
@@ -121,9 +125,6 @@ Route::middleware('dash')->name('dash')->group(function(){
         
         Route::group(['prefix'=>'company','namespace'=>'Dash','as' => 'company.'],function(){
             Route::get('/create',function(){ return view('dash.content.company.create'); });
-
-
-
         });
 
         Route::get('/logout','Dash\Auth\LoginController@logout')->name('logout');
@@ -161,7 +162,37 @@ Route::middleware('dash')->name('dash')->group(function(){
         Route::post('state-list','Dash\BankDetailsController@stateList')->name('state-list');
         Route::post('city-list','Dash\BankDetailsController@cityList')->name('city-list');
 
+        Route::group(['prefix'=>'erp-expenses','namespace'=>'Dash','as' => 'erp-expenses.'],function(){
+            Route::get('/',function(){ return view('dash.content.erp-expenses.create'); });
+        });
+
+        Route::group(['prefix'=>'spare-parts','namespace'=>'Dash','as' => 'spare-parts.'],function(){
+
+            Route::group(['prefix'=>'purchase','as' => 'purchase.'],function(){
+                Route::get('/',function(){ return view('dash.content.spare_parts.purchase.create'); });
+            });
+
+            Route::group(['prefix'=>'sales','as' => 'sales.'],function(){
+                Route::get('/',function(){ return view('dash.content.spare_parts.sales.create'); });
+            });
+            
+        });
+
         Route::group(['prefix'=>'masters','namespace'=>'Dash\Masters','as' => 'masters.'],function(){
+
+            Route::group(['prefix'=>'common','as' => 'common.'],function(){
+
+                Route::group(['prefix'=>'yards','as' => 'yards.'],function(){
+                    Route::get('/','YardsController@index')->name('index');
+                    Route::get('/create','YardsController@create')->name('create');
+                    Route::post('/store','YardsController@store')->name('store');
+                    Route::get('edit/{id}','YardsController@edit')->name('edit');
+                    Route::post('/delete', 'YardsController@destroy')->name('delete'); 
+                    Route::post('/delete-multiple','YardsController@deleteMultiple')->name('delete-multiple');
+                    Route::post('/update-status','YardsController@updateStatus')->name('update-status');
+                });
+
+            });
 
             Route::group(['prefix'=>'spare-parts','as' => 'spare-parts.'],function(){
 
@@ -195,6 +226,9 @@ Route::middleware('dash')->name('dash')->group(function(){
                 Route::group(['prefix'=>'shipid','as' => 'shipid.'],function(){
                     Route::get('/create',function(){ return view('dash.content.masters.erp.shipid.create'); });
                 });
+                Route::group(['prefix'=>'online-payments','as' => 'online-payments.'],function(){
+                    Route::get('/',function(){ return view('dash.content.masters.erp.online_payments.create'); });
+                });
 
                 Route::group(['prefix'=>'expenses','as' => 'expenses.'],function(){
                     // Route::get('/',function(){ return view('dash.content.masters.erp.expenses.create'); });
@@ -222,6 +256,16 @@ Route::middleware('dash')->name('dash')->group(function(){
             });
 
             Route::group(['prefix'=>'crm','as' => 'crm.'],function(){
+
+                Route::group(['prefix'=>'rating','as' => 'rating.'],function(){
+                    Route::get('/','RatingController@index')->name('index');
+                    Route::get('/create','RatingController@create')->name('create');
+                    Route::post('/store','RatingController@store')->name('store');
+                    Route::get('edit/{id}','RatingController@edit')->name('edit');
+                    Route::post('/delete', 'RatingController@destroy')->name('delete'); 
+                    Route::post('/delete-multiple','RatingController@deleteMultiple')->name('delete-multiple');
+                    Route::post('/update-status','RatingController@updateStatus')->name('update-status');
+                });
 
                 Route::group(['prefix'=>'black-list','as' => 'black-list.'],function(){
                     Route::get('/create',function(){ return view('dash.content.masters.crm.blacklist.create'); })->name('create');

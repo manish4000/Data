@@ -29,6 +29,9 @@ use App\Http\Controllers\Admin\Masters\IntGradeController;
 use App\Http\Controllers\Admin\Masters\VehicleStatusController;
 use App\Http\Controllers\Admin\Masters\AssociationController;
 use App\Http\Controllers\Admin\Masters\BusinessTypeController;
+use App\Http\Controllers\Admin\Masters\RolesController;
+use App\Http\Controllers\Admin\Masters\OnlinePaymentsController;
+use App\Http\Controllers\Admin\Masters\PersonTitleController;
 use App\Http\Controllers\Admin\Masters\SupportLanguagesController;
 use App\Http\Controllers\Admin\Masters\MarketingStatusController;
 use App\Http\Controllers\Admin\Masters\SubTypeController;
@@ -651,6 +654,42 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
                 Route::get('/create', [BankController::class, 'create'])->name('create');
                 Route::post('/getChildList', [BankController::class,'getChildList']);
                 Route::post('/delete-multiple', [BankController::class,'deleteMultiple'])->name('delete-multiple');
+            });
+
+            Route::group(['prefix' => 'roles' , 'as' => 'roles.'],function(){
+                Route::get('/', [RolesController::class, 'index'])->name('index'); 
+                Route::post('/store', [RolesController::class, 'store'])->name('store');
+                Route::post('/update-status', [RolesController::class, 'updateStatus'])->name('update-status');      
+                Route::post('/delete', [RolesController::class, 'destroy'])->name('delete');
+                Route::get('/edit/{id}', [RolesController::class, 'edit'])->name('edit');
+                Route::get('/add', [RolesController::class, 'add'])->name('add');
+                Route::get('/create', [RolesController::class, 'create'])->name('create');
+                Route::post('/getChildList', [RolesController::class,'getChildList']);
+                Route::post('/delete-multiple', [RolesController::class,'deleteMultiple'])->name('delete-multiple');
+            });
+
+            Route::group(['prefix' => 'online-payments' , 'as' => 'online-payments.'],function(){
+                Route::get('/', [OnlinePaymentsController::class, 'index'])->name('index'); 
+                Route::post('/store', [OnlinePaymentsController::class, 'store'])->name('store');
+                Route::post('/update-status', [OnlinePaymentsController::class, 'updateStatus'])->name('update-status');      
+                Route::post('/delete', [OnlinePaymentsController::class, 'destroy'])->name('delete');
+                Route::get('/edit/{id}', [OnlinePaymentsController::class, 'edit'])->name('edit');
+                Route::get('/add', [OnlinePaymentsController::class, 'add'])->name('add');
+                Route::get('/create', [OnlinePaymentsController::class, 'create'])->name('create');
+                Route::post('/getChildList', [OnlinePaymentsController::class,'getChildList']);
+                Route::post('/delete-multiple', [OnlinePaymentsController::class,'deleteMultiple'])->name('delete-multiple');
+            });
+
+            Route::group(['prefix' => 'person-title' , 'as' => 'person-title.'],function(){
+                Route::get('/', [PersonTitleController::class, 'index'])->name('index'); 
+                Route::post('/store', [PersonTitleController::class, 'store'])->name('store');
+                Route::post('/update-status', [PersonTitleController::class, 'updateStatus'])->name('update-status');      
+                Route::post('/delete', [PersonTitleController::class, 'destroy'])->name('delete');
+                Route::get('/edit/{id}', [PersonTitleController::class, 'edit'])->name('edit');
+                Route::get('/add', [PersonTitleController::class, 'add'])->name('add');
+                Route::get('/create', [PersonTitleController::class, 'create'])->name('create');
+                Route::post('/getChildList', [PersonTitleController::class,'getChildList']);
+                Route::post('/delete-multiple', [PersonTitleController::class,'deleteMultiple'])->name('delete-multiple');
             });
 
         });
