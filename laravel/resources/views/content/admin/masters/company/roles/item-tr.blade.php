@@ -57,7 +57,7 @@
            {{-- pass in  deleteSingleData(id , name ,url ) for delete  --}}
 
            @can('masters-company-roles-delete')
-            <x-admin.form.buttons.delete id="{{$item->id}}" name="{{$item->name}}" url="{{route('masters.company.rolex.delete')}}" action="{{route('masters.company.roles.delete',$item->id)}}" /> 
+            <x-admin.form.buttons.delete id="{{$item->id}}" name="{{$item->name}}" url="{{route('masters.company.roles.delete')}}" action="{{route('masters.company.roles.delete',$item->id)}}" /> 
            @endcan
         </td>
     </tr>
