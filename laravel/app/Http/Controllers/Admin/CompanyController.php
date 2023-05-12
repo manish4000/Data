@@ -742,47 +742,16 @@ class CompanyController extends Controller
 
                 //this is for upload multiple files  
 
-                // if($request->has('document')){
-                   
-                //     $company_document_model =   new CompanyDocument;
-
-                //     foreach($request->document as $key => $document){
-                        
-                //         $doc = time().rand(1,9999).'_document.'.$document->extension();  
-                //         $document->move(public_path('company_data').'/'.$folder.'/document' , $doc);
-                //         $document_file['company_id'] = $company_gabs_model->id;
-                //         $document_file['name'] = $doc;
-                //         $document_file['order_by'] = $key;
-                //         $document_file['document_name'] = (isset($request->document_name[$key])) ? $request->document_name[$key] :null ;
-                //         $document_file['created_at'] = \Carbon\Carbon::now()->toDateTimeString();
-                //         $document_file['updated_at'] = \Carbon\Carbon::now()->toDateTimeString();
-
-                //         $company_document_model->insert($document_file);
-
-                //         $document_file = [];
-                //     }
-                // }
-                
                 if($request->has('document')){
                    
                     $company_document_model =   new CompanyDocument;
 
-                    $company_temp_document_model  = new CompanyDocumentTemp;
-
                     foreach($request->document as $key => $document){
                         
-                        $from = public_path('gabs_companies/documents_temp/').$document;
-
-                        $to = public_path('company_data').'/'.$folder.'/document'.$document;
-                        $newFolder = public_path('company_data').'/'.$folder;
-
-                        if(!File::isDirectory($newFolder)){
-                            File::makeDirectory($newFolder, 0777, true, true);
-                        }
-
-                        File::move($from ,$to);
+                        $doc = time().rand(1,9999).'_document.'.$document->extension();  
+                        $document->move(public_path('company_data').'/'.$folder.'/document' , $doc);
                         $document_file['company_id'] = $company_gabs_model->id;
-                        $document_file['name'] = $document;
+                        $document_file['name'] = $doc;
                         $document_file['order_by'] = $key;
                         $document_file['document_name'] = (isset($request->document_name[$key])) ? $request->document_name[$key] :null ;
                         $document_file['created_at'] = \Carbon\Carbon::now()->toDateTimeString();
@@ -790,17 +759,44 @@ class CompanyController extends Controller
 
                         $company_document_model->insert($document_file);
 
-                        //delete the temp file from database 
- 
-                        $company_temp_document_model->where('name',$document)->delete();
-                        
                         $document_file = [];
                     }
                 }
-
-
                 
+                // if($request->has('document')){
+                   
+                //     $company_document_model =   new CompanyDocument;
 
+                //     $company_temp_document_model  = new CompanyDocumentTemp;
+
+                //     foreach($request->document as $key => $document){
+                        
+                //         $from = public_path('gabs_companies/documents_temp/').$document;
+
+                //         $to = public_path('company_data').'/'.$folder.'/document'.$document;
+                //         $newFolder = public_path('company_data').'/'.$folder;
+
+                //         if(!File::isDirectory($newFolder)){
+                //             File::makeDirectory($newFolder, 0777, true, true);
+                //         }
+
+                //         File::move($from ,$to);
+                //         $document_file['company_id'] = $company_gabs_model->id;
+                //         $document_file['name'] = $document;
+                //         $document_file['order_by'] = $key;
+                //         $document_file['document_name'] = (isset($request->document_name[$key])) ? $request->document_name[$key] :null ;
+                //         $document_file['created_at'] = \Carbon\Carbon::now()->toDateTimeString();
+                //         $document_file['updated_at'] = \Carbon\Carbon::now()->toDateTimeString();
+
+                //         $company_document_model->insert($document_file);
+
+                //         //delete the temp file from database 
+ 
+                //         $company_temp_document_model->where('name',$document)->delete();
+                        
+                //         $document_file = [];
+                //     }
+                // }
 
 
                     $message = (isset($request->id)) ? __('webCaption.alert_updated_successfully.title') : __('webCaption.alert_added_successfully.title') ;
@@ -1014,7 +1010,7 @@ class CompanyController extends Controller
     public function update(Request $request, $id)
     {   
 
-
+    
         if (!Auth::user()->can('main-navigation-company-edit')) {
             abort(403);
         } 
@@ -1400,21 +1396,21 @@ class CompanyController extends Controller
         }
 
      
-        // if($request->delete_document != '' && $request->delete_document != null){
+        if($request->delete_document != '' && $request->delete_document != null){
 
-        //     $document_delete_data =  CompanyDocument::whereIn('id',$request->delete_document)->get();
+            $document_delete_data =  CompanyDocument::whereIn('id',$request->delete_document)->get();
 
-        //     foreach($document_delete_data as $delete_doc){
+            foreach($document_delete_data as $delete_doc){
 
-        //         if(is_file(public_path('company_data').'/'.$request->gabs_uuid.'/document/'.$delete_doc->name )){
+                if(is_file(public_path('company_data').'/'.$request->gabs_uuid.'/document/'.$delete_doc->name )){
 
-        //             unlink(public_path('company_data').'/'.$company_gabs_model->gabs_uuid.'/document/'.$delete_doc->name);
-        //         }
-        //     }
+                    unlink(public_path('company_data').'/'.$company_gabs_model->gabs_uuid.'/document/'.$delete_doc->name);
+                }
+            }
 
-        //     CompanyDocument::whereIn('id',$request->delete_document)->delete();
+            CompanyDocument::whereIn('id',$request->delete_document)->delete();
 
-        // } 
+        } 
 
 
 
