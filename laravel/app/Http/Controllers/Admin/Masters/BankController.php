@@ -89,6 +89,7 @@ class BankController extends Controller
         $perPage =  (isset($request->perPage) && !empty($request->perPage)) ? $request->perPage : 100;
         $data = $data->paginate($perPage);
         $country = Country::select('id as value', 'name')->orderBy('name')->get();
+
         return view('content.admin.masters.company.bank.list', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs, 'data'=>$data,'perPage' => $perPage, 'country' => $country]);
     }
 
@@ -159,6 +160,7 @@ class BankController extends Controller
         }
 
             $bank_model->name   =   $request->name;    
+
             if(isset($request->country_id) && !empty($request->country_id)){
                 $bank_model->country_id    =   $request->country_id;
 
@@ -179,7 +181,7 @@ class BankController extends Controller
                 }
             }
 
-                $bank_model->parent_id  =   isset($request->parent_id)? $request->parent_id : 0 ;
+                $bank_model->parent_id  =   isset($request->parent_id)? $request->parent_id : '0' ;
                 $bank_model->display    =   $request->display;
                 // $bank_model->title_languages    =   $request->title_languages;
 

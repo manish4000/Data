@@ -5,12 +5,15 @@ namespace App\Http\Controllers\Dash;
 use App\Http\Controllers\Controller;
 use App\Models\CompanyGabsModel;
 use App\Models\Dash\CompanyTestimonial;
+use App\Models\Dash\TestmonialImagesModel;
+use App\Models\DashTempImagesModel;
 use App\Models\Masters\Company\Company;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use App\Models\Masters\Country;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use File;
 
 class TestimonialController extends Controller
 {   
@@ -109,7 +112,7 @@ class TestimonialController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
         
         if (!Auth::guard('dash')->user()->can('common-testimonial-add')) {
             abort(403);
@@ -127,11 +130,11 @@ class TestimonialController extends Controller
             'vehicle_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:6120',
             'operator' => 'nullable|numeric',
             'testimonial_by' => 'required|in:Buyer,Dealer',
-            'jct_remark' => 'required|string',
+            'jct_remark' => 'nullable|string',
             'testimonials_ref_id' => 'nullable|string',
             'rating' => 'nullable|numeric',
-            'youtube_url' => 'required|url',
-            'd_stock_number' => 'required|string',
+            'youtube_url' => 'nullable|url',
+            'd_stock_number' => 'nullable|string',
         ], [
             'title.string' => __('webCaption.validation_string.title', ['field'=>__('webCaption.title.title') ] ),
             'posted_date.date' => __('webCaption.validation_date.title', ['field'=> __('webCaption.posted_date.title') ] ),
@@ -150,15 +153,15 @@ class TestimonialController extends Controller
             'operator.numeric' => __('webCaption.validation_numeric.title', ['field'=> "Operator" ] ),
             'testimonial_by.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.testimonial_by.title') ] ),
             'testimonial_by.in' => __('webCaption.validation_in.title', ['field'=> __('webCaption.testimonial_by.title') ] ),
-            'jct_remark.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.jct_remark.title')] ),
+            // 'jct_remark.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.jct_remark.title')] ),
             'jct_remark.string' => __('webCaption.validation_string.title', ['field'=> __('webCaption.jct_remark.title')] ),
 
             'testimonials_ref_id.string' => __('webCaption.validation_string.title', ['field'=> __('webCaption.jct_remark.title') ] ),
             'rating.numeric' => __('webCaption.validation_numeric.title', ['field'=> __('webCaption.rating.title') ] ),
-            'youtube_url.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.youtube_url.title') ] ),
+            // 'youtube_url.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.youtube_url.title') ] ),
             'youtube_url.url' => __('webCaption.validation_url.title', ['field'=> __('webCaption.youtube_url.title') ] ),
 
-            'd_stock_number.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.stock_number.title') ] ),
+            // 'd_stock_number.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.stock_number.title') ] ),
             'd_stock_number.string' => __('webCaption.validation_string.title', ['field'=> __('webCaption.stock_number.title') ] ),
 
         ]        
@@ -195,19 +198,99 @@ class TestimonialController extends Controller
             $testmonail_model->is_paid =  1  ;
             $testmonail_model->operator = 0; 
 
+
+
+
+
+
+
             if($request->has('image')){
                 $image = time().rand(11111,99999).'.'.$request->image->extension();  
                 $request->image->move(public_path('company_data').'/'.$folder.'/testimonials', $image);
                 $testmonail_model->image = $image;
             }
 
-            if($request->has('vehicle_image')){
-                $vehicle_image = time().rand(11111,99999).'.'.$request->vehicle_image->extension();  
-                $request->vehicle_image->move(public_path('company_data').'/'.$folder.'/testimonials', $vehicle_image);
-                $testmonail_model->vehicle_image = $vehicle_image;
-            }
+            // if($request->has('vehicle_image')){
+            //     $vehicle_image = time().rand(11111,99999).'.'.$request->vehicle_image->extension();  
+            //     $request->vehicle_image->move(public_path('company_data').'/'.$folder.'/testimonials', $vehicle_image);
+            //     $testmonail_model->vehicle_image = $vehicle_image;
+            // }
 
             if($testmonail_model->save()){
+
+              $testmonial_id = (isset($testmonail_model->id)) ? $testmonail_model->id : $request->id;
+                
+             if($request->has('document')){
+                   
+                $dash_temp_images  = new DashTempImagesModel();
+
+                $company_testmimonal_images = new TestmonialImagesModel();
+
+                $newFolder = public_path('company_data').$folder;
+
+                if(!File::isDirectory($newFolder)){
+                    File::makeDirectory($newFolder, 0777, true, true);
+                }
+
+                if($request->id){
+
+                    $company_testmimonal_images->where('company_testimonial_id',$testmonial_id)->delete(); 
+
+                    foreach($request->document as $key => $document){
+                        
+                        $from = public_path('dash/documents_temp/').$document;
+    
+                        $to = public_path('company_data').'/'.$folder.'/testimonials'.$document;
+                        
+                        if(!is_file($to)){
+                            File::move($from ,$to);
+                        }
+      
+                        $document_file['company_testimonial_id'] = $testmonial_id;
+                        $document_file['image'] = $document;
+            
+                        $document_file['image_name'] = (isset($request->document_name[$key])) ? $request->document_name[$key] :'null'; ;
+                        $document_file['created_at'] = \Carbon\Carbon::now()->toDateTimeString();
+                        $document_file['updated_at'] = \Carbon\Carbon::now()->toDateTimeString();
+    
+                        $company_testmimonal_images->insert($document_file);
+    
+                       //delete the temp file from database 
+    
+                        $dash_temp_images->where('name',$document)->delete();
+                        
+                        $document_file = [];
+                    }
+
+                }else{
+
+                    foreach($request->document as $key => $document){
+                        
+                        $from = public_path('dash/documents_temp/').$document;
+    
+                        $to = public_path('company_data').'/'.$folder.'/testimonials'.$document;
+                        
+                        if(File::move($from ,$to)){
+                           
+                        }
+                        $document_file['company_testimonial_id'] = $testmonial_id;
+                        $document_file['image'] = $document;
+            
+                        $document_file['image_name'] = (isset($request->document_name[$key])) ? $request->document_name[$key] :'null'; ;
+                        $document_file['created_at'] = \Carbon\Carbon::now()->toDateTimeString();
+                        $document_file['updated_at'] = \Carbon\Carbon::now()->toDateTimeString();
+    
+                        $company_testmimonal_images->insert($document_file);
+    
+                       //delete the temp file from database 
+    
+                        $dash_temp_images->where('name',$document)->delete();
+                        
+                        $document_file = [];
+                    }
+                }
+            }
+
 
                 $message = (isset($request->id)) ? $request->title." ".__('webCaption.alert_updated_successfully.title') : $request->title." ".__('webCaption.alert_added_successfully.title');
 
@@ -241,9 +324,9 @@ class TestimonialController extends Controller
             abort(403);
         }
 
-        $data =  CompanyTestimonial::find($id);
+        $data =  CompanyTestimonial::with('images')->find($id);
 
-        $phone                = (isset($data->phone)) ? explode('_',$data->phone) : null;
+        $phone       = (isset($data->phone)) ? explode('_',$data->phone) : null;
         $data->phone = ($phone != null) ? $phone[1] : null;
         $country_code = (isset($phone[0]))? $phone[0] :'';
 
@@ -263,6 +346,8 @@ class TestimonialController extends Controller
         $user =   Auth::guard('dash')->user();
         $imageFolder =     CompanyGabsModel::where('id',$user->company_id)->value('gabs_uuid'); 
         $country_phone_code =  Country::select('phone_code as value' ,'country_code' ,DB::raw("CONCAT(country_code,' (',phone_code ,')' ) AS name"))->where('phone_code','!=' ,null)->where('country_code','!=' ,null)->get(['phone_code','country_code']);
+
+
 
         return view('dash.content.testimonial.create',['pageConfigs' => $pageConfigs,'country_code' => $country_code,'country_phone_code' => $country_phone_code ,'imageFolder' => $imageFolder ,'breadcrumbs' => $breadcrumbs ,'data' => $data ,'country' => $country]);
     }
