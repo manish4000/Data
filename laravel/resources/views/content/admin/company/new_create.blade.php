@@ -208,7 +208,7 @@
 
                         <div class="row m-2">
 
-                           @include('components.admin.form.inputs.multiple_image_upload_dropzone',
+                           {{-- @include('components.admin.form.inputs.multiple_image_upload_dropzone',
                               [ 'action' => route('multiple-image-upload-temp') ,
                                 'deleteTempImage' => route('delete-temp-image'),
                                 'acceptedFiles' => ".jpeg,.jpg,.png,.gif",
@@ -217,8 +217,8 @@
                                 'editableImagesPath'=> '',
                                 'uploadPath'   => "gabs_companies/documents_temp/",
                                 'editableImages' => [],                           
-                              ])
-                           {{-- @for($i=0;$i<6;$i++)
+                              ]) --}}
+                           @for($i=0;$i<6;$i++)
                              
                               <div class="col-md-4 mb-1">  
                                  <div class=" border p-1">    
@@ -231,7 +231,7 @@
                                     </div>
                               
                            </div> 
-                           @endfor --}}
+                           @endfor
                        
                            
                      </div>
@@ -447,7 +447,7 @@
 @endsection  
 
 @push('script')
-<script src="{{ asset(mix('vendors/js/extensions/dragula.min.js')) }}"></script>
+{{-- <script src="{{ asset(mix('vendors/js/extensions/dragula.min.js')) }}"></script>
 <script>
      dragula([document.getElementById('card-drag-area')])
     .on('drag', function(el) {
@@ -469,7 +469,7 @@
       el.className += ' ex-over';
       console.log(container);
     });
-</script>
+</script> --}}
   <script>
 
          let  country_id  = "old('country_id')";
