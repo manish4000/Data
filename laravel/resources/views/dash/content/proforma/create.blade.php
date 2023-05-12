@@ -9,7 +9,6 @@
     <form action="{{route('dashmembers.store')}}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="card card-primary">
-
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4">

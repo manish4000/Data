@@ -128,7 +128,6 @@ class ClientController extends Controller
             'title'        => 'required|string',
             'status'        => 'required',
             'name'          => 'required|max:100',
-            //'company_name'  => 'required',
             'customer_uid'  => 'required|numeric',
             'password'      => 'nullable|min:8',
             'email_1'       => 'required|max:45|unique:clients,email_1,'.$request->id. ',id,deleted_at,NULL',
@@ -171,7 +170,6 @@ class ClientController extends Controller
         [
             'title.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.title.title') ] ),
             'title.string'=> __('webCaption.validation_string.title', ['field'=> __('webCaption.title.title') ] ),
-            //'company_name.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.company_name.title') ] ),
             'name.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.name.title') ] ),
             'name.max' => __('webCaption.validation_max.title', ['field'=> __('webCaption.name.title') ] ),
             'customer_uid.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.customer_uid.title') ] ),

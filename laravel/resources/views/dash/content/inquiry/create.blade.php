@@ -313,10 +313,10 @@
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
-                            <x-dash.form.inputs.textarea id="" for="memo" tooltip="{{__('webCaption.memo.caption')}}"
-                                label="{{__('webCaption.memo.title')}}" maxlength="1000" class="form-control"
-                                name="memo" placeholder="{{__('webCaption.memo.title')}}"
-                                value="{{old('memo', isset($data->memo)?$data->memo:'' )}}" required="" />
+                            <x-dash.form.inputs.textarea id="" for="admin_memo" tooltip="{{__('webCaption.admin_memo.caption')}}"
+                                label="{{__('webCaption.admin_memo.title')}}" maxlength="1000" class="form-control"
+                                name="admin_memo" placeholder="{{__('webCaption.admin_memo.title')}}"
+                                value="{{old('admin_memo', isset($data->admin_memo)?$data->admin_memo:'' )}}" required="" />
                         </div>
                     </div>
                 </div>
