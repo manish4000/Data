@@ -23,8 +23,8 @@ class CreateSubCategoriesTable extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
-    }
-
+    
+    }   
     /**
      * Reverse the migrations.
      *
