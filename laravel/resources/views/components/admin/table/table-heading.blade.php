@@ -16,7 +16,7 @@
                 $active_class = (isset(request()->order_by) && (request()->order_by == $fields['orderby'] ) )? 'active' :'';                
                 $hover_class =  ($fields['orderby'] !== null) ? "header_col" : "" ;
 
-                $extra_classes =  ($fields['classes'] !== null) ? $fields['classes'] : "" ;
+                 $extra_classes = (  isset($fields['classes']) && ( $fields['classes'] !== null)) ? $fields['classes'] : "" ;
             @endphp                
                 <div class=" {{$hover_class}} position-for-filter-heading {{$active_class}} heading_col {{$extra_classes}}" data-toggle="tooltip"
                  title="<?php echo __('webCaption.'.$fields['title'].'.caption') ?>">
