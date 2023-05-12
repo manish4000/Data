@@ -223,7 +223,7 @@
                </div>
                <hr class="m-0 p-0">
 
-               {{-- <div class="row m-2">
+               <div class="row m-2">
                 @for($i=0;$i<6;$i++)
 
                   @php
@@ -278,9 +278,9 @@
                     </div>     
                   </div>
                 @endfor
-               </div> --}}
+               </div>
 
-               @include('components.admin.form.inputs.multiple_image_upload_dropzone',
+               {{-- @include('components.admin.form.inputs.multiple_image_upload_dropzone',
                [ 'action' => route('multiple-image-upload-temp') ,
                  'deleteTempImage' => route('delete-temp-image'),
                  'acceptedFiles' => ".jpeg,.jpg,.png,.gif",
@@ -289,7 +289,7 @@
                  'uploadPath'   => "gabs_companies/documents_temp/",
                  'editableImagesPath' => 'company_data/'.$data->gabs_uuid.'/document',
                  'editableImages' => $data->documents,                           
-               ])
+               ]) --}}
 
             </div>
          </div>

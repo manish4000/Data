@@ -15,9 +15,9 @@
         </td>
         <td>
             @if(!empty($item->icon) && isset($item->icon) && is_file(public_path('social_media').'/'.$item->icon))
-            <img src="{{asset('social_media')}}/{{$item->icon}}" alt="icon" class="rounded" id="icon-preview" width="60" height="60">
+            <img src="{{asset('social_media')}}/{{$item->icon}}" alt="icon" class="rounded" id="icon-preview" width="40" height="40">
             @else
-            <img src="{{asset('assets/images/portrait/small/no-photo.jpg')}}" alt="icon" class="rounded" id="icon-preview" width="60" height="60">
+            <img src="{{asset('assets/images/portrait/small/no-photo.jpg')}}" alt="icon" class="rounded" id="icon-preview" width="40" height="40">
             @endif
         </td>
         <td>

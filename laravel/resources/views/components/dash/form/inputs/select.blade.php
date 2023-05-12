@@ -13,6 +13,7 @@
     'customClass',
     'onChange',
     'data_attr',
+    'disabled'
 ])
 
 <?php  $customClass = (isset($customClass)) ? $customClass :''; 
@@ -20,6 +21,7 @@
     /* if(isset($editSelected)){
         echo $editSelected;
     } */
+    $disabled = isset($disabled) ? $disabled : '';
 
 ?>
 
@@ -33,8 +35,8 @@
     <select  class=" <?php echo  $customClass ?> select2"  name="{{$name}}"
     
        @if(isset($for)) id="{{ $for }}" @endif   @if(isset($required)) {{ $required }} @endif
-       @if(isset($onChange)) onchange="{{$onChange}}" @endif 
-       >
+       @if(isset($onChange)) onchange="{{$onChange}}" @endif  {{$disabled}}
+       > 
 
             <option value="" data_attr=""> Select </option>
             @if(isset($optionData) && count($optionData) > 0)
