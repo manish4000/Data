@@ -41,14 +41,14 @@
                             <x-dash.form.inputs.select  for="carrier_name"  tooltip="{{__('webCaption.carrier_name.caption')}}" label="{{__('webCaption.carrier_name.title')}}" name="carrier_name"  placeholder="{{__('webCaption.carrier_name.title')}}" value="{{old('carrier_name', isset($data->carrier_name)?$data->carrier_name:'' )}}" required="required"/>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-6">
                         <div class="form-group">
                             <x-dash.form.inputs.text  for="voyage_number"  tooltip="{{__('webCaption.voyage_number.caption')}}" label="{{__('webCaption.voyage_number.title')}}" maxlength="20" name="voyage_number"  placeholder="{{__('webCaption.voyage_number.title')}}" value="{{old('voyage_number', isset($data->voyage_number)?$data->voyage_number:'' )}}"/>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-6">
                         <div class="form-group">
-                            <x-dash.form.inputs.number  for="booking_number"  tooltip="{{__('webCaption.booking_number.caption')}}" label="{{__('webCaption.booking_number.title')}}"  name="booking_number"  placeholder="{{__('webCaption.booking_number.title')}}" value="{{old('booking_number', isset($data->booking_number)?$data->booking_number:'' )}}"/>
+                            <x-dash.form.inputs.number  for="booking_number"  tooltip="{{__('webCaption.booking_number.caption')}}" maxlength="20" label="{{__('webCaption.booking_number.title')}}"  name="booking_number"  placeholder="{{__('webCaption.booking_number.title')}}" value="{{old('booking_number', isset($data->booking_number)?$data->booking_number:'' )}}"/>
                         </div>
                     </div>
                     <div class="col-md-4">

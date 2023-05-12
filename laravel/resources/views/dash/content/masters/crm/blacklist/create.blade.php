@@ -29,6 +29,21 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
+                            <x-dash.form.inputs.select  for="block_from" tooltip="{{__('webCaption.block_from.caption')}}" label="{{__('webCaption.block_from.title')}}"   name="block_from"  placeholder="{{__('webCaption.block_from.title')}}" value="{{old('block_from', isset($data->block_from)?$data->block_from:'' )}}"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <x-dash.form.inputs.hidden  for="hidden" tooltip="{{__('webCaption.hidden.caption')}}" label="{{__('webCaption.hidden.title')}}"   name="hidden"  placeholder="{{__('webCaption.hidden.title')}}" value="{{old('hidden', isset($data->hidden)?$data->hidden:'' )}}"/>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <x-dash.form.inputs.textarea id="" for="block_reason" tooltip="{{__('webCaption.block_reason.caption')}}"  label="{{__('webCaption.block_reason.title')}}" maxlength="1000" class="form-control" name="block_reason"  placeholder="{{__('webCaption.block_reason.title')}}" value="{{old('block_reason', isset($data->block_reason)?$data->block_reason:'' )}}"  required="" />   
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
                             <x-dash.form.label for="" value="{{__('webCaption.stop_emails.title')}}" class=""  tooltip="{{__('webCaption.stop_emails.caption')}}"/>
                             <div>
                                 <div class=" form-check-inline">
@@ -65,12 +80,6 @@
                                     <x-dash.form.inputs.radio for="Permanent" class="border border-danger" name="block_type" tooltip="{{__('webCaption.permanent.caption')}}" label="{{__('webCaption.permanent.title')}}" value="Permanent"  required="required"  checked="" />&ensp;
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-8">
-                        <div class="form-group">
-                            <x-dash.form.inputs.textarea id="" for="block_reason" tooltip="{{__('webCaption.block_reason.caption')}}"  label="{{__('webCaption.block_reason.title')}}" maxlength="1000" class="form-control" name="block_reason"  placeholder="{{__('webCaption.block_reason.title')}}" value="{{old('block_reason', isset($data->block_reason)?$data->block_reason:'' )}}"  required="" />   
                         </div>
                     </div>
 

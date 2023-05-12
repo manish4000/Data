@@ -19,113 +19,99 @@
            </div>
            <div class="card-body">
               <div class="row">
-                <div class="col-md-8">
-                    <div class="form-group">
-                       <x-dash.form.inputs.text id="" for="company_name" tooltip="{{__('webCaption.company_name.caption')}}" label="{{__('webCaption.company_name.title')}}" maxlength="100" class="form-control" name="company_name"  placeholder="{{__('webCaption.company_name.title')}}" value="{{old('company_name', isset($data->company_name)?$data->company_name:'' )}}"  required="required" />
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                       <x-dash.form.inputs.email id="" for="email" tooltip="{{__('webCaption.email.caption')}}" label="{{__('webCaption.email.title')}}" maxlength="45" class="form-control" name="email"  placeholder="{{__('webCaption.email.title')}}" value="{{old('email', isset($data->email)?$data->email:'' )}}"  required="required" />
-                    </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-4">
-                   <div class="form-group">
-                      <x-dash.form.inputs.select label="{{__('webCaption.country.title')}}" 
-                         tooltip="{{__('webCaption.country.caption')}}" for="country_id" name="country_id" :optionData="$country"
-                         placeholder="{{ __('locale.country.caption') }}" customClass="country"  editSelected="{{(isset($data->country_id) && ($data->country_id != null)) ? $data->country_id :'' }}"  required="required"  />
-                   </div>
-                </div>
-                <div class="col-md-4">
-                   <div class="form-group">
-                      <x-dash.form.inputs.select label="{{__('webCaption.state.title')}}" 
-                         tooltip="{{__('webCaption.state.caption')}}" for="state_id" name="state_id"
-                         placeholder="{{ __('locale.state.caption') }}" customClass="state"  required=""  />
-                   </div>
-                </div>
-                <div class="col-md-4">
-                   <div class="form-group">
-                      <x-dash.form.inputs.select label="{{__('webCaption.city.title')}}" 
-                         tooltip="{{__('webCaption.city.caption')}}" for="city_id" name="city_id"
-                         placeholder="{{ __('locale.city.caption') }}" customClass="city"   required=""  />
-                   </div>
-                </div>
-             </div>
-             <div class="row">
-                <div class="col-md-4">
-                   <div class="form-group">
-                      <x-dash.form.inputs.text  for="skype_id"  maxlength="50" tooltip="{{__('webCaption.skype.caption')}}" label="{{__('webCaption.skype.title')}}"  class="form-control" name="skype_id"  placeholder="{{__('webCaption.skype.title')}}" value="{{old('skype_id', isset($data->skype_id)?$data->skype_id:'' )}}"  required="" />
-                   </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                       <x-dash.form.inputs.text id="" for="post_code" tooltip="{{__('webCaption.post_code.caption')}}" label="{{__('webCaption.post_code.title')}}" maxlength="100"  class="form-control" name="postcode"  placeholder="{{__('webCaption.post_code.title')}}" value="{{old('postcode', isset($data->postcode)? $data->postcode:'' )}}"  required="" />
-                    </div>
-                 </div>
-               <div class="col-md-4">
-                <div class="form-group">
-                    <x-dash.form.inputs.text id="" for="website" tooltip="{{__('webCaption.website.caption')}}" label="{{__('webCaption.website.title')}}" maxlength="75"  class="form-control" name="website"  placeholder="{{__('webCaption.website.title')}}" value="{{old('website', isset($data->website)? $data->website:'' )}}"  required="" />
-                </div>
+                  <div class="col-md-12">
+                     <div class="form-group">
+                        <x-dash.form.inputs.text id="" for="company_name" tooltip="{{__('webCaption.company_name.caption')}}" label="{{__('webCaption.company_name.title')}}" maxlength="100" class="form-control" name="company_name"  placeholder="{{__('webCaption.company_name.title')}}" value="{{old('company_name', isset($data->company_name)?$data->company_name:'' )}}"  required="required" />
+                     </div>
+                  </div>
+                  <div class="col-md-12">
+                     <div class="form-group">
+                        <x-dash.form.inputs.textarea id="" for="address" tooltip="{{__('webCaption.address.caption')}}" label="{{__('webCaption.address.title')}}" maxlength="255"  class="form-control" name="address"  placeholder="{{__('webCaption.address.title')}}" value="{{old('address', isset($data->address)? $data->address:'' )}}"  required="" />   
+                     </div>
+                  </div>
+                  <div class="col-md-4">
+                     <div class="form-group">
+                        <x-dash.form.inputs.select label="{{__('webCaption.country.title')}}" 
+                           tooltip="{{__('webCaption.country.caption')}}" for="country_id" name="country_id" :optionData="$country"
+                           placeholder="{{ __('locale.country.caption') }}" customClass="country"  editSelected="{{(isset($data->country_id) && ($data->country_id != null)) ? $data->country_id :'' }}" disabled="disabled" required="required" />
+                     </div>
+                  </div>
+                  <div class="col-md-4">
+                     <div class="form-group">
+                        <x-dash.form.inputs.select label="{{__('webCaption.state.title')}}" 
+                           tooltip="{{__('webCaption.state.caption')}}" for="state_id" name="state_id"
+                           placeholder="{{ __('locale.state.caption') }}" customClass="state"  required=""  />
+                     </div>
+                  </div>
+                  <div class="col-md-4">
+                     <div class="form-group">
+                        <x-dash.form.inputs.select label="{{__('webCaption.city.title')}}" 
+                           tooltip="{{__('webCaption.city.caption')}}" for="city_id" name="city_id"
+                           placeholder="{{ __('locale.city.caption') }}" customClass="city"   required=""  />
+                     </div>
+                  </div>
+                  <div class="col-md-4">
+                     <div class="form-group">
+                        <x-dash.form.inputs.text id="" for="zip_code" tooltip="{{__('webCaption.zip_code.caption')}}" label="{{__('webCaption.zip_code.title')}}" maxlength="100"  class="form-control" name="postcode"  placeholder="{{__('webCaption.zip_code.title')}}" value="{{old('postcode', isset($data->postcode)? $data->postcode:'' )}}"  required="" />
+                     </div>
+                  </div>
+                  <div class="col-md-4">
+                     <div class="form-group">
+                        <x-dash.form.inputs.email id="" for="email" tooltip="{{__('webCaption.email.caption')}}" label="{{__('webCaption.email.title')}}" maxlength="45" class="form-control" name="email"  placeholder="{{__('webCaption.email.title')}}" value="{{old('email', isset($data->email)?$data->email:'' )}}"  required="required" />
+                     </div>
+                  </div>
+                  <div class="col-md-4">
+                     <div class="form-group">
+                        <x-dash.form.inputs.text id="" for="website" tooltip="{{__('webCaption.website.caption')}}" label="{{__('webCaption.website.title')}}" maxlength="75"  class="form-control" name="website"  placeholder="{{__('webCaption.website.title')}}" value="{{old('website', isset($data->website)? $data->website:'' )}}"  required="" />
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <fieldset>
+                        <div class="row">
+                           <div class="col-md-3 col-5">
+                              <div class="form-group">
+                                 <x-dash.form.inputs.select  tooltip="{{__('webCaption.country_code.caption')}}"  label="{{__('webCaption.country_code.title')}}"  id="" for="country_code1" name="country_code"  required="" :optionData="[]"  editSelected="{{(isset($country_code) && ($country_code != null)) ? $country_code : ''; }}" />
+                              </div>
+                           </div>
+                           <div class="col-md-5 col-7 px-0">
+                              <div class="form-group">
+                                 <x-dash.form.inputs.text  for="telephone"  maxlength="20" tooltip="{{__('webCaption.telephone.caption')}}" label="{{__('webCaption.telephone.title')}}"  class="form-control" name="telephone"  placeholder="{{__('webCaption.telephone.title')}}" value="{{old('telephone', isset($data->telephone)?$data->telephone:'' )}}"  required="" /> 
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="form-group">
+                                 @include('components.dash.form.inputs.messenger_common', ['id' =>
+                                 'messenger_1', 'name' => 'messenger_1'])
+                              </div>
+                           </div>
+                        </div>
+                     </fieldset>
+                  </div>
+                  <div class="col-md-6">
+                     <fieldset>
+                        <div class="row">
+                           <div class="col-md-3 col-5">
+                              <div class="form-group">
+                              <x-dash.form.inputs.select  tooltip="{{__('webCaption.country_code.caption')}}"  label="{{__('webCaption.country_code.title')}}"  id="" for="country_code2" name="country_code"  required="" :optionData="[]"  editSelected="{{(isset($country_code) && ($country_code != null)) ? $country_code : ''; }}" />
+                              </div>
+                           </div>
+                           <div class="col-md-5 col-7 px-0">
+                              <div class="form-group">
+                                 <x-dash.form.inputs.text  for="Mobile"  maxlength="20" tooltip="{{__('webCaption.mobile.caption')}}" label="{{__('webCaption.mobile.title')}}"  class="form-control" name="mobile"  placeholder="{{__('webCaption.mobile.title')}}" value="{{old('mobile', isset($data->mobile)?$data->mobile:'' )}}"  required="" />
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="form-group">
+                                 @include('components.dash.form.inputs.messenger_common', ['id' =>
+                                 'messenger_2', 'name' => 'messenger_2'])
+                              </div>
+                           </div>
+                        </div>
+                     </fieldset>
+                  </div>
+                  
+                  
                </div>
-                <div class="col-md-6">
-                   <fieldset>
-                      <div class="row">
-                         <div class="col-md-3 col-5">
-                            <div class="form-group">
-                              <x-dash.form.inputs.select  tooltip="{{__('webCaption.country_code.caption')}}"  label="{{__('webCaption.country_code.title')}}"  id="" for="country_code1" name="country_code"  required="" :optionData="[]"  editSelected="{{(isset($country_code) && ($country_code != null)) ? $country_code : ''; }}" />
-                            </div>
-                         </div>
-                         <div class="col-md-5 col-7 px-0">
-                            <div class="form-group">
-                               <x-dash.form.inputs.text  for="telephone"  maxlength="20" tooltip="{{__('webCaption.telephone.caption')}}" label="{{__('webCaption.telephone.title')}}"  class="form-control" name="telephone"  placeholder="{{__('webCaption.telephone.title')}}" value="{{old('telephone', isset($data->telephone)?$data->telephone:'' )}}"  required="" /> 
-                            </div>
-                         </div>
-                         <div class="col-md-4">
-                            <div class="form-group">
-                                @include('components.dash.form.inputs.messenger_common', ['id' =>
-                                'messenger_1', 'name' => 'messenger_1'])
-                            </div>
-                        </div>
-                      </div>
-                   </fieldset>
-                </div>
-
-                <div class="col-md-6">
-                   <fieldset>
-                      <div class="row">
-                         <div class="col-md-3 col-5">
-                            <div class="form-group">
-                            <x-dash.form.inputs.select  tooltip="{{__('webCaption.country_code.caption')}}"  label="{{__('webCaption.country_code.title')}}"  id="" for="country_code2" name="country_code"  required="" :optionData="[]"  editSelected="{{(isset($country_code) && ($country_code != null)) ? $country_code : ''; }}" />
-                            </div>
-                         </div>
-                         <div class="col-md-5 col-7 px-0">
-                            <div class="form-group">
-                               <x-dash.form.inputs.text  for="Mobile"  maxlength="20" tooltip="{{__('webCaption.mobile.caption')}}" label="{{__('webCaption.mobile.title')}}"  class="form-control" name="mobile"  placeholder="{{__('webCaption.mobile.title')}}" value="{{old('mobile', isset($data->mobile)?$data->mobile:'' )}}"  required="" />
-                            </div>
-                         </div>
-                         <div class="col-md-4">
-                            <div class="form-group">
-                                @include('components.dash.form.inputs.messenger_common', ['id' =>
-                                'messenger_2', 'name' => 'messenger_2'])
-                            </div>
-                        </div>
-                      </div>
-                   </fieldset>
-                </div>
-                
-
-             </div>
-
-              <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                       <x-dash.form.inputs.textarea id="" for="address" tooltip="{{__('webCaption.address.caption')}}" label="{{__('webCaption.address.title')}}" maxlength="255"  class="form-control" name="address"  placeholder="{{__('webCaption.address.title')}}" value="{{old('address', isset($data->address)? $data->address:'' )}}"  required="" />   
-                    </div>
-                 </div>
-                
-              </div>
 
            </div>
         </div>
@@ -156,26 +142,36 @@
                }
              @endphp
  
-             <div class="col-md-4">
+             <div class="col-md-6">
                  <div class="form-group">
                    <x-dash.form.inputs.multiple_select tooltip="{{__('webCaption.business_type.caption')}}" label="{{__('webCaption.business_type.title')}}"  id="" for="business_type_id" name="business_type_id[]" placeholder="{{__('webCaption.business_type_id.title')}}" :editSelected="$editSelected" :oldValues="old('business_type_id')"  required="" :optionData="$business_types" />
                  </div>
              </div>
              
-             <div class="col-md-4">
+             <div class="col-md-6">
                  <div class="form-group">
                    <x-dash.form.inputs.multiple_select label="{{__('webCaption.association_member.title')}}"  tooltip="{{__('webCaption.association_member.caption')}}"   id="" for="association_member_id" name="association_member_id[]"   required="" :editSelected="$associationEditSelected"  :oldValues="old('association_member_id')" :optionData="$association" />
                  </div>
              </div>
-             <div class="col-md-4">
+             <div class="col-md-6">
                <div class="form-group">
-                 <x-dash.form.inputs.select label="{{__('webCaption.region.title')}}"  id="" for="region_id" name="region_id" placeholder="{{__('webCaption.region.title')}}" editSelected="{{old('region_id',$data->region_id)}}" required="" :optionData="$regions" />   
+                 <x-dash.form.inputs.multiple_select label="{{__('webCaption.deals_in.title')}}"  id="" for="deals_in" name="deals_in" placeholder="{{__('webCaption.deals_in.title')}}" editSelected="{{old('deals_in',$data->deals_in)}}" required="" :optionData="[]" />   
                </div>
             </div>
+            <div class="col-md-6">
+               <div class="form-group">
+                  @if(isset($user->companySalesTeam->language_id))
+                     @php $editSelected = json_decode($user->companySalesTeam->language_id); @endphp
+                  @else
+                     @php $editSelected = ''; @endphp
+                  @endif
+                  <x-dash.form.inputs.multiple_select label="{{__('webCaption.language.title')}}"  id="" for="language" name="language[]" placeholder="{{__('webCaption.language.title')}}" :oldValues="old('language')" :editSelected="$editSelected"  required="" :optionData="[]" />
+               </div>
+            </div> 
          </div>  
  
          <div class="row">
-             <div class="col-md-8">
+             <div class="col-md-12">
                  <div class="form-group">
                    <x-dash.form.inputs.textarea id="" for="permit_number" label="{{__('webCaption.permit_number.title')}}" tooltip="{{__('webCaption.permit_number.caption')}}" maxlength="250"  name="permit_no"  placeholder="{{__('webCaption.permit_no.title')}}" 
                    value="{{old('permit_no' ,$data->permit_no)}}"  required="" />
@@ -199,21 +195,21 @@
          <hr class="m-0 p-0">
          <div id="container">
             <div class="card-body" >
-               <h4 class="card-title">  {{__('webCaption.contact_person_1.title')}} </h4>
+               <h4 class="card-title">  {{__('webCaption.primary_contact.title')}} </h4>
                <div class="row">
                   <div class="col-md-4">
                      <div class="form-group">
-                        <x-dash.form.inputs.text id="" for="contact_option" tooltip="{{__('webCaption.name.caption')}}" label="{{__('webCaption.name.title')}}" maxlength="100" class="form-control" name="contact_1_name"  placeholder="{{__('webCaption.name.title')}}" value="{{old('contact_1_name',$data->contact_1_name)}}"  required="" />
+                        <x-dash.form.inputs.text id="" for="primary_contact_name" tooltip="{{__('webCaption.name.caption')}}" label="{{__('webCaption.name.title')}}" maxlength="100" class="form-control" name="primary_contact_name"  placeholder="{{__('webCaption.name.title')}}" value="{{old('primary_contact_name',$data->primary_contact_name)}}"  required="" />
                      </div>
                   </div>
                   <div class="col-md-4">
                      <div class="form-group">
-                        <x-dash.form.inputs.text id="" for="contact_1_designation" tooltip="{{__('webCaption.designation.caption')}}" label="{{__('webCaption.designation.title')}}" maxlength="50" class="form-control" name="contact_1_designation"  placeholder="{{__('webCaption.designation.title')}}" value="{{old('contact_1_designation',$data->contact_1_designation)}}"  required="" />
+                        <x-dash.form.inputs.text id="" for="primary_contact_designation" tooltip="{{__('webCaption.designation.caption')}}" label="{{__('webCaption.designation.title')}}" maxlength="50" class="form-control" name="primary_contact_designation"  placeholder="{{__('webCaption.designation.title')}}" value="{{old('primary_contact_designation',$data->primary_contact_designation)}}"  required="" />
                      </div>
                   </div>
                   <div class="col-md-4">
                      <div class="form-group">
-                        <x-dash.form.inputs.email id="" for="contact_1_email" tooltip="{{__('webCaption.email.caption')}}" label="{{__('webCaption.email.title')}}" maxlength="50" class="form-control" name="contact_1_email"  placeholder="{{__('webCaption.email.title')}}" value="{{old('contact_1_email',$data->contact_1_email)}}"  required="" />
+                        <x-dash.form.inputs.email id="" for="primary_contact_email" tooltip="{{__('webCaption.email.caption')}}" label="{{__('webCaption.email.title')}}" maxlength="50" class="form-control" name="primary_contact_email"  placeholder="{{__('webCaption.email.title')}}" value="{{old('primary_contact_email',$data->primary_contact_email)}}"  required="" />
                      </div>
                   </div>
                </div>
@@ -248,21 +244,21 @@
    
             {{--  --}}
             <div class="card-body" >
-               <h4 class="card-title">    {{__('webCaption.contact_person_2.title')}} </h4>
+               <h4 class="card-title">    {{__('webCaption.secondary_contact.title')}} </h4>
                <div class="row">
                    <div class="col-md-4">
                        <div class="form-group">
-                           <x-dash.form.inputs.text id="" for="contact_2_name" tooltip="{{__('webCaption.name.caption')}}" label="{{__('webCaption.name.title')}}" maxlength="100" class="form-control" name="contact_2_name"  placeholder="{{__('webCaption.name.title')}}" value="{{old('contact_2_name',$data->contact_2_name)}}"  required="" />
+                           <x-dash.form.inputs.text id="" for="secondary_contact_name" tooltip="{{__('webCaption.name.caption')}}" label="{{__('webCaption.name.title')}}" maxlength="100" class="form-control" name="secondary_contact_name"  placeholder="{{__('webCaption.name.title')}}" value="{{old('secondary_contact_name',$data->secondary_contact_name)}}"  required="" />
                        </div>
                    </div>
                    <div class="col-md-4">
                        <div class="form-group">
-                           <x-dash.form.inputs.text id="" for="contact_2_designation" tooltip="{{__('webCaption.designation.caption')}}" label="{{__('webCaption.designation.title')}}" maxlength="50" class="form-control" name="contact_2_designation"  placeholder="{{__('webCaption.designation.title')}}" value="{{old('contact_2_designation',$data->contact_2_designation)}}"   required="" />
+                           <x-dash.form.inputs.text id="" for="secondary_contact_designation" tooltip="{{__('webCaption.designation.caption')}}" label="{{__('webCaption.designation.title')}}" maxlength="50" class="form-control" name="secondary_contact_designation"  placeholder="{{__('webCaption.designation.title')}}" value="{{old('secondary_contact_designation',$data->secondary_contact_designation)}}"   required="" />
                        </div>
                    </div>
                    <div class="col-md-4">
                        <div class="form-group">
-                           <x-dash.form.inputs.email id="" for="contact_2_email" tooltip="{{__('webCaption.email.caption')}}" label="{{__('webCaption.email.title')}}" maxlength="50" class="form-control" name="contact_2_email"  placeholder="{{__('webCaption.email.title')}}" value="{{old('contact_2_email',$data->contact_2_email )}}"  required="" />
+                           <x-dash.form.inputs.email id="" for="secondary_contact_email" tooltip="{{__('webCaption.email.caption')}}" label="{{__('webCaption.email.title')}}" maxlength="50" class="form-control" name="secondary_contact_email"  placeholder="{{__('webCaption.email.title')}}" value="{{old('secondary_contact_email',$data->secondary_contact_email )}}"  required="" />
                        </div>
                    </div>
                </div>  

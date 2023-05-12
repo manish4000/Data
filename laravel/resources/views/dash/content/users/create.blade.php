@@ -40,27 +40,7 @@ $old_permissions = (session()->getOldInput('permissions') != null ) ? session()-
 			<hr class="m-0 p-0">
 			<div class="card-body">
 			  	<div class="row">
-					<div class="col-md-3 col-12">
-						<div class="form-group">
-								<x-dash.form.label for="" value="{{__('webCaption.user_status.title')}}" class=""  tooltip="{{__('webCaption.user_status.caption')}}" />
-							<div>
-								<div class="form-check-inline">
-								<x-dash.form.inputs.radio for="Yes" tooltip="{{__('webCaption.yes.caption')}}"  class="border border-danger" name="status" label="{{__('webCaption.yes.title')}}" placeholder="" value="Yes"  required="required"  checked="{{ (isset($user->companySalesTeam->status) && $user->companySalesTeam->status == 'Yes') ? 'checked' : 'checked' }}" />&ensp;
-									
-								<x-dash.form.inputs.radio for="No" class="border border-danger" name="status" tooltip="{{__('webCaption.no.caption')}}" label="{{__('webCaption.no.title')}}" placeholder="" value="No"  required="required"  checked="{{ (isset($user->companySalesTeam->status) && $user->companySalesTeam->status == 'No') ? 'checked' : '' }}" />&ensp;
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-md-2 col-12">
-						<div class="form-group">
-							<x-dash.form.label for="" value="{{__('webCaption.2_step_verification.title')}}" class="" tooltip="{{__('webCaption.2_step_verification.caption')}}" />
-
-							<x-dash.form.inputs.checkbox for="verification" tooltip="{{__('webCaption.allowed.caption')}}"  label="{{__('webCaption.allowed.title')}}" name="verification"  placeholder="{{__('webCaption.allowed.title')}}" value="1" checked="{{ (isset($user->companySalesTeam->verification) && $user->companySalesTeam->verification == '1') ? 'checked' : ''}}" required="" />								
-						</div>
-					</div>
-					<div class="col-md-7 col-12">
+					<div class="col-md-8 col-12">
 						<div class="row">
 							<div class="col-md-3 col-4">
 								<div class="form-group">
@@ -73,6 +53,11 @@ $old_permissions = (session()->getOldInput('permissions') != null ) ? session()-
 									<x-dash.form.inputs.text for="name"  maxlength="100" tooltip="{{__('webCaption.name.caption')}}"  label="{{__('webCaption.name.title')}}"  name="name"  placeholder="{{__('webCaption.name.title')}}" value="{{old('name', isset($user->name)?$user->name:'' )}}"  required="required" />
 								</div>
 							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<x-dash.form.inputs.select  for="department" tooltip="{{__('webCaption.department.caption')}}"  label="{{__('webCaption.department.title')}}"   name="department_id"  placeholder="{{__('webCaption.department.title')}}" :optionData="$department" editSelected="{{ old('department', isset($user->companySalesTeam->department_id) ? $user->companySalesTeam->department_id :'') }}"  required="required" />
 						</div>
 					</div>
 						
@@ -94,27 +79,45 @@ $old_permissions = (session()->getOldInput('permissions') != null ) ? session()-
 						</div>
 					</div>
 
-					<div class="col-md-4 col-6">
-						<div class="form-group">
-							<x-dash.form.inputs.select  for="department" tooltip="{{__('webCaption.department.caption')}}"  label="{{__('webCaption.department.title')}}"   name="department_id"  placeholder="{{__('webCaption.department.title')}}" :optionData="$department" editSelected="{{ old('department', isset($user->companySalesTeam->department_id) ? $user->companySalesTeam->department_id :'') }}"  required="required" />
-						</div>
-					</div>
 
-					<div class="col-md-4 col-6">
+					<div class="col-md-4">
 						<div class="form-group">
 							<x-dash.form.inputs.select for="designation" tooltip="{{__('webCaption.designation.caption')}}"  label="{{__('webCaption.designation.title')}}"   name="designation_id"  placeholder="{{__('webCaption.designation.title')}}" :optionData="$designation" editSelected="{{ old('designation', isset($user->companySalesTeam->designation_id) ? $user->companySalesTeam->designation_id :'') }}" required="required" />
 						</div>
 					</div>
-					
-					<div class="col-4">
+					<div class="col-md-4">
 						<div class="form-group">
-							@php
-							$editImageUrl = (isset($user->companySalesTeam->image)) ? "dash/sales_team/".$user->companySalesTeam->image : '';
-							@endphp
-							<x-dash.form.inputs.file for="image" caption="{{__('webCaption.upload_image.title')}}"  maxFileSize="5000" label="{{__('webCaption.upload_image.title')}}" name="image"  ImageId="image-preview"  editImageUrl="{{$editImageUrl}}" required="" />
+							<x-dash.form.inputs.text for="role"  tooltip="{{__('webCaption.role.caption')}}"  label="{{__('webCaption.role.title')}}"  name="role"  placeholder="{{__('webCaption.role.title')}}" value="{{old('role', isset($user->role)?$user->role:'' )}}"  required="required" />
 						</div>
 					</div>
-			    </div>
+
+					<div class="col-md-2">
+						<div class="form-group">
+								<x-dash.form.label for="" value="{{__('webCaption.user_status.title')}}" class=""  tooltip="{{__('webCaption.user_status.caption')}}" />
+							<div>
+								<div class="form-check-inline">
+								<x-dash.form.inputs.radio for="Yes" tooltip="{{__('webCaption.yes.caption')}}"  class="border border-danger" name="status" label="{{__('webCaption.yes.title')}}" placeholder="" value="Yes"  required="required"  checked="{{ (isset($user->companySalesTeam->status) && $user->companySalesTeam->status == 'Yes') ? 'checked' : 'checked' }}" />&ensp;
+									
+								<x-dash.form.inputs.radio for="No" class="border border-danger" name="status" tooltip="{{__('webCaption.no.caption')}}" label="{{__('webCaption.no.title')}}" placeholder="" value="No"  required="required"  checked="{{ (isset($user->companySalesTeam->status) && $user->companySalesTeam->status == 'No') ? 'checked' : '' }}" />&ensp;
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-2">
+						<div class="form-group">
+							<x-dash.form.label for="" value="{{__('webCaption.2_step_verification.title')}}" class="" tooltip="{{__('webCaption.2_step_verification.caption')}}" />
+
+							<x-dash.form.inputs.checkbox for="verification" tooltip="{{__('webCaption.allowed.caption')}}"  label="{{__('webCaption.allowed.title')}}" name="verification"  placeholder="{{__('webCaption.allowed.title')}}" value="1" checked="{{ (isset($user->companySalesTeam->verification) && $user->companySalesTeam->verification == '1') ? 'checked' : ''}}" required="" />								
+						</div>
+					</div>
+
+					<div class="col-md-12">
+                        <div class="form-group">
+                            <x-dash.form.inputs.textarea  for="admin_memo" maxlength="500"  tooltip="{{__('webCaption.admin_memo.caption')}}" label="{{__('webCaption.admin_memo.title')}}"   name="admin_memo"  placeholder="{{__('webCaption.admin_memo.title')}}" value="{{old('admin_memo', isset($data->admin_memo)?$data->admin_memo:'' )}}"/>
+                        </div>
+                    </div>
+			    </div>       
 	   		</div>
 	 	</div>
 
@@ -182,8 +185,6 @@ $old_permissions = (session()->getOldInput('permissions') != null ) ? session()-
 							</div>	
 						</div>
 					</div>
-					
-
 					<div class="col-md-3">
 						<div class="form-group">
 							@if(isset($user->companySalesTeam->language_id))
@@ -322,23 +323,32 @@ $old_permissions = (session()->getOldInput('permissions') != null ) ? session()-
 		</div>
 
 
-<!-----Social_details
-<div class="card card-primary">
-	<div class="card-header">
-	  <h4 class="card-title">		
-	  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map font-medium-3 mr-1"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line>
-	 </svg>
-	@if(isset($user->id))  {{__('webCaption.edit_user.title')}}  @else {{__('webCaption.company_social_media_details.title')}} @endif 
-		</h4>  
-	  </div>
-	<hr class="m-0 p-0">
 
-	<div class="card-body">
-		
-	</div>
-</div>------->
+		<div class="card card-primary">
+			<div class="card-header">
+			<h4 class="card-title">		
+			<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map font-medium-3 mr-1"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line>
+			</svg>
+			@if(isset($user->id))  {{__('webCaption.edit_user.title')}}  @else {{__('webCaption.image_&_document_upload.title')}} @endif 
+				</h4>  
+			</div>
+			<hr class="m-0 p-0">
+			<div class="card-body">
+				<div class="row">
+				<div class="col-md-4">
+					<div class="form-group">
+						<x-dash.form.inputs.file id="" caption="{{__('webCaption.upload_image.title')}}" ImageId="user-image-preview" for="image"   name="image" editImageUrl="{{ isset($data->image)? asset('company_data/'.$imageFolder.'/testimonials/'.$data->image) :''}}"  placeholder="{{__('webCaption.upload_image.title')}}" required="" />
+						@if($errors->has('upload_image'))
+						<x-dash.form.form_error_messages message="{{ $errors->first('upload_image') }}"  />
+						@endif
+					</div>
+				</div>
 
-
+				
+			    </div>
+		    </div>
+       </div>
+	   
 		<!-----Personal---Social---details------->
 		<div class="card card-primary">
 		    <div class="card-header">

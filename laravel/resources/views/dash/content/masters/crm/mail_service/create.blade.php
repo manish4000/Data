@@ -26,22 +26,22 @@
             <hr class="m-0 p-0">
 		    <div class="card-body">
 			    <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <x-dash.form.inputs.text  for="email_from" maxlength="50"  tooltip="{{__('webCaption.email_from.caption')}}" label="{{__('webCaption.email_from.title')}}"   name="email_from"  placeholder="{{__('webCaption.email_from.title')}}" value="{{old('email_from', isset($data->email_from)?$data->email_from:'' )}}" required="required"/>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <x-dash.form.inputs.text  for="host" maxlength="100"  tooltip="{{__('webCaption.host.caption')}}" label="{{__('webCaption.host.title')}}"   name="host"  placeholder="{{__('webCaption.host.title')}}" value="{{old('host', isset($data->host)?$data->host:'' )}}" required="required"/>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <x-dash.form.inputs.text  for="username" maxlength="100"  tooltip="{{__('webCaption.username.caption')}}" label="{{__('webCaption.username.title')}}"   name="username"  placeholder="{{__('webCaption.username.title')}}" value="{{old('username', isset($data->username)?$data->username:'' )}}" required="required"/>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <x-dash.form.inputs.password  for="password" maxlength="100"  tooltip="{{__('webCaption.password.caption')}}" label="{{__('webCaption.password.title')}}"   name="password"  placeholder="{{__('webCaption.password.title')}}" value="{{old('password', isset($data->password)?$data->password:'' )}}" required="required"/>
                         </div>
@@ -51,11 +51,27 @@
                             <x-dash.form.inputs.text  for="host_name" maxlength="50"  tooltip="{{__('webCaption.host_name.caption')}}" label="{{__('webCaption.host_name.title')}}"   name="host_name"  placeholder="{{__('webCaption.host_name.title')}}" value="{{old('host_name', isset($data->host_name)?$data->host_name:'' )}}" required="required"/>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-2 col-6">
                         <div class="form-group">
                             <x-dash.form.inputs.number  for="port" maxlength="5"  tooltip="{{__('webCaption.port.caption')}}" label="{{__('webCaption.port.title')}}"   name="port"  placeholder="{{__('webCaption.port.title')}}" value="{{old('port', isset($data->port)?$data->port:'' )}}" required="required"/>
                         </div>
                     </div>
+                    <div class="col-md-2 col-6">
+                        <div class="form-group">
+                            <x-dash.form.inputs.number  for="mail_quantity" maxlength="5"  tooltip="{{__('webCaption.mail_quantity.caption')}}" label="{{__('webCaption.mail_quantity.title')}}"   name="mail_quantity"  placeholder="{{__('webCaption.mail_quantity.title')}}" value="{{old('mail_quantity', isset($data->mail_quantity)?$data->mail_quantity:'' )}}"/>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-6">
+                        <div class="form-group">
+                            <x-dash.form.inputs.number  for="mail_frequency" maxlength="5"  tooltip="{{__('webCaption.mail_frequency.caption')}}" label="{{__('webCaption.mail_frequency.title')}}"   name="mail_frequency"  placeholder="{{__('webCaption.mail_frequency.title')}}" value="{{old('mail_frequency', isset($data->mail_frequency)?$data->mail_frequency:'' )}}"/>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-6">
+                        <div class="form-group">
+                            <x-dash.form.inputs.select  for="mail_frequency_unit" maxlength="5"  tooltip="{{__('webCaption.mail_frequency_unit.caption')}}" label="{{__('webCaption.mail_frequency_unit.title')}}"  name="mail_frequency_unit"  placeholder="{{__('webCaption.mail_frequency_unit.title')}}" value="{{old('mail_frequency_unit', isset($data->mail_frequency_unit)?$data->mail_frequency_unit:'' )}}"/>
+                        </div>
+                    </div>
+
                     <div class="col-md-4">
                         <div class="row">
                             <div class="col-md-8 col-8">
@@ -86,23 +102,6 @@
                                 </div>
                             </div>
                         </div>    
-                    </div>
-
-                    
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <x-dash.form.inputs.number  for="mail_quantity" maxlength="5"  tooltip="{{__('webCaption.mail_quantity.caption')}}" label="{{__('webCaption.mail_quantity.title')}}"   name="mail_quantity"  placeholder="{{__('webCaption.mail_quantity.title')}}" value="{{old('mail_quantity', isset($data->mail_quantity)?$data->mail_quantity:'' )}}"/>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <x-dash.form.inputs.number  for="mail_frequency" maxlength="5"  tooltip="{{__('webCaption.mail_frequency.caption')}}" label="{{__('webCaption.mail_frequency.title')}}"   name="mail_frequency"  placeholder="{{__('webCaption.mail_frequency.title')}}" value="{{old('mail_frequency', isset($data->mail_frequency)?$data->mail_frequency:'' )}}"/>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <x-dash.form.inputs.select  for="mail_frequency_unit" maxlength="5"  tooltip="{{__('webCaption.mail_frequency_unit.caption')}}" label="{{__('webCaption.mail_frequency_unit.title')}}"  name="mail_frequency_unit"  placeholder="{{__('webCaption.mail_frequency_unit.title')}}" value="{{old('mail_frequency_unit', isset($data->mail_frequency_unit)?$data->mail_frequency_unit:'' )}}"/>
-                        </div>
                     </div>
 
                     
