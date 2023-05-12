@@ -27,7 +27,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <x-dash.form.inputs.select label="{{__('webCaption.type.title')}}"
-                                tooltip="{{__('webCaption.type.caption')}}" for="local_type" name="type"
+                                tooltip="{{__('webCaption.type.caption')}}" for="type" name="type"
                                 placeholder="{{ __('locale.type.caption') }}" customClass="type" :optionData="[]"
                                 editSelected="{{(isset($data->type) && ($data->type != null)) ? $data->type :'' }}"
                                 required="required" />
@@ -36,17 +36,27 @@
                             @endif
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
-                            <x-dash.form.inputs.text id="" label="{{__('webCaption.company_name.title')}}"
-                                tooltip="{{__('webCaption.company_name.caption')}}" for="company_name"
-                                class="form-control" maxlength="50" name="company_name"
-                                placeholder="{{__('webCaption.company_name.title')}}"
-                                value="{{old('company_name', isset($data->company_name)?$data->company_name:'' )}}"
+                            <x-dash.form.inputs.text id="" label="{{__('webCaption.secret_key_id.title')}}"
+                                tooltip="{{__('webCaption.secret_key_id.caption')}}" for="secret_key_id"
+                                class="form-control" maxlength="100" name="secret_key_id"
+                                placeholder="{{__('webCaption.secret_key_id.title')}}"
+                                value="{{old('secret_key_id', isset($data->secret_key_id)?$data->secret_key_id:'' )}}"
                                 required="required" />
-                            @if($errors->has('company_name'))
-                            <x-dash.form.form_error_messages message="{{ $errors->first('company_name') }}" />
+                            @if($errors->has('secret_key_id'))
+                            <x-dash.form.form_error_messages message="{{ $errors->first('secret_key_id') }}" />
                             @endif
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <x-dash.form.inputs.text id="" label="{{__('webCaption.sitekey.title')}}"
+                                tooltip="{{__('webCaption.sitekey.caption')}}" for="sitekey"
+                                class="form-control" maxlength="100" name="sitekey"
+                                placeholder="{{__('webCaption.sitekey.title')}}"
+                                value="{{old('sitekey', isset($data->sitekey)?$data->sitekey:'' )}}"
+                                required="" />
                         </div>
                     </div>
                     <div class="col-md-6">

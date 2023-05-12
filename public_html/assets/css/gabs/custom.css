@@ -51,7 +51,7 @@
 
 .main_table > .table_header > .common_heading:hover  {background:transparent !important; }
 .main_table > .table_header > .common_heading  { border:#ebe9f1 1px solid; border-left:0px; border-right:0px;display:table-cell;}
-.main_table > .table_header > .heading_col { display:table-cell; text-align:center;} 
+.main_table > .table_header > .heading_col { display:table-cell; text-align:left;} 
 .common_heading { }
 .heading_col { border:#ebe9f1 1px solid; border-left:0px; border-right:0px; padding:6px 0 7px 0px;}
 .main_table > .table_header > .common_heading:first-child { width:5% !important; padding:6px 10px !important;}
