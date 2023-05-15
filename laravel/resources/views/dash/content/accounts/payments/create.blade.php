@@ -158,7 +158,7 @@
                                 required="" />
                         </div>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 col-6">
                         <div class="form-group">
                             <x-dash.form.inputs.text id="" label="{{__('webCaption.client_id.title')}}"
                                 tooltip="{{__('webCaption.client_id.caption')}}" for="client_id" class="form-control" maxlength="5" name="client_id" placeholder="{{__('webCaption.client_id.title')}}" value="{{old('client_id', isset($data->client_id)?$data->client_id:'' )}}" required="" />
@@ -177,14 +177,12 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <x-dash.form.inputs.text id="" label="{{__('webCaption.depositer_name.title')}}"
-                                tooltip="{{__('webCaption.depositer_name.caption')}}" for="depositer_name"
-                                class="form-control" maxlength="100" name="depositer_name"
-                                placeholder="{{__('webCaption.depositer_name.title')}}"
-                                value="{{old('depositer_name', isset($data->depositer_name)?$data->depositer_name:'' )}}"
-                                required="" />
+                            tooltip="{{__('webCaption.depositer_name.caption')}}" for="depositer_name"
+                            class="form-control" maxlength="100" name="depositer_name"
+                            placeholder="{{__('webCaption.depositer_name.title')}}"
+                            value="{{old('depositer_name', isset($data->depositer_name)?$data->depositer_name:'' )}}" required="" />
                         </div>
                     </div>
-
                     <div class="col-md-4">
                         <div class="form-group">
                         <x-dash.form.inputs.select id="" label="{{__('webCaption.issuing_bank.title')}}"
@@ -227,19 +225,6 @@
                             tooltip="{{__('webCaption.submit_date.caption')}}" for="submit_date" class="form-control" name="submit_date" placeholder="{{__('webCaption.submit_date.title')}}" value="{{old('submit_date', isset($data->submit_date)?$data->submit_date:'' )}}" />
                         </div>
                     </div>
-                    <div class="col-md-2 col-6">
-                        <div class="form-group">
-                            <x-dash.form.label for="" value="{{__('webCaption.credit_report.title')}}" class="" tooltip="{{__('webCaption.credit_report.caption')}}" required="required" />
-                            <div>
-                                <div class="form-check-inline">
-                                    <x-dash.form.inputs.checkbox for="credit_report" tooltip="{{__('webCaption.credit_report.caption')}}"
-                                    class="border border-danger" name="credit_report"
-                                    label="{{__('webCaption.credit_report.title')}}" value="credit_report"
-                                    checked="" required="required" />&ensp;
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="col-md-4">
                         <div class="form-group">
                         <x-dash.form.inputs.text id="" label="{{__('webCaption.lc_dhl_number.title')}}"
@@ -252,34 +237,34 @@
                             tooltip="{{__('webCaption.document_purchase_date.caption')}}" for="document_purchase_date" class="form-control" name="document_purchase_date" placeholder="{{__('webCaption.document_purchase_date.title')}}" value="{{old('document_purchase_date', isset($data->document_purchase_date)?$data->document_purchase_date:'' )}}" />
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-2 col-6">
                         <div class="form-group">
                         <x-dash.form.inputs.text id="" label="{{__('webCaption.less_charge.title')}}"
                             tooltip="{{__('webCaption.less_charge.caption')}}" for="less_charge" class="form-control" name="less_charge" maxlength="20" placeholder="{{__('webCaption.less_charge.title')}}" value="{{old('less_charge', isset($data->less_charge)?$data->less_charge:'' )}}" />
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-2 col-6">
                         <div class="form-group">
                         <x-dash.form.inputs.text id="" label="{{__('webCaption.lc_charge_domestic.title')}}"
                             tooltip="{{__('webCaption.lc_charge_domestic.caption')}}" for="lc_charge_domestic" class="form-control" name="lc_charge_domestic" maxlength="20" placeholder="{{__('webCaption.lc_charge_domestic.title')}}" value="{{old('lc_charge_domestic', isset($data->lc_charge_domestic)?$data->lc_charge_domestic:'' )}}" />
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-2 col-6">
                         <div class="form-group">
                         <x-dash.form.inputs.text id="" label="{{__('webCaption.lc_charge_advise_bank_usd.title')}}"
                             tooltip="{{__('webCaption.lc_charge_advise_bank_usd.caption')}}" for="lc_charge_advise_bank_usd" class="form-control" name="lc_charge_advise_bank_usd" maxlength="20" placeholder="{{__('webCaption.lc_charge_advise_bank_usd.title')}}" value="{{old('lc_charge_advise_bank_usd', isset($data->lc_charge_advise_bank_usd)?$data->lc_charge_advise_bank_usd:'' )}}" />
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-2 col-6">
                         <div class="form-group">
                         <x-dash.form.inputs.number id="" label="{{__('webCaption.ex_rate.title')}}"
                             tooltip="{{__('webCaption.ex_rate.caption')}}" for="ex_rate" class="form-control" name="ex_rate" placeholder="{{__('webCaption.ex_rate.title')}}" value="{{old('ex_rate', isset($data->ex_rate)?$data->ex_rate:'' )}}" />
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-2 col-6">
                         <div class="form-group">
-                        <x-dash.form.inputs.text id="" label="{{__('webCaption.lc_charge_advise_bank_in_jpy.title')}}"
-                            tooltip="{{__('webCaption.lc_charge_advise_bank_in_jpy.caption')}}" for="lc_charge_advise_bank_in_jpy" class="form-control" name="lc_charge_advise_bank_in_jpy" placeholder="{{__('webCaption.lc_charge_advise_bank_in_jpy.title')}}" disabled="disabled" value="{{old('lc_charge_advise_bank_in_jpy', isset($data->lc_charge_advise_bank_in_jpy)?$data->lc_charge_advise_bank_in_jpy:'' )}}" />
+                        <x-dash.form.inputs.text id="" label="{{__('webCaption.lc_charge_advise_bank_in_jpy.title')}}" tooltip="{{__('webCaption.lc_charge_advise_bank_in_jpy.caption')}}" for="lc_charge_advise_bank_in_jpy" class="form-control"
+                        name="lc_charge_advise_bank_in_jpy" placeholder="{{__('webCaption.lc_charge_advise_bank_in_jpy.title')}}" disabled="disabled" value="{{old('lc_charge_advise_bank_in_jpy', isset($data->lc_charge_advise_bank_in_jpy)?$data->lc_charge_advise_bank_in_jpy:'' )}}" />
                         </div>
                     </div>
                     <div class="col-md-2 col-6">
@@ -288,10 +273,10 @@
                             tooltip="{{__('webCaption.expiry_date.caption')}}" for="expiry_date" class="form-control" name="expiry_date" placeholder="{{__('webCaption.expiry_date.title')}}" value="{{old('expiry_date', isset($data->expiry_date)?$data->expiry_date:'' )}}" />
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-2 col-6">
                         <div class="form-group">
                         <x-dash.form.inputs.text id="" label="{{__('webCaption.expiry_days.title')}}"
-                            tooltip="{{__('webCaption.expiry_days.caption')}}" for="expiry_days" class="form-control" name="expiry_days" placeholder="{{__('webCaption.expiry_days.title')}}" disabled="disabled" value="{{old('expiry_days', isset($data->expiry_days)?$data->expiry_days:'' )}}" />
+                            tooltip="{{__('webCaption.expiry_days.caption')}}" for="expiry_days" class="form-control" name="expiry_days" placeholder="{{__('webCaption.expiry_days.title')}}"  value="{{old('expiry_days', isset($data->expiry_days)?$data->expiry_days:'' )}}" disabled="disabled" />
                         </div>
                     </div>
                     <div class="col-md-2 col-6">
@@ -300,13 +285,7 @@
                             tooltip="{{__('webCaption.latest_ship_date.caption')}}" for="latest_ship_date" class="form-control" name="latest_ship_date" placeholder="{{__('webCaption.latest_ship_date.title')}}" value="{{old('latest_ship_date', isset($data->latest_ship_date)?$data->latest_ship_date:'' )}}" />
                         </div>
                     </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                        <x-dash.form.inputs.textarea id="" label="{{__('webCaption.lc_remarks.title')}}"
-                            tooltip="{{__('webCaption.lc_remarks.caption')}}" for="lc_remarks" class="form-control" name="lc_remarks" maxlength="100" placeholder="{{__('webCaption.lc_remarks.title')}}" value="{{old('lc_remarks', isset($data->lc_remarks)?$data->lc_remarks:'' )}}" />
-                        </div>
-                    </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2 col-6">
                         <div class="form-group">
                         <x-dash.form.inputs.date id="" label="{{__('webCaption.lc_received_date.title')}}"
                             tooltip="{{__('webCaption.lc_received_date.caption')}}" for="lc_received_date" class="form-control" name="lc_received_date" placeholder="{{__('webCaption.lc_received_date.title')}}" value="{{old('lc_received_date', isset($data->lc_received_date)?$data->lc_received_date:'' )}}" />
@@ -314,11 +293,21 @@
                     </div>
                     <div class="col-md-3 col-6">
                         <div class="form-group">
+                            <x-dash.form.label for="" value="{{__('webCaption.credit_report.title')}}" class="" tooltip="{{__('webCaption.credit_report.caption')}}" required="required" />
+                            <div>
+                                <div class="form-check-inline">
+                                    <x-dash.form.inputs.checkbox for="credit_report" tooltip="{{__('webCaption.credit_report.caption')}}" class="border border-danger"
+                                    name="credit_report" label="{{__('webCaption.credit_report.title')}}" value="credit_report" checked="" required="required" />&ensp;
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="form-group">
                             <x-dash.form.label for="" value="{{__('webCaption.lc_check.title')}}" class="" tooltip="{{__('webCaption.lc_check.caption')}}" required="required" />
                             <div>
                                 <div class="form-check-inline">
-                                    <x-dash.form.inputs.checkbox for="lc_check" tooltip="{{__('webCaption.lc_check.caption')}}"
-                                    class="border border-danger" name="lc_check"
+                                    <x-dash.form.inputs.checkbox for="lc_check" tooltip="{{__('webCaption.lc_check.caption')}}" class="border border-danger"  name="lc_check" 
                                     label="{{__('webCaption.lc_check.title')}}" value="lc_check"
                                     checked="" required="required" />&ensp;
                                 </div>
@@ -330,8 +319,7 @@
                             <x-dash.form.label for="" value="{{__('webCaption.mistake.title')}}" class="" tooltip="{{__('webCaption.mistake.caption')}}" required="required" />
                             <div>
                                 <div class="form-check-inline">
-                                    <x-dash.form.inputs.checkbox for="mistake" tooltip="{{__('webCaption.mistake.caption')}}"
-                                    class="border border-danger" name="mistake"
+                                    <x-dash.form.inputs.checkbox for="mistake" tooltip="{{__('webCaption.mistake.caption')}}" class="border border-danger" name="mistake"
                                     label="{{__('webCaption.mistake.title')}}" value="mistake"
                                     checked="" required="required" />&ensp;
                                 </div>
@@ -340,71 +328,76 @@
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
+                        <x-dash.form.inputs.textarea id="" label="{{__('webCaption.lc_remarks.title')}}"
+                            tooltip="{{__('webCaption.lc_remarks.caption')}}" for="lc_remarks" class="form-control" name="lc_remarks" maxlength="100" placeholder="{{__('webCaption.lc_remarks.title')}}" value="{{old('lc_remarks', isset($data->lc_remarks)?$data->lc_remarks:'' )}}" />
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
                         <x-dash.form.inputs.textarea id="" label="{{__('webCaption.mistake_remarks.title')}}"
                             tooltip="{{__('webCaption.mistake_remarks.caption')}}" for="mistake_remarks" class="form-control" name="mistake_remarks" maxlength="100" placeholder="{{__('webCaption.mistake_remarks.title')}}" value="{{old('mistake_remarks', isset($data->mistake_remarks)?$data->mistake_remarks:'' )}}" />
                         </div>
                     </div>
-                    <div class="col-md-3 col-6">
+                    <div class="col-md-2 col-6">
                         <div class="form-group">
                         <x-dash.form.inputs.number id="" label="{{__('webCaption.cl.title')}}"
                             tooltip="{{__('webCaption.cl.caption')}}" for="cl" maxlength="2" class="form-control" name="cl"  placeholder="{{__('webCaption.cl.title')}}" value="{{old('cl', isset($data->cl)?$data->cl:'' )}}" />
                         </div>
                     </div>
-                    <div class="col-md-3 col-6">
+                    <div class="col-md-2 col-6">
                         <div class="form-group">
                         <x-dash.form.inputs.number id="" label="{{__('webCaption.bl.title')}}"
                             tooltip="{{__('webCaption.bl.caption')}}" maxlength="2" for="bl" class="form-control" name="bl"  placeholder="{{__('webCaption.bl.title')}}" value="{{old('bl', isset($data->bl)?$data->bl:'' )}}" />
                         </div>
                     </div>
-                    <div class="col-md-3 col-6">
+                    <div class="col-md-2 col-6">
                         <div class="form-group">
                         <x-dash.form.inputs.number id="" label="{{__('webCaption.nn_bl.title')}}"
                             tooltip="{{__('webCaption.nn_bl.caption')}}" maxlength="2" for="nn_bl" class="form-control" name="nn_bl"  placeholder="{{__('webCaption.nn_bl.title')}}" value="{{old('nn_bl', isset($data->nn_bl)?$data->nn_bl:'' )}}" />
                         </div>
                     </div>
-                    <div class="col-md-3 col-6">
+                    <div class="col-md-2 col-6">
                         <div class="form-group">
                         <x-dash.form.inputs.number id="" label="{{__('webCaption.ins.title')}}"
                             tooltip="{{__('webCaption.ins.caption')}}" maxlength="2" for="ins" class="form-control" name="ins"  placeholder="{{__('webCaption.ins.title')}}" value="{{old('ins', isset($data->ins)?$data->ins:'' )}}" />
                         </div>
                     </div>
-                    <div class="col-md-3 col-6">
+                    <div class="col-md-2 col-6">
                         <div class="form-group">
                         <x-dash.form.inputs.number id="" label="{{__('webCaption.ic.title')}}"
                             tooltip="{{__('webCaption.ic.caption')}}" maxlength="2" for="ic" class="form-control" name="ic"  placeholder="{{__('webCaption.ic.title')}}" value="{{old('ic', isset($data->ic)?$data->ic:'' )}}" />
                         </div>
                     </div>
-                    <div class="col-md-3 col-6">
+                    <div class="col-md-2 col-6">
                         <div class="form-group">
                         <x-dash.form.inputs.number id="" label="{{__('webCaption.co.title')}}"
                             tooltip="{{__('webCaption.co.caption')}}" maxlength="2" for="co" class="form-control" name="co"  placeholder="{{__('webCaption.co.title')}}" value="{{old('co', isset($data->co)?$data->co:'' )}}" />
                         </div>
                     </div>
-                    <div class="col-md-3 col-6">
+                    <div class="col-md-2 col-6">
                         <div class="form-group">
                         <x-dash.form.inputs.number id="" label="{{__('webCaption.bc.title')}}"
                             tooltip="{{__('webCaption.bc.caption')}}" maxlength="2" for="bc" class="form-control" name="bc"  placeholder="{{__('webCaption.bc.title')}}" value="{{old('bc', isset($data->bc)?$data->bc:'' )}}" />
                         </div>
                     </div>
-                    <div class="col-md-3 col-6">
+                    <div class="col-md-2 col-6">
                         <div class="form-group">
                         <x-dash.form.inputs.number id="" label="{{__('webCaption.ecr.title')}}"
                             tooltip="{{__('webCaption.ecr.caption')}}" maxlength="2" for="ecr" class="form-control" name="ecr"  placeholder="{{__('webCaption.ecr.title')}}" value="{{old('ecr', isset($data->ecr)?$data->ecr:'' )}}" />
                         </div>
                     </div>
-                    <div class="col-md-3 col-6">
+                    <div class="col-md-2 col-6">
                         <div class="form-group">
                         <x-dash.form.inputs.number id="" label="{{__('webCaption.tr.title')}}"
                             tooltip="{{__('webCaption.tr.caption')}}" maxlength="2" for="tr" class="form-control" name="tr"  placeholder="{{__('webCaption.tr.title')}}" value="{{old('tr', isset($data->tr)?$data->tr:'' )}}" />
                         </div>
                     </div>
-                    <div class="col-md-3 col-6">
+                    <div class="col-md-2 col-6">
                         <div class="form-group">
                         <x-dash.form.inputs.number id="" label="{{__('webCaption.pkg.title')}}"
                             tooltip="{{__('webCaption.pkg.caption')}}" maxlength="2" for="pkg" class="form-control" name="pkg"  placeholder="{{__('webCaption.pkg.title')}}" value="{{old('pkg', isset($data->pkg)?$data->pkg:'' )}}" />
                         </div>
                     </div>
-
                     <div class="col-md-4">
                         <div class="form-group">
                             @php
@@ -412,9 +405,8 @@
                             ?"dash/payment_receipt/".$data->payment_receipt: '';
                             @endphp
                             <x-dash.form.inputs.file id="" caption="{{__('webCaption.payment_receipt.title')}}"
-                                editImageUrl="{{$editImageUrl}}" ImageId="payment_receipt-preview" for="payment_receipt"
-                                name="payment_receipt" maxFileSize="5000"
-                                placeholder="{{__('webCaption.payment_receipt.title')}}" required="" />
+                            editImageUrl="{{$editImageUrl}}" ImageId="payment_receipt-preview" for="payment_receipt"  name="payment_receipt" maxFileSize="5000"
+                            placeholder="{{__('webCaption.payment_receipt.title')}}" required="" />
                         </div>
                     </div>
                 </div>
@@ -422,20 +414,16 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <x-dash.form.inputs.textarea id="" for="admin_memo" tooltip="{{__('webCaption.admin_memo.caption')}}"
-                                label="{{__('webCaption.admin_memo.title')}}" maxlength="100" class="form-control" name="admin_memo"
-                                placeholder="{{__('webCaption.admin_memo.title')}}"
-                                value="{{old('admin_memo', isset($data->admin_memo)?$data->admin_memo:'' )}}" required="" />
+                            label="{{__('webCaption.admin_memo.title')}}" maxlength="100" class="form-control" name="admin_memo" placeholder="{{__('webCaption.admin_memo.title')}}"  value="{{old('admin_memo', isset($data->admin_memo)?$data->admin_memo:'' )}}" required="" />     
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <x-dash.form.inputs.textarea id="" for="note_for_accounting"
-                                tooltip="{{__('webCaption.note_for_accounting.caption')}}"
-                                label="{{__('webCaption.note_for_accounting.title')}}" maxlength="250"
-                                class="form-control" name="note_for_accounting"
-                                placeholder="{{__('webCaption.note_for_accounting.title')}}"
-                                value="{{old('note_for_accounting', isset($data->note_for_accounting)?$data->note_for_accounting:'' )}}"
-                                required="" />
+                            tooltip="{{__('webCaption.note_for_accounting.caption')}}" maxlength="250"
+                            label="{{__('webCaption.note_for_accounting.title')}}" class="form-control"
+                            name="note_for_accounting" placeholder="{{__('webCaption.note_for_accounting.title')}}"  value="{{old('note_for_accounting', isset($data->note_for_accounting)?
+                            $data->note_for_accounting:'' )}}" required="" />
                         </div>
                     </div>
                 </div>

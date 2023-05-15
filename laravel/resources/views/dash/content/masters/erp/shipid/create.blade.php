@@ -28,7 +28,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <x-dash.form.inputs.number  for="ref_id"  tooltip="{{__('webCaption.ref_id.caption')}}" label="{{__('webCaption.ref_id.title')}}"  name="ref_id"  placeholder="{{__('webCaption.ref_id.title')}}" value="{{old('ref_id', isset($data->ref_id)?$data->ref_id:'' )}}" required="required"/>
+                            <x-dash.form.inputs.number  for="ship_id"  tooltip="{{__('webCaption.ship_id.caption')}}" label="{{__('webCaption.ship_id.title')}}"  name="ship_id"  placeholder="{{__('webCaption.ship_id.title')}}" value="{{old('ship_id', isset($data->ship_id)?$data->ship_id:'' )}}" required="required"/>
                         </div>
                     </div>
                     <div class="col-md-4">
