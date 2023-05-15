@@ -217,14 +217,35 @@ Route::middleware('dash')->name('dash')->group(function(){
                 });
             });
 
+            Route::group(['prefix'=>'invoices','as' => 'invoices.'],function(){
+                Route::group(['prefix'=>'terms','as' => 'terms.'],function(){
+                    Route::get('/',function(){ return  view('dash.content.masters.invoices.terms.create');  });
+                    Route::get('/create',function(){ return view('dash.content.masters.invoices.terms.create'); });
+                });
+                Route::group(['prefix'=>'payterms','as' => 'payterms.'],function(){
+                    Route::get('/',function(){ return  view('dash.content.masters.invoices.payterms.create');  });
+                    Route::get('/create',function(){ return view('dash.content.masters.invoices.payterms.create'); });
+                });
+                Route::group(['prefix'=>'sales-agreement','as' => 'sales-agreement.'],function(){
+                    Route::get('/',function(){ return  view('dash.content.masters.invoices.sales_agreement.create');  });
+                    Route::get('/create',function(){ return view('dash.content.masters.invoices.sales_agreement.create'); });
+                });
+            });
+
             Route::group(['prefix'=>'erp','as' => 'erp.'],function(){
 
                 Route::group(['prefix'=>'vendor','as' => 'vendor.'],function(){
                     Route::get('/',function(){ return  view('dash.content.masters.erp.vendor.create');  });
                     Route::get('/create',function(){ return view('dash.content.masters.erp.vendor.create'); });
                 });
+
+               
+
                 Route::group(['prefix'=>'shipid','as' => 'shipid.'],function(){
                     Route::get('/create',function(){ return view('dash.content.masters.erp.shipid.create'); });
+                });
+                Route::group(['prefix'=>'courier','as' => 'courier.'],function(){
+                    Route::get('/create',function(){ return view('dash.content.masters.erp.courier.create'); });
                 });
                 Route::group(['prefix'=>'online-payments','as' => 'online-payments.'],function(){
                     Route::get('/',function(){ return view('dash.content.masters.erp.online_payments.create'); });
@@ -273,6 +294,14 @@ Route::middleware('dash')->name('dash')->group(function(){
                 
                 Route::group(['prefix'=>'mail-service','as' => 'mail-service.'],function(){
                     Route::get('/create',function(){ return view('dash.content.masters.crm.mail_service.create'); })->name('create');
+                });
+
+            });
+
+            Route::group(['prefix'=>'freight','as' => 'freight.'],function(){
+                
+                Route::group(['prefix'=>'ocean-freight','as' => 'ocean-freight.'],function(){
+                    Route::get('/',function(){ return view('dash.content.masters.freight.ocean-freight.create'); })->name('create');
                 });
 
             });
