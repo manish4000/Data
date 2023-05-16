@@ -19,7 +19,7 @@ use App\Http\Controllers\Dash\MAsters\MainCategoryController;
 use App\Http\Controllers\Dash\Masters\SubCategoryController;
 use App\Http\Controllers\Dash\Masters\YardsController;
 use App\Http\Controllers\Dash\Masters\RatingController;
-
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('dash')->name('dash')->group(function(){
@@ -42,6 +42,13 @@ Route::middleware('dash')->name('dash')->group(function(){
         Route::post('/fetch-document', 'CommonController@fetchDocuments')->name('get-images-temp');
         Route::post('/delete-document', 'CommonController@deleteDocument')->name('delete-temp-image');
         Route::post('/rotate-image', 'CommonController@rotateImage')->name('rotate-image');
+
+        Route::post('/slider-images', function(Request $request){
+
+          return view('components.dash.view.dropzone-slider',['data' => $request->data , 'editableImagesPath' =>$request->editableImagesPath ]);
+
+        } )->name('slider-images');
+
         //common methods end 
         });
 
@@ -166,6 +173,19 @@ Route::middleware('dash')->name('dash')->group(function(){
             Route::get('/',function(){ return view('dash.content.erp-expenses.create'); });
         });
 
+        Route::group(['prefix'=>'erp-logistics','namespace'=>'Dash','as' => 'erp-logistics.'],function(){
+            Route::get('/',function(){ return view('dash.content.erp-logistics.create'); });
+        });
+
+        Route::group(['prefix'=>'erp/shipment','as' => 'erp/shipment.'],function(){
+
+            Route::group(['prefix'=>'roro-shipment','as' => 'roro-shipment.'],function(){
+                Route::get('/',function(){ return view('dash.content.shipment.roro-shipment.create'); 
+                });
+        });
+        
+    });
+
         Route::group(['prefix'=>'spare-parts','namespace'=>'Dash','as' => 'spare-parts.'],function(){
 
             Route::group(['prefix'=>'purchase','as' => 'purchase.'],function(){
@@ -218,10 +238,18 @@ Route::middleware('dash')->name('dash')->group(function(){
             });
 
             Route::group(['prefix'=>'invoices','as' => 'invoices.'],function(){
+
+
                 Route::group(['prefix'=>'terms','as' => 'terms.'],function(){
                     Route::get('/',function(){ return  view('dash.content.masters.invoices.terms.create');  });
                     Route::get('/create',function(){ return view('dash.content.masters.invoices.terms.create'); });
                 });
+
+                Route::group(['prefix'=>'charges','as' => 'charges.'],function(){
+                    Route::get('/',function(){ return  view('dash.content.masters.invoices.charges.create');  });
+                    Route::get('/create',function(){ return view('dash.content.masters.invoices.charges.create'); });
+                });
+
                 Route::group(['prefix'=>'payterms','as' => 'payterms.'],function(){
                     Route::get('/',function(){ return  view('dash.content.masters.invoices.payterms.create');  });
                     Route::get('/create',function(){ return view('dash.content.masters.invoices.payterms.create'); });
@@ -232,6 +260,13 @@ Route::middleware('dash')->name('dash')->group(function(){
                 });
             });
 
+
+            Route::group(['prefix'=>'inspection','as' => 'inspection.'],function(){
+                Route::get('/',function(){ return  view('dash.content.masters.inspection.create');  });
+                Route::get('/create',function(){ return view('dash.content.masters.inspection.create'); });
+            });
+
+            
             Route::group(['prefix'=>'erp','as' => 'erp.'],function(){
 
                 Route::group(['prefix'=>'vendor','as' => 'vendor.'],function(){
@@ -239,14 +274,14 @@ Route::middleware('dash')->name('dash')->group(function(){
                     Route::get('/create',function(){ return view('dash.content.masters.erp.vendor.create'); });
                 });
 
-               
-
                 Route::group(['prefix'=>'shipid','as' => 'shipid.'],function(){
                     Route::get('/create',function(){ return view('dash.content.masters.erp.shipid.create'); });
                 });
+
                 Route::group(['prefix'=>'courier','as' => 'courier.'],function(){
                     Route::get('/create',function(){ return view('dash.content.masters.erp.courier.create'); });
                 });
+
                 Route::group(['prefix'=>'online-payments','as' => 'online-payments.'],function(){
                     Route::get('/',function(){ return view('dash.content.masters.erp.online_payments.create'); });
                 });
