@@ -90,6 +90,13 @@ Route::middleware('dash')->name('dash')->group(function(){
             Route::get('/',function(){ return view('dash.content.inquiry.create'); });
             Route::get('/create',function(){ return view('dash.content.inquiry.create'); });
         });
+
+        Route::group(['prefix'=>'courier','namespace'=>'Dash','as' => 'courier.'],function(){
+            Route::get('/',function(){ return view('dash.content.courier.create'); });
+            Route::get('/create',function(){ return view('dash.content.courier.create'); });
+
+        });
+
         Route::group(['prefix'=>'vehicles','namespace'=>'Dash','as' => 'vehicles.'],function(){
          
             Route::get('/',function(){ return view('dash.content.vehicles.create'); });
