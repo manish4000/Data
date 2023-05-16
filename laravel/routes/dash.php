@@ -86,11 +86,13 @@ Route::middleware('dash')->name('dash')->group(function(){
         });
 
         Route::group(['prefix'=>'inquiries','namespace'=>'Dash','as' => 'inquiries.'],function(){
-            Route::get('/',function(){ return  view('dash.content.blank',['message' => "Inquiry Manager listing Page "]);  });
+  
+            Route::get('/',function(){ return view('dash.content.inquiry.create'); });
             Route::get('/create',function(){ return view('dash.content.inquiry.create'); });
         });
         Route::group(['prefix'=>'vehicles','namespace'=>'Dash','as' => 'vehicles.'],function(){
-            Route::get('/',function(){ return  view('dash.content.blank',['message' => "vehicles listing Page "]);  });
+         
+            Route::get('/',function(){ return view('dash.content.vehicles.create'); });
             Route::get('/create',function(){ return view('dash.content.vehicles.create'); });
         });
 
@@ -116,7 +118,8 @@ Route::middleware('dash')->name('dash')->group(function(){
 
 
         Route::group(['prefix'=>'proforma-manager','namespace'=>'Dash','as' => 'proforma-manager.'],function(){
-            Route::get('/',function(){ return view('dash.content.blank',['message' => "Proforma Manager listing Page "]);  });
+       
+            Route::get('/',function(){ return view('dash.content.proforma.create'); });
             Route::get('/create',function(){ return view('dash.content.proforma.create'); });
         });
 
@@ -275,10 +278,12 @@ Route::middleware('dash')->name('dash')->group(function(){
                 });
 
                 Route::group(['prefix'=>'shipid','as' => 'shipid.'],function(){
+                    Route::get('/',function(){ return view('dash.content.masters.erp.shipid.create'); });
                     Route::get('/create',function(){ return view('dash.content.masters.erp.shipid.create'); });
                 });
 
                 Route::group(['prefix'=>'courier','as' => 'courier.'],function(){
+                    Route::get('/',function(){ return view('dash.content.masters.erp.courier.create'); });
                     Route::get('/create',function(){ return view('dash.content.masters.erp.courier.create'); });
                 });
 
@@ -324,10 +329,12 @@ Route::middleware('dash')->name('dash')->group(function(){
                 });
 
                 Route::group(['prefix'=>'black-list','as' => 'black-list.'],function(){
+                    Route::get('/',function(){ return view('dash.content.masters.crm.blacklist.create'); })->name('create');
                     Route::get('/create',function(){ return view('dash.content.masters.crm.blacklist.create'); })->name('create');
                 });
                 
                 Route::group(['prefix'=>'mail-service','as' => 'mail-service.'],function(){
+                    Route::get('/',function(){ return view('dash.content.masters.crm.mail_service.create'); })->name('create');
                     Route::get('/create',function(){ return view('dash.content.masters.crm.mail_service.create'); })->name('create');
                 });
 
