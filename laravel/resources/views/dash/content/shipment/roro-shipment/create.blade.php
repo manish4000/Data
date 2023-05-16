@@ -34,18 +34,18 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <x-dash.form.inputs.select tooltip="{{__('webCaption.model.caption')}}"
-                                label="{{__('webCaption.model.title')}}" id="" for="model" name="model" required=""
-                                :optionData="[]"
-                                editSelected="{{(isset($data->model) && ($data->model != null)) ? $data->model : ''; }}" />
+                            <x-dash.form.inputs.number for="model" tooltip="{{__('webCaption.model.caption')}}"
+                                label="{{__('webCaption.model.title')}}" class="form-control" name="model"
+                                placeholder="{{__('webCaption.model.title')}}" readonly="readonly"
+                                value="{{old('model', isset($data->id)?$data->model:'' )}}" required="" />
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <x-dash.form.inputs.select tooltip="{{__('webCaption.model_code.caption')}}"
-                                label="{{__('webCaption.model_code.title')}}" id="" for="model_code" name="model_code"
-                                required="" :optionData="[]"
-                                editSelected="{{(isset($data->model_code) && ($data->model_code != null)) ? $data->model_code : ''; }}" />
+                            <x-dash.form.inputs.number for="model_code" tooltip="{{__('webCaption.model_code.caption')}}"
+                                label="{{__('webCaption.model_code.title')}}" class="form-control" name="model_code"
+                                placeholder="{{__('webCaption.model_code.title')}}" readonly="readonly"
+                                value="{{old('model_code', isset($data->id)?$data->model_code:'' )}}" required="" />
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -61,7 +61,7 @@
                         <div class="form-group">
                             <x-dash.form.inputs.select tooltip="{{__('webCaption.reg_month.caption')}}"
                                 label="{{__('webCaption.reg_month.title')}}" id="" for="reg_month" name="reg_month"
-                                required="" :optionData="[]"
+                                required="" :optionData="[]" readonly="readonly"
                                 editSelected="{{(isset($data->reg_month) && ($data->reg_month != null)) ? $data->reg_month : ''; }}" />
                         </div>
                     </div>
@@ -134,7 +134,7 @@
                             <x-dash.form.inputs.date for="invoice_date"
                                 tooltip="{{__('webCaption.invoice_date.caption')}}"
                                 label="{{__('webCaption.invoice_date.title')}}" class="form-control" name="invoice_date"
-                                placeholder="{{__('webCaption.invoice_date.title')}}"
+                                placeholder="{{__('webCaption.invoice_date.title')}}" 
                                 value="{{old('invoice_date', isset($data->invoice_date)?$data->invoice_date:'' )}}"
                                 required="" />
                         </div>
