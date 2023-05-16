@@ -41,7 +41,7 @@
                             <x-dash.form.inputs.text for="inspection_charge" maxlength="20" tooltip="{{__('webCaption.inspection_charge.caption')}}" label="{{__('webCaption.inspection_charge.title')}}" name="inspection_charge" placeholder="{{__('webCaption.inspection_charge.title')}}" value="{{old('inspection_charge', isset($data->inspection_charge)?$data->inspection_charge:'' )}}" />
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4" style="padding-left:18px;">
                         <div class="form-group">
                             <x-dash.form.label for="" value="{{__('webCaption.status.title')}}" class="" tooltip="{{__('webCaption.status.caption')}}" />
                             <div>

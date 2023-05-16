@@ -78,7 +78,7 @@
                             <x-dash.form.label for="Approved_by_accounts" value="{{__('webCaption.approved_by_accounts.title')}}" class=""  tooltip="{{__('webCaption.approved_by_accounts.caption')}}" />
                         </div>
                         <div class=" form-check-inline">
-                            <x-dash.form.inputs.checkbox for="Yes" tooltip="{{__('webCaption.yes.caption')}}"  class="border border-danger" name="yes" label="{{__('webCaption.yes.title')}}" placeholder="" value="yes"  checked="{{ (isset ($user->companySalesTeam->yes) && $user->companySalesTeam->yes == 'Active') ? 'checked' : '' }}" />
+                            <x-dash.form.inputs.checkbox for="Yes" tooltip="{{__('webCaption.yes.caption')}}"  class="border border-danger" name="approved_by_accounts" label="{{__('webCaption.yes.title')}}" placeholder="" value="yes"  checked="{{ (isset ($user->companySalesTeam->approved_by_accounts) && $user->companySalesTeam->approved_by_accounts == 'Active') ? 'checked' : '' }}" />
                         </div>
                         </div>
                     </div>
