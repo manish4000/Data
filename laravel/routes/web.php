@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\Masters\FuelController;
 use App\Http\Controllers\Admin\Masters\TransmissionController;
 use App\Http\Controllers\Admin\Masters\RelationController;
 use App\Http\Controllers\Admin\Masters\AccessoriesController;
+use App\Http\Controllers\Admin\Masters\AccessoriesGroupController;
 use App\Http\Controllers\Admin\Masters\ColorController;
 use App\Http\Controllers\Admin\Masters\ModelController;
 use App\Http\Controllers\Admin\Masters\ExtGradeController;
@@ -466,6 +467,18 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
                 Route::post('/delete-multiple', [AccessoriesController::class,'deleteMultiple'])->name('delete-multiple');
             });
 
+            Route::group(['prefix' => 'accessories-group' , 'as' => 'accessories-group.'],function(){
+                Route::get('/', [AccessoriesGroupController::class, 'index'])->name('index'); 
+                Route::post('/store', [AccessoriesGroupController::class, 'store'])->name('store');
+                Route::post('/update-status', [AccessoriesGroupController::class, 'updateStatus'])->name('update-status');      
+                Route::post('/delete', [AccessoriesGroupController::class, 'destroy'])->name('delete');
+                Route::get('/edit/{id}', [AccessoriesGroupController::class, 'edit'])->name('edit');
+                Route::get('/add', [AccessoriesGroupController::class, 'add'])->name('add');
+                Route::get('/create', [AccessoriesGroupController::class, 'create'])->name('create');
+                Route::post('/getChildList', [AccessoriesGroupController::class,'getChildList']);
+                Route::post('/delete-multiple', [AccessoriesGroupController::class,'deleteMultiple'])->name('delete-multiple');
+            });
+
             Route::group(['prefix' => 'relation' , 'as' => 'relation.'],function(){
                 Route::get('/', [RelationController::class, 'index'])->name('index'); 
                 Route::post('/store', [RelationController::class, 'store'])->name('store');
@@ -720,6 +733,14 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
                 Route::post('/delete-multiple', [DesignationController::class,'deleteMultiple'])->name('delete-multiple');
             });
             
+        });
+
+        Route::group(['prefix' => 'freight' , 'as' => 'freight.'],function(){
+
+            Route::group(['prefix' => 'ocean-freight' , 'as' => 'ocean-freight.'],function(){
+                Route::get('/', function(){ return view('content.admin.masters.freight.ocean_freight.create'); 
+                });   
+            });
         });
 
         Route::group(['prefix' => 'billing' ,'as' => 'billing.'],function(){

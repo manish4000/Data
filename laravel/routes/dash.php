@@ -19,7 +19,9 @@ use App\Http\Controllers\Dash\MAsters\MainCategoryController;
 use App\Http\Controllers\Dash\Masters\SubCategoryController;
 use App\Http\Controllers\Dash\Masters\YardsController;
 use App\Http\Controllers\Dash\Masters\RatingController;
+use App\Http\Controllers\Dash\Masters\InspectionController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('dash')->name('dash')->group(function(){
@@ -45,7 +47,13 @@ Route::middleware('dash')->name('dash')->group(function(){
 
         Route::post('/slider-images', function(Request $request){
 
-          return view('components.dash.view.dropzone-slider',['data' => $request->data , 'editableImagesPath' =>$request->editableImagesPath ]);
+           $data =   DB::table($request->table)->where($request->table_referance_filed_name,$request->id)->where('deleted_at',null)->get();
+
+
+
+         $view =  view('components.dash.view.dropzone-slider',['data' => $data ,'tableImageFiledName' => $request->tableImageFiledName, 'editableImagesPath' =>$request->editableImagesPath ])->render();
+
+         return response(['status' => true ,'view' => $view]);
 
         } )->name('slider-images');
 
@@ -88,6 +96,10 @@ Route::middleware('dash')->name('dash')->group(function(){
         Route::group(['prefix'=>'inquries','namespace'=>'Dash','as' => 'inquries.'],function(){
             Route::get('/',function(){ return view('dash.content.inquiry.create'); });
             Route::get('/create',function(){ return view('dash.content.inquiry.create'); });
+        });
+        Route::group(['prefix'=>'reauction','namespace'=>'Dash','as' => 'reauction.'],function(){
+            Route::get('/',function(){ return view('dash.content.reauction.create'); });
+            Route::get('/create',function(){ return view('dash.content.reauction.create'); });
         });
 
         Route::group(['prefix'=>'courier','namespace'=>'Dash','as' => 'courier.'],function(){
@@ -186,14 +198,22 @@ Route::middleware('dash')->name('dash')->group(function(){
             Route::get('/',function(){ return view('dash.content.erp-logistics.create'); });
         });
 
+        Route::group(['prefix'=>'overhead-expenses','namespace'=>'Dash','as' => 'overhead-expenses.'],function(){
+            Route::get('/',function(){ return view('dash.content.overhead-expenses.create'); });
+        });       
+
         Route::group(['prefix'=>'erp/shipment','as' => 'erp/shipment.'],function(){
 
             Route::group(['prefix'=>'roro-shipment','as' => 'roro-shipment.'],function(){
                 Route::get('/',function(){ return view('dash.content.shipment.roro-shipment.create'); 
                 });
-        });
+                });
+            Route::group(['prefix'=>'container-group','as' => 'container-group.'],function(){
+                Route::get('/',function(){ return view('dash.content.shipment.container_group.create'); 
+                });
+                });
         
-    });
+        });
 
         Route::group(['prefix'=>'spare-parts','namespace'=>'Dash','as' => 'spare-parts.'],function(){
 
@@ -271,8 +291,13 @@ Route::middleware('dash')->name('dash')->group(function(){
 
 
             Route::group(['prefix'=>'inspection','as' => 'inspection.'],function(){
-                Route::get('/',function(){ return  view('dash.content.masters.inspection.create');  });
-                Route::get('/create',function(){ return view('dash.content.masters.inspection.create'); });
+                Route::get('/','InspectionController@index')->name('index');
+                Route::get('/create','InspectionController@create')->name('create');
+                Route::post('/store','InspectionController@store')->name('store');
+                Route::get('edit/{id}','InspectionController@edit')->name('edit');
+                Route::post('/delete', 'InspectionController@destroy')->name('delete'); 
+                Route::post('/delete-multiple','InspectionController@deleteMultiple')->name('delete-multiple');
+                Route::post('/update-status','InspectionController@updateStatus')->name('update-status');
             });
 
             
@@ -282,10 +307,24 @@ Route::middleware('dash')->name('dash')->group(function(){
                     Route::get('/',function(){ return  view('dash.content.masters.erp.vendor.create');  });
                     Route::get('/create',function(){ return view('dash.content.masters.erp.vendor.create'); });
                 });
+                Route::group(['prefix'=>'tax','as' => 'tax.'],function(){
+                    Route::get('/',function(){ return  view('dash.content.masters.erp.tax.create');  });
+                    Route::get('/create',function(){ return view('dash.content.masters.erp.tax.create'); });
+                });
+
+                Route::group(['prefix'=>'overhead-charges','as' => 'overhead-charges.'],function(){
+                    Route::get('/',function(){ return  view('dash.content.masters.erp.overhead_charges.create');  });
+                    Route::get('/create',function(){ return view('dash.content.masters.erp.overhead_charges.create'); });
+                });
 
                 Route::group(['prefix'=>'shipid','as' => 'shipid.'],function(){
                     Route::get('/',function(){ return view('dash.content.masters.erp.shipid.create'); });
                     Route::get('/create',function(){ return view('dash.content.masters.erp.shipid.create'); });
+                });
+
+                Route::group(['prefix'=>'logistics/fee','as' => 'logistics/fee.'],function(){
+                    Route::get('/',function(){ return view('dash.content.masters.erp.logistics_fee.create'); });
+                    Route::get('/create',function(){ return view('dash.content.masters.erp.logistics_fee.create'); });
                 });
 
                 Route::group(['prefix'=>'courier','as' => 'courier.'],function(){
