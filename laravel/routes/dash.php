@@ -65,13 +65,13 @@ Route::middleware('dash')->name('dash')->group(function(){
                     return view('dash.content.accounts.payments.drcrnotes');
                 })->name('drcrnotes');
 
-                Route::get('/','PaymentsController@index')->name('index');
-                Route::get('/create','PaymentsController@create')->name('create');
-                Route::post('/store','PaymentsController@store')->name('store');
-                Route::get('edit/{id}','PaymentsController@edit')->name('edit');
-                Route::post('/delete', 'PaymentsController@destroy')->name('delete'); 
-                Route::post('/delete-multiple','PaymentsController@deleteMultiple')->name('delete-multiple');
-                Route::post('/update-status','PaymentsController@updateStatus')->name('update-status');
+                // Route::get('/','PaymentsController@index')->name('index');
+                 Route::get('/create','PaymentsController@create')->name('create');
+                 Route::post('/store','PaymentsController@store')->name('store');
+                // Route::get('edit/{id}','PaymentsController@edit')->name('edit');
+                // Route::post('/delete', 'PaymentsController@destroy')->name('delete'); 
+                // Route::post('/delete-multiple','PaymentsController@deleteMultiple')->name('delete-multiple');
+                // Route::post('/update-status','PaymentsController@updateStatus')->name('update-status');
             });
         });
 
@@ -86,7 +86,6 @@ Route::middleware('dash')->name('dash')->group(function(){
         });
 
         Route::group(['prefix'=>'inquries','namespace'=>'Dash','as' => 'inquries.'],function(){
-  
             Route::get('/',function(){ return view('dash.content.inquiry.create'); });
             Route::get('/create',function(){ return view('dash.content.inquiry.create'); });
         });
