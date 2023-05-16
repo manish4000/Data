@@ -46,6 +46,16 @@
                             <x-dash.form.inputs.date  for="courier_date"  tooltip="{{__('webCaption.courier_date.caption')}}" label="{{__('webCaption.courier_date.title')}}" name="courier_date"  placeholder="{{__('webCaption.courier_date.title')}}" value="{{old('courier_date', isset($data->courier_date)?$data->courier_date:'' )}}" />
                         </div>
                     </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <x-dash.form.inputs.text  for="tracking_number"  tooltip="{{__('webCaption.tracking_number.caption')}}" maxlength="20" label="{{__('webCaption.tracking_number.title')}}" name="tracking_number"  placeholder="{{__('webCaption.tracking_number.title')}}" value="{{old('tracking_number', isset($data->tracking_number)?$data->tracking_number:'' )}}" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <x-dash.form.inputs.date  for="surrender_date"  tooltip="{{__('webCaption.surrender_date.caption')}}" label="{{__('webCaption.surrender_date.title')}}" name="surrender_date"  placeholder="{{__('webCaption.surrender_date.title')}}" value="{{old('surrender_date', isset($data->surrender_date)?$data->surrender_date:'' )}}" />
+                        </div>
+                    </div>
                    
 
                 </div>
