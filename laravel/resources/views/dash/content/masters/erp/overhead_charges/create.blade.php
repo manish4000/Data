@@ -1,8 +1,8 @@
 @extends('dash/layouts/LayoutMaster')
 @if(isset($data->id) && !empty($data->id))
-@section('title', __('webCaption.inspection.title') )
+@section('title', __('webCaption.overhead_charges.title') )
 @else
-@section('title', __('webCaption.inspection.title'))
+@section('title', __('webCaption.overhead_charges.title'))
 @endif
 @section('content')
 
@@ -19,7 +19,7 @@
                     <circle cx="8.5" cy="7" r="4"></circle>
                     <polyline points="17 11 19 13 23 9"></polyline>
                     </svg>
-                    {{__('webCaption.inspection.title')}}
+                    {{__('webCaption.overhead_charges.title')}}
                 </h4>
             </div>
 
@@ -28,32 +28,27 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <x-dash.form.inputs.text  for="inspection_name"  tooltip="{{__('webCaption.inspection_name.caption')}}" label="{{__('webCaption.inspection_name.title')}}" maxlength="50" name="inspection_name"  placeholder="{{__('webCaption.inspection_name.title')}}" value="{{old('inspection_name', isset($data->inspection_name)?$data->inspection_name:'' )}}" />
+                            <x-dash.form.inputs.text  for="overhead_charge_name"  maxlength="50" tooltip="{{__('webCaption.overhead_charge_name.caption')}}"  label="{{__('webCaption.overhead_charge_name.title')}}" name="overhead_charge_name"  placeholder="{{__('webCaption.overhead_charge_name.title')}}" value="{{old('overhead_charge_name', isset($data->overhead_charge_name)?$data->overhead_charge_name:'' )}}" />
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <x-dash.form.inputs.select  for="parent"  tooltip="{{__('webCaption.parent.caption')}}" label="{{__('webCaption.parent.title')}}"  name="parent_id"  placeholder="{{__('webCaption.parent.title')}}" value="{{old('parent_id', isset($data->parent_id)?$data->parent_id:'' )}}" />
+                            <x-dash.form.inputs.text  for="overhead_charge_amount"  tooltip="{{__('webCaption.overhead_charge_amount.caption')}}"  maxlength="20" label="{{__('webCaption.overhead_charge_amount.title')}}" name="overhead_charge_amount"  placeholder="{{__('webCaption.overhead_charge_amount.title')}}" value="{{old('overhead_charge_amount', isset($data->overhead_charge_amount)?$data->overhead_charge_amount:'' )}}" />
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="form-group">
-                            <x-dash.form.inputs.text for="inspection_charge" maxlength="20" tooltip="{{__('webCaption.inspection_charge.caption')}}" label="{{__('webCaption.inspection_charge.title')}}" name="inspection_charge" placeholder="{{__('webCaption.inspection_charge.title')}}" value="{{old('inspection_charge', isset($data->inspection_charge)?$data->inspection_charge:'' )}}" />
-                        </div>
-                    </div>
-                    <div class="col-md-4" style="padding-left:18px;">
                         <div class="form-group">
                             <x-dash.form.label for="" value="{{__('webCaption.status.title')}}" class="" tooltip="{{__('webCaption.status.caption')}}" />
                             <div>
                                 <div class="form-check-inline">
-                                    <x-dash.form.inputs.radio for="Active" tooltip="{{__('webCaption.active.caption')}}"  class="border border-danger" name="status" label="{{__('webCaption.active.title')}}" value="Yes"  required="required" checked="" />&ensp;
+                                    <x-dash.form.inputs.radio for="Active" tooltip="{{__('webCaption.active.caption')}}"  class="border border-danger" name="status" label="{{__('webCaption.active.title')}}" value="Active"  required="required" checked="" />&ensp;
                                     
-                                    <x-dash.form.inputs.radio for="Deactive" class="border border-danger" name="status" tooltip="{{__('webCaption.deactive.caption')}}" label="{{__('webCaption.deactive.title')}}" value="No"  required="required"  checked="" />&ensp;
+                                    <x-dash.form.inputs.radio for="Deactive" class="border border-danger" name="status" tooltip="{{__('webCaption.deactive.caption')}}" label="{{__('webCaption.deactive.title')}}" value="Deactive"  required="required"  checked="" />&ensp;
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
+                   
 
                 </div>
             </div>

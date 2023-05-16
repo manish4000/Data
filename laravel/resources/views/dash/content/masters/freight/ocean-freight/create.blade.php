@@ -222,7 +222,7 @@
                         <div class="form-group">
                             <x-dash.form.inputs.text id="" label="{{__('webCaption.rate_2.title')}}"
                                 tooltip="{{__('webCaption.rate_2.caption')}}" for="rate_2" class="form-control"
-                              name="rate_2" placeholder="{{__('webCaption.rate_2.title')}}"
+                                name="rate_2" placeholder="{{__('webCaption.rate_2.title')}}"
                                 value="{{old('rate_2', isset($data->rate_2)?$data->rate_2:'' )}}" required="" />
                         </div>
                     </div>
@@ -249,7 +249,7 @@
                         <div class="form-group">
                             <x-dash.form.inputs.text id="" label="{{__('webCaption.rate_3.title')}}"
                                 tooltip="{{__('webCaption.rate_3.caption')}}" for="rate_3" class="form-control"
-                            name="rate_3" placeholder="{{__('webCaption.rate_3.title')}}"
+                                name="rate_3" placeholder="{{__('webCaption.rate_3.title')}}"
                                 value="{{old('rate_3', isset($data->rate_3)?$data->rate_3:'' )}}" required="" />
                         </div>
                     </div>
@@ -276,7 +276,7 @@
                         <div class="form-group">
                             <x-dash.form.inputs.text id="" label="{{__('webCaption.rate_4.title')}}"
                                 tooltip="{{__('webCaption.rate_4.caption')}}" for="rate_4" class="form-control"
-                         name="rate_4" placeholder="{{__('webCaption.rate_4.title')}}"
+                                name="rate_4" placeholder="{{__('webCaption.rate_4.title')}}"
                                 value="{{old('rate_4', isset($data->rate_4)?$data->rate_4:'' )}}" required="" />
                         </div>
                     </div>
@@ -303,7 +303,7 @@
                         <div class="form-group">
                             <x-dash.form.inputs.text id="" label="{{__('webCaption.rate_5.title')}}"
                                 tooltip="{{__('webCaption.rate_5.caption')}}" for="rate_5" class="form-control"
-                                name="rate_5" placeholder="{{__('webCaption.rate_5.title')}}" 
+                                name="rate_5" placeholder="{{__('webCaption.rate_5.title')}}"
                                 value="{{old('rate_5', isset($data->rate_5)?$data->rate_5:'' )}}" required="" />
                         </div>
                     </div>
@@ -321,7 +321,7 @@
                         <div class="form-group">
                             <x-dash.form.inputs.text id="" label="{{__('webCaption.range_6_to.title')}}"
                                 tooltip="{{__('webCaption.range_6_to.caption')}}" for="range_6_to" class="form-control"
-                                maxlength="10" name="range_6_to" placeholder="{{__('webCaption.range_6_to.title')}}"
+                                name="range_6_to" placeholder="{{__('webCaption.range_6_to.title')}}"
                                 value="{{old('range_6_to', isset($data->range_6_to)?$data->range_6_to:'' )}}"
                                 required="" />
                         </div>
@@ -330,7 +330,7 @@
                         <div class="form-group">
                             <x-dash.form.inputs.text id="" label="{{__('webCaption.rate_6.title')}}"
                                 tooltip="{{__('webCaption.rate_6.caption')}}" for="rate_6" class="form-control"
-                                 name="rate_6" placeholder="{{__('webCaption.rate_6.title')}}"
+                                name="rate_6" placeholder="{{__('webCaption.rate_6.title')}}"
                                 value="{{old('rate_6', isset($data->rate_6)?$data->rate_6:'' )}}" required="" />
                         </div>
                     </div>

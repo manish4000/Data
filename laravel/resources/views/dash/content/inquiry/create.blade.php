@@ -296,7 +296,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     @include('components.dash.form.inputs.messenger_common', ['id' =>
-                                    'messenger', 'name' => 'messenger'])
+                                    'messenger', 'name' => 'messenger', 'editSelected'=>[]])
                                 </div>
                             </div>
                         </div>

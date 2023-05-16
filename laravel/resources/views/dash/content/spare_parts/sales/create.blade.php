@@ -28,7 +28,7 @@
                         <div class="form-group">
                             <x-dash.form.inputs.select tooltip="{{__('webCaption.purchase_id.caption')}}"
                                 label="{{__('webCaption.purchase_id.title')}}" id="" for="purchase_id"
-                                name="purchase_id" required="" :optionData="[]"
+                                name="purchase_id" required="required" :optionData="[]"
                                 editSelected="{{(isset($data->purchase_id) && ($data->purchase_id != null)) ? $data->purchase_id : ''; }}" />
                         </div>
                     </div>
@@ -51,7 +51,7 @@
                     </div>
                     <div class="col-md-4 col-6">
                         <div class="form-group">
-                            <x-dash.form.inputs.select tooltip="{{__('webCaption.make.caption')}}" readonly="readonly"
+                            <x-dash.form.inputs.select tooltip="{{__('webCaption.make.caption')}}" disabled="disabled"
                                 label="{{__('webCaption.make.title')}}" id="" for="make" name="make" required=""
                                 :optionData="[]"
                                 editSelected="{{(isset($data->make) && ($data->make != null)) ? $data->make : ''; }}" />
@@ -59,7 +59,7 @@
                     </div>
                     <div class="col-md-4 col-6">
                         <div class="form-group">
-                            <x-dash.form.inputs.select tooltip="{{__('webCaption.model.caption')}}" readonly="readonly"
+                            <x-dash.form.inputs.select tooltip="{{__('webCaption.model.caption')}}" disabled="disabled"
                                 label="{{__('webCaption.model.title')}}" id="" for="model" name="model" required=""
                                 :optionData="[]"
                                 editSelected="{{(isset($data->model) && ($data->model != null)) ? $data->model : ''; }}" />
@@ -67,7 +67,7 @@
                     </div>
                     <div class="col-md-4 col-6">
                         <div class="form-group"> 
-                            <x-dash.form.inputs.select tooltip="{{__('webCaption.model_code.caption')}}" readonly="readonly"
+                            <x-dash.form.inputs.select tooltip="{{__('webCaption.model_code.caption')}}" disabled="disabled"
                                 label="{{__('webCaption.model_code.title')}}" id="" for="model_code" name="model_code"
                                 required="" :optionData="[]"
                                 editSelected="{{(isset($data->model_code) && ($data->model_code != null)) ? $data->model_code : ''; }}" />
@@ -83,8 +83,8 @@
                     </div>
                     <div class="col-md-4 col-6">
                         <div class="form-group">
-                            <x-dash.form.inputs.select tooltip="{{__('webCaption.main_category.caption')}}"
-                                label="{{__('webCaption.main_category.title')}}" id="" for="main_category" readonly="readonly"
+                            <x-dash.form.inputs.select tooltip="{{__('webCaption.main_category.caption')}}" disabled="disabled"
+                                label="{{__('webCaption.main_category.title')}}" id="" for="main_category" 
                                 name="main_category" required="" :optionData="[]" 
                                 editSelected="{{(isset($data->main_category) && ($data->main_category != null)) ? $data->main_category : ''; }}" />
                         </div>
@@ -92,14 +92,14 @@
                     <div class="col-md-4 col-6">
                         <div class="form-group">
                             <x-dash.form.inputs.select tooltip="{{__('webCaption.sub_category.caption')}}"
-                                label="{{__('webCaption.sub_category.title')}}" id="" for="sub_category" readonly="readonly"
+                                label="{{__('webCaption.sub_category.title')}}" id="" for="sub_category" disabled="disabled"
                                 name="sub_category" required="" :optionData="[]"
                                 editSelected="{{(isset($data->sub_category) && ($data->sub_category != null)) ? $data->sub_category : ''; }}" />
                         </div>
                     </div>
                     <div class="col-md-2 col-6">
                         <div class="form-group">
-                            <x-dash.form.inputs.select tooltip="{{__('webCaption.year_from.caption')}}" readonly="readonly"
+                            <x-dash.form.inputs.select tooltip="{{__('webCaption.year_from.caption')}}" disabled="disabled"
                                 label="{{__('webCaption.year_from.title')}}" id="" for="year_from" name="year_from"
                                 required="" :optionData="[]"
                                 editSelected="{{(isset($data->year_from) && ($data->year_from != null)) ? $data->year_from : ''; }}" />
@@ -107,7 +107,7 @@
                     </div>
                     <div class="col-md-2 col-6">
                         <div class="form-group">
-                            <x-dash.form.inputs.select tooltip="{{__('webCaption.year_to.caption')}}" readonly="readonly"
+                            <x-dash.form.inputs.select tooltip="{{__('webCaption.year_to.caption')}}" disabled="disabled"
                                 label="{{__('webCaption.year_to.title')}}" id="" for="year_to" name="year_to"
                                 required="" :optionData="[]"
                                 editSelected="{{(isset($data->year_to) && ($data->year_to != null)) ? $data->year_to : ''; }}" />
@@ -245,7 +245,7 @@
                     </div>
                     <div class="col-md-4 col-6">
                         <div class="form-group">
-                            <x-dash.form.inputs.select tooltip="{{__('webCaption.country.caption')}}"
+                            <x-dash.form.inputs.select tooltip="{{__('webCaption.country.caption')}}" disabled="disabled"
                                 label="{{__('webCaption.country.title')}}" id="" for="country" name="country"
                                 required="" :optionData="[]"  readonly="readonly"
                                 editSelected="{{(isset($data->country) && ($data->country != null)) ? $data->country : ''; }}" />
