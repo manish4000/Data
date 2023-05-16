@@ -85,7 +85,7 @@ Route::middleware('dash')->name('dash')->group(function(){
             Route::get('/create',function(){ return view('dash.content.blank' ,['message' => " Add New Stock Manager  Page "]);  });
         });
 
-        Route::group(['prefix'=>'inquiries','namespace'=>'Dash','as' => 'inquiries.'],function(){
+        Route::group(['prefix'=>'inquries','namespace'=>'Dash','as' => 'inquries.'],function(){
   
             Route::get('/',function(){ return view('dash.content.inquiry.create'); });
             Route::get('/create',function(){ return view('dash.content.inquiry.create'); });
