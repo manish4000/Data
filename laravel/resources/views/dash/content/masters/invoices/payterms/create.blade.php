@@ -26,14 +26,14 @@
             <hr class="m-0 p-0">
 		    <div class="card-body">
                 <div class="row">
-                <div class="col-md-4">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <x-dash.form.inputs.text  for="payment_term"  tooltip="{{__('webCaption.payment_term.caption')}}" label="{{__('webCaption.payment_term.title')}}" maxlength="20" name="payment_term"  placeholder="{{__('webCaption.payment_term.title')}}" value="{{old('payment_term', isset($data->payment_term)?$data->payment_term:'' )}}" />
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <x-dash.form.inputs.select  for="parent"  tooltip="{{__('webCaption.parent.caption')}}" label="{{__('webCaption.parent.title')}}" name="parent"  placeholder="{{__('webCaption.parent.title')}}" value="{{old('parent', isset($data->parent)?$data->parent:'' )}}"/>
+                            <x-dash.form.inputs.select for="parent" tooltip="{{__('webCaption.parent.caption')}}" label="{{__('webCaption.parent.title')}}" name="parent"  placeholder="{{__('webCaption.parent.title')}}" value="{{old('parent', isset($data->parent)?$data->parent:'' )}}" />
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -42,7 +42,6 @@
                             <div>
                                 <div class="form-check-inline">
                                     <x-dash.form.inputs.radio for="Active" tooltip="{{__('webCaption.active.caption')}}"  class="border border-danger" name="status" label="{{__('webCaption.active.title')}}" value="Active"  required="required" checked="" />&ensp;
-                                    
                                     
                                     <x-dash.form.inputs.radio for="Deactive" class="border border-danger" name="status" tooltip="{{__('webCaption.deactive.caption')}}" label="{{__('webCaption.deactive.title')}}" value="Deactive"  required="required"  checked="" />&ensp;
                                 </div>

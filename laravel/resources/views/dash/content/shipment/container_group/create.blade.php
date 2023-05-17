@@ -26,43 +26,47 @@
             <hr class="m-0 p-0">
 		    <div class="card-body">
                 <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <x-dash.form.inputs.text  for="container_group_number"  tooltip="{{__('webCaption.container_group_number.caption')}}"  label="{{__('webCaption.container_group_number.title')}}" name="container_group_number"  placeholder="{{__('webCaption.container_group_number.title')}}" value="{{old('container_group_number', isset($data->container_group_number)?$data->container_group_number:'' )}}" />
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <x-dash.form.inputs.text  for="container_group_number"  tooltip="{{__('webCaption.container_group_number.caption')}}"  label="{{__('webCaption.container_group_number.title')}}" name="container_group_number"  placeholder="{{__('webCaption.container_group_number.title')}}" value="{{old('container_group_number', isset($data->container_group_number)?$data->container_group_number:'' )}}" />
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-2 col-6">
-                    <div class="form-group">
-                        <x-dash.form.inputs.date  for="container_date"  tooltip="{{__('webCaption.container_date.caption')}}" label="{{__('webCaption.container_date.title')}}" name="container_date"  placeholder="{{__('webCaption.container_date.title')}}" value="{{old('container_date', isset($data->container_date)?$data->container_date:'' )}}" />
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-md-3 col-6">
+                                <div class="form-group">
+                                    <x-dash.form.inputs.date  for="container_date"  tooltip="{{__('webCaption.container_date.caption')}}" label="{{__('webCaption.container_date.title')}}" name="container_date"  placeholder="{{__('webCaption.container_date.title')}}" value="{{old('container_date', isset($data->container_date)?$data->container_date:'' )}}" />
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <div class="form-group">
+                                    <x-dash.form.inputs.text  for="number_of_units"  tooltip="{{__('webCaption.number_of_units.caption')}}"  label="{{__('webCaption.number_of_units.title')}}" name="number_of_units"  placeholder="{{__('webCaption.number_of_units.title')}}" value="{{old('number_of_units', isset($data->number_of_units)?$data->number_of_units:'' )}}" readonly="readonly" />
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <div class="form-group">
+                                    <x-dash.form.inputs.text  for="container_weight"  tooltip="{{__('webCaption.container_weight.caption')}}"  label="{{__('webCaption.container_weight.title')}}" name="container_weight"  placeholder="{{__('webCaption.container_weight.title')}}" value="{{old('container_weight', isset($data->container_weight)?$data->container_weight:'' )}}" maxlength="10" />
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <div class="form-group">
+                                    <x-dash.form.inputs.select  for="container_size"  tooltip="{{__('webCaption.container_size.caption')}}"  label="{{__('webCaption.container_size.title')}}" name="container_size"  placeholder="{{__('webCaption.container_size.title')}}" value="{{old('container_size', isset($data->container_size)?$data->container_size:'' )}}" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <x-dash.form.inputs.text  for="number_of_units"  tooltip="{{__('webCaption.number_of_units.caption')}}"  label="{{__('webCaption.number_of_units.title')}}" name="number_of_units"  placeholder="{{__('webCaption.number_of_units.title')}}" value="{{old('number_of_units', isset($data->number_of_units)?$data->number_of_units:'' )}}" readonly="readonly" />
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <x-dash.form.inputs.text  for="container_number"  tooltip="{{__('webCaption.container_number.caption')}}"  label="{{__('webCaption.container_number.title')}}" name="container_number"  placeholder="{{__('webCaption.container_number.title')}}" value="{{old('container_number', isset($data->container_number)?$data->container_number:'' )}}" maxlength="50" />
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <x-dash.form.inputs.text  for="container_number"  tooltip="{{__('webCaption.container_number.caption')}}"  label="{{__('webCaption.container_number.title')}}" name="container_number"  placeholder="{{__('webCaption.container_number.title')}}" value="{{old('container_number', isset($data->container_number)?$data->container_number:'' )}}" maxlength="30" />
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <x-dash.form.inputs.text  for="seal_number"  tooltip="{{__('webCaption.seal_number.caption')}}"  label="{{__('webCaption.seal_number.title')}}" name="seal_number"  placeholder="{{__('webCaption.seal_number.title')}}" value="{{old('seal_number', isset($data->seal_number)?$data->seal_number:'' )}}" maxlength="50" />
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <x-dash.form.inputs.text  for="seal_number"  tooltip="{{__('webCaption.seal_number.caption')}}"  label="{{__('webCaption.seal_number.title')}}" name="seal_number"  placeholder="{{__('webCaption.seal_number.title')}}" value="{{old('seal_number', isset($data->seal_number)?$data->seal_number:'' )}}" maxlength="30" />
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <x-dash.form.inputs.text  for="container_weight"  tooltip="{{__('webCaption.container_weight.caption')}}"  label="{{__('webCaption.container_weight.title')}}" name="container_weight"  placeholder="{{__('webCaption.container_weight.title')}}" value="{{old('container_weight', isset($data->container_weight)?$data->container_weight:'' )}}" maxlength="10" />
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <x-dash.form.inputs.select  for="container_size"  tooltip="{{__('webCaption.container_size.caption')}}"  label="{{__('webCaption.container_size.title')}}" name="container_size"  placeholder="{{__('webCaption.container_size.title')}}" value="{{old('container_size', isset($data->container_size)?$data->container_size:'' )}}"      />
-                    </div>
-                </div>
-                   
-
+                
+                
                 </div>
             </div>
 
