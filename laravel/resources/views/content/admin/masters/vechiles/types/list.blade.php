@@ -8,10 +8,11 @@
     <div class="col-12">
             <!-- filter  -->
       <div class="card">
-        <div class="card-header">
+        <div class="card-header py-75">
           <h4 class="card-title" data-toggle="tooltip" data-placement="right" title="{{__('webCaption.search_filter.caption')}}">{{__('webCaption.search_filter.title')}}</h4>                    
         </div>
-        <div class="card-body">
+        <hr class="m-0 p-0">
+        <div class="card-body py-75">
           <form method="GET" action="{{route('masters.vehicle.type.index')}}">
             <div class="row">
                 <div class="col-sm-3 col-md-5 col-lg-7 col-xl-7">
@@ -22,7 +23,7 @@
                 <div class="col-7 col-sm-3 col-md-4 col-lg-3">
                     <div class="form-group">
                         <x-admin.form.label for="" value="{{__('webCaption.display_status.title')}}" class="" tooltip="{{__('webCaption.display_status.caption')}}" />
-                        <div>
+                          <div>
                                 <div class="form-check form-check-inline">
                                 <x-admin.form.inputs.radio for="searchDisplayStatusOn" class="border border-danger" name="search[displayStatus]" tooltip="{{__('webCaption.yes.caption')}}" label="{{__('webCaption.yes.title')}}" value="Yes"  required=""  checked="{{ (request()->input('search.displayStatus') ) == 'Yes' ? 'checked' : '' }}" required="" />&ensp;
                                     
@@ -32,7 +33,7 @@
                             </div>
                         </div>
                     </div>
-                </div> 
+               </div> 
                 <div class="col-5 col-sm-3 col-md-3 col-lg-2 col-xl-2">
                     <div class="row">
                         <div class="col-12 col-md-10">
@@ -42,11 +43,11 @@
                                 <x-admin.form.inputs.checkbox for="searchParentOnlyShowAll"  name="search[parentOnlyShowAll]" tooltip="{{__('webCaption.show_all.caption')}}" label="{{__('webCaption.show_all.title')}}" checked="{{ (request()->input('search.parentOnlyShowAll') == 1)  ?'checked' :''; }}"  value="1"  customClass="form-check-input"  />
                                 
                             </div>
-                        </div>
-                        
+                        </div>                        
                     </div> 
                 </div>
-                <div class="col-md-12  pt-1 text-center">
+
+                <div class="col-md-12  text-center">
                     <x-admin.form.buttons.search />
                     <x-admin.form.buttons.reset href="{{route('masters.vehicle.type.index')}}" />
                 </div>
@@ -61,13 +62,11 @@
                     
         <div class="card">
         <!-- Basic Tables start -->
-          <div class="card-body">
+          <div class="card-body py-75">
             @can('main-navigation-masters-vehicle-type') 
                 @if(count($data) > 0 )
-                    <div >
-
-                        
-                        <div class="mt-2">
+                    <div>                       
+                        <div class="mt-0 pb-75">
                             @if (Auth::guard('web')->user()->can('main-navigation-masters-vehicle-type-delete'))		
                                 {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4',['multiple_delete_url' => route('masters.vehicle.make.delete-multiple') ] ) }}  
                             @else
@@ -80,30 +79,34 @@
                         $heading_array = [
                                                 [
                                                     'title' => 'id',
-                                                    'orderby' => 'id'
+                                                    'orderby' => 'id',
+                                                    'classes' => 'width_5 text-center'
                                                 ] , 
                                                 [
                                                     'title' => 'type',
-                                                    'orderby' => 'name'
+                                                    'orderby' => 'name',
+                                                    'classes' => 'width_45'
                                                 ] , 
                                                 [
                                                     'title' => 'no_of_children',
-                                                    'orderby' => 'children_count'
+                                                    'orderby' => 'children_count',
+                                                    'classes' => 'width_15'
                                                 ] , 
                                                 [
                                                     'title' => 'display_status',
-                                                    'orderby' => 'display'
+                                                    'orderby' => 'display',
+                                                    'classes' => 'width_14'
                                                 ] , 
                                                 [
                                                     'title' => 'actions',
-                                                    'orderby' => null
+                                                    'orderby' => null,
+                                                    'classes' => 'width_12  text-center width_md_15'
                                                 ]  
                                          ];
                         @endphp
 
                         <x-admin.table.table-heading :headingFields="$heading_array"/>
-
-                        
+                       
                                 @foreach($data as $item)
                                     @include('content.admin.masters.vechiles.types.item-tr', ['item'=>$item])    
                                     @if( true || request()->input('search.parentOnlyShowAll') == 1)
@@ -114,7 +117,7 @@
                                 @endforeach   
                      </div>                             
                         
-                        <div class="mt-2">
+                        <div class="pt-75">
                             {{ $data->onEachSide(1)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
                         </div>
                     </div>

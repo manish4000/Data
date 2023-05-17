@@ -9,11 +9,11 @@
     <div class="col-12">
             <!-- filter  -->
       <div class="card">
-        <div class="card-header py-75">
+        <div class="card-header py-75 px-50">
           <h4 class="card-title " data-toggle="tooltip" data-placement="right" title="{{__('webCaption.search_filter.caption')}}">{{__('webCaption.search_filter.title')}}</h4>                    
         </div>
         <hr class="m-0 p-0">
-        <div class="card-body pt-75 pb-75">
+        <div class="card-body pt-75 pb-75 px-50">
           <form method="GET" action="{{route('masters.vehicle.make.index')}}" style="margin-bottom:0px !important;">
             <div class="row">
                 <div class="col-sm-3 col-md-5 col-lg-7 col-xl-7">
@@ -64,13 +64,13 @@
                     
         <div class="card">
         <!-- Basic Tables start -->
-          <div class="card-body pt-75 pb-0">
+          <div class="card-body pt-75 pb-0 px-50">
             @can('main-navigation-masters-vehicle-make') 
                 @if(count($data) > 0 )
                     <div >
                       
                                                        
-                               <div class="pt-25 pb-25">
+                               <div class="pt-25 pb-1">
 
                                    @if (Auth::guard('web')->user()->can('main-navigation-masters-vehicle-make-delete'))		
                                        {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4',['multiple_delete_url' => route('masters.vehicle.make.delete-multiple') ] ) }}  
@@ -94,22 +94,22 @@
                                     [
                                         'title' => 'make',
                                         'orderby' => 'name',
-                                        'classes' => 'width_45 width_xs_70'
+                                        'classes' => 'width_45'
                                     ] , 
                                     [
                                         'title' => 'no_of_children',
                                         'orderby' => 'children_count',
-                                        'classes' => 'width_15 width_xs_46'
+                                        'classes' => 'width_15 '
                                     ] , 
                                     [
                                         'title' => 'display_status',
                                         'orderby' => 'display',
-                                        'classes' => 'width_14 width_xs_46'
+                                        'classes' => 'width_14 '
                                     ] , 
                                     [
                                         'title' => 'actions',
                                         'orderby' => null,
-                                        'classes' => 'width_12 width_xs_100 text-center width_md_15'
+                                        'classes' => 'width_12  text-center width_md_15'
                                     ]  
                              ];
             @endphp
@@ -187,20 +187,3 @@ $('.load-child-records').click( function(event){
 @endsection
 
 
-<style>
-.main_table > .table_row > .make_col:first-child {width:0%; padding: 3px 20px !important; }
-
-
-@media only screen and ( min-width:320px ) and ( max-width:767px ){
-
-.xs_width_50 { width:49% !important;}
-.main_table > .table_row > .make_col {display: inline-block !important; border-bottom:none !important;padding: 5px 12px !important;}
-
-.main_table > .table_row {background:#fbfafa;padding: 0px 18px !important;border-bottom:#cac6d7 1px solid !important;}
-
-
-
-}
-
-
-</style>

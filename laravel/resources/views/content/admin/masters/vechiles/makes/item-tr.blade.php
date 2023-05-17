@@ -37,19 +37,19 @@
         </div>
 
         <div class="make_col  width_5 xs_width_50 @if($childTdColor != '')  {{$childTdColor}}  @endif ">
-            <div style="color:#aaa9a9;">ID</div>
+            <div style="" class="div-mobile">ID</div>
             <span style="">{{$item->id}}</span>
         </div>
 
           <div  class="make_col width_45 xs_width_50 @if($childTdColor != '') {{$childTdColor}}  @endif" >
-               <div style="color:#aaa9a9;">Make</div>
+               <div style="" class="div-mobile">Make</div>
 
                @php echo  str_ireplace( request()->input('search.keyword'), '<span class="heighlight-string" >'. request()->input('search.keyword').'</span>',$item->name) @endphp
           </div>
        
 
-        <div class="make_col width_15 xs_width_50 "> 
-              <div style="color:#aaa9a9;">No. Of Child</div>
+        <div class="make_col width_15 xs_width_50 text-xl-center text-lg-center text-md-center"> 
+              <div style="" class="div-mobile">No. Of Child</div>
               @if( $item->children_count > 0 )
                 @php
                     $collapsedClass = 'collasped';
@@ -66,8 +66,8 @@
                 {{$item->children_count}}
             @endif                                        
         </div>
-        <div class="make_col width_13 xs_width_50 ">
-           <div style="color:#aaa9a9;">Display Status</div>
+        <div class="make_col width_13 xs_width_50 text-xl-center text-lg-center text-md-center">
+           <div style="" class="div-mobile">Display Status</div>
 
             @php
                 $displayStatusChecked = '';
@@ -81,8 +81,8 @@
         </div>
 
 
-        <div class="make_col width_12 xs_width_50  width_md_15">
-           <div style="color:#aaa9a9; padding-top:13px;">Action</div>
+        <div class="make_col width_12 xs_width_50  width_md_15 text-xl-center text-lg-center text-md-center">
+           <div style=" padding-top:13px;" class="div-mobile">Action</div>
                 @can('main-navigation-masters-vehicle-make-edit')
                 <x-admin.form.buttons.edit href="{{ route('masters.vehicle.make.edit', $item->id) }}" />
                 @endcan
