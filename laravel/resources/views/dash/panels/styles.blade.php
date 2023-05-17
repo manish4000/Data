@@ -1,4 +1,4 @@
-    <link href="{{asset('assets/dash/assets/css/custom.css')}}" rel="stylesheet" />
+    <link href="{{asset('assets/dash/assets/css/custom.css')}}?ver=3" rel="stylesheet" />
     <!-- BEGIN: Vendor CSS-->
     {{-- <link rel="stylesheet" type="text/css" href="{{asset('assets/dash/assets/vendors/css/vendors.min.css')}}"> --}}
     <link rel="stylesheet" href="{{ asset(mix('vendors/css/vendors.min.css')) }}" />
