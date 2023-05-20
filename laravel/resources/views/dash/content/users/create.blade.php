@@ -25,6 +25,10 @@
 $old_permissions = (session()->getOldInput('permissions') != null ) ? session()->getOldInput('permissions') : [] ;
 @endphp
 
+{{-- @php
+echo "<pre>"; print_r($user->companySalesTeam); echo "</pre>"; exit;
+@endphp --}}
+
 <div>
 	<form action="{{ route('dashusers.store')}}" method="POST" enctype="multipart/form-data">
 		@csrf
@@ -87,7 +91,12 @@ $old_permissions = (session()->getOldInput('permissions') != null ) ? session()-
 					</div>
 					<div class="col-md-4">
 						<div class="form-group">
-							<x-dash.form.inputs.text for="role"  tooltip="{{__('webCaption.role.caption')}}"  label="{{__('webCaption.role.title')}}"  name="role"  placeholder="{{__('webCaption.role.title')}}" value="{{old('role', isset($user->role)?$user->role:'' )}}"  required="required" />
+							@if(isset($user->companySalesTeam->roles_id))
+								@php $editSelected = json_decode($user->companySalesTeam->roles_id); @endphp
+							@else
+								@php $editSelected = ''; @endphp
+							@endif
+							<x-dash.form.inputs.multiple_select label="{{__('webCaption.role.title')}}"  for="roles" name="roles[]" placeholder="{{__('webCaption.role.caption')}}" :oldValues="old('roles')" :editSelected="$editSelected"  required="" :optionData="$roles" />
 						</div>
 					</div>
 
@@ -114,7 +123,7 @@ $old_permissions = (session()->getOldInput('permissions') != null ) ? session()-
 
 					<div class="col-md-12">
                         <div class="form-group">
-                            <x-dash.form.inputs.textarea  for="admin_memo" maxlength="500"  tooltip="{{__('webCaption.admin_memo.caption')}}" label="{{__('webCaption.admin_memo.title')}}"   name="admin_memo"  placeholder="{{__('webCaption.admin_memo.title')}}" value="{{old('admin_memo', isset($data->admin_memo)?$data->admin_memo:'' )}}"/>
+                            <x-dash.form.inputs.textarea  for="admin_memo" maxlength="500"  tooltip="{{__('webCaption.admin_memo.caption')}}" label="{{__('webCaption.admin_memo.title')}}"   name="admin_memo"  placeholder="{{__('webCaption.admin_memo.title')}}" value="{{old('admin_memo', isset($user->companySalesTeam->admin_memo)?$user->companySalesTeam->admin_memo:'' )}}"/>
                         </div>
                     </div>
 			    </div>       
@@ -143,7 +152,7 @@ $old_permissions = (session()->getOldInput('permissions') != null ) ? session()-
 
 					<div class="col-md-4 ">
 						<div class="form-group">
-							<x-dash.form.inputs.select  onChange="stateLists(this.id,'company_state')" for="company_country" tooltip="{{__('webCaption.country.caption')}}" label="{{__('webCaption.country.title')}}" name="company_country" placeholder="{{__('webCaption.country.title')}}" :optionData="$country" editSelected="{{ old('company_country', isset($user->companySalesTeam->company_country_id) ? $user->companySalesTeam->company_country_id :'') }}" required="" />
+							<x-dash.form.inputs.select  onChange="stateLists(this.id,'company_state')" for="company_country" tooltip="{{__('webCaption.country.caption')}}" label="{{__('webCaption.country.title')}}" name="company_country" placeholder="{{__('webCaption.country.title')}}" :optionData="$country" customClass="country" editSelected="{{ old('company_country', isset($user->companySalesTeam->company_country_id) ? $user->companySalesTeam->company_country_id :'') }}" required="" />
 						</div>
 					</div>
 
@@ -168,19 +177,29 @@ $old_permissions = (session()->getOldInput('permissions') != null ) ? session()-
 					<div class="col-md-7 col-12">
 						<div class="row">
 							<div class="col-md-3 col-4 pr-50">
+							@php 
+							$company_telephone  = (isset($user->companySalesTeam->company_phone) && !empty($user->companySalesTeam->company_phone)) ? explode('_',$user->companySalesTeam->company_phone) : null;
+        					$company_phone = ($company_telephone != null) ? $company_telephone[1] : null;
+					        $company_country_code = (isset($company_telephone[0]))? $company_telephone[0] :null;  
+							@endphp
 								<div class="form-group">
-									<x-dash.form.inputs.select  tooltip="{{__('webCaption.country_code.caption')}}"  label="{{__('webCaption.country_code.title')}}"  id="" for="company_country_code" name="company_country_code"  required="" :optionData="[]"  editSelected="{{(isset($user->companySalesTeam->company_country_code) && ($user->companySalesTeam->company_country_code != null)) ? $user->companySalesTeam->company_country_code : ''; }}" />
+									<x-dash.form.inputs.select  tooltip="{{__('webCaption.country_code.caption')}}"  label="{{__('webCaption.country_code.title')}}"  id="" for="company_country_code" name="company_country_code"  required="" :optionData="$country_code"  editSelected="{{ old('company_country_code', isset($company_country_code) && !empty($company_country_code) ? $company_country_code : '') }}" />
 								</div>
 							</div>
 							<div class="col-md-5 col-8 pl-50 pr-0">
 								<div class="form-group">
-									<x-dash.form.inputs.number id="" for="company_phone"  tooltip="{{__('webCaption.phone.caption')}}" label="{{__('webCaption.phone.title')}}" maxlength="20"  name="company_phone"  placeholder="{{__('webCaption.phone.title')}}" value="{{old('company_phone', isset($data->company_phone)?$data->company_phone:'' )}}"  required="" />
+									<x-dash.form.inputs.number id="" for="company_phone"  tooltip="{{__('webCaption.phone.caption')}}" label="{{__('webCaption.phone.title')}}" maxlength="20"  name="company_phone"  placeholder="{{__('webCaption.phone.title')}}" value="{{old('company_phone', isset($company_phone)?$company_phone:'' )}}"  required="" />
 								</div>
 							</div>
 							{{-- Component of Messenger Field --}}
 							<div class="col-md-4">
 								<div class="form-group">
-									@include('components.dash.form.inputs.messenger_common', ['id' => 'company_messenger', 'name' => 'company_messenger'])  
+							@if(isset($user->companySalesTeam->company_messenger_id))
+								@php $edit_company_messenger = json_decode($user->companySalesTeam->company_messenger_id); @endphp
+							@else
+								@php $edit_company_messenger = ''; @endphp
+							@endif
+									@include('components.dash.form.inputs.messenger_common', ['id' => 'company_messenger', 'name' => 'company_messenger', 'editSelected' => $edit_company_messenger])  
 								</div>
 							</div>	
 						</div>
@@ -215,50 +234,50 @@ $old_permissions = (session()->getOldInput('permissions') != null ) ? session()-
 
 					<div class="col-md-12">
 						<div class="form-group">
-							<x-dash.form.inputs.textarea id="" for="current_address" tooltip="{{__('webCaption.current_address.caption')}}"  label="{{__('webCaption.current_address.title')}}" maxlength="250"  name="current_address"  placeholder="{{__('webCaption.current_address.title')}}" value="{{old('current_address', isset($data->current_address) ? $data->current_address : '' )}}"  required="" />
+							<x-dash.form.inputs.textarea id="" for="current_address" tooltip="{{__('webCaption.current_address.caption')}}"  label="{{__('webCaption.current_address.title')}}" maxlength="250"  name="current_address"  placeholder="{{__('webCaption.current_address.title')}}" value="{{old('current_address', isset($user->companySalesTeam->current_address) ? $user->companySalesTeam->current_address : '' )}}"  required="" />
 						</div>
 					</div> 		      
 
 					<div class="col-md-4">
 						<div class="form-group">
-							<x-dash.form.inputs.select  onChange="stateLists(this.id,'current_state')" for="current_country" tooltip="{{__('webCaption.country.caption')}}"  label="{{__('webCaption.country.title')}}" name="current_country"  placeholder="{{__('webCaption.country.title')}}" :optionData="$country" editSelected="{{ old('current_country', isset($user->companySalesTeam->company_permanent_country_id) ? $user->companySalesTeam->company_permanent_country_id :'') }}" required="" />
+							<x-dash.form.inputs.select  onChange="stateLists(this.id,'current_state')" for="current_country" tooltip="{{__('webCaption.country.caption')}}"  label="{{__('webCaption.country.title')}}" name="current_country"  placeholder="{{__('webCaption.country.title')}}" :optionData="$country" customClass="country" editSelected="{{ old('current_country', isset($user->companySalesTeam->current_country_id) ? $user->companySalesTeam->current_country_id :'') }}" required="" />
 						</div>
 					</div>
 
 					<div class="col-md-4">
 						<div class="form-group">
-							<x-dash.form.inputs.select onChange="cityList('current_state','current_city')" for="current_state" tooltip="{{__('webCaption.state.caption')}}"  label="{{__('webCaption.state.title')}}" name="current_state"  placeholder="{{__('webCaption.state.title')}}" :optionData="[]" editSelected="{{ old('company_permanent_state', isset($user->companySalesTeam->company_permanent_state_id) ? $user->companySalesTeam->company_permanent_state_id :'') }}" required="" />
+							<x-dash.form.inputs.select onChange="cityList('current_state','current_city')" for="current_state" tooltip="{{__('webCaption.state.caption')}}"  label="{{__('webCaption.state.title')}}" name="current_state"  placeholder="{{__('webCaption.state.title')}}" :optionData="[]" editSelected="{{ old('current_state', isset($user->companySalesTeam->current_state_id) ? $user->companySalesTeam->current_state_id :'') }}" required="" />
 						</div>
 					</div>
 
 					<div class="col-md-4">
 						<div class="form-group">
-							<x-dash.form.inputs.select for="current_city" tooltip="{{__('webCaption.city.caption')}}"  label="{{__('webCaption.city.title')}}" name="current_city"  placeholder="{{__('webCaption.city.title')}}" :optionData="[]" editSelected="{{ old('permanent_city', isset($user->companySalesTeam->company_permanent_city_id) ? $user->companySalesTeam->company_permanent_city_id :'') }}" required="" />
+							<x-dash.form.inputs.select for="current_city" tooltip="{{__('webCaption.city.caption')}}"  label="{{__('webCaption.city.title')}}" name="current_city"  placeholder="{{__('webCaption.city.title')}}" :optionData="[]"  editSelected="{{ old('current_city', isset($user->companySalesTeam->current_city_id) ? $user->companySalesTeam->current_city_id :'') }}" required="" />
 						</div>
 					</div>				
 			
 					<div class="col-md-4">
 						<div class="form-group">
-							<x-dash.form.inputs.text for="current_zip_code" maxlength="15" tooltip="{{__('webCaption.zip_code.caption')}}"  label="{{__('webCaption.zip_code.title')}}" name="current_zip_code"  placeholder="{{__('webCaption.zip_code.title')}}" value="{{ old('permanent_zip_code', isset($user->companySalesTeam->permanent_zip_code) ? $user->companySalesTeam->permanent_zip_code :'' ) }}" required="" />
+							<x-dash.form.inputs.text for="current_zip_code" maxlength="15" tooltip="{{__('webCaption.zip_code.caption')}}"  label="{{__('webCaption.zip_code.title')}}" name="current_zip_code"  placeholder="{{__('webCaption.zip_code.title')}}" value="{{ old('current_zip_code', isset($user->companySalesTeam->current_zip_code) ? $user->companySalesTeam->current_zip_code :'' ) }}" required="" />
 						</div>
 					</div>
 
 					<div class="col-md-12">
 						<x-dash.form.label for="" tooltip="{{__('webCaption.same_as_current_address_title.caption')}}" value="{{__('webCaption.same_as_current_address_title.title')}}" class="mb-1" />
 						<div class="form-group">
-							<x-dash.form.inputs.checkbox for="same_as_local" tooltip="{{__('webCaption.same_as_current_address.caption')}}"  label="{{__('webCaption.same_as_current_address.title')}}" name="same_as_local"  placeholder="{{__('webCaption.same_as_current_address.title')}}" value="1" checked="{{(isset($user->companySalesTeam->same_as_local) && $user->companySalesTeam->same_as_local == '1') ? 'checked' : '' }}" required="" />
+							<x-dash.form.inputs.checkbox for="same_as_current" tooltip="{{__('webCaption.same_as_current_address.caption')}}"  label="{{__('webCaption.same_as_current_address.title')}}" name="same_as_current"  placeholder="{{__('webCaption.same_as_current_address.title')}}" value="1" checked="{{(isset($user->companySalesTeam->same_as_current) && $user->companySalesTeam->same_as_current == '1') ? 'checked' : '' }}" required="" />
 						</div>
 					</div>
 
 					<div class="col-12">
 						<div class="form-group">
-							<x-dash.form.inputs.textarea id="" for="permanent_address" tooltip="{{__('webCaption.permanent_address.caption')}}"  label="{{__('webCaption.permanent_address.title')}}" maxlength="250"  name="permanent_address"  placeholder="{{__('webCaption.permanent_address.title')}}" value="{{old('permanent_address', isset($data->permanent_address)?$data->permanent_address:'' )}}"  required="" />
+							<x-dash.form.inputs.textarea id="" for="permanent_address" tooltip="{{__('webCaption.permanent_address.caption')}}"  label="{{__('webCaption.permanent_address.title')}}" maxlength="250"  name="permanent_address"  placeholder="{{__('webCaption.permanent_address.title')}}" value="{{old('permanent_address', isset($user->companySalesTeam->permanent_address)?$user->companySalesTeam->permanent_address:'' )}}"  required="" />
 						</div>
 					</div>                     
 
 					<div class="col-md-4 ">
 						<div class="form-group">
-							<x-dash.form.inputs.select onChange="stateLists(this.id,'permanent_state')" for="permanent_country" tooltip="{{__('webCaption.country.caption')}}"  label="{{__('webCaption.country.title')}}" name="permanent_country"  placeholder="{{__('webCaption.country.title')}}" :optionData="$country" editSelected="{{ old('permanent_country', isset($user->companySalesTeam->permanent_country_id) ? $user->companySalesTeam->permanent_country_id :'') }}" required="" />
+							<x-dash.form.inputs.select onChange="stateLists(this.id,'permanent_state')" for="permanent_country" tooltip="{{__('webCaption.country.caption')}}"  label="{{__('webCaption.country.title')}}" name="permanent_country"  placeholder="{{__('webCaption.country.title')}}" :optionData="$country" customClass="country" editSelected="{{ old('permanent_country', isset($user->companySalesTeam->permanent_country_id) ? $user->companySalesTeam->permanent_country_id :'') }}" required="" />
 						</div>
 					</div>
 
@@ -282,19 +301,29 @@ $old_permissions = (session()->getOldInput('permissions') != null ) ? session()-
 
 					<div class="col-md-7">
 						<div class="row">
+							@php 
+							$telephone  = (isset($user->companySalesTeam->personal_phone) && !empty($user->companySalesTeam->personal_phone)) ? explode('_',$user->companySalesTeam->personal_phone) : null;
+        					$personal_phone = ($telephone != null) ? $telephone[1] : null;
+					        $personal_country_code = (isset($telephone[0]))? $telephone[0] :null;  
+							@endphp
 							<div class="col-md-3 col-6">
 								<div class="form-group">
-								<x-dash.form.inputs.select  tooltip="{{__('webCaption.country_code.caption')}}"  label="{{__('webCaption.country_code.title')}}"  id="" for="personal_country_code" name="personal_country_code"  required="" :optionData="[]"  editSelected="{{(isset($country_code) && ($country_code != null)) ? $country_code : ''; }}" />
+								<x-dash.form.inputs.select  tooltip="{{__('webCaption.country_code.caption')}}"  label="{{__('webCaption.country_code.title')}}"  id="" for="personal_country_code" name="personal_country_code"  required="" :optionData="$country_code"  editSelected="{{ old('personal_country_code' ,isset($personal_country_code) && !empty($personal_country_code) ? $personal_country_code : '') }}" />
 								</div>
 							</div>
 							<div class="col-md-5 col-6 pl-0 pr-0">
 								<div class="form-group">
-									<x-dash.form.inputs.number id="" for="personal_phone"  tooltip="{{__('webCaption.phone.caption')}}" label="{{__('webCaption.phone.title')}}" maxlength="20"  name="personal_phone"  placeholder="{{__('webCaption.phone.title')}}" value="{{old('personal_phone', isset($data->phone)?$data->phone:'' )}}"  required="" />
+									<x-dash.form.inputs.number id="" for="personal_phone"  tooltip="{{__('webCaption.phone.caption')}}" label="{{__('webCaption.phone.title')}}" maxlength="20"  name="personal_phone"  placeholder="{{__('webCaption.phone.title')}}" value="{{old('personal_phone', isset($personal_phone)?$personal_phone:'' )}}"  required="" />
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-									@include('components.dash.form.inputs.messenger_common', ['id' => 'personal_messenger', 'name' => 'personal_messenger'])
+								@if(isset($user->companySalesTeam->personal_messenger_id))
+									@php $edit_personal_messenger = json_decode($user->companySalesTeam->personal_messenger_id); @endphp
+								@else
+									@php $edit_personal_messenger = ''; @endphp
+								@endif
+									@include('components.dash.form.inputs.messenger_common', ['id' => 'personal_messenger', 'name' => 'personal_messenger', 'editSelected' => $edit_personal_messenger])
 								</div>
 							</div>
 						</div>
@@ -337,7 +366,7 @@ $old_permissions = (session()->getOldInput('permissions') != null ) ? session()-
 				<div class="row">
 				<div class="col-md-4">
 					<div class="form-group">
-						<x-dash.form.inputs.file id="" caption="{{__('webCaption.upload_image.title')}}" ImageId="user-image-preview" for="image"   name="image" editImageUrl="{{ isset($data->image)? asset('company_data/'.$imageFolder.'/testimonials/'.$data->image) :''}}"  placeholder="{{__('webCaption.upload_image.title')}}" required="" />
+						<x-dash.form.inputs.file id="" caption="{{__('webCaption.upload_image.title')}}" ImageId="user-image-preview" for="image"   name="image" editImageUrl="{{ isset($user->companySalesTeam->image)? asset('dash/sales_team/'.$user->companySalesTeam->image) :''}}" maxFileSize="5000" placeholder="{{__('webCaption.upload_image.title')}}" required="" />
 						@if($errors->has('upload_image'))
 						<x-dash.form.form_error_messages message="{{ $errors->first('upload_image') }}"  />
 						@endif
@@ -362,7 +391,16 @@ $old_permissions = (session()->getOldInput('permissions') != null ) ? session()-
 			<div class="card-body">
 				{{-- Social Media Section  --}}
 				<div class="row">
-					@include('components.dash.form.inputs.social_media', ['id' => 'social_media_company', 'name' => 'social_media'])
+					@if(isset($user->companySalesTeam->company_social_media))
+						@php $company_social_media = json_decode($user->companySalesTeam->company_social_media); 
+						$userID = $user->id;
+						@endphp
+					@else
+						@php $company_social_media = ''; 
+						$userID = '';
+						@endphp
+					@endif
+					@include('components.dash.form.inputs.social_media', ['id' => 'social_media_company', 'name' => 'social_media', 'social_media' => $company_social_media, 'userid' => $userID ])
 			 	</div>
 
 				<div class="row mt-3">
@@ -406,16 +444,43 @@ $old_permissions = (session()->getOldInput('permissions') != null ) ? session()-
   <script src="{{ asset(mix('vendors/js/extensions/jstree.min.js')) }}"></script>
 @endsection
 
+@php
+$company_state_id = session()->getOldInput('company_state');
+$company_city_id = session()->getOldInput('company_city');
+
+$company_country_id =  (isset($company_country_id)) ? $company_country_id : ( (isset($user->companySalesTeam->company_country_id)) ? $user->companySalesTeam->company_country_id : old('company_country'));
+
+$company_state_id =  (isset($company_state_id)) ? $company_state_id : ( (isset($user->companySalesTeam->company_state_id)) ? $user->companySalesTeam->company_state_id : old('company_state'));
+
+$company_city_id =  (isset($company_city_id)) ? $company_city_id : ( (isset($user->companySalesTeam->company_city_id)) ? $user->companySalesTeam->company_city_id : old('company_city'));
+
+
+$current_state_id = session()->getOldInput('current_state');
+$current_city_id = session()->getOldInput('current_city');
+
+$current_country_id =  (isset($current_country_id)) ? $current_country_id : ( (isset($user->companySalesTeam->current_country_id)) ? $user->companySalesTeam->current_country_id : old('current_country'));
+
+$current_state_id =  (isset($current_state_id)) ? $current_state_id : ( (isset($user->companySalesTeam->current_state_id)) ? $user->companySalesTeam->current_state_id : old('current_state'));
+
+$current_city_id =  (isset($current_city_id)) ? $current_city_id : ( (isset($user->companySalesTeam->current_city_id)) ? $user->companySalesTeam->current_city_id : old('current_city'));
+
+
+$permanent_state_id = session()->getOldInput('permanent_state');
+$permanent_city_id = session()->getOldInput('permanent_city');
+
+$permanent_country_id =  (isset($permanent_country_id)) ? $permanent_country_id : ( (isset($user->companySalesTeam->permanent_country_id)) ? $user->companySalesTeam->permanent_country_id : old('permanent_country'));
+
+$permanent_state_id =  (isset($permanent_state_id)) ? $permanent_state_id : ( (isset($user->companySalesTeam->permanent_state_id)) ? $user->companySalesTeam->permanent_state_id : old('permanent_state'));
+
+$permanent_city_id =  (isset($permanent_city_id)) ? $permanent_city_id : ( (isset($user->companySalesTeam->permanent_city_id)) ? $user->companySalesTeam->permanent_city_id : old('permanent_city'));
+
+@endphp
+
 @push('script')
   <!-- Page js files -->
 <script src="{{ asset(mix('js/scripts/extensions/ext-component-tree.js')) }}"></script>
 <script src="{{ asset('assets/dash/assets/js/dash/master.js') }}"></script>
 <script type="text/javascript">
-	$(document).ready(function(){
-		messengerImageCode();
-	});
-
-
 	$(document).ready(function() {
 		$(".jstree-basic ul li a, .jstree-basic ul li ul li a").each(function() {
 			var attributes = $.map(this.attributes, function(item) {
@@ -426,20 +491,47 @@ $old_permissions = (session()->getOldInput('permissions') != null ) ? session()-
 			img.removeAttr(item);
 			});
 		});
+
+		//For MESSENGER
+		messengerImageCode();
+		$(".messenger").each(function() {
+			messengerSelect(this.id);
+		});
 	});
 
-	//Country State City 
-	/* let country_id  = "old('country_id')";
-	let state_id    = "{{old('state_id')}}";
-	let city_id     = "{{old('city_id')}}";
+	let company_country_id =  "{{$company_country_id}}";
+    let company_state_id = "{{$company_state_id}}";
+    let company_city_id = "{{$company_city_id}}";
 
-    if(country_id != ''){
-      stateLists('country_id','state_id',state_id);
+    if(company_country_id != ''){
+      stateLists('company_country','company_state', company_state_id);
+    }
+    if(company_city_id != ''){
+      cityList('company_state','company_city', company_city_id, company_state_id);
     }
 
-    if(city_id != ''){
-      cityList('state_id','city_id',city_id,state_id);
-    } */
+	let current_country_id =  "{{$current_country_id}}";
+    let current_state_id = "{{$current_state_id}}";
+    let current_city_id = "{{$current_city_id}}";
+
+    if(current_country_id != ''){
+      stateLists('current_country','current_state', current_state_id);
+    }
+    if(current_city_id != ''){
+      cityList('current_state','current_city', current_city_id, current_state_id);
+    }
+
+
+	let permanent_country_id =  "{{$permanent_country_id}}";
+    let permanent_state_id = "{{$permanent_state_id}}";
+    let permanent_city_id = "{{$permanent_city_id}}";
+
+    if(permanent_country_id != ''){
+      stateLists('permanent_country','permanent_state', permanent_state_id);
+    }
+    if(permanent_city_id != ''){
+      cityList('permanent_state','permanent_city', permanent_city_id, permanent_state_id);
+    }
 </script>
 @endpush
 @include('components.dash.form.country_state_city')
