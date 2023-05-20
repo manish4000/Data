@@ -11,11 +11,141 @@
    <form action="" method="POST" enctype="multipart/form-data">
       @csrf
 
+      <!--------Stock------->
+
+      <div class="card card-primary">
+               <div class="card-header py-75">
+                    <h4 class="card-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info font-medium-5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                            {{__('webCaption.stock_upload_limits.title')}}
+                    </h4>
+                </div>
+               <hr class="m-0 p-0">
+               <div class="card-body py-75">
+                  <div class="row">
+                       <div class="col-md-4 col-6">
+                            <div class="form-group mb-0">
+                            <x-dash.form.label for="total_limit" value="{{__('webCaption.total_limit.title')}}" class="" tooltip="{{__('webCaption.total_limit.caption')}}" />
+                            <div class="text-dark font-weight-bold ml-1">500</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-6">
+                            <div class="form-group mb-0">
+                            <x-dash.form.label for="uploaded" value="{{__('webCaption.uploaded.title')}}" class="" tooltip="{{__('webCaption.uploaded.caption')}}" />
+                            <div class="text-dark font-weight-bold ml-1">0</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-6">
+                            <div class="form-group mb-0">
+                            <x-dash.form.label for="balance" value="{{__('webCaption.balance.title')}}" class="" tooltip="{{__('webCaption.balance.caption')}}" />
+                            <div class="text-dark font-weight-bold ml-1">500</div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-4 col-6 mt-1">
+                            <div class="form-group mb-0">
+                            <x-dash.form.label for="special_offer_limit" 
+                            value="{{__('webCaption.special_offer_limit.title')}}" class="" tooltip="{{__('webCaption.special_offer_limit.caption')}}" />
+                            <div class="text-dark font-weight-bold ml-1">0</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-6 mt-1">
+                            <div class="form-group mb-0">
+                            <x-dash.form.label for="" value="{{__('webCaption.uploaded.title')}}" class="" tooltip="{{__('webCaption.uploaded.caption')}}" />
+                            <div class="text-dark font-weight-bold ml-1">0</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-6 mt-1">
+                            <div class="form-group mb-0">
+                            <x-dash.form.label for="balance" value="{{__('webCaption.balance.title')}}" class="" tooltip="{{__('webCaption.balance.caption')}}" />
+                            <div class="text-dark font-weight-bold ml-1">0</div>
+                            </div>
+                        </div>
+                  </div>
+              </div>
+          </div>
+
+
+
+ <!--------step------->
+
+      <div class="card card-primary">
+        <div class="card-body py-75">
+          <div class="row">
+              <ul class="nav nav-tabs nav-justified @if(isset($navigation_for) && $navigation_for == 'vehicle'){{'gabs-nav-tab-vehicle'}} @else{{'gabs-nav-tab-image'}} @endif" id="myTab2" role="tablist">
+                    <li class="nav-item gabs-nav-tab @if(isset($navigation_for) && $navigation_for == 'vehicle'){{'active'}}@endif">
+                        @if(isset($navigation_for) && $navigation_for == 'vehicle')
+                        <a class="nav-link " id="vehicle-tab" data-toggle="tab" href="#vehicle-just" role="tab" aria-controls="vehicle-just" aria-selected="true" >
+                        @elseif(isset($navigation_for) && $navigation_for == 'image')
+                        <a class="nav-link" id="vehicle-tab" href="{{url('vehicle/edit/'.$data->id)}}" aria-selected="true">
+                        @endif
+                        <small class="font-weight-bold"> 1. <x-dash.form.label for="vehicle_info" 
+                        value="{{__('webCaption.vehicle_info.title')}}" class="" 
+                        tooltip="{{__('webCaption.vehicle_info.caption')}}" /></small></a>
+                    </li>
+                    <li class="nav-item gabs-nav-tab @if(isset($navigation_for) && $navigation_for == 'image'){{'active'}}@endif">
+                        @if(isset($navigation_for) && $navigation_for == 'vehicle')
+                        <a class="nav-link  @if(!isset($data->id)){{'text-muted'}}@endif" @if(isset($data->id) && $data->id>0)href="{{url('vehicle/image/'.$data->id)}}"@endif aria-selected="true" >
+                        @elseif(isset($navigation_for) && $navigation_for == 'image')
+                        <a class="nav-link " id="vehicle-photos-tab" data-toggle="tab" href="#vehicle-photos-just" role="tab" aria-controls="vehicle-photos-just" aria-selected="true" >
+                        @endif  
+                        <small class="font-weight-bold">2. <x-dash.form.label for="normal_photo" 
+                        value="{{__('webCaption.normal_photo.title')}}" class="" 
+                        tooltip="{{__('webCaption.normal_photo.caption')}}" /></small></a>
+                    </li>
+                    <li class="nav-item gabs-nav-tab">
+                        @if(isset($navigation_for) && $navigation_for == 'vehicle')
+                        <a class="nav-link @if(!isset($data->id)){{'text-muted'}}@endif" @if(isset($data->id) && $data->id>0)href="{{url('vehicle/image/'.$data->id)}}"@endif aria-selected="true" >
+                        @elseif(isset($navigation_for) && $navigation_for == 'image')
+                        <a class="nav-link" id="threesixty-photos-tab" data-toggle="tab" href="#threesixty-photos-just" role="tab" aria-controls="threesixty-photos-just" aria-selected="true">
+                        @endif
+                        <small class="font-weight-bold">3. <x-dash.form.label for="photo_360" 
+                        value="{{__('webCaption.photo_360.title')}}" class="" 
+                        tooltip="{{__('webCaption.photo_360.caption')}}" /></small></a>
+                    </li>
+                    <li class="nav-item gabs-nav-tab">
+                        @if(isset($navigation_for) && $navigation_for == 'vehicle')
+                        <a class="nav-link @if(!isset($data->id)){{'text-muted'}}@endif" @if(isset($data->id) && $data->id>0)href="{{url('vehicle/image/'.$data->id)}}"@endif aria-selected="true" >
+                        @elseif(isset($navigation_for) && $navigation_for == 'image')
+                        <a class="nav-link" id="internaluse-photos-tab" data-toggle="tab" href="#internaluse-photos-just" role="tab" aria-controls="internaluse-photos-just" aria-selected="false">
+                        @endif
+                        <small class="font-weight-bold">4. <x-dash.form.label for="internal_use_photo" 
+                        value="{{__('webCaption.internal_use_photo.title')}}" class="" 
+                        tooltip="{{__('webCaption.internal_use_photo.caption')}}" /></small></a>
+                    </li>
+                    <li class="nav-item gabs-nav-tab">
+                        @if(isset($navigation_for) && $navigation_for == 'vehicle')
+                        <a class="nav-link @if(!isset($data->id)){{'text-muted'}}@endif" @if(isset($data->id) && $data->id>0)href="{{url('vehicle/image/'.$data->id)}}"@endif aria-selected="true" >
+                        @elseif(isset($navigation_for) && $navigation_for == 'image')
+                        <a class="nav-link" id="vehicle-docs-tab" data-toggle="tab" href="#vehicle-docs-just" role="tab" aria-controls="vehicle-docs-just" aria-selected="false">
+                        @endif
+                        <small class="font-weight-bold">5. <x-dash.form.label for="documents" 
+                        value="{{__('webCaption.documents.title')}}" class="" 
+                        tooltip="{{__('webCaption.documents.caption')}}" /></small></a>
+                    </li>
+               </ul>                
+          </div>
+     </div>
+  </div> 
+
+
+
+
+
+
+
+<!--------Purchase Information------->
+
 
             <div class="card card-primary">
                 <div class="card-header py-75">
                     <h4 class="card-title">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-target"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info font-medium-5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
                             {{__('webCaption.purchase_information.title')}}
                   </h4>
                 </div>
@@ -32,7 +162,7 @@
                                     </div>
 
 
-                                    <div class="col-md-4 col-6">
+                                   <div class="col-md-4 col-6">
                                          <div class="form-group mb-0">
                                            <x-dash.form.inputs.date  for="purchase_date"  maxlength="255" tooltip="{{__('webCaption.purchase_date.caption')}}" label="{{__('webCaption.purchase_date.title')}}"   name="purchase_date"  placeholder="{{__('webCaption.purchase_date.title')}}" value="{{old('purchase_date', isset($data->purchase_date)?$data->purchase_date:'' )}}"  required="" />
                                       </div>
@@ -589,7 +719,8 @@
                                                   <div class="row">
                                                      <div class="col-md-4 col-6">
                                                          <div class="form-group">
-                                                             <x-dash.form.inputs.text label="{{__('webCaption.deck_l.title')}}"  for="deck_l"  tooltip="{{__('webCaption.deck_l.caption')}}"   class="form-control" name="deck_l"  placeholder="{{__('webCaption.deck_l.title')}}" value="{{old('m3', isset ($data->title)?$data->deck_l:'' )}}"   />
+                                                             <x-dash.form.inputs.text 
+                                                             label="{{__('webCaption.deck_l.title')}}"  for="deck_l"  tooltip="{{__('webCaption.deck_l.caption')}}"   class="form-control" name="deck_l"  placeholder="{{__('webCaption.deck_l.title')}}" value="{{old('m3', isset ($data->title)?$data->deck_l:'' )}}"   />
                                                              @if ($errors->has('title'))
                                                               <x-dash.form.form_error_messages message="{{    $errors->first('vehicle_title') }}" />
                                                                @endif
@@ -597,7 +728,8 @@
                                                        </div> 
                                                        <div class="col-md-4 col-6">
                                                          <div class="form-group">
-                                                             <x-dash.form.inputs.text label="{{__('webCaption.deck_w.title')}}"  for="deck_w"  tooltip="{{__('webCaption.deck_w.caption')}}"   class="form-control" name="deck_w"  placeholder="{{__('webCaption.deck_w.title')}}" value="{{old('m3', isset ($data->title)?$data->deck_w:'' )}}"   />
+                                                             <x-dash.form.inputs.text 
+                                                             label="{{__('webCaption.deck_w.title')}}"  for="deck_w"  tooltip="{{__('webCaption.deck_w.caption')}}"   class="form-control" name="deck_w"  placeholder="{{__('webCaption.deck_w.title')}}" value="{{old('m3', isset ($data->title)?$data->deck_w:'' )}}"   />
                                                              @if ($errors->has('title'))
                                                               <x-dash.form.form_error_messages message="{{    $errors->first('vehicle_title') }}" />
                                                                @endif
@@ -605,7 +737,8 @@
                                                        </div> 
                                                        <div class="col-md-4">
                                                          <div class="form-group">
-                                                             <x-dash.form.inputs.text label="{{__('webCaption.deck_h.title')}}"  for="deck_h"  tooltip="{{__('webCaption.deck_h.caption')}}"   class="form-control" name="deck_h"  placeholder="{{__('webCaption.deck_h.title')}}" value="{{old('m3', isset ($data->title)?$data->deck_h:'' )}}"   />
+                                                             <x-dash.form.inputs.text 
+                                                             label="{{__('webCaption.deck_h.title')}}"  for="deck_h"  tooltip="{{__('webCaption.deck_h.caption')}}"   class="form-control" name="deck_h"  placeholder="{{__('webCaption.deck_h.title')}}" value="{{old('m3', isset ($data->title)?$data->deck_h:'' )}}"   />
                                                              @if ($errors->has('title'))
                                                               <x-dash.form.form_error_messages message="{{    $errors->first('vehicle_title') }}" />
                                                                @endif
@@ -617,7 +750,8 @@
 
                                                       <div class="col-md-2 col-6">
                                                          <div class="form-group">
-                                                             <x-dash.form.inputs.text label="{{__('webCaption. tire_size.title')}}" maxlength="10"  for="tire_size"  tooltip="{{__('webCaption.tire_size.caption')}}"   class="form-control" name="tire_size"  placeholder="{{__('webCaption.tire_size.title')}}" value="{{old('m3', isset ($data->title)?$data->tire_size:'' )}}"   />
+                                                             <x-dash.form.inputs.text 
+                                                             label="{{__('webCaption.tire_size.title')}}" maxlength="10"  for="tire_size"  tooltip="{{__('webCaption.tire_size.caption')}}"   class="form-control" name="tire_size"  placeholder="{{__('webCaption.tire_size.title')}}" value="{{old('m3', isset ($data->title)?$data->tire_size:'' )}}"   />
                                                              @if ($errors->has('title'))
                                                               <x-dash.form.form_error_messages message="{{    $errors->first('vehicle_title') }}" />
                                                                @endif
@@ -628,7 +762,8 @@
 
                                                        <div class="col-md-2 col-6">
                                                          <div class="form-group">
-                                                             <x-dash.form.inputs.text label="{{__('webCaption. front_tire_condition.title')}}"  for="front_tire_condition"  tooltip="{{__('webCaption.front_tire_condition.caption')}}"   class="form-control" name="front_tire_condition"  placeholder="{{__('webCaption.front_tire_condition.title')}}" value="{{old('m3', isset ($data->title)?$data->front_tire_condition:'' )}}"   />
+                                                             <x-dash.form.inputs.text 
+                                                             label="{{__('webCaption.front_tire_condition.title')}}"  for="front_tire_condition"  tooltip="{{__('webCaption.front_tire_condition.caption')}}"   class="form-control" name="front_tire_condition"  placeholder="{{__('webCaption.front_tire_condition.title')}}" value="{{old('m3', isset ($data->title)?$data->front_tire_condition:'' )}}"   />
                                                              @if ($errors->has('title'))
                                                               <x-dash.form.form_error_messages message="{{    $errors->first('vehicle_title') }}" />
                                                                @endif
@@ -638,7 +773,8 @@
 
                                                        <div class="col-md-2 col-6">
                                                          <div class="form-group">
-                                                             <x-dash.form.inputs.text label="{{__('webCaption.rear_tire_condition.title')}}"  for="rear_tire_condition"  tooltip="{{__('webCaption.rear_tire_condition.caption')}}"   class="form-control" name="rear_tire_condition"  placeholder="{{__('webCaption.rear_tire_condition.title')}}" value="{{old('m3', isset ($data->title)?$data->rear_tire_condition:'' )}}"   />
+                                                             <x-dash.form.inputs.text 
+                                                             label="{{__('webCaption.rear_tire_condition.title')}}"  for="rear_tire_condition"  tooltip="{{__('webCaption.rear_tire_condition.caption')}}"   class="form-control" name="rear_tire_condition"  placeholder="{{__('webCaption.rear_tire_condition.title')}}" value="{{old('m3', isset ($data->title)?$data->rear_tire_condition:'' )}}"   />
                                                              @if ($errors->has('title'))
                                                               <x-dash.form.form_error_messages message="{{    $errors->first('vehicle_title') }}" />
                                                                @endif
@@ -647,7 +783,8 @@
 
                                                        <div class="col-md-2 col-6">
                                                          <div class="form-group">
-                                                             <x-dash.form.inputs.text label="{{__('webCaption. rear_tire_type.title')}}"  for="rear_tire_type"  tooltip="{{__('webCaption.rear_tire_type.caption')}}"   class="form-control" name="rear_tire_type"  placeholder="{{__('webCaption.rear_tire_type.title')}}" value="{{old('m3', isset ($data->title)?$data->rear_tire_type:'' )}}"   />
+                                                             <x-dash.form.inputs.text 
+                                                             label="{{__('webCaption.rear_tire_type.title')}}"  for="rear_tire_type"  tooltip="{{__('webCaption.rear_tire_type.caption')}}"   class="form-control" name="rear_tire_type"  placeholder="{{__('webCaption.rear_tire_type.title')}}" value="{{old('m3', isset ($data->title)?$data->rear_tire_type:'' )}}"   />
                                                              @if ($errors->has('title'))
                                                               <x-dash.form.form_error_messages message="{{    $errors->first('vehicle_title') }}" />
                                                                @endif
@@ -994,3 +1131,170 @@
 </div>      
 
 @endsection
+
+
+<style type="text/css">
+/*-------vehicle-----create-------navigation-------*/
+
+/* .nav {border-radius: 0.25rem;}
+.nav.wrap-border {border:1px solid #ddd;}
+.nav.wrap-border li.nav-header {margin:0 0.5rem;}
+.nav.wrap-border li.nav-item,.nav.wrap-border div {padding:2px 0.714rem;}
+.nav.nav-left .nav-item .nav-link {justify-content:flex-start;}
+.nav.nav-right .nav-item .nav-link {justify-content:flex-end;}
+.nav.square-border {border-radius:0;}
+.nav.square-border .nav-item .nav-link.active {border-radius:0;}
+.nav .modern-nav-toggle {padding:0;margin:1.571rem 0;}
+.nav .dropdown.show .dropdown-toggle::after {background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-chevron-down'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");}
+.nav .dropdown-toggle:not(.active)::after {background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236e6b7b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-chevron-down'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");}
+  
+.nav-pills .nav-link,.nav-tabs .nav-link {display:flex;align-items:center;justify-content: center;}
+.nav-pills .nav-link i,
+.nav-pills .nav-link svg,
+.nav-tabs .nav-link i,
+.nav-tabs .nav-link svg {margin-right:0.5rem;}
+  
+.nav-pills {margin-bottom:1rem;}
+.nav-pills .nav-link {padding:0.786rem 1.5rem;font-size:1rem;line-height:1rem;border: 1px solid transparent;
+    color: #5e5873;}
+.nav-pills .nav-link.active {border-color:#7367f0;box-shadow: 0 4px 18px -4px rgba(115, 103, 240, 0.65);
+  }
+.nav-pills .nav-link.disabled {color:#b9b9c3;}
+.nav-pills .nav-link.dropdown-toggle::after {top:1px;left:1px;}
+.nav-pills.dropdown.show .nav-link {color:#fff;}
+.nav-pills.dropdown.show .dropdown-item.active:hover {color:#7367f0;}
+.nav-pills.nav-justified {width:100%;}
+.nav-pills.nav-justified .nav-item {float:none;}
+.nav-pills.nav-justified .nav-link {text-align:center;margin-bottom:5px;}
+.nav-pills.nav-justified > .dropdown .dropdown-menu {top:auto;left:auto;}
+  @media (min-width: 576px) {
+    .nav-pills.nav-justified .nav-item {
+      display: block;
+      width: 1%;
+    }
+    .nav-pills.nav-justified .nav-link {
+      margin-bottom: 0;
+    }
+  }
+  .nav-pills.nav-justified .nav-link {
+    margin-right: 0;
+    border-radius: 0.357rem;
+  }
+  @media (min-width: 576px) {
+    .nav-pills.nav-justified .nav-link.active,
+  .nav-pills.nav-justified .nav-link.active:hover,
+  .nav-pills.nav-justified .nav-link.active:focus {
+      border-bottom-color: transparent;
+    }
+  }
+  .nav-pills.nav-justified .nav-link {
+    display: block;
+  }
+  .nav-pills.nav-justified .nav-link.active {
+    border: none;
+  }
+  .nav-pills.nav-justified .nav-link.active:hover, .nav-pills.nav-justified .nav-link.active:focus {
+    border: none;
+  }
+  
+  .nav-tabs {
+    margin-bottom: 1rem;
+    position: relative;
+  }
+  .nav-tabs .nav-item {
+    position: relative;
+  }
+  .nav-tabs .nav-link {
+    color: #6e6b7b;
+    border: none;
+    min-width: auto;
+    font-weight: 450;
+    padding: 0.61rem 1.2rem;
+    border-radius: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .nav-tabs .nav-link:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(30deg, #7367f0, rgba(115, 103, 240, 0.5)) !important;
+    transition: transform 0.3s;
+    transform: translate3d(0, 150%, 0);
+  }
+  .nav-tabs .nav-link.active {
+    position: relative;
+    color: #7367f0;
+  }
+  .nav-tabs .nav-link.active:after {
+    transform: translate3d(0, 0, 0);
+  }
+  .nav-tabs .nav-link.dropdown-toggle::after {
+    top: 1px;
+    left: 1px;
+  }
+  .nav-tabs.nav-justified {
+    width: 100%;
+  }
+  .nav-tabs.nav-justified .nav-item {
+    float: none;
+  }
+  .nav-tabs.nav-justified .nav-link {
+    text-align: center;
+    margin-bottom: 5px;
+  }
+  .nav-tabs.nav-justified > .dropdown .dropdown-menu {
+    top: auto;
+    left: auto;
+  }
+  @media (min-width: 576px) {
+    .nav-tabs.nav-justified .nav-item {
+      display: block;
+      width: 1%;
+    }
+    .nav-tabs.nav-justified .nav-link {
+      margin-bottom: 0;
+    }
+  }
+  .nav-tabs.nav-justified .nav-link {
+    margin-right: 0;
+    border-radius: 0.357rem;
+  }
+  @media (min-width: 576px) {
+    .nav-tabs.nav-justified .nav-link.active,
+  .nav-tabs.nav-justified .nav-link.active:hover,
+  .nav-tabs.nav-justified .nav-link.active:focus {
+      border-bottom-color: transparent;
+    }
+  }
+.nav-tabs.nav-justified .nav-item a.nav-link {display:block;border-radius:0;}
+.nav-tabs.nav-justified .nav-item a.nav-link.active {border:none;}
+.nav-tabs.nav-justified .nav-item a.nav-link:hover {border-color: transparent;}
+  
+.nav-vertical {overflow:hidden;}
+.nav-vertical .nav.nav-tabs .nav-item .nav-link {margin-bottom: 0;}
+.nav-vertical .nav.nav-tabs .nav-item .nav-link:after {transform:rotate(90deg) translate3d(0, 150%, 0);left:70%;
+  }
+.nav-vertical .nav.nav-tabs .nav-item .nav-link.active:after {left:auto;right:-1.4rem;transform: rotate(90deg) translate3d(0, 225%, 0);top:1.25rem;width:2.14rem;}
+.nav-vertical .nav.nav-tabs.nav-left {float:left;display:table;margin-right:1rem;}
+.nav-vertical .nav.nav-tabs.nav-left ~ .tab-content .tab-pane {display:none;overflow-y:auto;padding-left: 1rem;
+  }
+.nav-vertical .nav.nav-tabs.nav-left ~ .tab-content .tab-pane.active {display:block;}
+.nav-vertical .nav.nav-tabs.nav-right {float:right;display:table;margin-left:1rem;}
+.nav-vertical .nav.nav-tabs.nav-right .nav-item .nav-link.active:after {left:-0.9rem;transform: rotate(90deg) translate3d(0, 10%, 0);}
+.nav-vertical .nav.nav-tabs.nav-right ~ .tab-content .tab-pane {display:none;overflow-y:auto;padding-right: 1rem;
+  }
+.nav-vertical .nav.nav-tabs.nav-right ~ .tab-content .tab-pane.active {display:block;}
+  
+
+ */
+
+
+
+
+
+
+</style>
