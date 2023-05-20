@@ -49,7 +49,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <x-dash.form.label for="" value="{{__('webCaption.ship_type.title')}}" class="" tooltip="{{__('webCaption.ship_type.caption')}}" />
-                            <div class=" form-check-inline">
+                            <div>
                                 <x-dash.form.inputs.radio for="roro" tooltip="{{__('webCaption.roro.caption')}}"  class="border border-danger" name="ship_type" label="{{__('webCaption.roro.title')}}" value="roro" required="required"  checked="{{ (isset ($user->companySalesTeam->ship_type) && $user->companySalesTeam->ship_type == 'Active') ? 'checked' : '' }}" />&ensp;
 
                                 <x-dash.form.inputs.radio for="container" class="border border-danger" name="ship_type" tooltip="{{__('webCaption.container.caption')}}" label="{{__('webCaption.container.title')}}"  value="container"  required="required"  checked="{{ (isset($user->companySalesTeam->ship_type) && $user->companySalesTeam->ship_type == 'Blocked') ? 'checked' : '' }}" />&ensp;
@@ -71,7 +71,7 @@
                             <div class="col-md-4 col-6">
                                 <div class="form-group">
                                     <x-dash.form.inputs.date  for="from_port_date"  tooltip="{{__('webCaption.from_port_date.caption')}}" label="{{__('webCaption.from_port_date.title')}}" name="from_port_date" placeholder="{{__('webCaption.from_port_date.title')}}" value="{{old('from_port_date', isset($data->from_port_date)?$data->from_port_date:'' )}}" />
-                                </div>
+                                </div> 
                             </div>
                         </div>
                     </div>
