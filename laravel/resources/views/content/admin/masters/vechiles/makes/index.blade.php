@@ -70,35 +70,35 @@
                         {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4') }}  
                     @endif
                 {{--check delete permission  --}}          
-          <div class="main_table" id="master-list">
+          <div class="main_table mb-2" id="master-list">
             @php
             $heading_array = [
-                                    [
-                                        'title' => 'id',
-                                        'orderby' => 'id',
-                                        'classes' => 'width_5 text-center'
-                                    ] , 
-                                    [
-                                        'title' => 'make',
-                                        'orderby' => 'name',
-                                        'classes' => 'width_45'
-                                    ] , 
-                                    [
-                                        'title' => 'no_of_children',
-                                        'orderby' => 'children_count',
-                                        'classes' => 'width_15 '
-                                    ] , 
-                                    [
-                                        'title' => 'display_status',
-                                        'orderby' => 'display',
-                                        'classes' => 'width_14 '
-                                    ] , 
-                                    [
-                                        'title' => 'actions',
-                                        'orderby' => null,
-                                        'classes' => 'width_12  text-center width_md_15'
-                                    ]  
-                             ];
+                            [
+                                'title' => 'id',
+                                'orderby' => 'id',
+                                'classes' => 'width_5'
+                            ] , 
+                            [
+                                'title' => 'make',
+                                'orderby' => 'name',
+                                'classes' => 'width_45'
+                            ] , 
+                            [
+                                'title' => 'no_of_children',
+                                'orderby' => 'children_count',
+                                'classes' => 'width_15'
+                            ] , 
+                            [
+                                'title' => 'display_status',
+                                'orderby' => 'display',
+                                'classes' => 'width_14 '
+                            ] , 
+                            [
+                                'title' => 'actions',
+                                'orderby' => null,
+                                'classes' => 'width_12 text-center'
+                            ]  
+                        ];
             @endphp
 
             <x-admin.table.table-heading :headingFields="$heading_array"/>                
@@ -112,8 +112,7 @@
                        @endif
               @endforeach   
                                                                                
-             </div>
-                   
+             </div>                   
 
                     @if (Auth::guard('web')->user()->can('main-navigation-masters-vehicle-make-delete'))		
                     {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4',['multiple_delete_url' => route('masters.vehicle.make.delete-multiple') ] ) }}  
@@ -121,9 +120,7 @@
                         {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4') }}  
                     @endif
                 @else
-                    <div class="text-center my-2">
-                        <h3>{{__('webCaption.record_not_found.title')}} </h3>
-                    </div>
+                    @include('components.admin.alerts.no-record-found')                    
                 @endif    
             @endcan
             </div>
