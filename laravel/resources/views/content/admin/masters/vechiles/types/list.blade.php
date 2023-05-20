@@ -126,7 +126,7 @@
                      </div>                             
                         
                         <div class="pt-75">
-                            {{ $data->onEachSide(1)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
+                          {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4', [ 'permission_and_urls' => $permission_and_urls  ] )}}     
                         </div>
                     </div>
                 @else
