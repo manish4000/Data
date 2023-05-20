@@ -20,6 +20,11 @@ use App\Http\Controllers\Dash\Masters\SubCategoryController;
 use App\Http\Controllers\Dash\Masters\YardsController;
 use App\Http\Controllers\Dash\Masters\RatingController;
 use App\Http\Controllers\Dash\Masters\InspectionController;
+use App\Http\Controllers\Dash\Masters\ChargesController;
+use App\Http\Controllers\Dash\Masters\TermsController;
+use App\Http\Controllers\Dash\Masters\SalesAgreementController;
+use App\Http\Controllers\Dash\Masters\OverheadChargesController;
+use App\Http\Controllers\Dash\Masters\CourierController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -69,9 +74,14 @@ Route::middleware('dash')->name('dash')->group(function(){
         Route::group(['prefix'=>'accounts','namespace'=>'Dash\Accounts','as' => 'accounts.'],function(){
 
             Route::group(['prefix'=>'payments','as' => 'payments.'],function(){
+
                 Route::get('drcrnotes',function(){
                     return view('dash.content.accounts.payments.drcrnotes');
                 })->name('drcrnotes');
+
+                Route::get('allocation',function(){
+                    return view('dash.content.accounts.payments.allocation.create');
+                })->name('allocation');
 
                 // Route::get('/','PaymentsController@index')->name('index');
                  Route::get('/create','PaymentsController@create')->name('create');
@@ -93,10 +103,21 @@ Route::middleware('dash')->name('dash')->group(function(){
             Route::get('/create',function(){ return view('dash.content.blank' ,['message' => " Add New Stock Manager  Page "]);  });
         });
 
-        Route::group(['prefix'=>'inquries','namespace'=>'Dash','as' => 'inquries.'],function(){
+        /* Route::group(['prefix'=>'inquries','namespace'=>'Dash','as' => 'inquries.'],function(){
             Route::get('/',function(){ return view('dash.content.inquiry.create'); });
             Route::get('/create',function(){ return view('dash.content.inquiry.create'); });
+        }); */
+
+        Route::group(['prefix'=>'inquiries','namespace'=>'Dash','as' => 'inquiries.'],function(){
+            Route::get('/','InquiryController@index')->name('index');
+            Route::get('/create','InquiryController@create')->name('create');
+            Route::post('/store','InquiryController@store')->name('store');
+            Route::get('edit/{id}','InquiryController@edit')->name('edit');
+            Route::post('/delete', 'InquiryController@destroy')->name('delete'); 
+            Route::post('/delete-multiple','InquiryController@deleteMultiple')->name('delete-multiple');   
+            //Route::post('/update-status','InquiryController@updateStatus')->name('update-status');  
         });
+
         Route::group(['prefix'=>'reauction','namespace'=>'Dash','as' => 'reauction.'],function(){
             Route::get('/',function(){ return view('dash.content.reauction.create'); });
             Route::get('/create',function(){ return view('dash.content.reauction.create'); });
@@ -140,6 +161,8 @@ Route::middleware('dash')->name('dash')->group(function(){
             Route::get('/',function(){ return view('dash.content.proforma.create'); });
             Route::get('/create',function(){ return view('dash.content.proforma.create'); });
         });
+
+        
 
         Route::group(['prefix'=>'members','namespace'=>'Dash','as' => 'members.'],function(){
             Route::get('/','ClientController@index')->name('index');
@@ -207,11 +230,11 @@ Route::middleware('dash')->name('dash')->group(function(){
             Route::group(['prefix'=>'roro-shipment','as' => 'roro-shipment.'],function(){
                 Route::get('/',function(){ return view('dash.content.shipment.roro-shipment.create'); 
                 });
-                });
+            });
             Route::group(['prefix'=>'container-group','as' => 'container-group.'],function(){
                 Route::get('/',function(){ return view('dash.content.shipment.container_group.create'); 
                 });
-                });
+            });
         
         });
 
@@ -268,24 +291,51 @@ Route::middleware('dash')->name('dash')->group(function(){
 
             Route::group(['prefix'=>'invoices','as' => 'invoices.'],function(){
 
+                Route::group(['prefix'=>'charges','as' => 'charges.'],function(){
+                    Route::get('/','ChargesController@index')->name('index');
+                    Route::get('/create','ChargesController@create')->name('create');
+                    Route::post('/store','ChargesController@store')->name('store');
+                    Route::get('edit/{id}','ChargesController@edit')->name('edit');
+                    Route::post('/delete', 'ChargesController@destroy')->name('delete'); 
+                    Route::post('/delete-multiple','ChargesController@deleteMultiple')->name('delete-multiple');
+                    Route::post('/update-status','ChargesController@updateStatus')->name('update-status');
+
+                });
 
                 Route::group(['prefix'=>'terms','as' => 'terms.'],function(){
-                    Route::get('/',function(){ return  view('dash.content.masters.invoices.terms.create');  });
-                    Route::get('/create',function(){ return view('dash.content.masters.invoices.terms.create'); });
+                    Route::get('/','TermsController@index')->name('index');
+                    Route::get('/create','TermsController@create')->name('create');
+                    Route::post('/store','TermsController@store')->name('store');
+                    Route::get('edit/{id}','TermsController@edit')->name('edit');
+                    Route::post('/delete', 'TermsController@destroy')->name('delete'); 
+                    Route::post('/delete-multiple','TermsController@deleteMultiple')->name('delete-multiple');
+                    Route::post('/update-status','TermsController@updateStatus')->name('update-status');
                 });
 
-                Route::group(['prefix'=>'charges','as' => 'charges.'],function(){
-                    Route::get('/',function(){ return  view('dash.content.masters.invoices.charges.create');  });
-                    Route::get('/create',function(){ return view('dash.content.masters.invoices.charges.create'); });
+                Route::group(['prefix'=>'payment-terms','as' => 'payment-terms.'],function(){
+                    Route::get('/','PaymentTermsController@index')->name('index');
+                    Route::get('/create','PaymentTermsController@create')->name('create');
+                    Route::post('/store','PaymentTermsController@store')->name('store');
+                    Route::get('edit/{id}','PaymentTermsController@edit')->name('edit');
+                    Route::post('/delete', 'PaymentTermsController@destroy')->name('delete'); 
+                    Route::post('/delete-multiple','PaymentTermsController@deleteMultiple')->name('delete-multiple');
+                    Route::post('/update-status','PaymentTermsController@updateStatus')->name('update-status');
                 });
 
-                Route::group(['prefix'=>'payterms','as' => 'payterms.'],function(){
-                    Route::get('/',function(){ return  view('dash.content.masters.invoices.payterms.create');  });
-                    Route::get('/create',function(){ return view('dash.content.masters.invoices.payterms.create'); });
+
+                Route::group(['prefix'=>'hs-code','as' => 'hs-code.'],function(){
+                    Route::get('/',function(){ return  view('dash.content.masters.invoices.hs_code.create');  });
+                    Route::get('/create',function(){ return view('dash.content.masters.invoices.hs_code.create'); });
                 });
+
                 Route::group(['prefix'=>'sales-agreement','as' => 'sales-agreement.'],function(){
-                    Route::get('/',function(){ return  view('dash.content.masters.invoices.sales_agreement.create');  });
-                    Route::get('/create',function(){ return view('dash.content.masters.invoices.sales_agreement.create'); });
+                    Route::get('/','SalesAgreementController@index')->name('index');
+                    Route::get('/create','SalesAgreementController@create')->name('create');
+                    Route::post('/store','SalesAgreementController@store')->name('store');
+                    Route::get('edit/{id}','SalesAgreementController@edit')->name('edit');
+                    Route::post('/delete', 'SalesAgreementController@destroy')->name('delete'); 
+                    Route::post('/delete-multiple','SalesAgreementController@deleteMultiple')->name('delete-multiple');
+                    Route::post('/update-status','SalesAgreementController@updateStatus')->name('update-status');
                 });
             });
 
@@ -303,6 +353,26 @@ Route::middleware('dash')->name('dash')->group(function(){
             
             Route::group(['prefix'=>'erp','as' => 'erp.'],function(){
 
+                Route::group(['prefix'=>'overhead-charges','as' => 'overhead-charges.'],function(){
+                    Route::get('/','OverheadChargesController@index')->name('index');
+                    Route::get('/create','OverheadChargesController@create')->name('create');
+                    Route::post('/store','OverheadChargesController@store')->name('store');
+                    Route::get('edit/{id}','OverheadChargesController@edit')->name('edit');
+                    Route::post('/delete', 'OverheadChargesController@destroy')->name('delete'); 
+                    Route::post('/delete-multiple','OverheadChargesController@deleteMultiple')->name('delete-multiple');
+                    Route::post('/update-status','OverheadChargesController@updateStatus')->name('update-status');
+                });
+
+                Route::group(['prefix'=>'courier','as' => 'courier.'],function(){
+                    Route::get('/','CourierController@index')->name('index');
+                    Route::get('/create','CourierController@create')->name('create');
+                    Route::post('/store','CourierController@store')->name('store');
+                    Route::get('edit/{id}','CourierController@edit')->name('edit');
+                    Route::post('/delete', 'CourierController@destroy')->name('delete'); 
+                    Route::post('/delete-multiple','CourierController@deleteMultiple')->name('delete-multiple');
+                    Route::post('/update-status','CourierController@updateStatus')->name('update-status');
+                });
+
                 Route::group(['prefix'=>'vendor','as' => 'vendor.'],function(){
                     Route::get('/',function(){ return  view('dash.content.masters.erp.vendor.create');  });
                     Route::get('/create',function(){ return view('dash.content.masters.erp.vendor.create'); });
@@ -310,11 +380,6 @@ Route::middleware('dash')->name('dash')->group(function(){
                 Route::group(['prefix'=>'tax','as' => 'tax.'],function(){
                     Route::get('/',function(){ return  view('dash.content.masters.erp.tax.create');  });
                     Route::get('/create',function(){ return view('dash.content.masters.erp.tax.create'); });
-                });
-
-                Route::group(['prefix'=>'overhead-charges','as' => 'overhead-charges.'],function(){
-                    Route::get('/',function(){ return  view('dash.content.masters.erp.overhead_charges.create');  });
-                    Route::get('/create',function(){ return view('dash.content.masters.erp.overhead_charges.create'); });
                 });
 
                 Route::group(['prefix'=>'shipid','as' => 'shipid.'],function(){
@@ -327,17 +392,11 @@ Route::middleware('dash')->name('dash')->group(function(){
                     Route::get('/create',function(){ return view('dash.content.masters.erp.logistics_fee.create'); });
                 });
 
-                Route::group(['prefix'=>'courier','as' => 'courier.'],function(){
-                    Route::get('/',function(){ return view('dash.content.masters.erp.courier.create'); });
-                    Route::get('/create',function(){ return view('dash.content.masters.erp.courier.create'); });
-                });
-
                 Route::group(['prefix'=>'online-payments','as' => 'online-payments.'],function(){
                     Route::get('/',function(){ return view('dash.content.masters.erp.online_payments.create'); });
                 });
 
                 Route::group(['prefix'=>'expenses','as' => 'expenses.'],function(){
-                    // Route::get('/',function(){ return view('dash.content.masters.erp.expenses.create'); });
                     Route::get('/','ExpensesController@index')->name('index');
                     Route::get('/create','ExpensesController@create')->name('create');
                     Route::post('/store','ExpensesController@store')->name('store');
@@ -348,12 +407,9 @@ Route::middleware('dash')->name('dash')->group(function(){
                 });
 
                 Route::group(['prefix'=>'vendor-type','as' => 'vendor-type.'],function(){
-                    // Route::get('/',function(){ return view('dash.content.masters.erp.expenses.create'); });
                     Route::get('/','VendorTypeController@index')->name('index');
                     Route::get('/create','VendorTypeController@create')->name('create');
                     Route::post('/store','VendorTypeController@store')->name('store');
-                    Route::post('/add','VendorTypeController@add')->name('add');
-                    Route::post('/getChildList','VendorTypeController@getChildList');
                     Route::get('edit/{id}','VendorTypeController@edit')->name('edit');
                     Route::post('/delete', 'VendorTypeController@destroy')->name('delete'); 
                     Route::post('/delete-multiple','VendorTypeController@deleteMultiple')->name('delete-multiple');   
@@ -393,6 +449,17 @@ Route::middleware('dash')->name('dash')->group(function(){
 
             });
 
+        });
+
+        Route::group(['prefix'=>'common','namespace'=>'Common','as' => 'common.'],function(){
+
+            Route::group(['prefix'=>'accouncements','as'=>'accouncements.'],function(){
+                Route::get('/',function(){ return view('dash.content.common.announcements.create'); });
+            });
+
+            Route::group(['prefix'=>'shipping-schedule','as'=>'shipping-schedule.'],function(){
+                Route::get('/',function(){ return view('dash.content.common.shipping_schedule.create'); });
+            });
         });
 
     });
