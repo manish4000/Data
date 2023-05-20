@@ -82,7 +82,7 @@
 
 
         <div class="make_col width_12 xs_width_50  width_md_15 text-xl-center text-lg-center text-md-center">
-           <div style=" padding-top:13px;" class="div-mobile">Action</div>
+           <div style="position: relative; top: -3px;" class="div-mobile">Action</div>
                 @can('main-navigation-masters-vehicle-make-edit')
                 <x-admin.form.buttons.edit href="{{ route('masters.vehicle.make.edit', $item->id) }}" />
                 @endcan
