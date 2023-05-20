@@ -1,5 +1,6 @@
 
         @php
+        $permission_and_urls = (isset($permission_and_urls)) ? $permission_and_urls :[] ;
 
         $multiple_delete_url = (isset($multiple_delete_url)) ? $multiple_delete_url :'' ;
 
@@ -24,8 +25,21 @@
             <div class="dropdown">
                 <button class="btn btn-gray-action dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">{{__('webCaption.actions.title')}}</button>
                 <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Add Multiple </a></li>
-                    <li><a class="dropdown-item" onclick="deleteMultiple('{{$multiple_delete_url}}')">{{__('webCaption.delete_multiple.title')}} </a></li>
+                    <li><a class="dropdown-item" href="#">Multiple Update</a></li>
+
+                    @if(isset($permission_and_urls['multiple_delete']))
+
+                        @if(isset($permission_and_urls['multiple_delete']['permission']))
+
+                        @can($permission_and_urls['multiple_delete']['permission'])
+                            <li><a class="dropdown-item" onclick="deleteMultiple('{{$permission_and_urls['multiple_delete']['url']}}')">{{__('webCaption.delete_multiple.title')}} </a></li>
+                        @endcan
+
+                        @endif
+
+                    @endif
+
+                    <li><a class="dropdown-item" href="#">CSV Export</a></li>
                 </ul>
             </div>
     

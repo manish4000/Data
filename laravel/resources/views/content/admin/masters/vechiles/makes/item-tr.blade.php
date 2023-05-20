@@ -1,6 +1,5 @@
 @php
-    $parentOnlyShowAll  = (request()->input('search.parentOnlyShowAll') != null) ? 1 : 0;
-    //  $display = ( ($item->parent_id != null) && $parentOnlyShowAll != 1  ) ? "item-tr-display-none" :'';    
+    $parentOnlyShowAll  = (request()->input('search.parentOnlyShowAll') != null) ? 1 : 0;   
     $display = ( ($item->parent_id != null) && $parentOnlyShowAll != 1  ) ? "display:none;" :'';  
     $childTdColor = ( $item->parent_id > 0 )? "child-td-color child-master-class" :'';
 @endphp
@@ -19,7 +18,7 @@
 
 <div class="table_row parent-id-{{$item->parent_id}} " style="{{$display}}">
     <div class="make_col width_5 xs_width_50">
-        <div class="div-mobile">{{__('webCaption.id.title')}}</div>
+        <div class="div-mobile">{{__('webCaption.master_checkbox_text.title')}}</div>
         @if($status)
             <span class="show-referance-data" onclick="showReferanceData('{{$referance_json}}')">   &#x2605;  </span> 
         @else

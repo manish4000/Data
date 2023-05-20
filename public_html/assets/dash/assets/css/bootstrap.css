@@ -1937,7 +1937,8 @@ textarea.form-control-lg {
 
 .form-check-inline {
   display: inline-block;
-  margin-right: 1rem; }
+  margin-right: 1rem;
+padding-left:0px;}
 
 .btn-check {
   position: absolute;

@@ -67,11 +67,19 @@
                 @if(count($data) > 0 )
                     <div>                       
                         <div class="mt-0 pb-75">
-                            @if (Auth::guard('web')->user()->can('main-navigation-masters-vehicle-type-delete'))		
-                                {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4',['multiple_delete_url' => route('masters.vehicle.make.delete-multiple') ] ) }}  
-                            @else
-                                 {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4') }}  
-                            @endif
+
+                          @php
+
+                          //send permission slug and url for multiple update and delete and more... for actions 
+                           $permission_and_urls = [
+                                  'multiple_delete' => ['url' => route('masters.vehicle.make.delete-multiple') ,'permission' => 'main-navigation-masters-vehicle-type-delete'],
+
+                                  'multiple_update' => ['url' => route('masters.vehicle.make.delete-multiple') ,'permission' => 'main-navigation-masters-vehicle-type-delete']
+                                 
+                                ];                          
+                          @endphp
+
+                                {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4', [ 'permission_and_urls' => $permission_and_urls  ] )}}                           
                         </div>
 
                     <div class="main_table" id="master-list">
@@ -182,29 +190,7 @@
 
 @endsection
 
-@section('page-script')
 
-{{--  --}}
-<script type="text/javascript">
-$('.load-child-records').click( function(event){
-    event.preventDefault();
-    var eObject = this;
-    var itemId = $(this).attr('data-itemId');
-    var parent_tr = $(this).closest('tr');
-
-    if( $(this).hasClass('collasped') ) {
-        $(eObject).removeClass('collasped').addClass('expanded');
-        $(eObject).find('i:first').removeClass('fa-caret-right').addClass('fa-caret-down');
-        $('.parent-id-' + itemId).show();
-    } else {
-        $(eObject).removeClass('expanded').addClass('collasped');
-        $(eObject).find('i:first').removeClass('fa-caret-down').addClass('fa-caret-right');
-        $('.parent-id-' + itemId).hide();
-    }
-});
-
-</script>
-@endsection
 
 
 

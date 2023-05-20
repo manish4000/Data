@@ -20,7 +20,6 @@
                 <div class="col-7 col-sm-3 col-md-4 col-lg-3">
                     <div class="form-group">
                         <x-admin.form.label for="" value="{{__('webCaption.display_status.title')}}" class="" tooltip="{{__('webCaption.display_status.caption')}}" />
-                        {{-- <label for="displayStatusLabel" data-toggle="tooltip" title="{{__('webCaption.display_status.caption')}}" >{{__('webCaption.display_status.title')}}</label> --}}
                         <div>
                                 <div class="form-check form-check-inline">
                                 <x-admin.form.inputs.radio for="searchDisplayStatusOn" class="border border-danger" name="search[displayStatus]" tooltip="{{__('webCaption.yes.caption')}}" label="{{__('webCaption.yes.title')}}" value="Yes"  required=""  checked="{{ (request()->input('search.displayStatus') ) == 'Yes' ? 'checked' : '' }}" required="" />&ensp;
@@ -51,8 +50,7 @@
             </div>
           </form>
         </div>
-      </div>  
-      
+      </div>      
       
         @php
         $request_params = request()->all();
