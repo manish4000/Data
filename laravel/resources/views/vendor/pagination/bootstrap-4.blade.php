@@ -16,6 +16,7 @@
             unset( $request_params['perPage']);
     
         @endphp
+                <div class="pt-25 pb-1">
     <div class="d-flex row align-middle">
 
     <div class="col-xl-2 col-lg-2 col-md-3 ol-sm-3 col-5 text-left text-md-left text-xl-left text-lg-left">
@@ -105,10 +106,11 @@
        
     </div>
 
+    </div>
 
     <style>
 
-.btn-gray-action { background:#f3f2f7;}
-.dropdown-toggle::after {background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23807e8c'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !important;}
+    .btn-gray-action { background:#f3f2f7;}
+    .dropdown-toggle::after {background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23807e8c'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !important;}
 
     </style>

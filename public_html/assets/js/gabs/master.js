@@ -1,3 +1,19 @@
+$('.load-child-records').click( function(event){
+    event.preventDefault();
+    var eObject = this;
+    var itemId = $(this).attr('data-itemId');
+    var parent_tr = $(this).closest('tr');
+
+    if( $(this).hasClass('collasped') ) {
+        $(eObject).removeClass('collasped').addClass('expanded');
+        $(eObject).find('i:first').removeClass('fa-caret-right').addClass('fa-caret-down');
+        $('.parent-id-' + itemId).show();
+    } else {
+        $(eObject).removeClass('expanded').addClass('collasped');
+        $(eObject).find('i:first').removeClass('fa-caret-down').addClass('fa-caret-right');
+        $('.parent-id-' + itemId).hide();
+    }
+});
 
 function changeDisplayStatus(id,url){
 

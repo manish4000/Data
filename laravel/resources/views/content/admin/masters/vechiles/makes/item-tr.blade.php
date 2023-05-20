@@ -1,16 +1,12 @@
     @php
-
         $parentOnlyShowAll  = (request()->input('search.parentOnlyShowAll') != null) ? 1 : 0;
-        
         //  $display = ( ($item->parent_id != null) && $parentOnlyShowAll != 1  ) ? "item-tr-display-none" :'';    
-         $display = ( ($item->parent_id != null) && $parentOnlyShowAll != 1  ) ? "display:none;" :'';  
-            $childTdColor = ( $item->parent_id > 0 )? "child-td-color" :'';
-
-         
-         $marginLeft = '-16px';
-            if( $item->parent_id > 0 ) {
-                $marginLeft = "0rem;";
-            }
+        $display = ( ($item->parent_id != null) && $parentOnlyShowAll != 1  ) ? "display:none;" :'';  
+        $childTdColor = ( $item->parent_id > 0 )? "child-td-color" :'';
+        $marginLeft = '-16px';
+        if( $item->parent_id > 0 ) {
+            $marginLeft = "0rem;";
+        }
     @endphp
 
 
@@ -37,13 +33,12 @@
         </div>
 
         <div class="make_col  width_5 xs_width_50 @if($childTdColor != '')  {{$childTdColor}}  @endif ">
-            <div style="" class="div-mobile">ID</div>
-            <span style="">{{$item->id}}</span>
+            <div class="div-mobile">ID</div>
+            <span>{{$item->id}}</span>
         </div>
 
           <div  class="make_col width_45 xs_width_50 @if($childTdColor != '') {{$childTdColor}}  @endif" >
-               <div style="" class="div-mobile">Make</div>
-
+               <div class="div-mobile">Make</div>
                @php echo  str_ireplace( request()->input('search.keyword'), '<span class="heighlight-string" >'. request()->input('search.keyword').'</span>',$item->name) @endphp
           </div>
        
