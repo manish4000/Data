@@ -67,7 +67,7 @@ echo "<pre>"; print_r($user->companySalesTeam); echo "</pre>"; exit;
 						
 					<div class="col-md-4">
 						<div class="form-group">
-							<x-dash.form.inputs.email  for="email"  maxlength="45" tooltip="{{__('webCaption.email.caption')}}" label="{{__('webCaption.email.title')}}"  name="email"  placeholder="{{__('webCaption.email.title')}}" value="{{old('email', isset($user->email)?$user->email:'' )}}"  required="required" />
+							<x-dash.form.inputs.email  for="email"  maxlength="50" tooltip="{{__('webCaption.email.caption')}}" label="{{__('webCaption.email.title')}}"  name="email"  placeholder="{{__('webCaption.email.title')}}" value="{{old('email', isset($user->email)?$user->email:'' )}}"  required="required" />
 						</div>
 					</div>
 			
@@ -170,7 +170,7 @@ echo "<pre>"; print_r($user->companySalesTeam); echo "</pre>"; exit;
 
 					<div class="col-md-2 col-6">
 						<div class="form-group">
-							<x-dash.form.inputs.text for="company_zip_code" maxlength="15" tooltip="{{__('webCaption.zip_code.caption')}}"  label="{{__('webCaption.zip_code.title')}}" name="company_zip_code"  placeholder="{{__('webCaption.zip_code.title')}}" value="{{ old('company_zip_code',isset($user->companySalesTeam->company_zip_code) ? $user->companySalesTeam->company_zip_code :'') }}" required="" />
+							<x-dash.form.inputs.text for="company_zip_code" maxlength="15" tooltip="{{__('webCaption.zip_code.caption')}}"  label="{{__('webCaption.zip_code.title')}}" name="company_zip_code"  placeholder="{{__('webCaption.zip_code.title')}}" value="{{ old('company_zip_code', isset($user->companySalesTeam->company_zip_code) ? $user->companySalesTeam->company_zip_code :'') }}" required="" />
 						</div>
 					</div>
 
@@ -194,12 +194,13 @@ echo "<pre>"; print_r($user->companySalesTeam); echo "</pre>"; exit;
 							{{-- Component of Messenger Field --}}
 							<div class="col-md-4">
 								<div class="form-group">
-							@if(isset($user->companySalesTeam->company_messenger_id))
-								@php $edit_company_messenger = json_decode($user->companySalesTeam->company_messenger_id); @endphp
+							@if(isset($user->companySalesTeam->company_messenger))
+								@php $edit_company_messenger = json_decode($user->companySalesTeam->company_messenger);
+								@endphp
 							@else
 								@php $edit_company_messenger = ''; @endphp
 							@endif
-									@include('components.dash.form.inputs.messenger_common', ['id' => 'company_messenger', 'name' => 'company_messenger', 'editSelected' => $edit_company_messenger])  
+								@include('components.dash.form.inputs.messenger_common', ['id' => 'company_messenger', 'name' => 'company_messenger', 'editSelected' => $edit_company_messenger])  
 								</div>
 							</div>	
 						</div>
@@ -318,8 +319,8 @@ echo "<pre>"; print_r($user->companySalesTeam); echo "</pre>"; exit;
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-								@if(isset($user->companySalesTeam->personal_messenger_id))
-									@php $edit_personal_messenger = json_decode($user->companySalesTeam->personal_messenger_id); @endphp
+								@if(isset($user->companySalesTeam->personal_messenger))
+									@php $edit_personal_messenger = json_decode($user->companySalesTeam->personal_messenger); @endphp
 								@else
 									@php $edit_personal_messenger = ''; @endphp
 								@endif
@@ -329,9 +330,18 @@ echo "<pre>"; print_r($user->companySalesTeam); echo "</pre>"; exit;
 						</div>
 					</div>
 
+					@php	
+						$modelData = [
+								'heading' => __('webCaption.add.title').' '.__('webCaption.religion.title'),
+								'route' => ''
+							];
+// to be continue
+					@endphp
+
+
 					<div class="col-md-3 col-12">
 						<div class="form-group">
-							<x-dash.form.inputs.select tooltip="{{__('webCaption.religion.caption')}}" label="{{__('webCaption.religion.title')}}"  id="" for="religion" name="religion" placeholder="{{ __('locale.religion.caption') }}" editSelected="{{ old('religion', isset($user->companySalesTeam->religion_id) ? $user->companySalesTeam->religion_id :'') }}"  required="" :optionData="$religion" />
+							<x-dash.form.inputs.select_with_plus_icon  :modelData="$modelData" tooltip="{{__('webCaption.religion.caption')}}" label="{{__('webCaption.religion.title')}}"  id="" for="religion" name="religion" placeholder="{{ __('locale.religion.caption') }}" editSelected="{{ old('religion', isset($user->companySalesTeam->religion_id) ? $user->companySalesTeam->religion_id :'') }}"  required="" :optionData="$religion" />
 						</div>
 					</div>
 
@@ -392,15 +402,12 @@ echo "<pre>"; print_r($user->companySalesTeam); echo "</pre>"; exit;
 				{{-- Social Media Section  --}}
 				<div class="row">
 					@if(isset($user->companySalesTeam->company_social_media))
-						@php $company_social_media = json_decode($user->companySalesTeam->company_social_media); 
-						$userID = $user->id;
+						@php $company_social_media = json_decode($user->companySalesTeam->company_social_media);
 						@endphp
 					@else
-						@php $company_social_media = ''; 
-						$userID = '';
-						@endphp
+						@php $company_social_media = ''; @endphp
 					@endif
-					@include('components.dash.form.inputs.social_media', ['id' => 'social_media_company', 'name' => 'social_media', 'social_media' => $company_social_media, 'userid' => $userID ])
+					@include('components.dash.form.inputs.social_media', ['id' => 'social_media_company', 'name' => 'social_media', 'social_media' => $company_social_media])
 			 	</div>
 
 				<div class="row mt-3">
@@ -412,12 +419,12 @@ echo "<pre>"; print_r($user->companySalesTeam); echo "</pre>"; exit;
 								@foreach ( $permissions as $permission )
 									@if(count($permission->menuChild) > 0)
 										<li class="jstree-open">
-											<x-dash.form.inputs.checkbox  name="permissions[]"  for="{{$permission->id}}permission" label="{{$permission->title }}" checked="{{( isset($user) && (!empty($permission->permission_slug)) && $user->can($permission->permission_slug)) || in_array($permission->id,$old_permissions) ? 'checked' :''; }}"  value="{{ $permission->id }}"  customClass="form-check-input"  />	
+											<x-dash.form.inputs.checkbox  name="permissions[]"  for="{{$permission->id}}permission" label="{{$permission->title }}" checked="{{( isset($user) && (!empty($permission->permission_slug)) && $user->can($permission->permission_slug)) || in_array($permission->id,$old_permissions) ? 'checked' :''; }}"  value="{{ $permission->id }}" permisssionClass="form-check-inline"  customClass="form-check-input"  />	
 												@include('dash.content.users.child_list',['items' => $permission->menuChild ]) 												
 										</li>
 									@else
 										<li>
-											<x-dash.form.inputs.checkbox  name="permissions[]"  for="{{$permission->id}}permission" label="{{ $permission->title }}" checked="{{ ( isset($user) && (!empty($permission->permission_slug)) && $user->can($permission->permission_slug)) || in_array($permission->id,$old_permissions) ? 'checked' :''; }}"  value="{{ $permission->id }}"  customClass="form-check-input"  />
+											<x-dash.form.inputs.checkbox  name="permissions[]"  for="{{$permission->id}}permission" label="{{ $permission->title }}" checked="{{ ( isset($user) && (!empty($permission->permission_slug)) && $user->can($permission->permission_slug)) || in_array($permission->id,$old_permissions) ? 'checked' :''; }}" permisssionClass="form-check-inline"  value="{{ $permission->id }}"  customClass="form-check-input"  />
 										</li>
 									@endif
 								@endforeach

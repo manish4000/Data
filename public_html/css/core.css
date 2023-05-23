@@ -21225,12 +21225,15 @@ body:after {
 .select2-container--classic .select2-selection--multiple .select2-selection__choice__remove,
 .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
   float: right;
-  margin-left: 0.7rem;
-  margin-right: 0.5rem;
+  /* margin-left: 0.7rem;
+  margin-right: 0.5rem; */
+  margin-left: 0!important;
+  margin-right: 0!important;
   font-size: 0px;
   display: inline-block;
   position: relative;
   line-height: 1rem;
+  top:4px!important;
 }
 .select2-container--classic .select2-selection--multiple .select2-selection__choice__remove:before,
 .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:before {

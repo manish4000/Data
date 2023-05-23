@@ -18,9 +18,6 @@
 
 <?php  $customClass = (isset($customClass)) ? $customClass :''; 
 
-    /* if(isset($editSelected)){
-        echo $editSelected;
-    } */
     $disabled = isset($disabled) ? $disabled : '';
 
 ?>
