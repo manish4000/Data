@@ -9,7 +9,9 @@ use App\Models\Dash\BankDetails;
 use App\Models\Dash\ComapnyBankDetailsOtpVerify;
 use App\Models\Dash\CompanyBankDetails;
 use App\Models\Masters\Country;
+use App\Models\Masters\Currency;
 use App\Models\StateModel;
+use App\Models\Masters\Company\Bank;
 use Carbon\Carbon;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Http\Request;
@@ -80,18 +82,22 @@ class BankDetailsController extends Controller
         $breadcrumbs[0] = [
             'link' => $this->baseUrl,
             'name' => __('webCaption.list.title')
-          ];
-        $country = Country::get(['id as value' ,'name']);
-        return view('dash.content.bankDetails.create',['country' => $country,'breadcrumbs' => $breadcrumbs]);
+        ];
+
+        $currency = Currency::select('name as value', 'name')->orderBy('name')->get();
+        $country = Country::select('id as value','name')->orderBy('name')->get();
+        $banks = Bank::select('id as value','name')->orderBy('name')->get();
+
+        return view('dash.content.bankDetails.create', ['country' => $country, 'currency' => $currency, 'breadcrumbs' => $breadcrumbs, 'banks' => $banks]);
     }
 
-    public function sendOtp(){
-
+    public function sendOtp()
+    {
         $user = Auth::guard('dash')->user();
         //$otp = rand(100000,999999); 
         $otp = 123456; 
         
-        $verify_otp_model =   new ComapnyBankDetailsOtpVerify();
+        $verify_otp_model = new ComapnyBankDetailsOtpVerify();
 
         $verify_otp_model->otp = $otp;
         $verify_otp_model->company_user_id = $user->id;
@@ -105,8 +111,7 @@ class BankDetailsController extends Controller
                 'body' => 'This is for testing email using smtp.your otp is'.$otp
             ];
 
-            if( true || Mail::to($user->email)->send(new CompanyBankDetailsOtpVerifyMail($mailData))){
-
+            if(true || Mail::to($user->email)->send(new CompanyBankDetailsOtpVerifyMail($mailData))){
                 $result['status']     = true;
                 $result['message']    = __('webCaption.otp_send_successfully.title'); 
                 return response()->json(['result' => $result]);
@@ -116,19 +121,18 @@ class BankDetailsController extends Controller
                 return response()->json(['result' => $result]);
             }
         }
-
-
     }
 
     public function store(Request $request){
 
+        //dd($request->all());
         if (!Auth::guard('dash')->user()->can('common-bank-details-add')) {
             abort(403);
         }
 
-        $request->validate([
+        /* $request->validate([
             'otp' => 'required|numeric',
-        ]);
+        ]); */
     
 
         $validator = Validator::make(request()->all(),
@@ -216,7 +220,7 @@ class BankDetailsController extends Controller
             ]
         );
 
-        $user = Auth::guard('dash')->user();
+        /* $user = Auth::guard('dash')->user();
         $otp_details = ComapnyBankDetailsOtpVerify::where('company_user_id',$user->id)->orderBy('created_at','DESC')->first();
 
      
@@ -238,7 +242,7 @@ class BankDetailsController extends Controller
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
-        }
+        } */
 
 
         if($request->id){
@@ -247,20 +251,45 @@ class BankDetailsController extends Controller
             $bank_detail_model =    new CompanyBankDetails;
         }
 
-        $bank_detail_model->bank_name = $request->bank_name;
-        // $bank_detail_model->dealer_name = $request->dealer_name;
-        $bank_detail_model->branch_name = $request->branch_name;
-        $bank_detail_model->branch_code = $request->branch_code;
-        $bank_detail_model->country_id = $request->country_id;
         $bank_detail_model->account_name = $request->account_name;
         $bank_detail_model->account_number = $request->account_number;
-        $bank_detail_model->account_address = $request->account_address;
-        $bank_detail_model->bank_address = $request->bank_address;
-        $bank_detail_model->city_id = $request->city_id;
-        $bank_detail_model->state_id = $request->state_id;
-        $bank_detail_model->swift_code = $request->swift_code;
-        $bank_detail_model->iban_no = $request->iban_no;
         $bank_detail_model->account_currency = $request->account_currency;
+        $bank_detail_model->account_address = $request->account_address;
+        //Country
+        $bank_detail_model->country_id = $request->country;
+        if(isset($request->country) && !empty($request->country)){
+            $country_name = Country::select('name')->where('id', $request->country)->get()->value('name');
+            $bank_detail_model->country = $country_name;
+        }else $bank_detail_model->country = NULL;
+
+        //State
+        $bank_detail_model->state_id = $request->state;
+        if(isset($request->state) && !empty($request->state)){
+            $state_name = StateModel::select('name')->where('id', $request->state)->get()->value('name');
+            $bank_detail_model->state = $state_name;
+        }else $bank_detail_model->state = NULL;
+
+        //City
+        $bank_detail_model->city_id = $request->city;
+        if(isset($request->city) && !empty($request->city)){
+            $city_name = CityModel::select('name')->where('id', $request->city)->get()->value('name');
+            $bank_detail_model->city = $city_name;
+        }else $bank_detail_model->city = NULL;
+
+        //echo "<pre>"; print_r($bank_detail_model); echo "</pre>"; exit;
+        $bank_detail_model->zip_code = $request->zip_code;
+        $bank_detail_model->display = $request->display_status;
+        $bank_detail_model->primary_bank = $request->primary_bank;
+        $bank_detail_model->bank_name_id = $request->bank_name;
+        if(isset($request->bank_name) && !empty($request->bank_name)){
+            $bank_name = Bank::select('name')->where('id',$request->bank_name)->get()->value('name');
+            $bank_detail_model->bank_name = $bank_name;
+        }
+        $bank_detail_model->branch_name = $request->branch_name;
+        $bank_detail_model->swift_code = $request->swift_code;
+        $bank_detail_model->branch_code = $request->branch_code;
+        $bank_detail_model->iban_no = $request->iban_no;
+        $bank_detail_model->bank_address = $request->bank_address;
         $bank_detail_model->reason_for_remittance = $request->reason_for_remittance;
         // $bank_detail_model->display_order = $request->display_order;
         $bank_detail_model->jumvea_account = (isset($request->jumvea_account)) ? "1" : "0" ;
@@ -271,7 +300,6 @@ class BankDetailsController extends Controller
         }else{
             return redirect($this->baseUrl)->with(['error_message' => ' Somthing Went Wrong ... ' ]);
         }
-
 
     }
 
@@ -287,8 +315,10 @@ class BankDetailsController extends Controller
             'name' => __('webCaption.list.title')
           ];
 
-        $country = Country::get(['id as value' ,'name']);
-        return view('dash.content.bankDetails.create',['country' => $country ,'data'=> $data,'breadcrumbs' => $breadcrumbs]);
+        $currency = Currency::select('name as value', 'name')->orderBy('name')->get();
+        $country = Country::select('id as value','name')->orderBy('name')->get();
+        $banks = Bank::select('id as value','name')->orderBy('name')->get();
+        return view('dash.content.bankDetails.create',['country' => $country, 'currency' => $currency, 'data'=> $data,'breadcrumbs' => $breadcrumbs, 'banks'=>$banks]);
     }
 
     public function destroy(Request $request){
