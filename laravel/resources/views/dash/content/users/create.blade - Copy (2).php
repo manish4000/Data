@@ -574,7 +574,7 @@ $old_permissions = (session()->getOldInput('permissions') != null ) ? session()-
 		    img.removeAttr(item);
 		  });
 		});
-  	})
+  	});
 
 	  $('#same_as_local').on('click', function () {
 		

@@ -31,28 +31,16 @@
         <span>{{$item->id}}</span>
     </div>
 
-    <div class="make_col width_44 xs_width_50 @if($childTdColor != '') {{$childTdColor}}  @endif" >
+    <div class="make_col width_22 xs_width_50 @if($childTdColor != '') {{$childTdColor}}  @endif" >
         <div class="div-mobile">{{__('webCaption.make.title')}}</div>
         @php echo  str_ireplace( request()->input('search.keyword'), '<span class="heighlight-string" >'. request()->input('search.keyword').'</span>',$item->name) @endphp
     </div>
-       
-    <div class="make_col width_15 xs_width_50 text-xl-center text-lg-center text-md-center"> 
-        <div class="div-mobile">{{__('webCaption.no_of_children.title')}}</div>
-        @if( $item->children_count > 0 )
-            @php
-                $collapsedClass = 'collasped';
-                $caretClass = 'fa-caret-right';
-            
-                if(request()->input('search.parentOnlyShowAll') != null){
-                    $collapsedClass = 'expanded';
-                    $caretClass = 'fa-caret-down';
-                }
-            @endphp
-            <a href="javascript:void(0);" class="load-child-records {{$collapsedClass}}" data-itemId="{{$item->id}}">{{$item->children_count}} <i class="fa {{$caretClass}}"></i> </a>
-        @else
-            {{$item->children_count}}
-        @endif                                     
+
+    <div class="make_col width_22 xs_width_50 @if($childTdColor != '') {{$childTdColor}}  @endif" >
+        <div class="div-mobile">{{__('webCaption.make.title')}}</div>
+        @php echo  str_ireplace( request()->input('search.keyword'), '<span class="heighlight-string" >'. request()->input('search.keyword').'</span>',$item->description) @endphp
     </div>
+    
     <div class="make_col width_15 xs_width_50 text-xl-center text-lg-center text-md-center">
         <div class="div-mobile">{{__('webCaption.display_status.title')}}</div>
         @php
@@ -62,21 +50,21 @@
             }
         @endphp
 
-        <x-dash.form.inputs.listing_checkbox id="list{{$item->id}}"  onclick="changeDisplayStatus('{{$item->id}}','{{route('dashmasters.invoices.payment-terms.update-status')}}')"  dataItemId="{{$item->id}}" dataUrl="{{route('dashmasters.invoices.payment-terms.update-status')}}" 
+        <x-dash.form.inputs.listing_checkbox id="list{{$item->id}}"  onclick="changeDisplayStatus('{{$item->id}}','{{route('dashmasters.invoices.sales-agreement.update-status')}}')"  dataItemId="{{$item->id}}" dataUrl="{{route('dashmasters.invoices.sales-agreement.update-status')}}" 
             value="{{$item->id}}" checked="{{$displayStatusChecked}}"  /> 
     </div>
 
     <div class="make_col width_12 xs_width_50 text-xl-center text-lg-center text-md-center">
         <div class="div-mobile">{{__('webCaption.actions.title')}}</div>
-        @if (Auth::guard('dash')->user()->can('masters-invoices-payment-terms-edit'))
-        <x-dash.form.buttons.edit href="{{ route('dashmasters.invoices.payment-terms.edit', $item->id) }}" />
+        @if (Auth::guard('dash')->user()->can('masters-invoices-sales-agreement-edit'))
+        <x-dash.form.buttons.edit href="{{ route('dashmasters.invoices.sales-agreement.edit', $item->id) }}" />
         @endif
         &nbsp;
 
         {{-- pass in  deleteSingleData(id , name ,url ) for delete  --}}
 
-        @if (Auth::guard('dash')->user()->can('masters-invoices-payment-terms-delete'))
-            <x-dash.form.buttons.delete id="{{$item->id}}" name="{{$item->name}}" url="{{route('dashmasters.invoices.payment-terms.delete')}}" action="{{route('dashmasters.invoices.payment-terms.delete',$item->id)}}" /> 
+        @if (Auth::guard('dash')->user()->can('masters-invoices-sales-agreement-delete'))
+            <x-dash.form.buttons.delete id="{{$item->id}}" name="{{$item->name}}" url="{{route('dashmasters.invoices.sales-agreement.delete')}}" action="{{route('dashmasters.invoices.sales-agreement.delete',$item->id)}}" /> 
         @endif
     </div>           
 </div> 

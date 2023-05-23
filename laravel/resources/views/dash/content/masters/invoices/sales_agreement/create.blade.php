@@ -45,7 +45,7 @@
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
-                            <x-dash.form.inputs.textarea  for="discription"  tooltip="{{__('webCaption.discription.caption')}}" label="{{__('webCaption.discription.title')}}" maxlength="20" name="discription"  placeholder="{{__('webCaption.discription.title')}}" value="{{old('discription', isset($data->discription)?$data->discription:'' )}}" />
+                            <x-dash.form.inputs.textarea  for="description"  tooltip="{{__('webCaption.description.caption')}}" label="{{__('webCaption.description.title')}}" maxlength="500" name="description"  placeholder="{{__('webCaption.description.title')}}" value="{{old('description', isset($data->description)?$data->description:'' )}}" />
                         </div>
                     </div>
                     

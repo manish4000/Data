@@ -7,7 +7,7 @@
 @section('content')
 
 <div>
-    <form action="" method="POST" enctype="multipart/form-data">
+    <form action="{{route('dashmasters.invoice.charges.store')}}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="card card-primary">
             <div class="card-header">

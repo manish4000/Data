@@ -4,22 +4,21 @@
 @section('content')
 <!-- users list start -->
 <section>
-  <div class="row">
-    <div class="col-12">
-            <!-- filter  -->
+    <!-- filter  -->
       <div class="card">
-        <div class="card-header">
+        <div class="card-header py-75 px-50">
           <h4 class="card-title" data-toggle="tooltip" data-placement="right" title="{{__('webCaption.search_filter.caption')}}">{{__('webCaption.search_filter.title')}}</h4>                    
         </div>
-        <div class="card-body">
-          <form method="GET" action="{{route('masters.vehicle.ext-grade.index')}}">
+        <hr class="m-0 p-0">
+        <div class="card-body pt-75 pb-75 px-50">
+          <form method="GET" action="{{route('masters.vehicle.ext-grade.index')}}" style="margin-bottom:0px !important;">
             <div class="row">
-                <div class="col-sm-4 col-md-5 col-lg-3 col-xl-4">
+                <div class="col-sm-3 col-md-5 col-lg-7 col-xl-7">
                     <div class="form-group">
                         <x-admin.form.inputs.text id="searchKeyword" for="{{__('webCaption.keyword.title')}}" label="{{__('webCaption.keyword.title')}}" tooltip="{{__('webCaption.keyword.caption')}}"  class="form-control" name="search[keyword]"  placeholder="{{__('webCaption.keyword.title')}}" value="{{ request()->input('search.keyword') }}"  required="" />
                     </div>
                 </div>
-                <div class="col-7 col-sm-3 col-md-4 col-lg-3 col-xl-3" >
+                <div class="col-7 col-sm-3 col-md-4 col-lg-3">
                     <div class="form-group">
                         <x-admin.form.label for="" value="{{__('webCaption.display_status.title')}}" class="" tooltip="{{__('webCaption.display_status.caption')}}" />
                         <div>
@@ -35,7 +34,7 @@
                 </div>
                 <div class="col-5 col-sm-3 col-md-3 col-lg-2 col-xl-2">
                     <div class="row">
-                        <div class="col-12 col-md-10">
+                        <div class="col-md-10">
                             <div class="form-group">
                                 <x-admin.form.label for=""  value="{{__('webCaption.parent_only.title')}}" class="" tooltip="{{__('webCaption.parent_only.caption')}}" />
 
@@ -46,7 +45,7 @@
                         
                     </div> 
                 </div>
-                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 pt-1 ">
+                <div class="col-md-12 pt-0 text-center">
                     <x-admin.form.buttons.search />
                     <x-admin.form.buttons.reset href="{{route('masters.vehicle.ext-grade.index')}}" />
                 </div>
@@ -61,63 +60,70 @@
                     
         <div class="card">
         <!-- Basic Tables start -->
-          <div class="card-body">
-            @can('masters-vehicle-ext-grade') 
+        <div class="card-body pt-75 pb-0 px-50">
+        @can('main-navigation-masters-vehicle-ext-grade') 
                 @if(count($data) > 0 )
-                    <div class="table-responsive">
-                        <div class="mt-2">
-                            {{ $data->onEachSide(1)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
-                        </div>
-                        @can('masters-vehicle-ext-grade-delete')
-                            <div class="px-2 my-2">
-                                {{-- deleteMultiple() for delete multiple data pass url here  --}}
-                                <x-admin.form.buttons.multipleDelete url="{{route('masters.vehicle.ext-grade.delete-multiple')}}" />
-                            </div>
-                        @endcan
-                        <table class="table" id="master-list">
-                            <thead>
-                                <tr>
-                                        <th> <x-admin.form.inputs.multiple_select_checkbox id="checkAll"   value="1"  customClass=""  /> </th>
-                                        <th class="position-for-filter-heading"># <x-admin.filter.order-by-filter-div orderBy="id" />
-                                        </th>                                                
-                                        <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.extgrade.caption')}}"> {{__('webCaption.extgrade.title')}}<x-admin.filter.order-by-filter-div orderBy="name" />
-                                        </th>
-                                        <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.no_of_children.caption')}}" >{{__('webCaption.no_of_children.title')}}<x-admin.filter.order-by-filter-div orderBy="children_count" />
-                                        </th>
-                                        <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.display_status.caption')}}"  >
-                                            {{__('webCaption.display_status.title')}} <x-admin.filter.order-by-filter-div orderBy="display" />
-                                        </th>
-                                        <th data-toggle="tooltip" title="{{__('webCaption.actions.caption')}}" >{{__('webCaption.actions.title')}}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($data as $item)
-                                    @include('content.admin.masters.vechiles.ext_grade.item-tr', ['item'=>$item])    
-                                    @if( true || request()->input('search.parentOnlyShowAll') == 1)
-                                        @foreach($item->children as $childItem)
-                                            @include('content.admin.masters.vechiles.ext_grade.item-tr', ['item'=>$childItem])    
-                                        @endforeach 
-                                    @endif
-                                @endforeach   
-                                            
-                            </tbody>                            
-                        </table>
-                        <div class="mt-2">
-                            {{ $data->onEachSide(1)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
-                        </div>
-                    </div>
+                    @if (Auth::guard('web')->user()->can('main-navigation-masters-vehicle-ext-grade-delete'))		
+                        {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4',['multiple_delete_url' => route('masters.vehicle.ext-grade.delete-multiple') ] ) }}  
+                    @else
+                        {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4') }}  
+                    @endif
+                {{--check delete permission  --}}          
+          <div class="main_table mb-2" id="master-list">
+            @php
+            $heading_array = [
+                            [
+                                'title' => 'id',
+                                'orderby' => 'id',
+                                'classes' => 'width_5'
+                            ] , 
+                            [
+                                'title' => 'extgrade',
+                                'orderby' => 'name',
+                                'classes' => 'width_45'
+                            ] , 
+                            [
+                                'title' => 'no_of_children',
+                                'orderby' => 'children_count',
+                                'classes' => 'width_15'
+                            ] , 
+                            [
+                                'title' => 'display_status',
+                                'orderby' => 'display',
+                                'classes' => 'width_14 '
+                            ] , 
+                            [
+                                'title' => 'actions',
+                                'orderby' => null,
+                                'classes' => 'width_12 text-center'
+                            ]  
+                        ];
+            @endphp
+
+            <x-admin.table.table-heading :headingFields="$heading_array"/>                
+                         
+                @foreach($data as $item)
+                    @include('content.admin.masters.vechiles.makes.item-tr', ['item'=>$item])    
+                        @if(true || request()->input('search.parentOnlyShowAll') == 1)
+                          @foreach($item->children as $childItem)
+                             @include('content.admin.masters.vechiles.makes.item-tr', ['item'=>$childItem])    
+                          @endforeach                                        
+                        @endif
+                @endforeach      
+                                                                               
+             </div>                   
+
+                    @if (Auth::guard('web')->user()->can('main-navigation-masters-vehicle-make-delete'))		
+                    {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4',['multiple_delete_url' => route('masters.vehicle.make.delete-multiple') ] ) }}  
+                    @else
+                        {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4') }}  
+                    @endif
                 @else
-                    <div class="text-center my-2">
-                        <h3>{{__('webCaption.record_not_found.title')}} </h3>
-                    </div>
+                    @include('components.admin.alerts.no-record-found')                    
                 @endif    
             @endcan
             </div>
-        </div>    
-    </div>
-  </div>     
-</div>
-   
+        </div>
 <!-- list section end -->
 </section>
 

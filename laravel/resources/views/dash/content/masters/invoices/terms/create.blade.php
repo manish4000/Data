@@ -26,14 +26,14 @@
             <hr class="m-0 p-0">
 		    <div class="card-body">
                 <div class="row">
-                <div class="col-md-4">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <x-dash.form.inputs.text  for="invoice_terms"  tooltip="{{__('webCaption.invoice_terms.caption')}}" label="{{__('webCaption.invoice_terms.title')}}" maxlength="20" name="invoice_terms"  placeholder="{{__('webCaption.invoice_terms.title')}}" value="{{old('invoice_terms', isset($data->invoice_terms)?$data->invoice_terms:'' )}}" />
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <x-dash.form.inputs.select  for="parent"  tooltip="{{__('webCaption.parent.caption')}}" label="{{__('webCaption.parent.title')}}" name="parent"  placeholder="{{__('webCaption.parent.title')}}" value="{{old('parent', isset($data->parent)?$data->parent:'' )}}"/>
+                            <x-dash.form.inputs.select  for="parent"  tooltip="{{__('webCaption.parent.caption')}}" label="{{__('webCaption.parent.title')}}" name="parent"  placeholder="{{__('webCaption.parent.title')}}" value="{{old('parent', isset($data->parent)?$data->parent:'' )}}" />
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -49,7 +49,6 @@
                         </div>
                     </div>
                     
-
 
                 </div>
             </div>

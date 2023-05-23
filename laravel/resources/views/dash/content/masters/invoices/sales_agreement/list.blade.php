@@ -4,14 +4,14 @@
 @section('content')
 <!-- users list start -->
 <section>
-        <!-- filter  -->
+     <!-- filter  -->
       <div class="card">
         <div class="card-header py-75 px-50">
           <h4 class="card-title" data-toggle="tooltip" data-placement="right" title="{{__('webCaption.search_filter.caption')}}">{{__('webCaption.search_filter.title')}}</h4>                    
         </div>
         <hr class="m-0 p-0">
         <div class="card-body pt-75 pb-75 px-50">
-          <form method="GET" action="{{route('dashmasters.invoices.payment-terms.index')}}">
+          <form method="GET" action="{{route('dashmasters.invoices.sales-agreement.index')}}">
             <div class="row">
                 <div class="col-sm-3 col-md-5 col-lg-7 col-xl-7">
                     <div class="form-group">
@@ -22,7 +22,7 @@
                     <div class="form-group">
                         <x-dash.form.label for="" value="{{__('webCaption.display_status.title')}}" class="" tooltip="{{__('webCaption.display_status.caption')}}" />
                         <div>
-                                <div class="form-check-inline">
+                            <div class="form-check-inline">
                                 <x-dash.form.inputs.radio for="searchDisplayStatusOn" class="border border-danger" name="search[displayStatus]" tooltip="{{__('webCaption.yes.caption')}}" label="{{__('webCaption.yes.title')}}" value="Yes"  required=""  checked="{{ (request()->input('search.displayStatus') ) == 'Yes' ? 'checked' : '' }}" required="" />&ensp;
                                     
                                 <x-dash.form.inputs.radio for="searchDisplayStatusOff" class="border border-danger" name="search[displayStatus]" label="{{__('webCaption.no.title')}}" tooltip="{{__('webCaption.no.caption')}}" value="No"  required=""  checked="{{ (request()->input('search.displayStatus') ) == 'No' ? 'checked' : '' }}" required="" />&ensp;
@@ -32,22 +32,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-5 col-sm-3 col-md-3 col-lg-2 col-xl-2">
-                    <div class="row">
-                        <div class="col-md-10">
-                            <div class="form-group">
-                                <x-dash.form.label for=""  value="{{__('webCaption.parent_only.title')}}" class="" tooltip="{{__('webCaption.parent_only.caption')}}" />
-
-                                <x-dash.form.inputs.checkbox for="searchParentOnlyShowAll"  name="search[parentOnlyShowAll]" tooltip="{{__('webCaption.show_all.caption')}}" label="{{__('webCaption.show_all.title')}}" checked="{{ (request()->input('search.parentOnlyShowAll') == 1)  ?'checked' :''; }}"  value="1"  customClass="form-check-input"  />
-                                
-                            </div>
-                        </div>
-                        
-                    </div> 
-                </div>
                 <div class="col-md-12 pt-0 text-center">
                     <x-dash.form.buttons.search />
-                    <x-dash.form.buttons.reset href="{{route('dashmasters.invoices.payment-terms.index')}}" />
+                    <x-dash.form.buttons.reset href="{{route('dashmasters.invoices.sales-agreement.index')}}" />
                 </div>
             </div>
           </form>
@@ -61,10 +48,10 @@
         <div class="card">
         <!-- Basic Tables start -->
           <div class="card-body pt-75 pb-0 px-50">
-          @if (Auth::guard('dash')->user()->can('masters-invoices-payment-terms'))
-                @if(count($data) > 0 )
-                    @if (Auth::guard('dash')->user()->can('masters-invoices-payment-terms-delete'))		
-                        {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4',['multiple_delete_url' => route('dashmasters.invoices.payment-terms.delete-multiple') ] ) }}  
+          @if (Auth::guard('dash')->user()->can('masters-invoices-sales-agreement')) 
+                @if(count($data) > 0 ) 
+                    @if (Auth::guard('dash')->user()->can ('masters-invoices-sales-agreement-delete'))		
+                        {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4', ['multiple_delete_url' => route('dashmasters.invoices.sales-agreement.delete-multiple') ] ) }}  
                     @else
                         {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4') }}  
                     @endif
@@ -77,15 +64,15 @@
                                             'classes' => 'width_5'
                                         ] , 
                                         [
-                                            'title' => 'payment-terms',
+                                            'title' => 'sales_agreement',
                                             'orderby' => 'name',
-                                            'classes' => 'width_44'
+                                            'classes' => 'width_22'
                                         ] , 
                                         [
-                                            'title' => 'no_of_children',
-                                            'orderby' => 'children_count',
-                                            'classes' => 'width_15'
-                                        ] , 
+                                            'title' => 'description',
+                                            'orderby' => 'description',
+                                            'classes' => 'width_22'
+                                        ] ,
                                         [
                                             'title' => 'display_status',
                                             'orderby' => 'display',
@@ -100,30 +87,24 @@
                         @endphp
 
                         <x-dash.table.table-heading :headingFields="$heading_array"/>
-                         
                         @foreach($data as $item)
-                            @include('dash.content.masters.invoices.payment_terms.item-tr', ['item'=>$item])    
-                            @if( true || request()->input('search.parentOnlyShowAll') == 1)
-                                @foreach($item->children as $childItem)
-                                    @include('dash.content.masters.invoices.payment_terms.item-tr', ['item'=>$childItem])    
-                                @endforeach 
-                            @endif 
+                            @include('dash.content.masters.invoices.sales_agreement.item-tr', ['item'=>$item])
                         @endforeach  
                     </div>
-                    @if (Auth::guard('dash')->user()->can('masters-invoices-payment-terms-delete'))		
-                        {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4',['multiple_delete_url' => route('dashmasters.invoices.payment-terms.delete-multiple') ] ) }}  
+                    @if (Auth::guard('dash')->user()->can('masters-invoices-sales-agreement-delete'))		
+                        {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4',['multiple_delete_url' => route('dashmasters.invoices.sales-agreement.delete-multiple') ] ) }}  
                     @else
                         {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4') }}  
                     @endif
 
-                    @else
+                    @else    
                         @include('components.dash.alerts.no-record-found')                    
                     @endif   
                 @endcan    
 
             </div>
         </div>    
-
+   
 <!-- list section end -->
 </section>
 
@@ -134,8 +115,3 @@
 <!-- users list ends -->
 
 @endsection
-
-
-
- 
-

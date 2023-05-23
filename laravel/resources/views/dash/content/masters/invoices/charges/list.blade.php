@@ -11,7 +11,7 @@
         </div>
         <hr class="m-0 p-0">
         <div class="card-body pt-75 pb-75 px-50">
-          <form method="GET" action="{{route('dashmasters.invoices.payment-terms.index')}}">
+          <form method="GET" action="{{route('dashmasters.invoices.charges.index')}}">
             <div class="row">
                 <div class="col-sm-3 col-md-5 col-lg-7 col-xl-7">
                     <div class="form-group">
@@ -47,7 +47,7 @@
                 </div>
                 <div class="col-md-12 pt-0 text-center">
                     <x-dash.form.buttons.search />
-                    <x-dash.form.buttons.reset href="{{route('dashmasters.invoices.payment-terms.index')}}" />
+                    <x-dash.form.buttons.reset href="{{route('dashmasters.invoices.charges.index')}}" />
                 </div>
             </div>
           </form>
@@ -61,10 +61,10 @@
         <div class="card">
         <!-- Basic Tables start -->
           <div class="card-body pt-75 pb-0 px-50">
-          @if (Auth::guard('dash')->user()->can('masters-invoices-payment-terms'))
+          @if (Auth::guard('dash')->user()->can('masters-invoices-charges'))
                 @if(count($data) > 0 )
-                    @if (Auth::guard('dash')->user()->can('masters-invoices-payment-terms-delete'))		
-                        {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4',['multiple_delete_url' => route('dashmasters.invoices.payment-terms.delete-multiple') ] ) }}  
+                    @if (Auth::guard('dash')->user()->can('masters-invoices-charges-delete'))		
+                        {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4',['multiple_delete_url' => route('dashmasters.invoices.charges.delete-multiple') ] ) }}  
                     @else
                         {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4') }}  
                     @endif
@@ -77,9 +77,14 @@
                                             'classes' => 'width_5'
                                         ] , 
                                         [
-                                            'title' => 'payment-terms',
+                                            'title' => 'charges',
                                             'orderby' => 'name',
-                                            'classes' => 'width_44'
+                                            'classes' => 'width_22'
+                                        ] , 
+                                        [
+                                            'title' => 'charge_amount',
+                                            'orderby' => 'charge_amount',
+                                            'classes' => 'width_22'
                                         ] , 
                                         [
                                             'title' => 'no_of_children',
@@ -102,16 +107,16 @@
                         <x-dash.table.table-heading :headingFields="$heading_array"/>
                          
                         @foreach($data as $item)
-                            @include('dash.content.masters.invoices.payment_terms.item-tr', ['item'=>$item])    
+                            @include('dash.content.masters.invoices.charges.item-tr', ['item'=>$item])    
                             @if( true || request()->input('search.parentOnlyShowAll') == 1)
                                 @foreach($item->children as $childItem)
-                                    @include('dash.content.masters.invoices.payment_terms.item-tr', ['item'=>$childItem])    
+                                    @include('dash.content.masters.invoices.charges.item-tr', ['item'=>$childItem])    
                                 @endforeach 
-                            @endif 
+                            @endif
                         @endforeach  
                     </div>
-                    @if (Auth::guard('dash')->user()->can('masters-invoices-payment-terms-delete'))		
-                        {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4',['multiple_delete_url' => route('dashmasters.invoices.payment-terms.delete-multiple') ] ) }}  
+                    @if (Auth::guard('dash')->user()->can('masters-invoices-charges-delete'))		
+                        {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4',['multiple_delete_url' => route('dashmasters.invoices.charges.delete-multiple') ] ) }}  
                     @else
                         {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4') }}  
                     @endif
@@ -122,8 +127,8 @@
                 @endcan    
 
             </div>
-        </div>    
-
+        </div>   
+   
 <!-- list section end -->
 </section>
 
@@ -134,7 +139,6 @@
 <!-- users list ends -->
 
 @endsection
-
 
 
  

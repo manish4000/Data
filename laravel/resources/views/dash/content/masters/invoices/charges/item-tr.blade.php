@@ -31,9 +31,14 @@
         <span>{{$item->id}}</span>
     </div>
 
-    <div class="make_col width_44 xs_width_50 @if($childTdColor != '') {{$childTdColor}}  @endif" >
+    <div class="make_col width_22 xs_width_50 @if($childTdColor != '') {{$childTdColor}}  @endif" >
         <div class="div-mobile">{{__('webCaption.make.title')}}</div>
         @php echo  str_ireplace( request()->input('search.keyword'), '<span class="heighlight-string" >'. request()->input('search.keyword').'</span>',$item->name) @endphp
+    </div>
+
+    <div class="make_col width_22 xs_width_50 @if($childTdColor != '') {{$childTdColor}}  @endif" >
+        <div class="div-mobile">{{__('webCaption.make.title')}}</div>
+        @php echo  str_ireplace( request()->input('search.keyword'), '<span class="heighlight-string" >'. request()->input('search.keyword').'</span>',$item->charge_amount) @endphp
     </div>
        
     <div class="make_col width_15 xs_width_50 text-xl-center text-lg-center text-md-center"> 
@@ -53,7 +58,7 @@
             {{$item->children_count}}
         @endif                                     
     </div>
-    <div class="make_col width_15 xs_width_50 text-xl-center text-lg-center text-md-center">
+    <div class="make_col width_14 xs_width_50 text-xl-center text-lg-center text-md-center">
         <div class="div-mobile">{{__('webCaption.display_status.title')}}</div>
         @php
             $displayStatusChecked = '';
@@ -62,21 +67,21 @@
             }
         @endphp
 
-        <x-dash.form.inputs.listing_checkbox id="list{{$item->id}}"  onclick="changeDisplayStatus('{{$item->id}}','{{route('dashmasters.invoices.payment-terms.update-status')}}')"  dataItemId="{{$item->id}}" dataUrl="{{route('dashmasters.invoices.payment-terms.update-status')}}" 
+        <x-dash.form.inputs.listing_checkbox id="list{{$item->id}}"  onclick="changeDisplayStatus('{{$item->id}}','{{route('dashmasters.invoices.charges.update-status')}}')"  dataItemId="{{$item->id}}" dataUrl="{{route('dashmasters.invoices.charges.update-status')}}" 
             value="{{$item->id}}" checked="{{$displayStatusChecked}}"  /> 
     </div>
 
     <div class="make_col width_12 xs_width_50 text-xl-center text-lg-center text-md-center">
         <div class="div-mobile">{{__('webCaption.actions.title')}}</div>
-        @if (Auth::guard('dash')->user()->can('masters-invoices-payment-terms-edit'))
-        <x-dash.form.buttons.edit href="{{ route('dashmasters.invoices.payment-terms.edit', $item->id) }}" />
+        @if (Auth::guard('dash')->user()->can('masters-invoices-charges-edit'))
+        <x-dash.form.buttons.edit href="{{ route('dashmasters.invoices.charges.edit', $item->id) }}" />
         @endif
         &nbsp;
 
         {{-- pass in  deleteSingleData(id , name ,url ) for delete  --}}
 
-        @if (Auth::guard('dash')->user()->can('masters-invoices-payment-terms-delete'))
-            <x-dash.form.buttons.delete id="{{$item->id}}" name="{{$item->name}}" url="{{route('dashmasters.invoices.payment-terms.delete')}}" action="{{route('dashmasters.invoices.payment-terms.delete',$item->id)}}" /> 
+        @if (Auth::guard('dash')->user()->can('masters-invoices-charges-delete'))
+            <x-dash.form.buttons.delete id="{{$item->id}}" name="{{$item->name}}" url="{{route('dashmasters.invoices.charges.delete')}}" action="{{route('dashmasters.invoices.charges.delete',$item->id)}}" /> 
         @endif
     </div>           
 </div> 
