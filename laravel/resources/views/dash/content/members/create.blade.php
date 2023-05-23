@@ -116,7 +116,7 @@
                                     <x-dash.form.inputs.select tooltip="{{__('webCaption.country_code.caption')}}"
                                         label="{{__('webCaption.country_code.title')}}" id="" for="country_code_1"
                                         name="country_code_1" required="" :optionData="$country_code"
-                                        editSelected="{{ old('country_code_1', isset($country_code_1) && !empty($country_code_1) ? $country_code_1 : '') }}" />
+                                        editSelected="{{ old('$country_code_1', isset($country_code_1) && !empty($country_code_1) ? $country_code_1 : '') }}" />
                                 </div>
                             </div>
                             <div class="col-md-5 col-7 pr-md-0 pl-0">
