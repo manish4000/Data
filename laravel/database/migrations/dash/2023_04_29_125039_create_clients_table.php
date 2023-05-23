@@ -14,6 +14,7 @@ class CreateClientsTable extends Migration
     public function up()
     {
         Schema::create('clients', function (Blueprint $table) {
+            
             $table->id();
             $table->unsignedSmallInteger('company_id')->nullable();
             $table->string('title',5);
@@ -59,24 +60,24 @@ class CreateClientsTable extends Migration
             $table->string('admin_memo',250)->nullable();
             $table->unsignedInteger('currency_id')->nullable();
             $table->string('currency',5)->nullable();
-            $table->unsignedBigInteger('opening_balance',20)->nullable();
+            $table->unsignedBigInteger('opening_balance')->nullable();
             $table->date('opening_balance_date')->nullable();
             $table->enum('opening_balance_type', ['Debit', 'Credit'])->nullable();
             $table->string('user_image',30)->nullable();
             $table->string('visiting_card_img',30)->nullable();
             $table->string('company_logo',30)->nullable();
-            $table->integer('storage_days',3)->nullable();
-            $table->unsignedBigInteger('credit_limit',20)->nullable();
-            $table->integer('bid_limitations',3)->nullable();
-            $table->unsignedBigInteger('bid_amount_limit',20)->nullable();
+            $table->integer('storage_days')->nullable();
+            $table->unsignedBigInteger('credit_limit')->nullable();
+            $table->integer('bid_limitations')->nullable();
+            $table->unsignedBigInteger('bid_amount_limit')->nullable();
             $table->string('bid_limit_reason',100)->nullable();
-            $table->integer('intial_payment_due_days',3)->nullable();
+            $table->integer('intial_payment_due_days')->nullable();
             $table->enum('bid',['Yes','No'])->nullable();
             $table->enum('bid_mail',['Yes','No'])->nullable();
             $table->enum('sales_statistics',['Yes','No'])->nullable();
             $table->enum('auction',['Yes','No'])->nullable();
             $table->enum('uss',['Yes','No'])->nullable();
-            $table->integer('uss_images',3)->nullable();
+            $table->integer('uss_images')->nullable();
             $table->date('registration_date')->nullable();
             $table->enum('registered_by', ['Sales', 'Client']);
             $table->string('registered_ip',50)->nullable();
