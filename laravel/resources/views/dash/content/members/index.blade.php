@@ -12,7 +12,7 @@
                 <div class="card-body">
                     <form method="GET" action="{{route('dashmembers.index')}}">
                         <div class="d-flex justify-content-between align-items-center  row pt-0 pb-2">
-                            <div class="col-md-4">
+                            <div class="col-md-7">
                                 <div class="form-group">
                                     <x-dash.form.inputs.text id="searchKeyword"
                                         label="{{__('webCaption.keyword.title')}}"
@@ -22,16 +22,16 @@
                                         value="{{ request()->input('search.keyword') }}" required="" />
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <!-- <div class="col-md-4">
                                 <div class="form-group">
                                     <x-dash.form.inputs.select label="{{__('webCaption.status.title')}}"
                                         tooltip="{{__('webCaption.status.caption')}}"
                                         for="{{__('webCaption.status.title')}}" name="search[status]"
                                         placeholder="{{ __('locale.status.caption') }}"
                                         editSelected="{{ request()->input('search.status')}}" required=""
-                                        :optionData="$status" />
+                                        :optionData="[]" />
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="col-md-4">
                                 <x-dash.form.buttons.search />
                                 <x-dash.form.buttons.reset href="{{route('dashmembers.index')}}" />
@@ -73,11 +73,11 @@
                                         {{__('webCaption.email.title')}}
                                         <x-dash.filter.order-by-filter-div orderBy="email_1" />
                                     </th>
-                                    <th scope="col" class="position-for-filter-heading" data-toggle="tooltip"
+                                    <!-- <th scope="col" class="position-for-filter-heading" data-toggle="tooltip"
                                         title="{{__('webCaption.status.caption')}}">
                                         {{__('webCaption.status.title')}}
                                         <x-dash.filter.order-by-filter-div orderBy="status" />
-                                    </th>
+                                    </th> -->
                                     <th scope="col" data-toggle="tooltip" title="{{__('webCaption.actions.caption')}}">
                                         {{__('webCaption.actions.title')}}
                                     </th>
@@ -95,10 +95,10 @@
                                     <td>{{ $member->name }}</td>
                                     <td>{{ $member->email_1 }}</td>
                                     {{-- <td>{{ $member->status }}</td> --}}
-                                    <td>
+                                    <!-- <td>
                                         <x-dash.form.inputs.listing_checkbox id="list{{$member->id}}"  onclick="changeDisplayStatus('{{$member->id}}','{{route('dashmembers.update-status')}}')"  dataItemId="{{$member->id}}" dataUrl="{{route('dashmembers.update-status')}}" 
                                             value="{{$member->id}}" checked="{{($member->status == 'Active')? 'checked' :''}}"  /> 
-                                    </td>
+                                    </td> -->
                                     <td>
                                         <x-dash.form.buttons.edit href="{{ route('dashmembers.edit', $member->id) }}" />
                                         &nbsp
