@@ -157,7 +157,6 @@ class SubCategoryController extends Controller
                 $sub_category_model->parent_id  =   isset($request->parent_id)? $request->parent_id : 0 ;
                 $sub_category_model->display    =   $request->display;
                 $sub_category_model->main_category = $request->main_category;
-                // $sub_category_model->title_languages    =   $request->title_languages;
 
                 if($sub_category_model->save()){
                     $message = (isset($request->id)) ? $request->name." ". __('webCaption.alert_updated_successfully.title') : $request->name." ".__('webCaption.alert_added_successfully.title') ;

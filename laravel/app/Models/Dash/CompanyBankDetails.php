@@ -50,6 +50,4 @@ class CompanyBankDetails extends Model implements CipherSweetEncrypted
             ->addField('account_number')
             ->addBlindIndex('account_number', new BlindIndex('account_number_index'));
     }
-        
-
 }

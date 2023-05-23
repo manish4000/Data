@@ -1,18 +1,20 @@
 <?php
 
-namespace App\Models\Masters;
+namespace App\Models\Masters\Company;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\MasterDataTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class SocialMedia extends Model
+class OnlinePayments extends Model
 {
-    use HasFactory, SoftDeletes;
-    protected $table = 'social_medias';
+    use HasFactory,SoftDeletes;
+
+    protected $table = 'online_payments';
     protected $primaryKey = 'id';
 
-    protected $fillable = ['name', 'url', 'icon', 'display','title_languages'];
+    protected $fillable = ['name', 'logo' ,'commission', 'description', 'display'];
 
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i',
@@ -23,12 +25,13 @@ class SocialMedia extends Model
     public function scopeKeywordFilter($query, $keyword)
     {
         return $query->where( function($query) use ($keyword) {
-            $query->where('name', 'like', '%'.$keyword.'%')->orwhere('url', 'like', '%'.$keyword.'%');
-        });
-    }
+            $query->where('name', 'like', '%'.$keyword.'%');
+            } );
+        }
 
-    public function scopeDisplayStatusFilter($query, $displayStatus)
+        public function scopeDisplayStatusFilter($query, $displayStatus)
     {
         return $query->where( 'display', $displayStatus);
     }
+    
 }
