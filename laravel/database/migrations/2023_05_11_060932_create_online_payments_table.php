@@ -16,9 +16,9 @@ class CreateOnlinePaymentsTable extends Migration
         Schema::create('online_payments', function (Blueprint $table) {
             $table->id();
             $table->string('name', 50);
-            $table->bigInteger('parent_id')->nullable();
-            $table->enum('display', ['Yes', 'No'])->default('Yes');
-            $table->longText('title_languages')->nullable(); 
+            $table->string('logo')->nullable();
+            $table->string('commission',2)->nullable();
+            $table->text('description')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

@@ -52,7 +52,7 @@
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
-                         <x-dash.form.inputs.select label="{{__('webCaption.account_currency.title')}}"  tooltip="{{__('webCaption.account_currency.caption')}}" for="account_currency" name="account_currency" placeholder="{{ __('locale.account_currency.caption') }}" customClass="account_currency"  editSelected=""  required="" :optionData="$currency" />   
+                         <x-dash.form.inputs.select label="{{__('webCaption.account_currency.title')}}"  tooltip="{{__('webCaption.account_currency.caption')}}" for="account_currency" name="account_currency" placeholder="{{ __('locale.account_currency.caption') }}" customClass="account_currency"  editSelected="{{old('account_currency', isset($data->account_currency)?$data->account_currency:'')}}"  required="" :optionData="$currency" />   
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -62,17 +62,17 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <x-dash.form.inputs.select onChange="stateLists(this.id,'state_id')" label="{{__('webCaption.country.title')}}"  tooltip="{{__('webCaption.country.caption')}}" for="country_id" name="country_id" placeholder="{{ __('locale.country.caption') }}" customClass="country"  editSelected="{{(isset($data->country_id) && ($data->country_id != null))?$data->country_id :''; }}"  required="" :optionData="$country" />
+                        <x-dash.form.inputs.select onChange="stateLists(this.id,'state_id')" label="{{__('webCaption.country.title')}}"  tooltip="{{__('webCaption.country.caption')}}" for="country_id" name="country" placeholder="{{ __('locale.country.caption') }}" customClass="country"  editSelected="{{(isset($data->country_id) && ($data->country_id != null))?$data->country_id :''; }}"  required="" :optionData="$country" />
                     </div>
                </div>
                <div class="col-md-4">
                     <div class="form-group">
-                         <x-dash.form.inputs.select onChange="cityList(this.id,'city_id')" label="{{__('webCaption.state.title')}}"  tooltip="{{__('webCaption.state.caption')}}"  customClass="state" for="state_id" name="state_id" placeholder="{{ __('locale.state.caption') }}" editSelected=""  required="" :optionData="[]" />
+                         <x-dash.form.inputs.select onChange="cityList(this.id,'city_id')" label="{{__('webCaption.state.title')}}"  tooltip="{{__('webCaption.state.caption')}}"  customClass="state" for="state_id" name="state" placeholder="{{ __('locale.state.caption') }}" editSelected=""  required="" :optionData="[]" />
                     </div>
                </div>
                <div class="col-md-4">
                     <div class="form-group">
-                    <x-dash.form.inputs.select label="{{__('webCaption.city.title')}}"   tooltip="{{__('webCaption.city.caption')}}" for="city_id" name="city_id" placeholder="{{ __('locale.city.caption') }}" editSelected=""  required="" :optionData="[]" />
+                    <x-dash.form.inputs.select label="{{__('webCaption.city.title')}}"   tooltip="{{__('webCaption.city.caption')}}" for="city_id" name="city" placeholder="{{ __('locale.city.caption') }}" editSelected=""  required="" :optionData="[]" />
                     </div>
                </div>
                <div class="col-md-4">
@@ -136,7 +136,7 @@
             </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <x-dash.form.inputs.select label="{{__('webCaption.bank_name.title')}}"   tooltip="{{__('webCaption.bank_name.caption')}}" id="" for="bank_name" name="bank_name"  editSelected=""  required="required" :optionData="$banks" />    
+                            <x-dash.form.inputs.select label="{{__('webCaption.bank_name.title')}}"   tooltip="{{__('webCaption.bank_name.caption')}}" id="" for="bank_name" name="bank_name"  editSelected="{{old('bank_name', isset($data->bank_name_id)?$data->bank_name_id:'')}}"  required="required" :optionData="$banks" />    
                         </div>
                     </div>
                     <div class="col-md-4">
