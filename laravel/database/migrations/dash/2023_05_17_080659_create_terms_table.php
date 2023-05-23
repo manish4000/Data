@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateTermsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('company_testimonial_images', function (Blueprint $table) {
+        Schema::create('terms', function (Blueprint $table) {
             $table->id();
+            $table->string('name', 50);
+            $table->bigInteger('parent_id')->nullable();
+            $table->enum('display', ['Yes', 'No'])->default('Yes');
+            $table->longText('title_languages')->nullable();   
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -26,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('company_testimonial_images');
+        Schema::dropIfExists('terms');
     }
-};
+}

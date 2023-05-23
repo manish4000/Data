@@ -27,14 +27,16 @@ $maxFileSize = isset($maxFileSize) ?  $maxFileSize : '';
     {{-- @if(isset($data->logo_file) && !empty($data->logo_file))
         @php $logo_file = 'https://www.japanesecartrade.com/logo/'.$data->logo_file;  @endphp
     @endif --}}
-    <a href="javascript:void(0);" class="mr-25">
-        <img src="{{$editImageUrl}}" id="{{$imageId}}" class="rounded mr-50" alt="logo image" height="60" width="60" />
+    <div style="border:#ebe9f1 1px solid;">
+    <a href="javascript:void(0);" class="mr-0">
+        <img src="{{$editImageUrl}}" id="{{$imageId}}" class="rounded mr-0" alt="logo image" height="52" width="51" />
     </a>
-
-    <div class="media-body mt-75 ml-1">
-        <label for="{{ $for }}" class="btn btn-sm btn-primary mb-75 mr-75">{{ $caption }}  @if(isset($required) && !empty($required)) &nbsp; <span  style="font-size: 14px;font-weight:bolder"> * </span>  @endif </label>
+    </div>
+    <div class="media-body mt-0 ml-1">
+       <span style="display:block; position:relative; top:-2px;"> <x-dash.form.label for="" value="{{__('webCaption.upload_image.title')}}" class="align-top fs-6" tooltip="{{__('webCaption.upload_image.caption')}}" /></span>
+        <label for="{{ $for }}" class="btn btn-sm btn-primary mb-0 mr-0 ">{{ $caption }}  @if(isset($required) && !empty($required)) &nbsp; <span  style="font-size: 14px;font-weight:bolder"> * </span>  @endif </label>
         <input type="file" name="{{ $name }}" id="{{ $for }}" hidden accept="image/*"  {{$multiple}} {{$required}} /><br/>
-        <p class="input_file_instruction">Allowed <?php echo  (isset($fileType))?implode(',',$fileType) : ''; ?>. Max size of <?php echo $maxFileSize ?> KB</p>
+        <!-- <p class="input_file_instruction">Allowed <?php echo  (isset($fileType))?implode(',',$fileType) : ''; ?>. Max size of <?php echo $maxFileSize ?> KB</p> -->
     </div>
 
 </div>

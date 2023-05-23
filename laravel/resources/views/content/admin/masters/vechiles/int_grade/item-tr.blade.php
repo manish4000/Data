@@ -10,7 +10,7 @@
                     // demo send data like this to find relation  
                     // [ 'table' => 'subtype','field' => 'type_id','value' => $item->id ,'module' => 'SubType' ,
                     //   'url' => route('masters.vehicle.subtype.index',['search[type]' => $item->id ])  
-                    // ]
+                    // ] 
                 ];    
     $status   = (count($referance) > 0 ) ?  Helper::__checkReferanceDataExist($referance) : false ;  
     $referance_json    = json_encode($referance);            

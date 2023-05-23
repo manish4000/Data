@@ -39,7 +39,7 @@ $border ="";
     <select  class="select2 <?php echo  $customClass; ?>" data-autofill="true" multiple data-is-parent="false"  name="{{ $name }}" id="{{ $for }}" {{ $required }}
         @if(isset($onChange)) onchange="{{$onChange}}" @endif 
         >
-        <option value="">Select</option>
+      
         @if(isset($optionData) && count($optionData)>0)
             @foreach($optionData as $option)
                 @php $sel = ''; @endphp

@@ -46,6 +46,20 @@
             }
 
         }
+
+
+        function uidToggle(id, btnid) {
+        
+            let uid = document.getElementById(id);
+         
+                if (uid.type == "text"){
+                     uid.type = "password";
+                     $('#'+btnid).html('<i class="fa fa-eye"></i>');
+                }else{
+                    uid.type = "text";
+                    $('#'+btnid).html('<i class="fa fa-eye-slash"></i>');   
+                }
+            }
       
         /* To Generate the password*/
         function generatePassword() {

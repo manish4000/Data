@@ -2,18 +2,24 @@
 
 <div class="col-md-4">
     <div class="form-group">
-        <x-dash.form.inputs.select onChange="onChangeSocialMedia(this.id)" data_attr="icon" tooltip="{{__('webCaption.social_media.caption')}}" label="{{__('webCaption.social_media.title')}}" for="{{isset($id) ? $id : ''}}" name="{{isset($name) ? $name : ''}}[]" placeholder="{{ __('locale.social_media.caption') }}" editSelected="[]" required="" :optionData="$socialMedia" />
+        <x-dash.form.inputs.select onChange="onChangeSocialMedia(this.id)" data_attr="icon" tooltip="{{__('webCaption.social_media.caption')}}" label="{{__('webCaption.social_media.title')}}" for="{{isset($id) ? $id : ''}}" name="{{isset($name) ? $name : ''}}[]" placeholder="{{ __('locale.social_media.caption') }}" editSelected="{{ isset($social_media[0]->id) ? $social_media[0]->id : ''}}" required="" :optionData="$socialMedia" />
     </div>
 </div>
 
 <div class="col-md-1 text-center pt-1">
-    @php $image_src =  asset('assets/images/globe.png'); @endphp
+    @php  
+        if(isset($social_media[0]->id) && !empty($social_media[0]->id))
+        $social_image  =   DB::table('social_medias')->where('id',$social_media[0]->id)
+                                ->where('deleted_at',NULL)->get()->value('icon');
+        if(!empty($social_image)) $image_src = asset('social_media')."/".$social_image;
+        else $image_src =  asset('assets/images/globe.png');   
+    @endphp
     <span class="display-6"><img src="{{$image_src}}" class="img_{{isset($id) ? $id : ''}}" width="30"
         height="30" alt="social_media_icon"/></span>
 </div>
 
 <div class="col-md-6">
-    <x-dash.form.inputs.text maxlength="100" tooltip="{{__('webCaption.value.caption')}}" label="{{__('webCaption.value.title')}}"  id="" for="value" name="social_value[]" placeholder="{{ __('locale.value.caption') }}" value="" required="" />
+    <x-dash.form.inputs.text maxlength="100" tooltip="{{__('webCaption.value.caption')}}" label="{{__('webCaption.value.title')}}" for="value" name="social_value[]" placeholder="{{ __('locale.value.caption') }}" value="{{isset($social_media[0]->value) ? $social_media[0]->value : ''}}" required="" />
 </div>
 
 <div class="col-md-1 mt-2">
@@ -23,6 +29,44 @@
         <x-dash.form.buttons.custom color="bg-dark" id="add_btn_{{isset($id) ? $id : ''}}" value="" onClick="addNewInput('{{isset($id) ? $id : ''}}','{{isset($name) ? $name : ''}}')" iconClass="fa fa-add"/>
     @endif
 </div>
+
+@if(isset($social_media) && is_array($social_media) && count($social_media)>0)
+@php $i = 0; @endphp
+@foreach($social_media as $key=>$value)
+@if($i>0)
+<div>
+<div class="row delete_social_{{$key}}">
+    <div class="col-md-4">
+        <div class="form-group">
+            <x-dash.form.inputs.select onChange="onChangeSocialMedia(this.id)" data_attr="icon" tooltip="{{__('webCaption.social_media.caption')}}" label="{{__('webCaption.social_media.title')}}" for="{{isset($id) ? $id : ''}}_{{$key}}" name="{{isset($name) ? $name : ''}}[]" placeholder="{{ __('locale.social_media.caption') }}" editSelected="{{ isset($value->id) ? $value->id : ''}}" required="" :optionData="$socialMedia" />
+        </div>
+    </div>
+
+    <div class="col-md-1 text-center pt-1">
+        @php 
+            if(isset($value->id) && !empty($value->id))
+            $socialMediaImage = DB::table('social_medias')->where('id',$value->id)
+                                    ->where('deleted_at',NULL)->get()->value('icon');
+            if(!empty($socialMediaImage)) $image_src = asset('social_media')."/".$socialMediaImage;
+            else $image_src =  asset('assets/images/globe.png'); 
+            
+            @endphp
+        <span class="display-6"><img src="{{$image_src}}" class="img_{{isset($id) ? $id : ''}}_{{$key}}" width="30"
+            height="30" alt="social_media_icon"/></span>
+    </div>
+
+    <div class="col-md-6">
+        <x-dash.form.inputs.text maxlength="100" tooltip="{{__('webCaption.value.caption')}}" label="{{__('webCaption.value.title')}}" for="value" name="social_value[]" placeholder="{{ __('webCaption.value.title') }}" value="{{isset($value->value) ? $value->value : ''}}" required="" />
+    </div>
+    <div class="col-md-1 mt-2">
+        <x-dash.form.buttons.custom color="bg-danger" id="DeleteRow_{{$key}}" value="" onClick="delete_social('{{$key}}')" iconClass="fa fa-xmark"/>
+    </div>
+</div>
+</div>
+@endif
+@php $i++; @endphp
+@endforeach
+@endif
 
 <div id="newInput_{{isset($id) ? $id : ''}}"></div>
 
@@ -56,8 +100,10 @@
             alert("You can not add any more");
         }
     }
+
     function delete_social(id){
 		$('.delete_social_'+id).remove();
 	}
+    
 </script>
 @endpush

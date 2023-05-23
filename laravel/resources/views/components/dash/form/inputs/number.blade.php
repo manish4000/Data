@@ -9,11 +9,11 @@
     'customClass',
     'maxlength',
     'attributes',
-    'tooltip'
-  
+    'tooltip',
+    'numberFormat',
 ])
-@php
 
+@php
 $charLength =  (isset($value))? strlen($value) : 0;
 $customClass = isset($customClass) ? $customClass : '';
 @endphp
@@ -30,6 +30,11 @@ $customClass = isset($customClass) ? $customClass : '';
 
 <input
     type="text" 
+
+    @if (isset($numberFormat) && isset($for) && ($numberFormat == "true"))
+        id="{{$for}}" onkeydown="numberFormat('{{$for}}')" onkeyup="checkTextLimit('{{$for}}');"
+    @endif
+
     @if (isset($for)) id="{{$for}}" onkeyup="checkTextLimit('{{$for}}');"  @endif
 
     @if (isset($maxlength))  maxlength="{{$maxlength}}" @endif 
@@ -53,3 +58,15 @@ $customClass = isset($customClass) ? $customClass : '';
 </div>
 
 @endif 
+
+@push('script')
+<script type="text/javascript">
+
+    function numberFormat(id){
+        var number = $('#'+id).val();
+        var parts = number.replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        $('#'+id).val(parts);
+    }
+
+</script>
+@endpush
