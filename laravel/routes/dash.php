@@ -171,7 +171,8 @@ Route::middleware('dash')->name('dash')->group(function(){
             Route::get('edit/{id}','ClientController@edit')->name('edit');
             Route::post('/delete', 'ClientController@destroy')->name('delete'); 
             Route::post('/delete-multiple','ClientController@deleteMultiple')->name('delete-multiple');   
-            Route::post('/update-status','ClientController@updateStatus')->name('update-status');  
+            Route::post('/update-status','ClientController@updateStatus')->name('update-status'); 
+            Route::post('/check-uid-exist','ClientController@checkUidExist')->name('check-uid-exist');  
         });
         
         Route::group(['prefix'=>'company','namespace'=>'Dash','as' => 'company.'],function(){

@@ -42,7 +42,7 @@
               <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <x-dash.form.inputs.text  for="account_name"  maxlength="50" tooltip="{{__('webCaption.account_name.caption')}}" label="{{__('webCaption.account_name.title')}}"  name="account_name"  placeholder="{{__('webCaption.account_name.title')}}" value="{{old('account_name', isset($data->account_name)?$data->account_name:'' )}}"  required="" />
+                        <x-dash.form.inputs.text for="account_name" maxlength="50" tooltip="{{__('webCaption.account_name.caption')}}" label="{{__('webCaption.account_name.title')}}"  name="account_name"  placeholder="{{__('webCaption.account_name.title')}}" value="{{old('account_name', isset($data->account_name)?$data->account_name:'' )}}" required="" />
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -52,32 +52,27 @@
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
-                         <x-dash.form.inputs.select label="{{__('webCaption.account_currency.title')}}"  tooltip="{{__('webCaption.account_currency.caption')}}" for="account_currency" name="account_currency" 
-                        placeholder="{{ __('locale.account_currency.caption') }}" customClass="account_currency"  editSelected=""  required="" :optionData="[]" />   
+                         <x-dash.form.inputs.select label="{{__('webCaption.account_currency.title')}}"  tooltip="{{__('webCaption.account_currency.caption')}}" for="account_currency" name="account_currency" placeholder="{{ __('locale.account_currency.caption') }}" customClass="account_currency"  editSelected=""  required="" :optionData="$currency" />   
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
                         <x-dash.form.inputs.textarea id="" for="account_address" tooltip="{{__('webCaption.account_address.caption')}}"  label="{{__('webCaption.account_address.title')}}" maxlength="250" class="form-control" name="account_address"  placeholder="{{__('webCaption.account_address.title')}}" value="{{old('account_address', isset($data->account_address)?$data->account_address:'' )}}"  required="" />
-                        @if($errors->has('account_address'))
-                            <x-dash.form.form_error_messages message="{{ $errors->first('account_address') }}"  />
-                        @endif
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <x-dash.form.inputs.select label="{{__('webCaption.country.title')}}"  tooltip="{{__('webCaption.country.caption')}}" for="country_id" name="country_id" 
-                        placeholder="{{ __('locale.country.caption') }}" customClass="country"  editSelected="{{(isset($data->country_id) && ($data->country_id != null))?$data->country_id :''; }}"  required="" :optionData="$country" />
+                        <x-dash.form.inputs.select onChange="stateLists(this.id,'state_id')" label="{{__('webCaption.country.title')}}"  tooltip="{{__('webCaption.country.caption')}}" for="country_id" name="country_id" placeholder="{{ __('locale.country.caption') }}" customClass="country"  editSelected="{{(isset($data->country_id) && ($data->country_id != null))?$data->country_id :''; }}"  required="" :optionData="$country" />
                     </div>
                </div>
                <div class="col-md-4">
                     <div class="form-group">
-                         <x-dash.form.inputs.select label="{{__('webCaption.state.title')}}"  tooltip="{{__('webCaption.state.caption')}}"  customClass="state" id="" for="state_id" name="state_id" placeholder="{{ __('locale.state.caption') }}" editSelected=""  required="" :optionData="[]" />
+                         <x-dash.form.inputs.select onChange="cityList(this.id,'city_id')" label="{{__('webCaption.state.title')}}"  tooltip="{{__('webCaption.state.caption')}}"  customClass="state" for="state_id" name="state_id" placeholder="{{ __('locale.state.caption') }}" editSelected=""  required="" :optionData="[]" />
                     </div>
                </div>
                <div class="col-md-4">
                     <div class="form-group">
-                    <x-dash.form.inputs.select label="{{__('webCaption.city.title')}}"   tooltip="{{__('webCaption.city.caption')}}" id="" for="city_id" name="city_id" placeholder="{{ __('locale.city.caption') }}" editSelected=""  required="" :optionData="[]" />
+                    <x-dash.form.inputs.select label="{{__('webCaption.city.title')}}"   tooltip="{{__('webCaption.city.caption')}}" for="city_id" name="city_id" placeholder="{{ __('locale.city.caption') }}" editSelected=""  required="" :optionData="[]" />
                     </div>
                </div>
                <div class="col-md-4">
@@ -137,22 +132,10 @@
             <div class="col-md-12">
                 <div class="form-group">
                     <x-dash.form.inputs.checkbox  name="jumvea_account"  for="" label="{{__('webCaption.jumvea_safe_trade.caption')}}" checked="{{$jumvea_account}}"  value="1"  customClass="form-check-input" />
-                    @if ($errors->has('jumvea_account'))
-                        <x-dash.form.form_error_messages message="{{ $errors->first('jumvea_account') }}" />
-                    @endif
                 </div>
             </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            @php
-                            $banks  =  [ 
-                                            [ 'value' => 'SBI', 'name'=> 'SBI' ],
-                                            [ 'value' => 'OBC', 'name'=> 'OBC' ],
-                                            [ 'value'=> 'HDFC', 'name'=> 'HDFC' ], 
-                                        ];
-                             $banks =   json_decode(json_encode($banks)) ;
-                            @endphp
-
                             <x-dash.form.inputs.select label="{{__('webCaption.bank_name.title')}}"   tooltip="{{__('webCaption.bank_name.caption')}}" id="" for="bank_name" name="bank_name"  editSelected=""  required="required" :optionData="$banks" />    
                         </div>
                     </div>
@@ -274,8 +257,10 @@
 @php
 $state_id = session()->getOldInput('state_id');
 $city_id = session()->getOldInput('city_id');
-$state_id =  (isset($state_id)) ? $state_id : ( (isset($data->state_id)) ? $data->state_id :'' );
-$city_id =  (isset($city_id)) ? $city_id : ( (isset($data->city_id)) ? $data->city_id :'' );
+
+$country_id =  (isset($country_id)) ? $country_id : ( (isset($data->country_id)) ? $data->country_id : old('country_id'));
+$state_id =  (isset($state_id)) ? $state_id : ( (isset($data->state_id)) ? $data->state_id : old('state_id'));
+$city_id =  (isset($city_id)) ? $city_id : ( (isset($data->city_id)) ? $data->city_id : old('city_id'));
 @endphp 
 
 @push('script')
@@ -284,122 +269,35 @@ $city_id =  (isset($city_id)) ? $city_id : ( (isset($data->city_id)) ? $data->ci
 
 <script>
 
-      var  country  = $('.country').find(":selected").val();
-      var  state  =   "<?php echo $state_id ; ?>";
-      var  city  = "<?php echo $city_id; ?>";
-    
-      if(country){
-              stateList(country,state);
-      }
-       
-      if(state){
-          $.ajax ({
-              type: 'POST',
-              url: "{{route('dashcity-list')}}",
-              data: { id : state ,"_token": "{{ csrf_token() }}"},
-              success : function(result) {
-                $('#city_id').html('<option value="">Select City</option>');
-                  $.each(result.cities, function (key, value) {
-
-                    if(value.id == city){
-                            var selected_c = 'selected';
-                          }else{
-                            var selected_c = '';
-                          }
-
-                      $("#city_id").append('<option value="' + value
-                          .id + '" '+ selected_c +'>' + value.name + '</option>');
-                  });
-              }
-          });
-      }
-            
-
-      $('.country').on('change', function(){
-            var selectCountry  = $(this).val();  
-            stateList(selectCountry);        
-      });
-
-
-      $('.state').on('change', function () {
-            var selectState  = $(this).val();  
-            cityList(selectState);
-      });
-
-      
-    function stateList(country , selected_state = ''){
-
-        $.ajax ({
-                    type: 'POST',
-                    url: "{{route('dashstate-list')}}",
-                    data: { id : country ,"_token": "{{ csrf_token() }}"},
-                    success : function(result) {
-
-                        $('#state_id').html('<option value="">Select State</option>');
-                        $.each(result.states, function (key, value) {
-
-                            if(value.id == selected_state){
-                            var selected_s = 'selected';
-                            }else{
-                            var selected_s = '';
-                            }
-                            $("#state_id").append('<option value="' + value
-                                .id + '" '+ selected_s + '>' + value.name + '</option>');
-                        });
-                        $('#city_id').html('<option value="">Select City</option>');
-                    }
-            });
-
-    }
-
-
-    function cityList(state,selected_city =''){
-
-    $.ajax ({
-            type: 'POST',
-            url: "{{route('dashcity-list')}}",
-            data: { id : state ,"_token": "{{ csrf_token() }}" },
-            success : function(result) {
-            $('#city_id').html('<option value="">Select City</option>');
-                $.each(result.cities, function (key, value) {
-
-                if(value.id == selected_city){
-                        var selected_c = 'selected';
-                        }else{
-                        var selected_c = '';
-                        }
-
-                    $("#city_id").append('<option value="' + value
-                        .id + '" '+ selected_c +'>' + value.name + '</option>');
-                });
+$('#send-otp ,#resend-otp').on('click', function(e) {
+    e.preventDefault();
+    $.ajax({
+    type: "GET",
+    url: "{{route('dashbank-details.send-otp')}}",
+    data: { }, 
+    success: function( data ) {
+            if(data.result.status  == true){
+                $('#otp-input-div').css("display", "block");
+                $('#send-otp-div').css("display", "none");
+                $('#submit-form').css("display", "block");
+                successToast(data.result.message);
+            }else{
+                errorToast(data.result.message);
             }
-        });
-    }
-
-    
-    $( '#send-otp ,#resend-otp' ).on('click', function(e) {
-        e.preventDefault();
-        $.ajax({
-        type: "GET",
-        url: "{{route('dashbank-details.send-otp')}}",
-        data: { }, 
-        success: function( data ) {
-                if(data.result.status  == true){
-                    $('#otp-input-div').css("display", "block");
-                    $('#send-otp-div').css("display", "none");
-                    $('#submit-form').css("display", "block");
-                    successToast(data.result.message);
-                }else{
-                    errorToast(data.result.message);
-                }
-             }    
-        });
-
+        }    
     });
+});
 
+    let country_id =  "{{$country_id}}";
+    let state_id = "{{$state_id}}";
+    let city_id = "{{$city_id}}";
 
-
-
+    if(country_id != ''){
+      stateLists('country_id','state_id', state_id);
+    }
+    if(city_id != ''){
+      cityList('state_id','city_id', city_id, state_id);
+    }
 </script>
-  
 @endpush
+@include('components.dash.form.country_state_city')

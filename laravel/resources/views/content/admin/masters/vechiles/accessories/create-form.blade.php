@@ -51,6 +51,11 @@
                     </div>
             </div>
         </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="form-group">
+            <x-admin.form.inputs.select  tooltip="{{__('webCaption.accessories_group.caption')}}"  label="{{__('webCaption.accessories_group.title')}}"  id="" for="accessories_group" name="accessories_group" placeholder="{{__('webCaption.accessories_group.title')}}"  required="" :optionData="$accessories_group" editSelected="{{(isset($data->accessories_group_id) && ($data->accessories_group_id != null))?$data->accessories_group_id :''; }}" />
+          </div>
+        </div>
       </div>       
     </div>
   </div>

@@ -37,45 +37,10 @@
                                 value="{{old('name', isset($data->name)?$data->name:'' )}}" required="required" />
                         </div>
                     </div>
-
-
-                    <div class="col-lg-4 col-md-6">
-                        <div class="form-group">
-                            <x-admin.form.inputs.select tooltip="{{__('webCaption.select_parent.caption')}}"
-                                label="{{__('webCaption.select_parent.title')}}" id="" for="parent_id" name="parent_id"
-                                placeholder="{{__('webCaption.select_parent.title')}}" required=""
-                                :optionData="$parent_data"
-                                editSelected="{{(isset($data->parent_id) && ($data->parent_id != null))?$data->parent_id :''; }}" />
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6">
-                        <div class="form-group">
-                            <x-admin.form.label for="" value="{{__('webCaption.display.title')}}" class=""
-                                tooltip="{{__('webCaption.display.caption')}}" />
-                            <div>
-                                <div class="form-check form-check-inline">
-                                    <x-admin.form.inputs.radio for="Yes" tooltip="{{__('webCaption.yes.caption')}}"
-                                        class="border border-danger" name="display"
-                                        label="{{__('webCaption.yes.title')}}" value="Yes" required="required"
-                                        checked="{{ (old('display') == 'Yes') || (!isset($data->id))  ? 'checked' : '' }} {{ isset($data->display) ? $data->display == 'Yes' ? 'checked=checked' :'' :'' }} "
-                                        required="required" />&ensp;
-
-                                    <x-admin.form.inputs.radio for="No" class="border border-danger" name="display"
-                                        tooltip="{{__('webCaption.no.caption')}}" label="{{__('webCaption.no.title')}}"
-                                        value="No" required="required"
-                                        checked="{{ old('display') == 'No' ? 'checked' : '' }} {{ isset($data->display) ? $data->display == 'No' ? 'checked=checked' :'' :'' }} "
-                                        required="required" />&ensp;
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="col-lg-4 col-md-6">
                         <div class="form-group">
                             @php
-                            $editImageUrl = (isset($data->logo)) ? "social_media/".$data->logo : '';
+                            $editImageUrl = (isset($data->logo)) ? "dash/online_payments/".$data->logo : '';
                             @endphp
                             <x-admin.form.inputs.file id="" caption="{{__('webCaption.logo.title')}}"
                                 editImageUrl="{{$editImageUrl}}" ImageId="logo-preview" for="logo" name="logo"
@@ -86,18 +51,18 @@
                     <div class="col-lg-4 col-md-6">
                         <div class="form-group">
                             <x-admin.form.inputs.text tooltip="{{__('webCaption.commission.caption')}}"
-                                label="{{__('webCaption.commission.title')}}" maxlength="2" for="commission" name="commission"
-                                placeholder="{{ __('webCaption.commission.title') }}"
-                                value="{{old('commission', isset($data->commission)?$data->commission:'' )}}" required="required" />
-                        </div>commission
+                                label="{{__('webCaption.commission.title')}}" maxlength="2" for="commission"
+                                name="commission" placeholder="{{ __('webCaption.commission.title') }}"
+                                value="{{old('commission', isset($data->commission)?$data->commission:'' )}}"
+                                required="" />
+                        </div>
                     </div>
-
-                    <div class="col-lg-4 col-md-6">
+                    <div class="col-lg-12 col-md-12">
                         <div class="form-group">
-                            <x-admin.form.inputs.text tooltip="{{__('webCaption.description.caption')}}"
+                            <x-admin.form.inputs.textarea tooltip="{{__('webCaption.description.caption')}}"
                                 label="{{__('webCaption.description.title')}}" maxlength="1000" for="description" name="description"
                                 placeholder="{{ __('webCaption.description.title') }}"
-                                value="{{old('description', isset($data->description)?$data->description:'' )}}" required="required" />
+                                value="{{old('description', isset($data->description)?$data->description:'' )}}" required="" />
                         </div>
                     </div>
                 </div>

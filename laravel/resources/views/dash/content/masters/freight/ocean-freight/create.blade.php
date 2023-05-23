@@ -131,43 +131,26 @@
                                 required="" />
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="row">
-                            <div class="col-md-9 col-12">
-                                <div class="form-group">
-                                    <x-dash.form.label for="" value="{{__('webCaption.roro_rates.title')}}" class=""
-                                        tooltip="{{__('webCaption.roro_rates.caption')}}" required="required" />
-                                    <div>
-                                        <div class="form-check-inline">
-                                            <x-dash.form.inputs.radio for="height"
-                                                tooltip="{{__('webCaption.height.caption')}}"
-                                                class="border border-danger" name="roro_rates"
-                                                label="{{__('webCaption.height.title')}}" value="Height"
-                                                checked="checked" required="required" />&ensp;
+                    <div class="col-md-4 col-12">
+                        <div class="form-group">
+                            <x-dash.form.label for="" value="{{__('webCaption.roro_rates.title')}}" class=""
+                                tooltip="{{__('webCaption.roro_rates.caption')}}" required="required" />
+                            <div>
+                                <div class="form-check-inline">
+                                    <x-dash.form.inputs.radio for="height" tooltip="{{__('webCaption.height.caption')}}"
+                                        class="border border-danger" name="roro_rates"
+                                        label="{{__('webCaption.height.title')}}" value="Height" checked="checked"
+                                        required="required" />&ensp;
 
-                                            <x-dash.form.inputs.radio for="per_m3" class="border border-danger"
-                                                name="roro_rates" tooltip="{{__('webCaption.per_m3.caption')}}"
-                                                label="{{__('webCaption.per_m3.title')}}" value="Per M3" checked=""
-                                                required="required" />&ensp;
+                                    <x-dash.form.inputs.radio for="per_m3" class="border border-danger"
+                                        name="roro_rates" tooltip="{{__('webCaption.per_m3.caption')}}"
+                                        label="{{__('webCaption.per_m3.title')}}" value="Per M3" checked=""
+                                        required="required" />&ensp;
 
-                                            <x-dash.form.inputs.radio for="fixed" class="border border-danger"
-                                                name="roro_rates" tooltip="{{__('webCaption.fixed.caption')}}"
-                                                label="{{__('webCaption.fixed.title')}}" value="Fixed" checked=""
-                                                required="required" />&ensp;
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3 col-12">
-                                <div class="form-group">
-                                    <x-dash.form.label for="" value="{{__('webCaption.default.title')}}" class=""
-                                        tooltip="{{__('webCaption.default.caption')}}" required="required" />
-                                    <div>
-                                        <x-dash.form.inputs.checkbox for="default" name="default" class="form-control"
-                                            label="{{__('webCaption.yes.title')}}" value="1"
-                                            checked="{{ old('default') == 'No' ? 'checked' : '' }} {{ isset($data->default) ? $data->default == 'Yes' ? 'checked=checked' :'' :'' }}"
-                                            customClass="custom-control-inline" required="" />
-                                    </div>
+                                    <x-dash.form.inputs.radio for="fixed" class="border border-danger" name="roro_rates"
+                                        tooltip="{{__('webCaption.fixed.caption')}}"
+                                        label="{{__('webCaption.fixed.title')}}" value="Fixed" checked=""
+                                        required="required" />&ensp;
                                 </div>
                             </div>
                         </div>
@@ -336,10 +319,41 @@
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
-                            <x-dash.form.inputs.textarea id="" for="memo" tooltip="{{__('webCaption.memo.caption')}}"
-                                label="{{__('webCaption.memo.title')}}" maxlength="100" class="form-control" name="memo"
-                                placeholder="{{__('webCaption.memo.title')}}"
-                                value="{{old('memo', isset($data->id)?$data->memo:'' )}}" required="" />
+                            <x-dash.form.inputs.textarea id="" for="admin_memo"
+                                tooltip="{{__('webCaption.admin_memo.caption')}}"
+                                label="{{__('webCaption.admin_memo.title')}}" maxlength="100" class="form-control"
+                                name="admin_memo" placeholder="{{__('webCaption.admin_memo.title')}}"
+                                value="{{old('admin_memo', isset($data->id)?$data->admin_memo:'' )}}" required="" />
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-6">
+                        <div class="form-group">
+                            <x-dash.form.label for="" value="{{__('webCaption.display_status.title')}}" class=""
+                                tooltip="{{__('webCaption.display_status.caption')}}" required="" />
+                            <div>
+                                <div class="form-check-inline">
+                                    <x-dash.form.inputs.radio for="yes" tooltip="{{__('webCaption.yes.caption')}}"
+                                        class="border border-danger" name="display_status"
+                                        label="{{__('webCaption.yes.title')}}" value="Yes" checked="checked"
+                                        required="" />&ensp;
+
+                                    <x-dash.form.inputs.radio for="no" class="border border-danger"
+                                        name="display_status" tooltip="{{__('webCaption.no.caption')}}"
+                                        label="{{__('webCaption.no.title')}}" value="No" checked="" required="" />&ensp;
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-16">
+                        <div class="form-group">
+                            <x-dash.form.label for="" value="{{__('webCaption.default.title')}}" class=""
+                                tooltip="{{__('webCaption.default.caption')}}" required="" />
+                            <div>
+                                <x-dash.form.inputs.checkbox for="default" name="default" class="form-control"
+                                    label="{{__('webCaption.yes.title')}}" value="1"
+                                    checked="{{ old('default') == 'No' ? 'checked' : '' }} {{ isset($data->default) ? $data->default == 'Yes' ? 'checked=checked' :'' :'' }}"
+                                    customClass="custom-control-inline" required="" />
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -11,7 +11,7 @@
 
     <tr class="parent-id-{{$item->parent_id}} {{$display}}">
         <td>
-            <x-admin.form.inputs.multiple_select_checkbox id="select{{$item->id}}"   value="{{$item->id}}"  customClass="checkbox"  />            
+            <x-dash.form.inputs.multiple_select_checkbox id="select{{$item->id}}"   value="{{$item->id}}"  customClass="checkbox"  />            
         </td>
         <td @if($childTdColor != '') class="{{$childTdColor}}" @endif >
             <span style=" margin-left: {{$marginLeft}}">{{$item->id}}</span>
@@ -20,7 +20,7 @@
              @php echo  str_ireplace( request()->input('search.keyword'), '<span class="heighlight-string" >'. request()->input('search.keyword').'</span>',$item->name) @endphp
         </td>
         <td @if($childTdColor != '') class="{{$childTdColor}}" @endif>
-             @php echo  str_ireplace( request()->input('search.keyword'), '<span class="heighlight-string" >'. request()->input('search.keyword').'</span>',$item->accessories_group) @endphp
+             @php echo  str_ireplace( request()->input('search.keyword'), '<span class="heighlight-string" >'. request()->input('search.keyword').'</span>',$item->url) @endphp
         </td>
 
         <td>
@@ -48,19 +48,19 @@
                 }
             @endphp
     
-            <x-admin.form.inputs.listing_checkbox id="list{{$item->id}}"  onclick="changeDisplayStatus('{{$item->id}}','{{route('masters.vehicle.accessories.update-status')}}')"  dataItemId="{{$item->id}}" dataUrl="{{route('masters.vehicle.accessories.update-status')}}" 
+            <x-dash.form.inputs.listing_checkbox id="list{{$item->id}}"  onclick="changeDisplayStatus('{{$item->id}}','{{route('dashmasters.erp.courier.update-status')}}')"  dataItemId="{{$item->id}}" dataUrl="{{route('dashmasters.erp.courier.update-status')}}" 
                value="{{$item->id}}" checked="{{$displayStatusChecked}}"  /> 
         </td>
         <td>
-            @can('masters-vehicle-accessories-edit')
-             <x-admin.form.buttons.edit href="{{ route('masters.vehicle.accessories.edit', $item->id) }}" />
-            @endcan
+
+             <x-dash.form.buttons.edit href="{{ route('dashmasters.erp.courier.edit', $item->id) }}" />
+
             &nbsp;
 
            {{-- pass in  deleteSingleData(id , name ,url ) for delete  --}}
 
-           @can('masters-vehicle-accessories-delete')
-            <x-admin.form.buttons.delete id="{{$item->id}}" name="{{$item->name}}" url="{{route('masters.vehicle.accessories.delete')}}" action="{{route('masters.vehicle.accessories.delete',$item->id)}}" /> 
-           @endcan
+
+            <x-dash.form.buttons.delete id="{{$item->id}}" name="{{$item->name}}" url="{{route('dashmasters.erp.courier.delete')}}" action="{{route('dashmasters.erp.courier.delete',$item->id)}}" /> 
+
         </td>
     </tr>

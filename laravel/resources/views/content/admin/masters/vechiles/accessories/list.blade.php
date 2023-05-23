@@ -82,6 +82,8 @@
                                         </th>                                                
                                         <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.accessories.caption')}}"> {{__('webCaption.accessories.title')}}<x-admin.filter.order-by-filter-div orderBy="name" />
                                         </th>
+                                        <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.accessories_group.caption')}}"> {{__('webCaption.accessories_group.title')}}<x-admin.filter.order-by-filter-div orderBy="accessories_group" />
+                                        </th>
                                         <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.no_of_children.caption')}}" >{{__('webCaption.no_of_children.title')}}<x-admin.filter.order-by-filter-div orderBy="children_count" />
                                         </th>
                                         <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.display_status.caption')}}"  >

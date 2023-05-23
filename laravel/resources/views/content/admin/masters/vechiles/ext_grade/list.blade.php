@@ -1,6 +1,5 @@
 @extends('layouts/contentLayoutMaster')
 @section('title', $pageConfigs['moduleName'])
-
 @section('content')
 <!-- users list start -->
 <section>
@@ -103,21 +102,21 @@
             <x-admin.table.table-heading :headingFields="$heading_array"/>                
                          
                 @foreach($data as $item)
-                    @include('content.admin.masters.vechiles.makes.item-tr', ['item'=>$item])    
+                    @include('content.admin.masters.vechiles.ext_grade.item-tr', ['item'=>$item])    
                         @if(true || request()->input('search.parentOnlyShowAll') == 1)
                           @foreach($item->children as $childItem)
-                             @include('content.admin.masters.vechiles.makes.item-tr', ['item'=>$childItem])    
+                             @include('content.admin.masters.vechiles.ext_grade.item-tr', ['item'=>$childItem])    
                           @endforeach                                        
                         @endif
                 @endforeach      
                                                                                
              </div>                   
 
-                    @if (Auth::guard('web')->user()->can('main-navigation-masters-vehicle-make-delete'))		
-                    {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4',['multiple_delete_url' => route('masters.vehicle.make.delete-multiple') ] ) }}  
+                    @if (Auth::guard('web')->user()->can('main-navigation-masters-vehicle-ext-grade-delete'))		
+                    {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4',['multiple_delete_url' => route('masters.vehicle.ext-grade.delete-multiple') ] ) }}  
                     @else
                         {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4') }}  
-                    @endif
+                    @endifs
                 @else
                     @include('components.admin.alerts.no-record-found')                    
                 @endif    
@@ -134,31 +133,3 @@
 <!-- users list ends -->
 
 @endsection
-
-@section('page-script')
-
-{{--  --}}
-<script type="text/javascript">
-$('.load-child-records').click( function(event){
-    event.preventDefault();
-    var eObject = this;
-    var itemId = $(this).attr('data-itemId');
-    var parent_tr = $(this).closest('tr');
-
-    if( $(this).hasClass('collasped') ) {
-        $(eObject).removeClass('collasped').addClass('expanded');
-        $(eObject).find('i:first').removeClass('fa-caret-right').addClass('fa-caret-down');
-        $('.parent-id-' + itemId).show();
-    } else {
-        $(eObject).removeClass('expanded').addClass('collasped');
-        $(eObject).find('i:first').removeClass('fa-caret-down').addClass('fa-caret-right');
-        $('.parent-id-' + itemId).hide();
-    }
-});
-</script>
-
-@endsection
-
-
- 
-

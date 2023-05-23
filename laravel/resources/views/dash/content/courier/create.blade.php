@@ -28,8 +28,8 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group ">
-                            <x-dash.form.buttons.custom color="btn btn-sm btn-primary mb-75 mr-80 waves-effect waves-float waves-light" id="" value="Choose Stock" onClick="addNewInput('{{isset($id) ? $id : ''}}','{{isset($name) ? $name : ''}}')" iconClass=""/>
-                            <x-dash.form.buttons.custom color="btn btn-sm btn-primary mb-75 mr-75 waves-effect waves-float waves-light" id="" value="Choose Invoice" onClick="addNewInput('{{isset($id) ? $id : ''}}','{{isset($name) ? $name : ''}}')" iconClass=""/>
+                            <x-dash.form.buttons.custom color="btn btn-sm btn-primary mb-75 mr-80 waves-effect waves-float waves-light" id="" value="{{__('webCaption.choose_stock.title')}}" iconClass=""/>
+                            <x-dash.form.buttons.custom color="btn btn-sm btn-primary mb-75 mr-75 waves-effect waves-float waves-light" id="" value="{{__('webCaption.choose_invoice.title')}}" iconClass=""/>
                         </div>
                     </div>
                     <div class="col-md-4">
