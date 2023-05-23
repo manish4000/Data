@@ -157,7 +157,8 @@ class InquiryController extends Controller
 
         $inquiryArr = array();
 
-        $inquiryArr['company_id'] =  NULL;
+        $userId = Auth::guard('dash')->user();
+        $inquiryArr['company_id'] =  $userId->id;
         $inquiryArr['stock_number'] =  $request->stock_number;
         $inquiryArr['type'] = $request->type; 
         $inquiryArr['subtype'] = $request->subtype;
