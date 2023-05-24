@@ -6,8 +6,19 @@
 @endif
 
 
+
+@section('page-style')
+  <!-- Page css files -->
+  <link rel="stylesheet" href="{{asset(mix('vendors/css/extensions/dragula.min.css'))}}">
+ 
+@endsection
+
 @section('content')
 <div>
+    @if($errors->any())
+    {{ implode('', $errors->all('<div>:message</div>')) }}
+    @endif
+
 	<form action="{{ route('dashtestimonial.store')}}" method="POST" enctype="multipart/form-data">
 		@csrf
 		<div class="card card-primary">
@@ -22,6 +33,14 @@
 			<hr class="m-0 p-0">
 			<div class="card-body">
 				<div class="row">
+                <div class="col-md-12">
+                    <div class="form-group text-center">
+                    <x-dash.form.buttons.custom color="btn btn-sm btn-success " id="" value="{{__('webCaption.choose_from_stock.title')}}" iconClass=""/>
+
+                    <x-dash.form.buttons.custom color="btn btn-sm btn-success " id="" value="{{__('webCaption.choose_from_invoices.title')}}" iconClass=""/>
+                    </div>
+                </div>
+                
                     <div class="col-md-4">
                         <div class="form-group">
                           <x-dash.form.inputs.file id="" caption="{{__('webCaption.user_image.title')}}" ImageId="user-image-preview" for="image"   name="image" editImageUrl="{{ isset($data->image)? asset('company_data/'.$imageFolder.'/testimonials/'.$data->image) :''}}"  placeholder="{{__('webCaption.user_image.title')}}" required="" />
@@ -109,7 +128,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <x-dash.form.inputs.select  for="city"  maxlength="50" tooltip="{{__('webCaption.city.caption')}}" label="{{__('webCaption.city.title')}}"   name="city"  placeholder="{{__('webCaption.city.title')}}" value="{{old('city', isset($data->city)?$data->city:'' )}}"  required="" />
+                            <x-dash.form.inputs.select onChange="cityList('state','city')" for="city" tooltip="{{__('webCaption.city.caption')}}" label="{{__('webCaption.city.title')}}" name="city"  placeholder="{{__('webCaption.city.title')}}" :optionData="[]" editSelected="{{ old('city', isset($data->city_id) ? $data->city_id :'') }}" required="" />
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -137,18 +156,18 @@
                                     
                             <div class="col-md-7">
                                 <div class="form-group">
-                                  <x-dash.form.label for="" value="{{__('webCaption.testimonial_by.title')}}" class="" tooltip="{{__('webCaption.testimonial_by.caption')}}" />
-                                <div>
-								<div class=" form-check-inline">
-								<x-dash.form.inputs.radio for="Buyer" tooltip="{{__('webCaption.buyer.caption')}}"  class="border border-danger" name="testimonial_by" label="{{__('webCaption.buyer.title')}}" placeholder="" value="buyer"  required="required"  checked="{{ (isset ($user->companySalesTeam->testimonial_by) && $user->companySalesTeam->testimonial_by == 'Active') ? 'checked' : 'checked' }}" />&ensp;
-									
-								<x-dash.form.inputs.radio for="Dealer" class="border border-danger" name="testimonial_by" tooltip="{{__('webCaption.dealer.caption')}}" label="{{__('webCaption.dealer.title')}}" placeholder="" value="dealer"  required="required"  checked="{{ (isset($user->companySalesTeam->testimonial_by) && $user->companySalesTeam->testimonial_by == 'Blocked') ? 'checked' : '' }}" />&ensp;
-								</div>
-							</div>
-						</div>
+                                    <x-dash.form.label for="" value="{{__('webCaption.testimonial_by.title')}}" class="" tooltip="{{__('webCaption.testimonial_by.caption')}}" />
+								    <div class=" form-check-inline">
+                                    <x-dash.form.inputs.radio for="Buyer" tooltip="{{__('webCaption.buyer.caption')}}"  class="border border-danger" name="testimonial_by" label="{{__('webCaption.buyer.title')}}" placeholder="" value="Buyer"  required="required"  checked="{{ (isset ($user->companySalesTeam->testimonial_by) && $user->companySalesTeam->testimonial_by == 'Active') ? 'checked' : 'checked' }}" />&ensp;
+                                        
+                                    <x-dash.form.inputs.radio for="Dealer" class="border border-danger" name="testimonial_by" tooltip="{{__('webCaption.dealer.caption')}}" label="{{__('webCaption.dealer.title')}}" placeholder="" value="Dealer"  required="required"  checked="{{ (isset($user->companySalesTeam->testimonial_by) && $user->companySalesTeam->testimonial_by == 'Blocked') ? 'checked' : '' }}" />&ensp;
+								    </div>
+							    </div>
+						    </div>
+                        </div>    
 					</div>
-                    </div>
-                    </div>
+                
+                   
                     <div class="col-md-4">
                         <div class="form-group">
                             <x-dash.form.inputs.email  for="email"  maxlength="100" tooltip="{{__('webCaption.email.caption')}}" label="{{__('webCaption.email.title')}}"   name="email"  placeholder="{{__('webCaption.email.title')}}" value="{{old('email', isset($data->email)?$data->email:'' )}}"  required="" />
@@ -163,7 +182,7 @@
                             </div>
                             <div class="col-md-8 col-7">
                                 <div class="form-group">
-                                    <x-dash.form.inputs.number id="" for="Mobile"  tooltip="{{__('webCaption.mobile.caption')}}" label="{{__('webCaption.mobile.title')}}" maxlength="20"  name="mobile"  placeholder="{{__('webCaption.mobile.title')}}" value="{{old('mobile', isset($data->mobile)?$data->mobile:'' )}}"  required="" />
+                                    <x-dash.form.inputs.number id="" for="Mobile"  tooltip="{{__('webCaption.mobile.caption')}}" label="{{__('webCaption.mobile.title')}}" maxlength="20"  name="phone"  placeholder="{{__('webCaption.mobile.title')}}" value="{{old('phone', isset($data->phone)?$data->phone:'' )}}"  required="" />
                                 </div>
                             </div>
                         </div> 
@@ -175,7 +194,7 @@
                     </div>    
                     <div class="col-md-12">
                         <div class="form-group">
-                            <x-dash.form.inputs.textarea id="" for="dealer_remark" tooltip="{{__('webCaption.dealer_remark.caption')}}"  label="{{__('webCaption.dealer_remark.title')}}" maxlength="250"  name="dealer_remark"  placeholder="{{__('webCaption.dealer_remark.title')}}" value="{{old('dealer_remark', isset($data->dealer_remark)?$data->dealer_remark:'' )}}"  required="" />
+                            <x-dash.form.inputs.textarea id="" for="admin_memo" tooltip="{{__('webCaption.admin_memo.caption')}}"  label="{{__('webCaption.admin_memo.title')}}" maxlength="250"  name="admin_memo"  placeholder="{{__('webCaption.admin_memo.title')}}" value="{{old('admin_memo', isset($data->admin_memo)?$data->admin_memo:'' )}}"  required="" />
                         </div>
                     </div>    
                 
@@ -197,6 +216,51 @@
 
 			</div>
 		</div>
+
+        <div class="card card-primary">
+			<hr class="m-0 p-0">
+			<div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                    @if(isset($data->id))             
+                     
+                        @include('components.dash.form.inputs.multiple_image_upload_dropzone',
+                                            [ 'action' => route('dashmultiple-image-upload-temp') ,
+                                                'deleteTempImage' => route('dashdelete-temp-image'),
+                                                'acceptedFiles' => ".jpeg,.jpg,.png,.gif",
+                                                'tempTable' => "dash_images_temp",
+                                                'table' => "company_testimonial_images",
+                                                'table_referance_filed_name' => "company_testimonial_id",
+                                                'editableImagesPath' => 'company_data/'.$imageFolder.'/testimonials/',
+                                                'uploadPath'   => "dash/documents_temp/",
+                                                'editableImages' => $data->images,
+                                                'id' => $data->id,
+                                                'tempTableImageFieldName' => 'name',
+                                                'tableImageFiledName' => 'image',
+                                                'formFieldName' => 'document[]'                           
+                                            ])
+
+                    @else
+
+                    @include('components.dash.form.inputs.multiple_image_upload_dropzone',
+                    [ 'action' => route('dashmultiple-image-upload-temp') ,
+                        'deleteTempImage' => route('dashdelete-temp-image'),
+                        'acceptedFiles' => ".jpeg,.jpg,.png,.gif",
+                        'tempTable' => "dash_images_temp",
+                        'table' => "",
+                        'editableImagesPath'=> '',
+                        'uploadPath'   => "dash/documents_temp/",
+                        'tempTableImageFieldName' => 'name',
+                        'tableImageFiledName' => 'image',
+                        'formFieldName' => 'document[]'                           
+                    ])               
+                    
+                    @endif            
+                            </div>
+                        </div>
+            </div>            
+        </div>    
+
 		<div class="form-group text-center">
 			<input type="hidden" name="id" value="@if(isset($data->id) && !empty($data->id)){{$data->id}}@endif" />
 			@if(isset($data->id)) 	<x-dash.form.buttons.update /> @else <x-dash.form.buttons.create/> @endif 
@@ -205,7 +269,53 @@
 </div>
 @endsection
 
+@php
+
+//$state_id = session()->getOldInput('state');
+$city_id = session()->getOldInput('city');
+
+$country_id = (isset($country_id)) ? $country_id : ( (isset($data->country_id)) ? $data->country_id : old('country'));
+
+//$state_id = (isset($state_id)) ? $state_id : ( (isset($data->state_id)) ? $data->state_id : old('state'));
+
+$city_id = (isset($city_id)) ? $city_id : ( (isset($data->city_id)) ? $data->city_id : old('city'));
+
+@endphp
 
 @push('script')
 <script src="{{ asset('assets/dash/assets/js/dash/master.js') }}"></script>
+<script src="{{ asset(mix('vendors/js/extensions/dragula.min.js')) }}"></script>
+<script>
+     dragula([document.getElementById('card-drag-area')])
+    .on('drag', function(el) {
+      console.log('Drag '+el);
+      console.log();
+      el.className = el.className.replace('ex-moved', '');
+      console.log(el);
+    }).on('drop', function(el) {
+      console.log('Drop '+el);
+      el.className += ' ex-moved';
+      console.log(el);
+    }).on('over', function(el, container) {
+      console.log('Over'+el);
+      el.className = el.className.replace('ex-over', '');
+      
+      console.log(container);
+    }).on('out', function(el, container) {
+      console.log('Out'+el);
+      el.className += ' ex-over';
+      console.log(container);
+    });
+
+let country_id = "{{$country_id}}";
+
+let city_id = "{{$city_id}}";
+
+// if (country_id != '') {
+//     stateLists('country', 'state', state_id);
+// }
+if (country_id != '') {
+    cityList('country', 'city', city_id);
+}
+</script>
 @endpush
