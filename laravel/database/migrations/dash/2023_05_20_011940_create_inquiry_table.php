@@ -37,9 +37,9 @@ class CreateInquiryTable extends Migration
             $table->Text('customer_message')->nullable();
             $table->string('name', 50);
             $table->string('email', 50);
-            $table->unsignedSmallInteger('country_id')->nullable();
+            $table->unsignedMediumInteger('country_id')->nullable();
             $table->string('country', 50)->nullable();
-            $table->unsignedSmallInteger('port_id')->nullable();
+            $table->unsignedMediumInteger('port_id')->nullable();
             $table->string('port', 30)->nullable();
             $table->unsignedInteger('purchase_capacity')->nullable();
             $table->enum('customer_type', ['Buyer','Dealer'])->default('Buyer');
