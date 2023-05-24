@@ -21,7 +21,60 @@
 </div>
 </section>
 
+{{--  --}}
+
+{{-- @php 
+
+
+ $slider_images_array =  isset($editableImages) ?  json_decode(json_encode($editableImages),true) : '' ;
+
+ $slider_images_array = json_encode($slider_images_array);
+
+@endphp --}}
+
+<div class="modal fade bg-transparent " id="large" tabindex="-1" role="dialog" aria-labelledby="myModalLabel17" aria-hidden="true" >
+
+   
+
+
+<div class="modal-dialog modal-dialog-centered bg-transparent modal-lg" role="document">
+   <div class="modal-content card">
+       <div class="card-body text-center">
+           <div id="carousel-example-caption" class="carousel slide" data-ride="false">
+               {{-- <ol class="carousel-indicators">
+                   @if(isset($editableImages) && count($editableImages)> 0 )
+                       @php $i = 0; @endphp
+                       @foreach($editableImages as $vPhoto)
+                           <li data-target="#carousel-example-caption" data-slide-to="{{$i}}" class="data-slide-{{$vPhoto->orders}}"></li>
+                           @php $i++; @endphp
+                       @endforeach
+                   @endif
+               </ol> --}}
+
+               <div class="carousel-inner" role="listbox" id="slider-temp-image">
+               </div>
+               <a class="carousel-control-prev" href="#carousel-example-caption" role="button" data-slide="prev">
+                   <span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="sr-only">Previous</span>
+               </a>
+               <a class="carousel-control-next" href="#carousel-example-caption" role="button" data-slide="next">
+                   <span class="carousel-control-next-icon" aria-hidden="true"></span><span class="sr-only">Next</span>
+               </a>
+           </div>
+       </div>
+   </div>
+</div>  
+  
+</div>
+
+{{--  --}}
+
 @php
+
+
+   $id = (isset($id) &&  !empty($id)) ? $id : ''; 
+   $tableImageFiledName = (isset($tableImageFiledName) &&  !empty($tableImageFiledName)) ? $tableImageFiledName : ''; 
+
+   $table_referance_filed_name = (isset($table_referance_filed_name) &&  !empty($table_referance_filed_name)) ? $table_referance_filed_name : ''; 
    $acceptedFiles = (isset($acceptedFiles) &&  !empty($acceptedFiles)) ? $acceptedFiles : ''; 
    $max_size = (isset($maxFilesize) &&  !empty($maxFilesize)) ? $maxFilesize : ''; 
    $maxFiles = (isset($maxFiles) &&  !empty($maxFiles)) ? $maxFiles : ''; 
@@ -34,6 +87,8 @@
 
 
 <script src="{{ asset(mix('vendors/js/extensions/dropzone.min.js')) }}"></script>
+
+
 <script type="text/javascript">
 
   let acceptableFiles = "{{$acceptedFiles}}";
@@ -58,8 +113,11 @@
         dictDefaultMessage :DefaultMessage,
         parallelUploads: 1,
         uploadMultiple: false,
+        complete: function(file) {
+         dropzone.removeFile(file);
+         },
         success: function(){
-        
+                            
             $.ajax({
             url: "{{route('dashget-images-temp')}}",
             type: 'post',
@@ -70,13 +128,13 @@
                     formFieldName:"{{$formFieldName}}"
                },
             success: function(response){
-               $('#card-drag-area').append(response);
+                console.log(response);
+              $('#card-drag-area').append(response.card);
+              $('#slider-temp-image').append(response.slider_div);
             }
             });
         },
    
-      
- 
     });
 
 
@@ -98,6 +156,8 @@
             success : function(result) {
                if(result.status == true){
                   $("div#photo"+imageId).remove();
+               
+                  $("div#slider-img-"+result.deleted_img_id).remove();
                }else{
                   errorToast(result.message);
                }
@@ -106,6 +166,32 @@
          
         }
     }
+
+
+    function EnLargeSlider(id){
+
+      $.ajax ({
+            type: 'POST',
+            url: "{{route('dashslider-images')}}",
+            data: { 
+                  id : "{{$id}}",
+                  table : "{{$table}}",
+                  table_referance_filed_name : "{{$table_referance_filed_name}}",
+                  tableImageFiledName : "{{$tableImageFiledName}}",
+                  editableImagesPath:"{{$editableImagesPath}}",
+            },
+            success : function(result) {
+               if(result.status == true){
+                  $("div.permanent-data").remove();
+                  $('#slider-temp-image').append(result.view);
+                  $('#slider-img-'+id).addClass('active')   
+               }
+               $('#large').modal('show');
+            }
+         });
+
+    }
+
 
     function rotateImage(imageId,fileName,fieldName){
         if(imageId){
@@ -124,14 +210,16 @@
             },
             success : function(result) {
                if(result.status == true){
-                  $("div#photo"+imageId).remove();
+
+                   $("#imgId"+imageId).attr("src",result.image_src);
+
                }else{
                   errorToast(result.message);
                }
             }
          });
          
-        }
+      }
     }
 
 </script>

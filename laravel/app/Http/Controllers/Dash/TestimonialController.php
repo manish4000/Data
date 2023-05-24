@@ -32,9 +32,6 @@ class TestimonialController extends Controller
         $this->baseUrl =  $this->url->to('/testimonial');
     }
 
-
-
-
     /**
      * Display a listing of the resource.
      *
@@ -51,7 +48,6 @@ class TestimonialController extends Controller
             'baseUrl' => $this->baseUrl, 
             'moduleName' => $this->moduleName, 
         ];
-
 
         if (Auth::guard('dash')->user()->can('common-testimonial-add')) {
             $breadcrumbs[0] = [
@@ -75,6 +71,7 @@ class TestimonialController extends Controller
         }
 
         $data = $data->paginate($perPage);
+
         return view('dash.content.testimonial.index',['pageConfigs' => $pageConfigs ,'breadcrumbs' => $breadcrumbs ,'data' => $data ]);
     }
 
@@ -84,22 +81,23 @@ class TestimonialController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {   
-        
+    {    
         if (!Auth::guard('dash')->user()->can('common-testimonial-add')) {
             abort(403);
         }
+        
         $country = Country::get(['id as value' ,'name']);
+
         $pageConfigs = [
             'pageHeader' => true, 
             'baseUrl' => $this->baseUrl, 
             'moduleName' => $this->moduleName, 
-
         ];
         $breadcrumbs[0] = [
             'link' => $this->baseUrl,
             'name' => 'List'
         ];
+
         $country_phone_code =  Country::select('phone_code as value' ,'country_code' ,DB::raw("CONCAT(country_code,' (',phone_code ,')' ) AS name"))->where('phone_code','!=' ,null)->where('country_code','!=' ,null)->get(['phone_code','country_code']);
 
         return view('dash.content.testimonial.create',['country' => $country ,'country_phone_code' => $country_phone_code ,'pageConfigs' => $pageConfigs ,'breadcrumbs' => $breadcrumbs ]);
@@ -226,7 +224,7 @@ class TestimonialController extends Controller
 
                 $company_testmimonal_images = new TestmonialImagesModel();
 
-                $newFolder = public_path('company_data').$folder;
+                $newFolder = public_path('company_data/'.$folder.'/testimonials');
 
                 if(!File::isDirectory($newFolder)){
                     File::makeDirectory($newFolder, 0777, true, true);
@@ -240,7 +238,7 @@ class TestimonialController extends Controller
                         
                         $from = public_path('dash/documents_temp/').$document;
     
-                        $to = public_path('company_data').'/'.$folder.'/testimonials'.$document;
+                        $to = public_path('company_data/'.$folder.'/testimonials').'/'.$document;
                         
                         if(!is_file($to)){
                             File::move($from ,$to);

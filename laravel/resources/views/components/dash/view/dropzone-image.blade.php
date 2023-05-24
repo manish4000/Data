@@ -6,14 +6,14 @@
          @if(isset($editableImagesPath))
    
             @if(file_exists( public_path($editableImagesPath).$data->$tableImageFiledName))
-            <img src="{{asset($editableImagesPath.$data->$tableImageFiledName)}}" class="rounded  mx-auto d-block" height="160" width="160"  alt="avatar img" />
+            <img src="{{asset($editableImagesPath.$data->$tableImageFiledName)}}" id="imgId{{$data->id}}" class="rounded  mx-auto d-block" height="160" width="160"  alt="avatar img" />
             @else 
             <img src="{{'https://cdn.japanesecartrade.com/jct/vehicle_image/'.$data->name}}" height="160" width="160" class="rounded mx-auto d-block" alt="avatar img" data-index="{{public_path().'uploads/vehicle/large/'.$data->name}}"/>
             @endif
       
          @else
             @if(file_exists(public_path($uploadPath).'/'.$data->$tempTableImageFieldName))
-            <img src="{{asset($uploadPath.$data->name)}}" class="rounded mx-auto d-block"  height="160" width="160" alt="avatar img" />
+            <img src="{{asset($uploadPath.$data->name)}}" class="rounded mx-auto d-block" id="imgId{{$data->id}}"  height="160" width="160" alt="avatar img" />
             @else 
             <img src="{{'https://cdn.japanesecartrade.com/jct/vehicle_image/'.$data->name}}" height="160" width="160" class=" rounded mx-auto d-block" alt="avatar img" data-index="{{public_path().'uploads/vehicle/large/'.$data->name}}"/>
             @endif
@@ -33,7 +33,9 @@
        <div class="card-footer row m-0 p-0 p-1">
           <div class="col-3 m-0 p-0 text-left"></div>
           <div class="col-9 m-0 p-0 text-right">
-     
+           
+            <i class="fa-solid fa-magnifying-glass-plus"
+            onclick="EnLargeSlider({{$data->id}});"></i>
           <i class="fa fa-trash text-danger"
            onclick="deleteTempDocumentImage('{{$data->id}}','{{$formfieldValue}}','{{$formfield}}')"></i>
 
@@ -43,3 +45,6 @@
        </div>
     </div>
 </div>
+
+
+{{-- slider  --}}

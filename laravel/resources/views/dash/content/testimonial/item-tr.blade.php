@@ -12,7 +12,7 @@
     </td>
     <td >{{$item->person_name}}    </td>
     <td >{{$item->email}}    </td>
-    <td >{{$item->country->name}}    </td>
+    <td >{{$item->country}}    </td>
     <td >{{$item->posted_date}}    </td>
     <td>
         @if (Auth::guard('dash')->user()->can('common-testimonial-edit'))	

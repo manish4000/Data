@@ -11,8 +11,9 @@ class CommonController extends Controller
 
     public function checkReferanceData(Request $request){
 
-         $data = json_decode($request->data);
-
+        $data = json_decode($request->data);
+     
+        
           $response_data = [];
 
         if(count($data) > 0){

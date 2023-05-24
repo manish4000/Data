@@ -12,7 +12,7 @@
 				<div class="card-body">
 					<form method="GET" action="{{route('dashtestimonial.index')}}">
 						<div class="d-flex justify-content-between align-items-center  row pt-0 pb-2">
-							<div class="col-md-3">
+							<div class="col-md-7">
 								<div class="form-group">
 									<x-admin.form.inputs.text id="searchKeyword" label="{{__('webCaption.keyword.title')}}" tooltip="{{__('webCaption.keyword.caption')}}" for="{{__('webCaption.keyword.title')}}"  class="form-control" name="search[keyword]"  placeholder="{{__('webCaption.keyword.title')}}" value="{{ request()->input('search.keyword') }}"  required="" />
 								</div>
