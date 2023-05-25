@@ -12,7 +12,7 @@ class CompanyPermission extends Model
 {
     use HasFactory ,SoftDeletes;
     protected $table = 'company_permissions';
-    protected $connection = 'dash';
+      
 
    public function roles() {
       return $this->belongsToMany(CompanyRole::class,'company_role_permissions');

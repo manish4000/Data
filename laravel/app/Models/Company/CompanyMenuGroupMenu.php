@@ -13,6 +13,7 @@ class CompanyMenuGroupMenu extends Model
 
     protected $table = 'company_menu_groups_menu';
 
+  
     protected $casts = [
         'permissions' => 'json'
     ];
