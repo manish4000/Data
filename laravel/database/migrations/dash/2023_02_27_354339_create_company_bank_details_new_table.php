@@ -13,7 +13,7 @@ class CreateCompanyBankDetailsNewTable extends Migration
      */
     public function up()
     {
-        Schema::create('company_bank_details', function (Blueprint $table) {
+        Schema::connection('dash')->create('company_bank_details', function (Blueprint $table) {
             $table->id();
             $table->string('account_name', 50)->nullable();
             $table->string('account_number', 255)->nullable();
@@ -49,6 +49,6 @@ class CreateCompanyBankDetailsNewTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('company_bank_details');
+        Schema::connection('dash')->dropIfExists('company_bank_details');
     }
 }
