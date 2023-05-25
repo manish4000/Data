@@ -11,6 +11,7 @@ class Fuel extends Model
 {
     use HasFactory,SoftDeletes,MasterDataTrait;
 
+    protected $connection = 'dash';
     protected $table = 'fuel';
     protected $primaryKey = 'id';
 

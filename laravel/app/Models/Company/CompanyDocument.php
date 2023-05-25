@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class CompanyDocument extends Model
 {
     use HasFactory,SoftDeletes;
+    protected $connection = 'dash';
     protected $table = 'company_documents';
 
     protected $fillable = ['name','document_name'];

@@ -131,7 +131,7 @@ class CurrencyController extends Controller
         $validator = Validator::make($request->all(),
           [
             'display' => 'required',
-            'name' => 'required|unique:currencies,name,'.$request->id.',id,deleted_at,NULL', 
+            'name' => 'required|unique:dash.currencies,name,'.$request->id.',id,deleted_at,NULL', 
             'currency_symbol' => 'nullable|string|max:10',
             'title'   =>   'nullable|string|max:100',
           ]  ,

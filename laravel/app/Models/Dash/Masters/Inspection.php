@@ -11,6 +11,7 @@ class Inspection extends Model
 {
     use HasFactory,SoftDeletes,MasterDataTrait;
 
+    protected $connection = 'dash';
     protected $table = 'inspections';
     protected $primaryKey = 'id';
 

@@ -65,9 +65,9 @@ class ProfileController extends Controller
 
         $request->validate(
             [
-            'company_name' => 'required|max:255|unique:companies,company_name,'.$request->id.',company_gabs_id,deleted_at,NULL', 
+            'company_name' => 'required|max:255|unique:dash.companies,company_name,'.$request->id.',company_gabs_id,deleted_at,NULL', 
             // 'gabs_uuid' => 'required||max:6|unique:companies_gabs,gabs_uuid,'.$request->id, 
-             'email' => 'required|max:45|unique:companies,email,'.$request->id. ',company_gabs_id,deleted_at,NULL', 
+             'email' => 'required|max:45|unique:dash.companies,email,'.$request->id. ',company_gabs_id,deleted_at,NULL', 
             'address' => 'nullable|string',
             'city_id' => 'nullable|numeric',
             'state_id' => 'nullable|numeric',

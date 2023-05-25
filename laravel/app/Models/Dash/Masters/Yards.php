@@ -11,6 +11,7 @@ class Yards extends Model
 {
     use HasFactory,SoftDeletes,MasterDataTrait;
 
+    protected $connection = 'dash';
     protected $table = 'yards';
     protected $primaryKey = 'id';
 

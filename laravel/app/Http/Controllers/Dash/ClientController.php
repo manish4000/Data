@@ -150,13 +150,13 @@ class ClientController extends Controller
 
         $request->validate(
         [
-            'company_name'  => 'required|max:100|unique:clients,company_name,'.$request->id.',id,deleted_at,NULL', 
+            'company_name'  => 'required|max:100|unique:dash.clients,company_name,'.$request->id.',id,deleted_at,NULL', 
             'title'        => 'required|string',
             'name'          => 'required|max:100',
             'customer_uid'  => 'nullable|max:6',
             'password'      => 'nullable|min:8',
-            'email_1'       => 'required|max:45|unique:clients,email_1,'.$request->id. ',id,deleted_at,NULL',
-            'email_2'       => 'nullable|max:45|unique:clients,email_2,'.$request->id. ',id,deleted_at,NULL',
+            'email_1'       => 'required|max:45|unique:dash.clients,email_1,'.$request->id. ',id,deleted_at,NULL',
+            'email_2'       => 'nullable|max:45|unique:dash.clients,email_2,'.$request->id. ',id,deleted_at,NULL',
             'mobile_1'      => 'required|string|max:20',
             'mobile_2'      => 'nullable|string|max:20',
             'address'       => 'nullable|string|max:250',
@@ -277,9 +277,9 @@ class ClientController extends Controller
             $ClientModel->password = $request->password ;
         }
 
-          $company_id = Auth::guard('dash')->user()->id;
-          $ClientModel->company_id = $company_id;
-          
+          $company_id = Auth::guard('dash')->user();
+          $ClientModel->company_id = $company_id->id;
+
           $ClientModel->title = $request->title;
           $ClientModel->name = $request->name;
           $ClientModel->company_name = $request->company_name;
@@ -343,8 +343,7 @@ class ClientController extends Controller
           $ClientModel->zip_code = $request->zip_code;
 
           $ClientModel->religion_id = $request->religion;
-          $religion = Religion::select('name')->where('id',$request->religion)->get()->value('name');
-          $ClientModel->religion   =  $religion;
+          $ClientModel->religion   =  Religion::select('name')->where('id',$request->religion)->get()->value('name');
 
           $ClientModel->nationality_id = $request->nationality;
           $nationality = Country::select('name')->where('id',$request->nationality)->get()->value('name');
@@ -527,6 +526,7 @@ class ClientController extends Controller
         }
 
         $data = Client::find($request->id);
+        
         if(is_file(public_path('dash/user_image').'/'.$data->user_image )){
             unlink(public_path('dash/user_image').'/'.$data->user_image);
         }

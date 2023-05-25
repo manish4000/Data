@@ -11,6 +11,7 @@ class Currency extends Model
 {
     use HasFactory,SoftDeletes,MasterDataTrait;
 
+    protected $connection = 'dash';
     protected $table = 'currencies';
     protected $primaryKey = 'id';
 

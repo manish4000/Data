@@ -11,6 +11,7 @@ class VendorType extends Model
 {
     use HasFactory,SoftDeletes,MasterDataTrait;
 
+    protected $connection = 'dash';
     protected $table = 'vendor_types';
     protected $primaryKey = 'id';
 

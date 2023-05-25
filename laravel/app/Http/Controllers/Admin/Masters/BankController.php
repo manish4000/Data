@@ -139,7 +139,7 @@ class BankController extends Controller
         $validator = Validator::make($request->all(),
           [
             'display' => 'required',
-            'name' => 'required|unique:banks,name,'.$request->id.',id,deleted_at,NULL',
+            'name' => 'required|unique:dash.banks,name,'.$request->id.',id,deleted_at,NULL',
             'logo' => 'nullable|mimes:jpeg,png,jpg,gif|max:5000',
             'country_id' => 'nullable|numeric',
           ]  ,

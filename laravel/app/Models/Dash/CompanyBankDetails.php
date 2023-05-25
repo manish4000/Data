@@ -13,6 +13,7 @@ use Spatie\LaravelCipherSweet\Concerns\UsesCipherSweet;
 class CompanyBankDetails extends Model implements CipherSweetEncrypted
 {
     use HasFactory,UsesCipherSweet;
+    protected $connection = 'dash';
 
     public function scopeKeywordFilter($query, $keyword){
         return $query->where( function($query) use ($keyword) {

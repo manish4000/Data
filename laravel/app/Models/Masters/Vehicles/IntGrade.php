@@ -11,6 +11,7 @@ class IntGrade extends Model
 {
     use HasFactory,SoftDeletes,MasterDataTrait;
 
+    protected $connection = 'dash';
     protected $table = 'int_grade';
     protected $primaryKey = 'id';
 

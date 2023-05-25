@@ -11,6 +11,7 @@ class Ports extends Model
 {
     use HasFactory,SoftDeletes,MasterDataTrait;
 
+    protected $connection = 'dash';
     protected $table = 'ports';
     protected $primaryKey = 'id';
 

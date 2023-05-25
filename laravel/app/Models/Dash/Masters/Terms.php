@@ -11,6 +11,7 @@ class Terms extends Model
 {
     use HasFactory,SoftDeletes,MasterDataTrait;
 
+    protected $connection = 'dash';
     protected $table = 'terms';
     protected $primaryKey = 'id';
 

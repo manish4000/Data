@@ -131,7 +131,7 @@ class TransmissionController extends Controller
         $validator = Validator::make($request->all(),
           [
             'display' => 'required',
-            'name' => 'required|unique:transmission,name,'.$request->id.',id,deleted_at,NULL' 
+            'name' => 'required|unique:dash.transmission,name,'.$request->id.',id,deleted_at,NULL' 
           ]  ,
           [
             'name.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.name.title')  ] ),

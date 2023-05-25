@@ -10,7 +10,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Nationality extends Model
 {
     use HasFactory,SoftDeletes,MasterDataTrait;
-
+    
+    protected $connection = 'dash';
     protected $table = 'nationalities';
     protected $primaryKey = 'id';
 

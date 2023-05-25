@@ -11,6 +11,7 @@ class Payments extends Model
     use HasFactory,SoftDeletes;
 
     protected $table = 'payments';
+    protected $connection = 'dash';
     protected $primaryKey = 'id';
     protected $fillable = ['cash_in_date','payment_status','payment_ref_no','receiving_bank','amount','currency','ex_rate','accounting_currency','balance_amount','refund_amount','refund_date','client_id','customer_name','depositer_name','payment_mode','memo','note_for_accounting','payment_receipt', 'paymentMode'];
 

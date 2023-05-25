@@ -10,6 +10,7 @@ class PaymentTerm extends Model
 {
     use HasFactory, SoftDeletes;
     protected $table = 'payment_terms';
+    protected $connection = 'dash';
     protected $primaryKey = 'id';
 
     protected $fillable = ['name', 'display'];

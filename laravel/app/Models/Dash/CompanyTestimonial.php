@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 class CompanyTestimonial extends Model
 {
     use HasFactory;
+    protected $connection = 'dash';
     protected $table = 'company_testimonial';
     
     public function scopeKeywordFilter($query, $keyword)

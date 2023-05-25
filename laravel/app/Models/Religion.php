@@ -11,6 +11,7 @@ class Religion extends Model
 {
     use HasFactory,SoftDeletes,MasterDataTrait;
 
+    protected $connection = 'dash';
     protected $table = 'religions';
     protected $primaryKey = 'id';
 

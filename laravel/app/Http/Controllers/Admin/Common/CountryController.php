@@ -118,7 +118,7 @@ class CountryController extends Controller
         
         $request->validate(
                 [
-                    'name' => 'required|max:100|unique:countries,name,'.$request->id.',id,deleted_at,NULL',
+                    'name' => 'required|max:100|unique:dash.countries,name,'.$request->id.',id,deleted_at,NULL',
                     'phone_code' => 'nullable|max:10',
                     'country_code' => 'nullable|max:5',
                     'regions_id' => 'nullable|numeric',

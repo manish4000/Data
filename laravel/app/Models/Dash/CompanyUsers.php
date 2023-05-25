@@ -23,6 +23,7 @@ class CompanyUsers extends Authenticatable
      */
     
     protected $guard = 'dash';
+    
     protected $fillable = [
         'name',
         'email',

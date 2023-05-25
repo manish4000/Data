@@ -100,7 +100,7 @@ class AccessoriesController extends Controller
 
     //send id as value because dynamic select work with  id as value  name as name  
 
-    public function add() {
+     function add() {
 
         if (!Auth::user()->can('masters-vehicle-accessories-add')) {
             abort(403);
@@ -140,7 +140,7 @@ class AccessoriesController extends Controller
         $validator = Validator::make($request->all(),
           [
             'display' => 'required',
-            'name' => 'required|unique:accessories,name,'.$request->id.',id,deleted_at,NULL' 
+            'name' => 'required|unique:dash.accessories,name,'.$request->id.',id,deleted_at,NULL' 
           ]  ,
           [
             'name.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.name.title')  ] ),

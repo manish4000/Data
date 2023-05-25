@@ -137,7 +137,7 @@ class InquiryController extends Controller
 
         $request->validate([
             'name'               => 'required',
-            'email'              => 'required|email|unique:inquiry,email,'.$request->id,
+            'email'              => 'required|email|unique:dash.inquiry,email,'.$request->id,
             'make'               => 'required|nullable',
             'model'              => 'required|nullable',
             'phone'              => 'required|nullable',

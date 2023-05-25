@@ -11,6 +11,7 @@ class OverheadCharges extends Model
 {
     use HasFactory,SoftDeletes,MasterDataTrait;
 
+        protected $connection = 'dash';
     protected $table = 'overhead_charges';
     protected $primaryKey = 'id';
 

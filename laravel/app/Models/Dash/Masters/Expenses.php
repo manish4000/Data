@@ -11,6 +11,7 @@ class Expenses extends Model
 {
     use HasFactory,SoftDeletes,MasterDataTrait;
 
+    protected $connection = 'dash';
     protected $table = 'expenses';
     protected $primaryKey = 'id';
 

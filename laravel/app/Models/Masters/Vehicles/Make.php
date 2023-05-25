@@ -7,14 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 use App\Traits\MasterDataTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Make extends Model
-{
-    use HasFactory,SoftDeletes,MasterDataTrait;
-
+class Make extends Model{
+    use HasFactory,SoftDeletes,MasterDataTrait;     
+  
+    protected $connection = 'dash';
     protected $table = 'makes';
     protected $primaryKey = 'id';
 
-    protected $fillable = ['name','title_languages','display', 'parent_id', 'tcv_id', 'jct_ref_id', 'image'];
+    protected $fillable = ['name','title_languages','display', 'parent_id'];
 
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i',

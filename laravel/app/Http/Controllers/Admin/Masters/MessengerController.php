@@ -133,7 +133,7 @@ class MessengerController extends Controller
         $validator = Validator::make($request->all(),
           [
             'display' => 'required',
-            'name' => 'required|unique:messenger,name,'.$request->id.',id,deleted_at,NULL',
+            'name' => 'required|unique:dash.messenger,name,'.$request->id.',id,deleted_at,NULL',
             'logo' => 'nullable|mimes:jpeg,png,jpg,gif|max:5000',
             'url' => 'nullable|url',
           ]  ,

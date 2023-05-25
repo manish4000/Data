@@ -11,6 +11,7 @@ class MainCategory extends Model
 {
     use HasFactory,SoftDeletes,MasterDataTrait;
 
+    protected $connection = 'dash';
     protected $table = 'main_categories';
     protected $primaryKey = 'id';
 

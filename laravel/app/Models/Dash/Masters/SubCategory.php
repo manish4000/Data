@@ -11,6 +11,7 @@ class SubCategory extends Model
 {
     use HasFactory,SoftDeletes,MasterDataTrait;
 
+    protected $connection = 'dash';
     protected $table = 'sub_categories';
     protected $primaryKey = 'id';
 
@@ -25,6 +26,7 @@ class SubCategory extends Model
     public function mainCategory(){
         return $this->belongsTo(MainCategory::class,'main_category','id');
     }
+
 
     public function parent() {
         return $this->belongsToOne(__CLASS__, 'parent_id', 'id');

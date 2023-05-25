@@ -119,7 +119,7 @@ class SocialMediaController extends Controller
             'url' => 'required|url|max:100',
             'icon'=> 'required_without:id|image|mimes:jpeg,png,jpg,gif|max:5000',
             'display' => 'required',
-            'name' => 'required|unique:social_medias,name,'.$request->id.',id,deleted_at,NULL', 
+            'name' => 'required|unique:dash.social_medias,name,'.$request->id.',id,deleted_at,NULL', 
           ]  ,
           [
             'url.required' => __('webCaption.validation_required.title', ['field' => __('webCaption.url.title')]),

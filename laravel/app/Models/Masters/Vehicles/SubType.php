@@ -13,6 +13,8 @@ class SubType extends Model
 {
 
     use HasFactory, SoftDeletes,MasterDataTrait;
+
+    protected $connection = 'dash';
     protected $table = 'subtype';
     protected $primaryKey = 'id';
    

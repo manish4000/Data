@@ -11,6 +11,7 @@ class VehicleStatus extends Model
 {
     use HasFactory,SoftDeletes,MasterDataTrait;
 
+    protected $connection = 'dash';
     protected $table = 'vehicle_status';
     protected $primaryKey = 'id';
 

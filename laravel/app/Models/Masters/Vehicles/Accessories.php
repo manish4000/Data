@@ -11,6 +11,7 @@ class Accessories extends Model
 {
     use HasFactory,SoftDeletes,MasterDataTrait;
 
+    protected $connection = 'dash';
     protected $table = 'accessories';
     protected $primaryKey = 'id';
 

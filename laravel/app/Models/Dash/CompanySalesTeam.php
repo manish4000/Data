@@ -10,6 +10,7 @@ class CompanySalesTeam extends Model
 {
     use HasFactory,SoftDeletes;
     protected $table = 'company_sales_team';
+    protected $connection = 'dash';
     protected $cast = [
         'language_id' => 'json',
         'personal_messenger' => 'json',

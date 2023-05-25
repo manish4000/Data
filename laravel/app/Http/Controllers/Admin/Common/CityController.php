@@ -11,7 +11,8 @@ use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Facades\Auth;
 
 class CityController extends Controller
-{
+{   
+    
     protected $baseUrl      =   '';
     protected $url;
     public $menuUrl ='admin/common/city';
@@ -120,7 +121,7 @@ class CityController extends Controller
         
         $request->validate(
                 [
-                    'name' => 'required|max:100|unique:cities,name,'.$request->id.',id,deleted_at,NULL',
+                    'name' => 'required|max:100|unique:dash.cities,name,'.$request->id.',id,deleted_at,NULL',
                     'state_id' => 'required',
                     'display' => 'required|in:Yes,No',
                 ]  ,

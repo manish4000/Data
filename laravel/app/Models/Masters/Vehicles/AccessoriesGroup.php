@@ -11,6 +11,7 @@ class AccessoriesGroup extends Model
 {
     use HasFactory,SoftDeletes,MasterDataTrait;
 
+    protected $connection = 'dash';
     protected $table = 'accessories_groups';
     protected $primaryKey = 'id';
 

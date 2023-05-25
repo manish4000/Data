@@ -11,6 +11,7 @@ class ExtGrade extends Model
 {
     use HasFactory,SoftDeletes,MasterDataTrait;
 
+    protected $connection = 'dash';
     protected $table = 'ext_grade';
     protected $primaryKey = 'id';
 

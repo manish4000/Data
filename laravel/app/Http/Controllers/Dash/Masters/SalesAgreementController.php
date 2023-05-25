@@ -111,7 +111,7 @@ class SalesAgreementController extends Controller
         $validator = Validator::make($request->all(),
           [
             'display' => 'required',
-            'name' => 'required|unique:sales_agreements,name,'.$request->id.',id,deleted_at,NULL' 
+            'name' => 'required|unique:dash.sales_agreements,name,'.$request->id.',id,deleted_at,NULL' 
           ]  ,
           [
             'name.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.name.title')  ] ),

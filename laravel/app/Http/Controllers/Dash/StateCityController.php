@@ -11,19 +11,19 @@ class StateCityController extends Controller
 
     public  function countryList(Request $request){
 
-        $country  =   DB::table('countries')->where('country_id',$request->id)->orderBy('name')->get();
+        $country  =   DB::connection('dash')->table('countries')->where('country_id',$request->id)->orderBy('name')->get();
         return response()->json(['countries' => $country]);
     }
 
     public  function stateList(Request $request){
 
-        $states  =   DB::table('states')->where('country_id',$request->id)->orderBy('name')->get();
+        $states  =   DB::connection('dash')->table('states')->where('country_id',$request->id)->orderBy('name')->get();
         return response()->json(['states' => $states]);
     }
 
     public  function cityList(Request $request){
 
-        $cities  =   DB::table('cities')->where('state_id',$request->id)->orderBy('name')->get();
+        $cities  =   DB::connection('dash')->table('cities')->where('state_id',$request->id)->orderBy('name')->get();
 
         return response()->json(['cities' => $cities]);
 

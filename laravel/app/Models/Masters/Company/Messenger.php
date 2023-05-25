@@ -10,7 +10,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Messenger extends Model
 {
     use HasFactory,SoftDeletes,MasterDataTrait;
-
+    
+    protected $connection = 'dash';
     protected $table = 'messenger';
     protected $primaryKey = 'id';
 

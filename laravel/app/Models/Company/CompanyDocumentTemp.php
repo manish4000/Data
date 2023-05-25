@@ -9,5 +9,6 @@ class CompanyDocumentTemp extends Model
 {
     use HasFactory;
     protected $table = 'company_documents_temp';
+    protected $connection = 'dash';
     protected $fillable = ['file_name','document_name'];
 }

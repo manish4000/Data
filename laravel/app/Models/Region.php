@@ -11,6 +11,7 @@ class Region extends Model
 {
     use HasFactory,SoftDeletes,MasterDataTrait;
 
+    protected $connection = 'dash';
     protected $table = 'regions';
     protected $primaryKey = 'id';
 

@@ -11,46 +11,22 @@ class Client extends Model
 {
     use HasFactory,SoftDeletes;
 
+    protected $connection = 'dash';
     protected $table = 'clients';
     protected $primaryKey = 'id';
-    protected $fillable = ['status','title','name','company_name','customer_uid','password','email_1','email_2','mobile_1','mobile_2','address','city','state','country','port','zip_code','religion','nationality','birth_date','anniversary_date','facebook','instagram','twitter','linked_in','sales_person','rating','stage','term','broker','next_follow_up_date','opening_balance','opening_balance_date','opening_balance_type','currency','visiting_card_img','admin_memo','registration_date','registered_by','registered_ip','registered_by_user_id'];
+    protected $fillable = ['title','name','company_name','customer_uid','password','email_1','email_2','mobile_1','mobile_2','country_code_1','messenger_1','messenger_2','country_code_2','dealer_type','member_login','broker','address','city','state','country','port','zip_code','religion','nationality','birth_date','anniversary_date','social_media','sales_person','rating','stage','terms','next_follow_up_date','admin_memo','currency','opening_balance','opening_balance_date','opening_balance_type','user_iamge','visiting_card_img','company_logo','storage_days','credit_limit','bid_limitations','bid_amount_limit','bid_limit_reason','initial_payment_due_days','bid','bid_mail','sales_statistics','auction','uss','uss_images','registration_date','registered_by','registered_ip','registered_by_user_id'];
 
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i',
         'updated_at' => 'datetime:Y-m-d H:i',  
-    ];
-
-    public function city(){
-        return $this->belongsTo(CityModel::class,'city','id');
-    }
-
-    public function state(){
-        return $this->belongsTo(StateModel::class,'state','id');
-    }
-
-    public function country(){
-        return $this->belongsTo(Country::class,'country','id');
-    }
-    
-    public function ports(){
-        return $this->belongsTo(Ports::class,'port','id');
-    }
-
-    public function religion(){
-        return $this->belongsTo(Religion::class,'religion','id');
-    }
-
+        'messenger_1' => 'json',
+        'messenger_2' => 'json',
+        ];
 
     public function scopeKeywordFilter($query, $keyword){
         return $query->where( function($query) use ($keyword) {
                $query->where('name', 'like', '%'.$keyword.'%')
                ->orWhere('email_1' ,'like','%'.$keyword.'%');
-        });
-    }
-
-    public function scopeStatusFilter($query,$status){
-        return $query->where( function($query) use ($status) {
-            $query->where('status', $status);
         });
     }
 }

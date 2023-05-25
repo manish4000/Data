@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class DealIns extends Model
 {
     use HasFactory, SoftDeletes;
+    protected $connection = 'dash';
     protected $table = 'deal_ins';
     protected $primaryKey = 'id';
 

@@ -11,6 +11,7 @@ class Rating extends Model
 {
     use HasFactory,SoftDeletes,MasterDataTrait;
 
+    protected $connection = 'dash';
     protected $table = 'ratings';
     protected $primaryKey = 'id';
 

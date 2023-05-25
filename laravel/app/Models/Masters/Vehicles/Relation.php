@@ -11,6 +11,7 @@ class Relation extends Model
 {
     use HasFactory,SoftDeletes;
 
+    protected $connection = 'dash';
     protected $table = 'vehicle_relation';
     protected $primaryKey = 'id';
 

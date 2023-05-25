@@ -139,7 +139,7 @@ class SubTypeController extends Controller
         $validator = Validator::make($request->all(),
           [
             'display' => 'required',
-            'name' => 'required|unique:subtype,name,'.$request->id.',id,deleted_at,NULL',
+            'name' => 'required|unique:dash.subtype,name,'.$request->id.',id,deleted_at,NULL',
             'type_id' => 'required|numeric', 
           ]  ,
           [

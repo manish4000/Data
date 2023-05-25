@@ -11,6 +11,7 @@ class Transmission extends Model
 {
     use HasFactory,SoftDeletes,MasterDataTrait;
 
+    protected $connection = 'dash';
     protected $table = 'transmission';
     protected $primaryKey = 'id';
 

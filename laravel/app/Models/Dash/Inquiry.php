@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Inquiry extends Model
 {
     use HasFactory,SoftDeletes;
+    protected $connection = 'dash';
     protected $table = 'inquiry';
     protected $cast = [
         'messenger' => 'json',

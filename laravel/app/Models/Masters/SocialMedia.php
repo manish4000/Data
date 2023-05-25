@@ -4,11 +4,13 @@ namespace App\Models\Masters;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\MasterDataTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SocialMedia extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes,MasterDataTrait;
+    protected $connection = 'dash';
     protected $table = 'social_medias';
     protected $primaryKey = 'id';
 

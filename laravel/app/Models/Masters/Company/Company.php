@@ -13,6 +13,7 @@ class Company extends Model
 {
     use HasFactory, SoftDeletes;
     protected $table = 'companies';
+    protected $connection = 'dash';
     protected $primaryKey = 'id';
 
     protected $cast = [

@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class StateModel extends Model
 {
     use HasFactory,SoftDeletes,MasterDataTrait;
+    protected $connection = 'dash';
     protected $table = "states";
 
     protected $fillable = ['title_languages','name', 'country_id'];

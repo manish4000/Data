@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class CompanyRole extends Model
 {
     use HasFactory,SoftDeletes;
+    protected $connection = 'dash';
     protected $fillable = ['name'];
     
     public function setNameAttribute($value)

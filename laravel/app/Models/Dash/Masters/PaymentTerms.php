@@ -11,6 +11,7 @@ class PaymentTerms extends Model
 {
     use HasFactory,SoftDeletes,MasterDataTrait;
 
+    protected $connection = 'dash';
     protected $table = 'payment_terms';
     protected $primaryKey = 'id';
 

@@ -10,6 +10,7 @@ class ModelCode extends Model
 {
 
     use HasFactory, SoftDeletes,MasterDataTrait;
+    protected $connection = 'dash';
     protected $table = 'model_code';
     protected $primaryKey = 'id';
    

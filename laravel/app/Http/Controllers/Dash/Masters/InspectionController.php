@@ -130,12 +130,14 @@ class InspectionController extends Controller
         $validator = Validator::make($request->all(),
           [
             'display' => 'required',
-            'name' => 'required|unique:inspections,name,'.$request->id.',id,deleted_at,NULL' 
+            'name' => 'required|unique:dash.inspections,name,'.$request->id.',id,deleted_at,NULL',
+            'inspection_charge' => 'nullable|numeric',
           ]  ,
           [
             'name.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.name.title')  ] ),
             'display.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.display.title')  ] ),
             'name.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('name')] ),
+            'inspection_charge.numeric' => __('webCaption.validation_numeric.title', ['field'=> __('webCaption.inspection_charge.title')  ] ),
           ]);
     
         if ($validator->fails()) {

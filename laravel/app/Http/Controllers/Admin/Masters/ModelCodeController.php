@@ -140,7 +140,7 @@ class ModelCodeController extends Controller
         $validator = Validator::make($request->all(),
         [
         'display' => 'required',
-        'name' => 'required|unique:model_code,name,'.$request->id.',id,deleted_at,NULL', 
+        'name' => 'required|unique:dash.model_code,name,'.$request->id.',id,deleted_at,NULL', 
         'model_id' => 'required|numeric', 
         ]  ,
         [

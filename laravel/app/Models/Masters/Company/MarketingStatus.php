@@ -13,6 +13,7 @@ class MarketingStatus extends Model
 
     protected $table = 'marketing_status';
     protected $primaryKey = 'id';
+    protected $connection = 'dash';
 
     protected $fillable = ['name','title_languages','display', 'parent_id'];
 

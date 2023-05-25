@@ -10,6 +10,7 @@ class DealerType extends Model
 {
     use HasFactory, SoftDeletes;
     protected $table = 'dealer_types';
+    protected $connection = 'dash';
     protected $primaryKey = 'id';
 
     protected $fillable = ['name', 'display'];

@@ -131,8 +131,8 @@ class TypeController extends Controller
         $validator = Validator::make($request->all(),
           [
             'display' => 'required',
-            'name' => 'required|unique:types,name,'.$request->id.',id,deleted_at,NULL' 
-          ]  ,
+            'name' => 'required|unique:dash.types,name,'.$request->id.',id,deleted_at,NULL' 
+          ] ,
           [
             'name.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.name.title')  ] ),
             'display.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.display.title')  ] ),

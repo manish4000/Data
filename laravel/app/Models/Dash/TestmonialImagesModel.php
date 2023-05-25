@@ -9,5 +9,6 @@ class TestmonialImagesModel extends Model
 {
     use HasFactory,SoftDeletes;
     protected $table = 'company_testimonial_images';
+        protected $connection = 'dash';
 
 }

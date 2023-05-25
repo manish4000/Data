@@ -10,5 +10,6 @@ class CompanyContactPersonDetails extends Model
 {
     use HasFactory,SoftDeletes;
     protected $table = 'company_contact_person_details';
+    protected $connection = 'dash';
     
 }

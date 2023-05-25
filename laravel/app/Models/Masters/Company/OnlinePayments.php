@@ -9,12 +9,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class OnlinePayments extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory,SoftDeletes,MasterDataTrait;
 
+    protected $connection = 'dash';
     protected $table = 'online_payments';
     protected $primaryKey = 'id';
 
-    protected $fillable = ['name', 'logo' ,'commission', 'description', 'display'];
+    protected $fillable = ['name', 'logo' ,'commission', 'description','title_languages'];
 
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i',

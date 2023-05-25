@@ -11,6 +11,7 @@ class Bank extends Model
 {
     use HasFactory,SoftDeletes,MasterDataTrait;
 
+    protected $connection = 'dash';
     protected $table = 'banks';
     protected $primaryKey = 'id';
 

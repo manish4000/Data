@@ -11,6 +11,7 @@ class Roles extends Model
 {
     use HasFactory,SoftDeletes,MasterDataTrait;
 
+    protected $connection = 'dash';
     protected $table = 'roles';
     protected $primaryKey = 'id';
 

@@ -11,10 +11,11 @@ class BusinessType extends Model
 {
     use HasFactory,SoftDeletes,MasterDataTrait;
 
+    protected $connection = 'dash';
     protected $table = 'business_types';
     protected $primaryKey = 'id';
 
-    protected $fillable = ['name','title_languages','display', 'parent_id'];
+    protected $fillable = ['name','title_languages','display', 'parent_id','title_languages'];
 
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i',

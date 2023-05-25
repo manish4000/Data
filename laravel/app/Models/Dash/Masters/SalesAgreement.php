@@ -11,6 +11,7 @@ class SalesAgreement extends Model
 {
     use HasFactory,SoftDeletes,MasterDataTrait;
 
+    protected $connection = 'dash';
     protected $table = 'sales_agreements';
     protected $primaryKey = 'id';
 

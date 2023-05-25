@@ -9,4 +9,5 @@ class CompanyRolePermission extends Model
 {
     use HasFactory;
     protected $table = 'company_role_permissions';
+    protected $connection = 'dash';
 }

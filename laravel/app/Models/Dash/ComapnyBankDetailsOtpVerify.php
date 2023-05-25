@@ -8,5 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class ComapnyBankDetailsOtpVerify extends Model
 {
     use HasFactory;
+    protected $connection = 'dash';
     protected $table = 'company_bank_details_otp_verify';
 }

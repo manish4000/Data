@@ -11,6 +11,7 @@ class Association extends Model
 {
     use HasFactory,SoftDeletes,MasterDataTrait;
 
+    protected $connection = 'dash';
     protected $table = 'association';
     protected $primaryKey = 'id';
 
