@@ -415,6 +415,7 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
                 Route::get('/create', [TypeController::class, 'create'])->name('create');
                 Route::post('/getChildList', [TypeController::class,'getChildList']);
                 Route::post('/delete-multiple', [TypeController::class,'deleteMultiple'])->name('delete-multiple');
+                Route::post('/update-multiple', [TypeController::class,'deleteMultiple'])->name('update-multiple');
             });
 
             //routes of make module 
@@ -429,6 +430,7 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
                 Route::get('/create', [MakeController::class, 'create'])->name('create');
                 Route::post('/getChildList', [MakeController::class,'getChildList']);
                 Route::post('/delete-multiple', [MakeController::class,'deleteMultiple'])->name('delete-multiple');
+                Route::post('/update-multiple', [MakeController::class,'deleteMultiple'])->name('update-multiple');
             });
 
             Route::group(['prefix' => 'fuel' , 'as' => 'fuel.'],function(){
@@ -441,6 +443,7 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
                 Route::get('/create', [FuelController::class, 'create'])->name('create');
                 Route::post('/getChildList', [FuelController::class,'getChildList']);
                 Route::post('/delete-multiple', [FuelController::class,'deleteMultiple'])->name('delete-multiple');
+                Route::post('/update-multiple', [FuelController::class,'deleteMultiple'])->name('update-multiple');
             });
 
             Route::group(['prefix' => 'transmission' , 'as' => 'transmission.'],function(){
@@ -453,6 +456,7 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
                 Route::get('/create', [TransmissionController::class, 'create'])->name('create');
                 Route::post('/getChildList', [TransmissionController::class,'getChildList']);
                 Route::post('/delete-multiple', [TransmissionController::class,'deleteMultiple'])->name('delete-multiple');
+                Route::post('/update-multiple', [TransmissionController::class,'deleteMultiple'])->name('update-multiple');
             });
 
             Route::group(['prefix' => 'accessories' , 'as' => 'accessories.'],function(){
@@ -465,6 +469,7 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
                 Route::get('/create', [AccessoriesController::class, 'create'])->name('create');
                 Route::post('/getChildList', [AccessoriesController::class,'getChildList']);
                 Route::post('/delete-multiple', [AccessoriesController::class,'deleteMultiple'])->name('delete-multiple');
+                Route::post('/update-multiple', [AccessoriesController::class,'deleteMultiple'])->name('update-multiple');
             });
 
             Route::group(['prefix' => 'accessories-group' , 'as' => 'accessories-group.'],function(){
@@ -477,6 +482,7 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
                 Route::get('/create', [AccessoriesGroupController::class, 'create'])->name('create');
                 Route::post('/getChildList', [AccessoriesGroupController::class,'getChildList']);
                 Route::post('/delete-multiple', [AccessoriesGroupController::class,'deleteMultiple'])->name('delete-multiple');
+                Route::post('/update-multiple', [AccessoriesGroupController::class,'deleteMultiple'])->name('update-multiple');
             });
 
             Route::group(['prefix' => 'relation' , 'as' => 'relation.'],function(){
@@ -489,6 +495,7 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
                 Route::get('/create', [RelationController::class, 'create'])->name('create');
                 Route::post('/getChildList', [RelationController::class,'getChildList']);
                 Route::post('/delete-multiple', [RelationController::class,'deleteMultiple'])->name('delete-multiple');
+                Route::post('/update-multiple', [RelationController::class,'deleteMultiple'])->name('update-multiple');
             });
 
             Route::group(['prefix' => 'color' , 'as' => 'color.'],function(){
@@ -501,6 +508,7 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
                 Route::get('/create', [ColorController::class, 'create'])->name('create');
                 Route::post('/getChildList', [ColorController::class,'getChildList']);
                 Route::post('/delete-multiple', [ColorController::class,'deleteMultiple'])->name('delete-multiple');
+                Route::post('/update-multiple', [ColorController::class,'deleteMultiple'])->name('update-multiple');
             });
 
             Route::group(['prefix' => 'model' , 'as' => 'model.'],function(){
@@ -513,6 +521,7 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
                 Route::get('/create', [ModelController::class, 'create'])->name('create');
                 Route::post('/getChildList', [ModelController::class,'getChildList']);
                 Route::post('/delete-multiple', [ModelController::class,'deleteMultiple'])->name('delete-multiple');
+                Route::post('/update-multiple', [ModelController::class,'deleteMultiple'])->name('update-multiple');
             });  
             
             Route::group(['prefix' => 'ext-grade' , 'as' => 'ext-grade.'],function(){
@@ -525,6 +534,7 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
                 Route::get('/create', [ExtGradeController::class, 'create'])->name('create');
                 Route::post('/getChildList', [ExtGradeController::class,'getChildList']);
                 Route::post('/delete-multiple', [ExtGradeController::class,'deleteMultiple'])->name('delete-multiple');
+                Route::post('/update-multiple', [ExtGradeController::class,'deleteMultiple'])->name('update-multiple');
             });
             
             Route::group(['prefix' => 'int-grade' , 'as' => 'int-grade.'],function(){
@@ -537,6 +547,7 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
                 Route::get('/create', [IntGradeController::class, 'create'])->name('create');
                 Route::post('/getChildList', [IntGradeController::class,'getChildList']);
                 Route::post('/delete-multiple', [IntGradeController::class,'deleteMultiple'])->name('delete-multiple');
+                Route::post('/update-multiple', [IntGradeController::class,'deleteMultiple'])->name('update-multiple');
             });
 
             Route::group(['prefix' => 'vehicle-status' , 'as' => 'vehicle-status.'],function(){
@@ -549,6 +560,7 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
                 Route::get('/create', [VehicleStatusController::class, 'create'])->name('create');
                 Route::post('/getChildList', [VehicleStatusController::class,'getChildList']);
                 Route::post('/delete-multiple', [VehicleStatusController::class,'deleteMultiple'])->name('delete-multiple');
+                Route::post('/update-multiple', [VehicleStatusController::class,'deleteMultiple'])->name('update-multiple');
             });
 
             Route::group(['prefix' => 'sub-type' , 'as' => 'subtype.'],function(){
@@ -561,6 +573,7 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
                 Route::get('/create', [SubTypeController::class, 'create'])->name('create');
                 Route::post('/getChildList', [SubTypeController::class,'getChildList']);
                 Route::post('/delete-multiple', [SubTypeController::class,'deleteMultiple'])->name('delete-multiple');
+                Route::post('/update-multiple', [SubTypeController::class,'deleteMultiple'])->name('update-multiple');
             });
 
             Route::group(['prefix' => 'model-code' , 'as' => 'model-code.'],function(){
@@ -573,6 +586,7 @@ Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
                 Route::get('/create', [ModelCodeController::class, 'create'])->name('create');
                 Route::post('/getChildList', [ModelCodeController::class,'getChildList']);
                 Route::post('/delete-multiple', [ModelCodeController::class,'deleteMultiple'])->name('delete-multiple');
+                Route::post('/update-multiple', [ModelCodeController::class,'deleteMultiple'])->name('update-multiple');
             });
         });
         

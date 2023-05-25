@@ -325,9 +325,15 @@ Route::middleware('dash')->name('dash')->group(function(){
 
 
                 Route::group(['prefix'=>'hs-code','as' => 'hs-code.'],function(){
-                    Route::get('/',function(){ return  view('dash.content.masters.invoices.hs_code.create');  });
-                    Route::get('/create',function(){ return view('dash.content.masters.invoices.hs_code.create'); });
+                    Route::get('/','HsCodeController@index')->name('index');
+                    Route::get('/create','HsCodeController@create')->name('create');
+                    Route::post('/store','HsCodeController@store')->name('store');
+                    Route::get('edit/{id}','HsCodeController@edit')->name('edit');
+                    Route::post('/delete', 'HsCodeController@destroy')->name('delete'); 
+                    Route::post('/delete-multiple','HsCodeController@deleteMultiple')->name('delete-multiple');
+                    Route::post('/update-status','HsCodeController@updateStatus')->name('update-status');
                 });
+                
 
                 Route::group(['prefix'=>'sales-agreement','as' => 'sales-agreement.'],function(){
                     Route::get('/','SalesAgreementController@index')->name('index');
@@ -365,13 +371,8 @@ Route::middleware('dash')->name('dash')->group(function(){
                 });
 
                 Route::group(['prefix'=>'courier','as' => 'courier.'],function(){
-                    Route::get('/','CourierController@index')->name('index');
-                    Route::get('/create','CourierController@create')->name('create');
-                    Route::post('/store','CourierController@store')->name('store');
-                    Route::get('edit/{id}','CourierController@edit')->name('edit');
-                    Route::post('/delete', 'CourierController@destroy')->name('delete'); 
-                    Route::post('/delete-multiple','CourierController@deleteMultiple')->name('delete-multiple');
-                    Route::post('/update-status','CourierController@updateStatus')->name('update-status');
+                    Route::get('/',function(){ return view('dash.content.masters.erp.courier.create'); });
+                    Route::get('/create',function(){ return view('dash.content.masters.erp.courier.create'); });
                 });
 
                 Route::group(['prefix'=>'vendor','as' => 'vendor.'],function(){
