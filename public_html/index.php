@@ -47,14 +47,10 @@ require LARAVEL_DIR.'/vendor/autoload.php';
 
 $app = require_once LARAVEL_DIR.'/bootstrap/app.php';
 
-
 $kernel = $app->make(Kernel::class);
-
-
 
 $response = tap($kernel->handle(
     $request = Request::capture()
 ))->send();
-
 
 $kernel->terminate($request, $response);
