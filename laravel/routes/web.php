@@ -83,7 +83,7 @@ Route::post('validate-g-recaptcha', [GoogleV3CaptchaController::class, 'validate
 Route::get('/complete-registration', [RegisterController::class, 'completeRegistration'])->name('complete.registration');
 
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('home');
-Route::get('dashboard', [StaterkitController::class, 'home'])->name('dashboard');
+Route::get('dashboard', [StaterkitController::class, 'home'])->name('dashboard')->middleware(['auth']);
 // Route Components
 Route::get('layouts/collapsed-menu', [StaterkitController::class, 'collapsed_menu'])->name('collapsed-menu');
 Route::get('layouts/boxed', [StaterkitController::class, 'layout_boxed'])->name('layout-boxed');
@@ -95,14 +95,14 @@ Route::get('layouts/blank', [StaterkitController::class, 'layout_blank'])->name(
 // locale Route
 Route::get('lang/{locale}', [LanguageController::class, 'swap']);
 
-
+Route::get('dashboard', [StaterkitController::class, 'home'])->name('dashboard')->middleware(['auth']);
 
 Route::post('change-view',function(Request $request){
     $request->session()->put('list-type', $request->view);
     return response()->json(['status' => true]);
 })->name('change-view');
 
-Route::group([ 'prefix' => 'admin' ], function() {
+Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
 
 
     //common methods 
