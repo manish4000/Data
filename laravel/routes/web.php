@@ -71,10 +71,6 @@ use Illuminate\Support\Facades\Auth;
 
 // Auth::routes();
 
-Route::get('test3',function(){
-    return  view('content.admin.masters.company.association_bank.create-form');
-});
-
 Auth::routes();
 
 Route::get('google-v3-recaptcha', [GoogleV3CaptchaController::class, 'index']);
@@ -87,8 +83,7 @@ Route::post('validate-g-recaptcha', [GoogleV3CaptchaController::class, 'validate
 Route::get('/complete-registration', [RegisterController::class, 'completeRegistration'])->name('complete.registration');
 
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('home');
-
-Route::get('dashboard', [StaterkitController::class, 'home'])->name('dashboard')->middleware(['auth']);
+Route::get('dashboard', [StaterkitController::class, 'home'])->name('dashboard');
 // Route Components
 Route::get('layouts/collapsed-menu', [StaterkitController::class, 'collapsed_menu'])->name('collapsed-menu');
 Route::get('layouts/boxed', [StaterkitController::class, 'layout_boxed'])->name('layout-boxed');
@@ -100,14 +95,14 @@ Route::get('layouts/blank', [StaterkitController::class, 'layout_blank'])->name(
 // locale Route
 Route::get('lang/{locale}', [LanguageController::class, 'swap']);
 
-Route::get('dashboard', [StaterkitController::class, 'home'])->name('dashboard')->middleware(['auth']);
+
 
 Route::post('change-view',function(Request $request){
     $request->session()->put('list-type', $request->view);
     return response()->json(['status' => true]);
 })->name('change-view');
 
-Route::group([ 'middleware' => ['auth'], 'prefix' => 'admin' ], function() {
+Route::group([ 'prefix' => 'admin' ], function() {
 
 
     //common methods 
