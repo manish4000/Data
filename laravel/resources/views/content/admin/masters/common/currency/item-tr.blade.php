@@ -22,7 +22,7 @@
         @if($status)
             <span class="show-referance-data" onclick="showReferanceData('{{$referance_json}}')">   &#x2605;  </span> 
         @else
-        <x-admin.form.inputs.multiple_select_checkbox id="select{{$item->id}}"   value="{{$item->id}}"  customClass="checkbox"  />        
+        <x-admin.form.inputs.multiple_select_checkbox id="select{{$item->id}}"  value="{{$item->id}}"  customClass="checkbox"  />        
         @endif        
     </div>
 
