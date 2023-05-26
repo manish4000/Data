@@ -166,7 +166,7 @@ return [
          * Package Service Providers...
          */
         PragmaRX\Google2FALaravel\ServiceProvider::class,
-      
+
         /*
          * Application Service Providers...
          */
@@ -231,7 +231,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Helper' => App\Helpers\Helper::class,
         'Google2FA' => PragmaRX\Google2FALaravel\Facade::class,
-        
+  
     ],
 
 ];
