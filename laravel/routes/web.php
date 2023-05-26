@@ -96,7 +96,7 @@ Route::get('layouts/blank', [StaterkitController::class, 'layout_blank'])->name(
 // locale Route
 Route::get('lang/{locale}', [LanguageController::class, 'swap']);
 
-Route::get('dashboard', [StaterkitController::class, 'home'])->name('dashboard')->middleware(['auth']);
+Route::get('dashboard', [StaterkitController::class, 'home'])->name('dashboard');
 
 Route::post('change-view',function(Request $request){
     $request->session()->put('list-type', $request->view);
