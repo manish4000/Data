@@ -71,7 +71,7 @@ use Illuminate\Support\Facades\Auth;
 
 // Auth::routes();
 
-Route::get('test',function(){
+Route::get('test3',function(){
     return  view('content.admin.masters.company.association_bank.create-form');
 });
 
