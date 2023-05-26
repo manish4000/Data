@@ -155,8 +155,8 @@ class ClientController extends Controller
             'name'          => 'required|max:100',
             'customer_uid'  => 'nullable|max:6',
             'password'      => 'nullable|min:8',
-            'email_1'       => 'required|max:45|unique:dash.clients,email_1,'.$request->id. ',id,deleted_at,NULL',
-            'email_2'       => 'nullable|max:45|unique:dash.clients,email_2,'.$request->id. ',id,deleted_at,NULL',
+            'email_1'       => 'required|max:50|unique:dash.clients,email_1,'.$request->id. ',id,deleted_at,NULL',
+            'email_2'       => 'nullable|max:50|unique:dash.clients,email_2,'.$request->id. ',id,deleted_at,NULL',
             'mobile_1'      => 'required|string|max:20',
             'mobile_2'      => 'nullable|string|max:20',
             'address'       => 'nullable|string|max:250',
@@ -240,10 +240,10 @@ class ClientController extends Controller
             'registration_date.date' => __('webCaption.validation_date.title', ['field'=> __('webCaption.registration_date.title')] ),
 
             'email_1.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.email_1.title') ] ),
-            'email_1.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.email_1.title') ,"max" => "45"] ),
+            'email_1.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.email_1.title') ,"max" => "50"] ),
             'email_1.unique'=> __('webCaption.validation_unique.title', ['field'=> $request->input('email_1') ] ),
             'email_2.nullable'=> __('webCaption.validation_nullable.title', ['field'=> __('webCaption.email_2.title') ] ),
-            'email_2.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.email_2.title') ,"max" => "45"] ),
+            'email_2.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.email_2.title') ,"max" => "50"] ),
             'email_2.unique'=> __('webCaption.validation_unique.title', ['field'=> $request->input('email_2') ] ),
 
             'visiting_card_img.image'=> __('webCaption.validation_image.title', ['field'=> __('webCaption.visiting_card_img.title')] ),

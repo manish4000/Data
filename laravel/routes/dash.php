@@ -36,10 +36,7 @@ Route::middleware('dash')->name('dash')->group(function(){
 
     Route::group(['namespace' =>'Dash\Auth','middleware'=>'guest:dash'],function(){
        Route::get('/',"LoginController@showLoginForm");
-    //    Route::post('login',"LoginController@login")->name('login');
-    Route::post('login',function(){
-        echo "Sdsds";die();
-    })->name('login');
+       Route::post('login',"LoginController@login")->name('login');
        Route::get('password/reset',"ForgotPasswordController@showLinkRequestForm")->name('password.request');
        Route::post('password/reset',"ForgotPasswordController@sendResetLinkEmail")->name('password.email');
     });
