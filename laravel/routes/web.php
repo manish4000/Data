@@ -71,10 +71,7 @@ use Illuminate\Support\Facades\Auth;
 
 // Auth::routes();
 
-//Auth::routes();
-Route::post('login',function(){
-    echo "post login called";die();
-})->name('login');
+Auth::routes();
 
 Route::get('google-v3-recaptcha', [GoogleV3CaptchaController::class, 'index']);
 Route::post('validate-g-recaptcha', [GoogleV3CaptchaController::class, 'validateGCaptch']);
