@@ -82,11 +82,8 @@ Route::post('validate-g-recaptcha', [GoogleV3CaptchaController::class, 'validate
 
 Route::get('/complete-registration', [RegisterController::class, 'completeRegistration'])->name('complete.registration');
 
- //Route::get('/', [LoginController::class, 'showLoginForm'])->name('home');
+Route::get('/', [LoginController::class, 'showLoginForm'])->name('home');
 
- Route::get('/', function(){
-    return "fdjdljdlkjdkl";
- })->name('home');
 
 Route::get('dashboard', [StaterkitController::class, 'home'])->name('dashboard')->middleware(['auth']);
 // Route Components
