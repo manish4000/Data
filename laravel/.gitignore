@@ -1,7 +1,7 @@
 /node_modules
 /resources/lang/*
 /storage/*.key
-/vendor
+vendor
 .env
 .env.backup
 composer.lock

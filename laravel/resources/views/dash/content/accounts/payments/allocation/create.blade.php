@@ -33,9 +33,6 @@
                                       <x-admin.form.form_error_messages message="{{ $errors->first('status') }}"  />  @endif
                                    </div>                              
                               </div>
-
-
-
                           </div>   
 
                         

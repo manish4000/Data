@@ -33,7 +33,7 @@
 
           <div class="form-group">
             <div class="form-group">
-              <x-admin.form.inputs.password    for="login-password" tooltip="{{__('webCaption.password.caption')}}"   label="{{__('webCaption.password.title')}}"  class="form-control" name="password"  placeholder="{{__('webCaption.password.title')}}" value=""  required="" />
+              <x-admin.form.inputs.password for="login-password" tooltip="{{__('webCaption.password.caption')}}"   label="{{__('webCaption.password.title')}}"  class="form-control" name="password"  placeholder="{{__('webCaption.password.title')}}" value=""  required="" />
               @if ($errors->has('password'))
               <x-admin.form.form_error_messages message="{{ $errors->first('password') }}"  />
                 @endif

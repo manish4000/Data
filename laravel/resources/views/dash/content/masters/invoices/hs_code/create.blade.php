@@ -28,7 +28,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <x-dash.form.inputs.text  for="hs_code"  tooltip="{{__('webCaption.hs_code.caption')}}" label="{{__('webCaption.hs_code.title')}}" maxlength="20" name="hs_code"  placeholder="{{__('webCaption.hs_code.title')}}" value="{{old('hs_code', isset($data->hs_code)?$data->hs_code:'' )}}" />
+                            <x-dash.form.inputs.text  for="hs_code"  tooltip="{{__('webCaption.hs_code.caption')}}" label="{{__('webCaption.hs_code.title')}}" maxlength="20" name="name"  placeholder="{{__('webCaption.hs_code.title')}}" value="{{old('hs_code', isset($data->hs_code)?$data->hs_code:'' )}}" />
                         </div>
                     </div>
                     <div class="col-md-4">

@@ -150,15 +150,15 @@ class ClientController extends Controller
 
         $request->validate(
         [
-            'company_name'  => 'required|max:100|unique:dash.clients,company_name,'.$request->id.',id,deleted_at,NULL', 
+            'company_name'  => 'nullable|max:100|unique:dash.clients,company_name,'.$request->id.',id,deleted_at,NULL', 
             'title'        => 'required|string',
             'name'          => 'required|max:100',
             'customer_uid'  => 'nullable|max:6',
             'password'      => 'nullable|min:8',
             'email_1'       => 'required|max:50|unique:dash.clients,email_1,'.$request->id. ',id,deleted_at,NULL',
             'email_2'       => 'nullable|max:50|unique:dash.clients,email_2,'.$request->id. ',id,deleted_at,NULL',
-            'mobile_1'      => 'required|string|max:20',
-            'mobile_2'      => 'nullable|string|max:20',
+            'mobile_1'      => 'required|string|max:15',
+            'mobile_2'      => 'nullable|string|max:15',
             'address'       => 'nullable|string|max:250',
             'city'          => 'nullable|numeric',
             'state'         => 'nullable|numeric',
@@ -203,9 +203,9 @@ class ClientController extends Controller
             'password.min' => __('webCaption.validation_min.title', ['field'=> __('webCaption.password.title') ,'min' => "8"] ),
             'mobile_1.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.mobile_1.title')] ),
             'mobile_1.string'=> __('webCaption.validation_string.title', ['field'=> __('webCaption.mobile_1.title')] ),
-            'mobile_1.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.mobile_1.title') ,"max" => "20"] ),
+            'mobile_1.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.mobile_1.title') ,"max" => "15"] ),
             'mobile_2.string'=> __('webCaption.validation_string.title', ['field'=> __('webCaption.mobile_2.title')] ),
-            'mobile_2.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.mobile_2.title') ,"max" => "20"] ),
+            'mobile_2.max'=> __('webCaption.validation_max.title', ['field'=> __('webCaption.mobile_2.title') ,"max" => "15"] ),
             //'country_code.required_with' => __('webCaption.validation_required.title', ['field'=> __('webCaption.country_code.title') ] ),
 
             'admin_memo.string'=> __('webCaption.validation_string.title', ['field'=> __('webCaption.admin_memo.title'), "max" => "250"] ),

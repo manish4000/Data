@@ -60,67 +60,67 @@
         <div class="card">
         <!-- Basic Tables start -->
           <div class="card-body pt-75 pb-0 px-50">
-          @can('main-navigation-masters-vehicle-transmission') 
-                @if(count($data) > 0 )
-                    @if (Auth::guard('web')->user()->can('main-navigation-masters-vehicle-transmission-delete'))		
-                        {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4',['multiple_delete_url' => route('masters.vehicle.transmission.delete-multiple') ] ) }}  
-                    @else
-                        {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4') }}  
-                    @endif
-                {{--check delete permission  --}}          
-          <div class="main_table mb-2" id="master-list">
-            @php
-            $heading_array = [
-                            [
-                                'title' => 'id',
-                                'orderby' => 'id',
-                                'classes' => 'width_5'
-                            ] , 
-                            [
-                                'title' => 'transmission',
-                                'orderby' => 'name',
-                                'classes' => 'width_45'
-                            ] , 
-                            [
-                                'title' => 'no_of_children',
-                                'orderby' => 'children_count',
-                                'classes' => 'width_15'
-                            ] , 
-                            [
-                                'title' => 'display_status',
-                                'orderby' => 'display',
-                                'classes' => 'width_14 '
-                            ] , 
-                            [
-                                'title' => 'actions',
-                                'orderby' => null,
-                                'classes' => 'width_12 text-center'
-                            ]  
-                        ];
-            @endphp
+                    @can('masters-vehicle-transmission') 
+                            @if(count($data) > 0 )
+                                @if (Auth::guard('web')->user()->can('masters-vehicle-transmission-delete'))		
+                                    {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4',['multiple_delete_url' => route('masters.vehicle.transmission.delete-multiple') ] ) }}  
+                                @else
+                                    {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4') }}  
+                                @endif
+                            {{--check delete permission  --}}          
+                                <div class="main_table mb-2" id="master-list">
+                                            @php
+                                            $heading_array = [
+                                                            [
+                                                                'title' => 'id',
+                                                                'orderby' => 'id',
+                                                                'classes' => 'width_5'
+                                                            ] , 
+                                                            [
+                                                                'title' => 'transmission',
+                                                                'orderby' => 'name',
+                                                                'classes' => 'width_45'
+                                                            ] , 
+                                                            [
+                                                                'title' => 'no_of_children',
+                                                                'orderby' => 'children_count',
+                                                                'classes' => 'width_15'
+                                                            ] , 
+                                                            [
+                                                                'title' => 'display_status',
+                                                                'orderby' => 'display',
+                                                                'classes' => 'width_14 '
+                                                            ] , 
+                                                            [
+                                                                'title' => 'actions',
+                                                                'orderby' => null,
+                                                                'classes' => 'width_12 text-center'
+                                                            ]  
+                                                        ];
+                                            @endphp
 
-            <x-admin.table.table-heading :headingFields="$heading_array"/>                
-                         
-            @foreach($data as $item)
-                @include('content.admin.masters.vechiles.transmissions.item-tr', ['item'=>$item])    
-                @if(true || request()->input('search.parentOnlyShowAll') == 1)
-                    @foreach($item->children as $childItem)
-                        @include('content.admin.masters.vechiles.transmissions.item-tr', ['item'=>$childItem])    
-                    @endforeach                                        
-                @endif
-            @endforeach   
-                                                                               
-             </div>                   
+                                        <x-admin.table.table-heading :headingFields="$heading_array"/>                
+                                            
+                                        @foreach($data as $item)
+                                            @include('content.admin.masters.vechiles.transmissions.item-tr', ['item'=>$item])    
+                                            @if(true || request()->input('search.parentOnlyShowAll') == 1)
+                                                @foreach($item->children as $childItem)
+                                                    @include('content.admin.masters.vechiles.transmissions.item-tr', ['item'=>$childItem])    
+                                                @endforeach                                        
+                                            @endif
+                                        @endforeach   
+                                                                                                
+                                </div>                   
 
-                @if (Auth::guard('web')->user()->can('main-navigation-masters-vehicle-transmission-delete'))		
-                {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4',['multiple_delete_url' => route('masters.vehicle.transmission.delete-multiple') ] ) }}  
-                @else
-                    {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4') }}  
-                @endif
-                @else
-                    @include('components.admin.alerts.no-record-found')                    
-                @endif    
-            @endcan
+                                @if (Auth::guard('web')->user()->can('masters-vehicle-transmission-delete'))		
+                                {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4',['multiple_delete_url' => route('masters.vehicle.transmission.delete-multiple') ] ) }}  
+                                @else
+                                    {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4') }}  
+                                @endif
+                            @else
+                                @include('components.admin.alerts.no-record-found')                    
+                            @endif    
+                        @endcan
             </div>
         </div>
 <!-- list section end -->

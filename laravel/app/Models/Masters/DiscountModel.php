@@ -12,6 +12,7 @@ class DiscountModel extends Model
     use HasFactory,SoftDeletes,MasterDataTrait;
 
     protected $table = 'discounts';
+
     protected $primaryKey = 'id';
 
     protected $fillable = ['name','title_languages','display', 'currency_id','amount'];

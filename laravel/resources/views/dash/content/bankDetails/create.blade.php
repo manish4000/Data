@@ -101,7 +101,7 @@
                                 tooltip="{{__('webCaption.primary_bank.caption')}}" />
                                 <div>
                                     <div class=" form-check-inline">
-                                    <x-dash.form.inputs.radio for="yes" tooltip="{{__('webCaption.yes.caption')}}"  class="border border-danger" name="primary_bank" label="{{__('webCaption.yes.title')}}" placeholder="" value="Yes"  required="required"  checked="{{old('primary_bank', (isset($data->primary_bank) && $data->primary_bank == 'Yes') ? 'checked' : '') }}" />&ensp;
+                                    <x-dash.form.inputs.radio for="yes" tooltip="{{__('webCaption.yes.caption')}}"  class="border border-danger" name="primary_bank" label="{{__('webCaption.yes.title')}}" placeholder="" value="Yes"  required="required"  checked="{{old('primary_bank',(isset($data->primary_bank) && $data->primary_bank == 'Yes') ? 'checked' : '') }}" />&ensp;
                                         
                                     <x-dash.form.inputs.radio for="no" class="border border-danger" name="primary_bank" tooltip="{{__('webCaption.no.caption')}}" label="{{__('webCaption.no.title')}}" placeholder="" value="No"  required="required"  checked="{{ old('primary_bank', (isset($data->primary_bank) && $data->primary_bank == 'No') ? 'checked' : 'checked') }}" />&ensp;
                                     </div>

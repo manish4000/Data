@@ -32,7 +32,7 @@
     </div>
 
     <div class="make_col width_45 xs_width_50 @if($childTdColor != '') {{$childTdColor}}  @endif" >
-        <div class="div-mobile">{{__('webCaption.make.title')}}</div>
+        <div class="div-mobile">{{__('webCaption.fuel.title')}}</div>
         @php echo  str_ireplace( request()->input('search.keyword'), '<span class="heighlight-string" >'. request()->input('search.keyword').'</span>',$item->name) @endphp
     </div>
        

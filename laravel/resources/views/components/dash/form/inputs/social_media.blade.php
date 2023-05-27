@@ -1,4 +1,4 @@
-@php $socialMedia  =   DB::table('social_medias')->select('id as value', 'name', 'icon')->where('deleted_at',NULL)->get(); @endphp
+@php $socialMedia  =   DB::connection('dash')->table('social_medias')->select('id as value', 'name', 'icon')->where('deleted_at',NULL)->get(); @endphp
 
 <div class="col-md-4">
     <div class="form-group">
@@ -9,7 +9,7 @@
 <div class="col-md-1 text-center pt-1">
     @php  
         if(isset($social_media[0]->id) && !empty($social_media[0]->id))
-        $social_image  =   DB::table('social_medias')->where('id',$social_media[0]->id)
+        $social_image  =   DB::connection('dash')->table('social_medias')->where('id',$social_media[0]->id)
                                 ->where('deleted_at',NULL)->get()->value('icon');
         if(!empty($social_image)) $image_src = asset('social_media')."/".$social_image;
         else $image_src =  asset('assets/images/globe.png');   
@@ -45,7 +45,7 @@
     <div class="col-md-1 text-center pt-1">
         @php 
             if(isset($value->id) && !empty($value->id))
-            $socialMediaImage = DB::table('social_medias')->where('id',$value->id)
+            $socialMediaImage = DB::connection('dash')->table('social_medias')->where('id',$value->id)
                                     ->where('deleted_at',NULL)->get()->value('icon');
             if(!empty($socialMediaImage)) $image_src = asset('social_media')."/".$socialMediaImage;
             else $image_src =  asset('assets/images/globe.png'); 

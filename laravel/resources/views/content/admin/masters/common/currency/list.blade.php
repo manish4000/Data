@@ -4,15 +4,14 @@
 @section('content')
 <!-- users list start -->
 <section>
-  <div class="row">
-    <div class="col-12">
-            <!-- filter  -->
-      <div class="card">
-        <div class="card-header">
+    <!-- filter  -->
+    <div class="card">
+        <div class="card-header py-75 px-50">
           <h4 class="card-title" data-toggle="tooltip" data-placement="right" title="{{__('webCaption.search_filter.caption')}}">{{__('webCaption.search_filter.title')}}</h4>                    
         </div>
-        <div class="card-body">
-          <form method="GET" action="{{route('masters.currency.index')}}">
+        <hr class="m-0 p-0">
+        <div class="card-body pt-75 pb-75 px-50">
+          <form method="GET" action="{{route('masters.currency.index')}}" style="margin-bottom:0px !important;">
             <div class="row">
                 <div class="col-sm-3 col-md-5 col-lg-7 col-xl-7">
                     <div class="form-group">
@@ -38,7 +37,7 @@
                         <div class="col-md-10">
                             <div class="form-group">
                                 <x-admin.form.label for=""  value="{{__('webCaption.parent_only.title')}}" class="" tooltip="{{__('webCaption.parent_only.caption')}}" />
-
+                                       
                                 <x-admin.form.inputs.checkbox for="searchParentOnlyShowAll"  name="search[parentOnlyShowAll]" tooltip="{{__('webCaption.show_all.caption')}}" label="{{__('webCaption.show_all.title')}}" checked="{{ (request()->input('search.parentOnlyShowAll') == 1)  ?'checked' :''; }}"  value="1"  customClass="form-check-input"  />
                                 
                             </div>
@@ -46,117 +45,108 @@
                         
                     </div> 
                 </div>
-                <div class="col-md-12 pt-1 text-center">
+                <div class="col-md-12 pt-0 text-center">
                     <x-admin.form.buttons.search />
                     <x-admin.form.buttons.reset href="{{route('masters.currency.index')}}" />
                 </div>
             </div>
           </form>
         </div>
-      </div>    
-        @php
-        $request_params = request()->all();
-        unset( $request_params['order'], $request_params['order_by'] );
+      </div>  
+
+       @php
+ 
+        //send permission slug and url for multiple update and delete and more... for actions 
+        $permission_and_urls = [
+                'multiple_delete' => ['url' => route('masters.currency.delete-multiple') ,
+                                    'permission' => 'masters-currency-delete'],
+
+                'multiple_update' =>   ['url' => route('masters.currency.update-multiple') ,
+                                     'permission' => 'masters-currency-update']                               
+            ];                          
         @endphp
                     
         <div class="card">
         <!-- Basic Tables start -->
-          <div class="card-body">
-            @can('masters-currency') 
+          <div class="card-body pt-75 pb-0 px-50">
+          @can('masters-currency') 
                 @if(count($data) > 0 )
-                    <div class="table-responsive">
-                        <div class="mt-2">
-                            {{ $data->onEachSide(1)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
-                        </div>
-                        @can('masters-currency-delete')
-                            <div class="px-2 my-2">
-                                {{-- deleteMultiple() for delete multiple data pass url here  --}}
-                                <x-admin.form.buttons.multipleDelete url="{{route('masters.currency.delete-multiple')}}" />
-                            </div>
-                        @endcan
-                        <table class="table" id="master-list">
-                            <thead>
-                                <tr>
-                                        <th> <x-admin.form.inputs.multiple_select_checkbox id="checkAll"   value="1"  customClass=""  /> </th>
-                                        <th class="position-for-filter-heading"># <x-admin.filter.order-by-filter-div orderBy="id" />
-                                        </th>                                                
-                                        <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.currency.caption')}}"> {{__('webCaption.currency.title')}}<x-admin.filter.order-by-filter-div orderBy="name" />
-                                        </th>
-                                        <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.currency_symbol.caption')}}"> {{__('webCaption.currency_symbol.title')}}<x-admin.filter.order-by-filter-div orderBy="currency_symbol" />
-                                        </th>
-                                        <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.title.caption')}}"> {{__('webCaption.title.title')}}<x-admin.filter.order-by-filter-div orderBy="title" />
-                                        </th>
-                                        <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.no_of_children.caption')}}" >{{__('webCaption.no_of_children.title')}}<x-admin.filter.order-by-filter-div orderBy="children_count" />
-                                        </th>
-                                        <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.display_status.caption')}}"  >
-                                            {{__('webCaption.display_status.title')}} <x-admin.filter.order-by-filter-div orderBy="display" />
-                                        </th>
-                                        <th data-toggle="tooltip" title="{{__('webCaption.actions.caption')}}" >{{__('webCaption.actions.title')}}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($data as $item)
-                                    @include('content.admin.masters.common.currency.item-tr', ['item'=>$item])    
-                                    @if( true || request()->input('search.parentOnlyShowAll') == 1)
-                                        @foreach($item->children as $childItem)
-                                            @include('content.admin.masters.common.currency.item-tr', ['item'=>$childItem])    
-                                        @endforeach 
-                                    @endif
-                                @endforeach   
-                                            
-                            </tbody>                            
-                        </table>
-                        <div class="mt-2">
-                            {{ $data->onEachSide(1)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
-                        </div>
-                    </div>
-                @else
-                    <div class="text-center my-2">
-                        <h3>{{__('webCaption.record_not_found.title')}} </h3>
-                    </div>
-                @endif    
-            @endcan
+                   		
+             {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4', [ 'permission_and_urls' => $permission_and_urls  ] )}} 
+                  
+                {{--check delete permission  --}}          
+            <div class="main_table mb-2" id="master-list">
+            @php
+            $heading_array = [
+                            [
+                                'title' => 'id',
+                                'orderby' => 'id',
+                                'classes' => 'width_5'
+                            ] , 
+                            [
+                                'title' => 'currency',
+                                'orderby' => 'name',
+                                'classes' => 'width_20'
+                            ] ,
+                            [
+                                'title' => 'currency_symbol',
+                                'orderby' => 'currency_symbol',
+                                'classes' => 'width_10'
+                            ] ,
+                            [
+                                'title' => 'title',
+                                'orderby' => 'title',
+                                'classes' => 'width_15'
+                            ] , 
+                            [
+                                'title' => 'no_of_children',
+                                'orderby' => 'children_count',
+                                'classes' => 'width_15'
+                            ] , 
+                            [
+                                'title' => 'display_status',
+                                'orderby' => 'display',
+                                'classes' => 'width_14 '
+                            ] , 
+                            [
+                                'title' => 'actions',
+                                'orderby' => null,
+                                'classes' => 'width_12 text-center'
+                            ]  
+                        ];
+            @endphp
+
+            <x-admin.table.table-heading :headingFields="$heading_array"/>                
+                         
+                @foreach($data as $item)
+                    @include('content.admin.masters.common.currency.item-tr', ['item'=>$item])    
+                        @if(true || request()->input('search.parentOnlyShowAll') == 1)
+                        @foreach($item->children as $childItem)
+                            @include('content.admin.masters.common.currency.item-tr', ['item'=>$childItem])    
+                        @endforeach                                        
+                        @endif
+                @endforeach      
+                                                                               
+             </div>                   
+
+                {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4', [ 'permission_and_urls' => $permission_and_urls  ] )}} 
+
+                    @else 
+                        @include('components.admin.alerts.no-record-found')                    
+                    @endif    
+                @endcan
             </div>
-        </div>    
-    </div>
-  </div>     
-</div>
-   
+        </div>
 <!-- list section end -->
 </section>
 
 {{-- this file include for delete alert box  --}}
+
 @include('components.admin.alerts.delete-alert-box')
+@include('components.admin.alerts.reference-model-box')
 @include('components.admin.alerts.multiple-delete-alert-box')
 @include('components.admin.filter.order-by')
 <!-- users list ends -->
 
 @endsection
-
-@section('page-script')
-
-{{--  --}}
-<script type="text/javascript">
-$('.load-child-records').click( function(event){
-    event.preventDefault();
-    var eObject = this;
-    var itemId = $(this).attr('data-itemId');
-    var parent_tr = $(this).closest('tr');
-
-    if( $(this).hasClass('collasped') ) {
-        $(eObject).removeClass('collasped').addClass('expanded');
-        $(eObject).find('i:first').removeClass('fa-caret-right').addClass('fa-caret-down');
-        $('.parent-id-' + itemId).show();
-    } else {
-        $(eObject).removeClass('expanded').addClass('collasped');
-        $(eObject).find('i:first').removeClass('fa-caret-down').addClass('fa-caret-right');
-        $('.parent-id-' + itemId).hide();
-    }
-});
-</script>
-
-@endsection
-
-
  
-

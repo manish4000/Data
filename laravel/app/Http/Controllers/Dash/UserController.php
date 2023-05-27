@@ -226,46 +226,32 @@ class UserController extends Controller
         $companyUserModel->company_id = $companyId;
         
         if($companyUserModel->save()){   
-            
             $company_sales_team = new CompanySalesTeam;
+
             $salesData = array();
-        
-            //Store Sales Team Data
-            if(isset($companyId) && !empty($companyId)) $salesData['company_id'] = $companyId;
 
-            if(isset($companyUserModel->id) && !empty($companyUserModel->id)) $salesData['company_user_id'] = $companyUserModel->id;
-            
-            if(isset($request->title) && !empty($request->title)) $salesData['title'] = $request->title;
+            $salesData['company_id'] = $companyId;
+            $salesData['company_user_id'] = $companyUserModel->id;
+            $salesData['title'] = $request->title;
+            $salesData['name'] = $request->name;
+            $salesData['email'] = $request->email;
+            $salesData['status'] = $request->status;
 
-            if(isset($request->name) && !empty($request->name)) $salesData['name'] = $request->name;
-
-            if(isset($request->department_id) && !empty($request->department_id)){ 
-                $salesData['department_id'] = $request->department_id;
+            //Departement
+            $salesData['department_id'] = $request->department_id;
+            if(isset($request->department_id) && !empty($request->department_id)){
                 $department  = Department::select('name')->where('id', $request->department_id)->get()->value('name'); 
                 $salesData['department'] = $department;
-            }
-
-            if(isset($request->email) && !empty($request->email)) $salesData['email'] = $request->email;
+            }else $salesData['department'] = NULL;
             
             if(isset($request->password) && !empty($request->password)) $salesData['password'] = bcrypt($request->password);
 
-            if(isset($request->designation_id) && !empty($request->designation_id)){ 
-                $salesData['designation_id'] = $request->designation_id;
+            //Designation
+            $salesData['designation_id'] = $request->designation_id;
+            if(isset($request->designation_id) && !empty($request->designation_id)){   
                 $designation  = Designation::select('name')->where('id', $request->designation_id)->get()->value('name'); 
                 $salesData['designation'] = $designation;
-            }
-
-            if(isset($request->designation_id) && !empty($request->designation_id)){ 
-                $salesData['designation_id'] = $request->designation_id;
-                $designation  = Designation::select('name')->where('id', $request->designation_id)->get()->value('name'); 
-                $salesData['designation'] = $designation;
-            }
-
-            /* if(isset($request->roles) && !empty($request->roles)){ 
-                $salesData['roles_id'] = $request->roles;
-                $roles  = Roles::select('name')->where('id', $request->roles)->get()->value('name'); 
-                $salesData['roles'] = $roles;
-            } */
+            }else $salesData['designation'] = NULL;
 
             if($request->has('roles')) {
                 if(is_array($request->roles) && count($request->roles) > 0){
@@ -279,143 +265,168 @@ class UserController extends Controller
                     $salesData['roles'] = $roles_name;
 
                 }    
-            } 
-            if(isset($request->status) && !empty($request->status) && $request->status != NULL) $salesData['status'] = $request->status;
+            }else{
+                $salesData['roles_id'] = NULL;
+                $salesData['roles'] = NULL;
+            }
             
             if(isset($request->verification) && !empty($request->verification)) $salesData['verification'] = $request->verification;
             else $salesData['verification'] = '0';
             
-            if(isset($request->admin_memo) && !empty($request->admin_memo)) $salesData['admin_memo'] = $request->admin_memo;
-            
-            if(isset($request->company_address) && !empty($request->company_address)) $salesData['company_address'] = $request->company_address;
+            $salesData['admin_memo'] = $request->admin_memo;
+            $salesData['company_address'] = $request->company_address;
 
-            if(isset($request->company_country) && !empty($request->company_country)){ 
-                $salesData['company_country_id'] = $request->company_country;
+            //Company Country
+            $salesData['company_country_id'] = $request->company_country;
+            if(isset($request->company_country) && !empty($request->company_country)){    
                 $company_country  = Country::select('name')->where('id', $request->company_country)->get()->value('name'); 
                 $salesData['company_country'] = $company_country;
-            }
+            } else $salesData['company_country'] = NULL;
+            
 
-            if(isset($request->company_state) && !empty($request->company_state)){ 
-                $salesData['company_state_id'] = $request->company_state;
+            //Company State
+            $salesData['company_state_id'] = $request->company_state;
+            if(isset($request->company_state) && !empty($request->company_state)){
                 $company_state  = StateModel::select('name')->where('id', $request->company_state)->get()->value('name'); 
                 $salesData['company_state'] = $company_state;
-            }
+            }else $salesData['company_state'] = NULL;
 
-            if(isset($request->company_city) && !empty($request->company_city)){ 
-                $salesData['company_city_id'] = $request->company_city;
+            //Company City
+            $salesData['company_city_id'] = $request->company_city;
+            if(isset($request->company_city) && !empty($request->company_city)){
                 $company_city  = CityModel::select('name')->where('id', $request->company_city)->get()->value('name'); 
                 $salesData['company_city'] = $company_city;
+            } else $salesData['company_city'] = NULL;
+
+            $salesData['company_zip_code'] = $request->company_zip_code;
+
+            if(isset($request->company_phone) && !empty($request->company_phone) && !empty($request->company_country_code)){ $salesData['company_phone'] = $request->company_country_code."_".$request->company_phone; 
+            }else{
+                $salesData['company_phone'] = NULL;
             }
-
-            if(isset($request->company_zip_code) && !empty($request->company_zip_code)) $salesData['company_zip_code'] = $request->company_zip_code;
-
-            if(isset($request->company_phone) && !empty($request->company_phone) && !empty($request->company_country_code)) $salesData['company_phone'] = $request->company_country_code."_".$request->company_phone;
-            
+          
             if($request->has('company_messenger')) {
-                if(is_array($request->company_messenger) && count($request->company_messenger) > 0){
-                    $company_messenger = json_encode($request->company_messenger);
+                $company_messenger = [];
+                foreach($request->company_messenger as $key=>$value){
+                    $company_messenger_name = Messenger::where('name','!=',null)->where('id',$value)->get()->value('name');
                     
-                    $salesData['company_messenger_id'] = $company_messenger;
-                    
-                    $company_messenger_name = Messenger::select('name')->where('name','!=',null)->whereIn('id',$request->company_messenger)->get()->toArray();
-                    $company_messenger_name = (empty($company_messenger_name))? null: implode(',', array_column( $company_messenger_name,'name' ));
-                    
-                    $salesData['company_messenger_name'] = $company_messenger_name;
+                    $company_messenger[$key]['id'] = $value;
+                    $company_messenger[$key]['value']= $company_messenger_name;
                 }    
-            }  
+                $salesData['company_messenger'] = json_encode($company_messenger);
+            }else{
+                $salesData['company_messenger'] =  NULL;
+            }
             
             if($request->has('language')) {
-                if(is_array($request->language) && count($request->language) > 0){
-                    $language = json_encode($request->language);
+                $language = json_encode($request->language);
+                $salesData['language_id'] =  $language;
+                
+                $language_name = Language::select('name')->where('name','!=',null)->whereIn('id',$request->language)->get()->toArray();
+                $language_name = (empty($language_name))? null: implode(',', array_column( $language_name,'name' ));
+                
+                $salesData['language_name'] = $language_name;
+            }else{
+                $salesData['language_id'] = NUll;
+                $salesData['language_name'] =  NULL;
+            }
 
-                    $salesData['language_id'] =  $language;
-                    
-                    $language_name = Language::select('name')->where('name','!=',null)->whereIn('id',$request->language)->get()->toArray();
-                    $language_name = (empty($language_name))? null: implode(',', array_column( $language_name,'name' ));
-                    
-                    $salesData['language_name'] = $language_name;
+            $salesData['current_address'] = $request->current_address;
 
-                }    
-            }  
-
-            if(isset($request->current_address) && !empty($request->current_address)) $salesData['current_address'] = $request->current_address;
-
-            if(isset($request->current_country) && !empty($request->current_country)){ 
-                $salesData['current_country_id'] = $request->current_country;
+            //Current Country
+            $salesData['current_country_id'] = $request->current_country;
+            if(isset($request->current_country) && !empty($request->current_country)){
                 $current_country  = Country::select('name')->where('id', $request->current_country)->get()->value('name'); 
                 $salesData['current_country'] = $current_country;
-            }
+            } else $salesData['current_country'] = NULL;
 
-            if(isset($request->current_state) && !empty($request->current_state)){ 
-                $salesData['current_state_id'] = $request->current_state;
+            //Current State
+            $salesData['current_state_id'] = $request->current_state;
+            if(isset($request->current_state) && !empty($request->current_state)){
                 $current_state  = StateModel::select('name')->where('id', $request->current_state)->get()->value('name'); 
                 $salesData['current_state'] = $current_state;
-            }
+            } else $salesData['current_state'] = NULL;
+            
 
-            if(isset($request->current_city) && !empty($request->current_city)){ 
-                $salesData['current_city_id'] = $request->current_city;
+            //Current City
+            $salesData['current_city_id'] = $request->current_city;
+            if(isset($request->current_city) && !empty($request->current_city)){
                 $current_city  = CityModel::select('name')->where('id', $request->current_city)->get()->value('name'); 
                 $salesData['current_city'] = $current_city;
-            }
+            } else $salesData['current_city'] = NULL;
 
-            if(isset($request->current_zip_code) && !empty($request->current_zip_code)) $salesData['current_zip_code'] = $request->current_zip_code;
+            $salesData['current_zip_code'] = $request->current_zip_code;
             
             if(isset($request->same_as_current) && !empty($request->same_as_current)) $salesData['same_as_current'] = $request->same_as_current;
             else $salesData['same_as_current'] = '0';
 
-            if(isset($request->permanent_address) && !empty($request->permanent_address)) $salesData['permanent_address'] = $request->permanent_address;
-
-            if(isset($request->permanent_country) && !empty($request->permanent_country)){ 
-                $salesData['permanent_country_id'] = $request->permanent_country;
+            $salesData['permanent_address'] = $request->permanent_address;
+            
+            //Permanent Country
+            $salesData['permanent_country_id'] = $request->permanent_country;
+            if(isset($request->permanent_country) && !empty($request->permanent_country)){
                 $permanent_country  = Country::select('name')->where('id', $request->permanent_country)->get()->value('name'); 
                 $salesData['permanent_country'] = $permanent_country;
-            }
-        
-            if(isset($request->permanent_state) && !empty($request->permanent_state)){ 
-                $salesData['permanent_state_id'] = $request->permanent_state;
+            } else $salesData['permanent_country'] = NULL;
+            
+            //Permanent State
+            $salesData['permanent_state_id'] = $request->permanent_state;
+            if(isset($request->permanent_state) && !empty($request->permanent_state)){
                 $permanent_state  = StateModel::select('name')->where('id', $request->permanent_state)->get()->value('name'); 
                 $salesData['permanent_state'] = $permanent_state;
-            }
+            } else $salesData['permanent_state'] = NULL;
 
-            if(isset($request->permanent_city) && !empty($request->permanent_city)){ 
-                $salesData['permanent_city_id'] = $request->permanent_city;
-                $permanent_city  = CityModel::select('name')->where('id', $request->permanent_city)->get()->value('name'); 
+            //Permanent City
+            $salesData['permanent_city_id'] = $request->permanent_city;
+            if(isset($request->permanent_city) && !empty($request->permanent_city)){
+                $permanent_city = CityModel::select('name')->where('id', $request->permanent_city)->get()->value('name'); 
                 $salesData['permanent_city'] = $permanent_city;
+            } else $salesData['permanent_city'] = NULL;
+            
+            $salesData['permanent_zip_code'] = $request->permanent_zip_code;
+
+            //Phone
+            if(isset($request->personal_phone) && !empty($request->personal_phone) && !empty($request->personal_country_code)){
+                $salesData['personal_phone'] = $request->personal_country_code."_".$request->personal_phone;
+            }
+            else{
+                $salesData['personal_phone'] = NULL;
+            }
+
+            //Personal Messenger
+            if($request->has('personal_messenger')) {
+                $personal_messenger = [];
+                foreach($request->personal_messenger as $key=>$value){
+                    $personal_messenger_name = Messenger::where('name','!=',null)->where('id',$value)->get()->value('name');
+                    
+                    $personal_messenger[$key]['id'] = $value;
+                    $personal_messenger[$key]['value']= $personal_messenger_name;
+                }    
+                $salesData['personal_messenger'] = json_encode($personal_messenger);    
+            }else{
+                $salesData['personal_messenger'] = NULL;
             }
             
-            if(isset($request->permanent_zip_code) && !empty($request->permanent_zip_code)) $salesData['permanent_zip_code'] = $request->permanent_zip_code;
-
-            if(isset($request->personal_phone) && !empty($request->personal_phone) && !empty($request->personal_country_code)) $salesData['personal_phone'] = $request->personal_country_code."_".$request->personal_phone;
-            
-            if($request->has('personal_messenger')) {
-                if(is_array($request->personal_messenger) && count($request->personal_messenger) > 0){
-                    $personal_messenger = json_encode($request->personal_messenger);
-                    
-                    $salesData['personal_messenger_id'] = $personal_messenger;
-                    
-                    $personal_messenger_name = Messenger::select('name')->where('name','!=',null)->whereIn('id',$request->personal_messenger)->get()->toArray();
-                    $personal_messenger_name = (empty($personal_messenger_name))? null: implode(',', array_column( $personal_messenger_name,'name' ));
-                    
-                    $salesData['personal_messenger_name'] = $personal_messenger_name;
-                }    
-            } 
-            
-            if(isset($request->religion) && !empty($request->religion)){ 
-                $salesData['religion_id'] = $request->religion;
+            //religion
+            $salesData['religion_id'] = $request->religion;
+            if(isset($request->religion) && !empty($request->religion)){
                 $religion  = Religion::select('name')->where('id', $request->religion)->get()->value('name');
                 $salesData['religion'] = $religion;
-            }
+            }else $salesData['religion'] = NULL;
 
-            if(isset($request->anniversary_date) && !empty($request->anniversary_date)) $salesData['anniversary_date'] = $request->anniversary_date;
+            $salesData['anniversary_date'] = $request->anniversary_date;
+            $salesData['dob'] = $request->dob;
             
-            if(isset($request->dob) && !empty($request->dob)) $salesData['dob'] = $request->dob;
-            
+            //Image
             if($request->has('image') && !empty($request->image)){
                 $image = time().'.'.$request->image->extension();  
                 $request->image->move(public_path('dash').'/sales_team', $image);
                 $salesData['image'] = $image;
+            }else{
+                $salesData['image'] = NULL;
             }
 
+            //Social Media
             if(is_array($request->social_media) && count($request->social_media)>0){
                 $socialArr = array();
                 foreach($request->social_media as $key=>$value){
@@ -425,18 +436,18 @@ class UserController extends Controller
                     $socialArr[$key]['value'] = $request->social_value[$key];
                 }
                 $salesData['company_social_media'] = json_encode($socialArr);
+            }else{
+                $salesData['company_social_media'] = NULL;
             }
            
-            //echo "<pre>"; print_r($salesData); echo "</pre>"; exit;
-        
+            // Update & Insert
             if(isset($request->id) && !empty($request->id)){ 
-               $company_sales_team_data = CompanySalesTeam::where('company_user_id', $request->id)->first();
+                $company_sales_team_data = CompanySalesTeam::where('company_user_id', $request->id)->first();
                 $companyUserModel->permissions()->sync($request->permissions);
                 $salesData['updated_at'] =  \Carbon\Carbon::now()->toDateTimeString();
-                //echo "<pre>"; print_r($salesData); echo "</pre>"; exit;
+
                 $company_sales_team_data->update($salesData);
-                
-            $message = $request->name." ". __('webCaption.alert_updated_successfully.title');
+                $message = $request->name." ". __('webCaption.alert_updated_successfully.title');
             }                 
             else{
 
@@ -568,27 +579,25 @@ class UserController extends Controller
             abort(403);
         }
 
-            CompanyUserPermission::whereIn('company_user_id', $request->delete_ids)->delete();
+        CompanyUserPermission::whereIn('company_user_id', $request->delete_ids)->delete();
         
-    $company_sales_team_data = CompanySalesTeam::whereIn('company_user_id', $request->delete_ids)->first();
-        if(isset($company_sales_team_data->image) && !empty($company_sales_team_data->image)){
-            if(is_file(public_path('dash').'/sales_team'.'/'.$company_sales_team_data->image )){
-                unlink(public_path('dash').'/sales_team'.'/'.$company_sales_team_data->image);
+        $companySales_Data = CompanySalesTeam::whereIn('company_user_id', $request->delete_ids)->first();
+        if(isset($companySales_Data->image) && !empty($companySales_Data->image)){
+            if(is_file(public_path('dash').'/sales_team'.'/'.$companySales_Data->image )){
+                unlink(public_path('dash').'/sales_team'.'/'.$companySales_Data->image);
             }
-            CompanySalesTeam::whereIn('id',$company_sales_team_data->id)->delete();
         }
                    
-           if(CompanyUsers::whereIn('id', $request->delete_ids)->delete()){
-                $result['status']     = true;
-                $result['message']    = __('webCaption.alert_deleted_successfully.title'); 
-                return response()->json(['result' => $result]);
-           }else{
-                $result['status']     = false;
-                $result['message']    = __('webCaption.alert_somthing_wrong.title'); 
-                return response()->json(['result' => $result]);
-           } 
+        if(CompanyUsers::whereIn('id', $request->delete_ids)->delete()){
+            $result['status']     = true;
+            $result['message']    = __('webCaption.alert_deleted_successfully.title'); 
+            return response()->json(['result' => $result]);
+        }else{
+            $result['status']     = false;
+            $result['message']    = __('webCaption.alert_somthing_wrong.title'); 
+            return response()->json(['result' => $result]);
+        } 
             
-
     }
 
 }

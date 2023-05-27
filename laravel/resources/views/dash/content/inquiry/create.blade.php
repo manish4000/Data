@@ -1,8 +1,8 @@
 @extends('dash/layouts/LayoutMaster')
 @if(isset($data->id) && !empty($data->id))
-@section('title', __('webCaption.inquiry.title') )
+@section('title', __('webCaption.inquiry.title'). ' ' .__('webCaption.edit.title') )
 @else
-@section('title', __('webCaption.inquiry.title'))
+@section('title', __('webCaption.inquiry.title'). ' ' .__('webCaption.add.title'))
 @endif
 @section('content')
 <div>

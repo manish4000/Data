@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class MasterDataTranslation extends Model
 {
     use HasFactory;
+    
     protected $table = 'master_data_translations';
 
     protected $fillable = ['value','language_data','db_models'];

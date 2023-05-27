@@ -83,7 +83,7 @@
                                 'classes' => 'width_5'
                             ] , 
                             [
-                                'title' => 'make',
+                                'title' => 'ports',
                                 'orderby' => 'name',
                                 'classes' => 'width_45'
                             ] , 
@@ -108,10 +108,10 @@
             <x-admin.table.table-heading :headingFields="$heading_array"/>                
                          
                 @foreach($data as $item)
-                    @include('content.admin.masters.vechiles.makes.item-tr', ['item'=>$item])    
+                    @include('content.admin.masters.common.ports.item-tr', ['item'=>$item])    
                         @if(true || request()->input('search.parentOnlyShowAll') == 1)
                         @foreach($item->children as $childItem)
-                            @include('content.admin.masters.vechiles.makes.item-tr', ['item'=>$childItem])    
+                            @include('content.admin.masters.common.ports.item-tr', ['item'=>$childItem])    
                         @endforeach                                        
                         @endif
                 @endforeach      

@@ -1,8 +1,8 @@
 @extends('dash/layouts/LayoutMaster')
 @if(isset($user->id) && !empty($user->id))
-@section('title', __('webCaption.edit_user.title') )
+@section('title', __('webCaption.user.title'). ' ' .__('webCaption.edit.title') )
 @else
-@section('title', __('webCaption.add_user.title'))
+@section('title', __('webCaption.user.title'). ' ' .__('webCaption.add.title'))
 @endif
 
 @section('vendor-style')
@@ -333,8 +333,24 @@ echo "<pre>"; print_r($user->companySalesTeam); echo "</pre>"; exit;
 					@php	
 						$modelData = [
 								'heading' => __('webCaption.add.title').' '.__('webCaption.religion.title'),
-								'route' => ''
-							];
+								'route' => '',
+								'fields' => [
+												[
+													'type' =>'text',
+													'name' => 'name',
+													'id'   => 'name',
+													'label' => 'name',
+													'required' => 'required'
+												],
+												[
+													'type' =>'select',
+													'name' => 'parent_id',
+													'id'   => 'religion_parent',
+													'label' => 'name',
+													'required' => 'required'
+												],
+							]
+				];
 // to be continue
 					@endphp
 

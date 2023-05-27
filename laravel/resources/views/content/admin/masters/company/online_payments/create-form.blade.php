@@ -6,7 +6,10 @@
 @endif
 
 @section('content')
-<form action="{{ route('masters.company.online-payments.store')}}" method="POST">
+@if($errors->any())
+    {{ implode('', $errors->all('<div>:message</div>')) }}
+@endif
+<form action="{{ route('masters.company.online-payments.store')}}" method="POST" enctype="multipart/form-data" >
     @csrf
     <section>
         <div class="card">

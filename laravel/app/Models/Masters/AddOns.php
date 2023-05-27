@@ -13,6 +13,7 @@ class AddOns extends Model
 
     protected $table = 'add_ons';
     protected $primaryKey = 'id';
+    
 
     protected $fillable = ['name','title_languages','display', 'parent_id'];
 

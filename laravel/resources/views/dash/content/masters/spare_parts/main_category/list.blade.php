@@ -1,17 +1,15 @@
 @extends('dash/layouts/LayoutMaster')
 @section('title', $pageConfigs['moduleName'])
-
 @section('content')
 <!-- users list start -->
 <section>
-  <div class="row">
-    <div class="col-12">
-            <!-- filter  -->
+        <!-- filter  -->
       <div class="card">
-        <div class="card-header">
+        <div class="card-header py-75 px-50">
           <h4 class="card-title" data-toggle="tooltip" data-placement="right" title="{{__('webCaption.search_filter.caption')}}">{{__('webCaption.search_filter.title')}}</h4>                    
         </div>
-        <div class="card-body">
+        <hr class="m-0 p-0">
+        <div class="card-body pt-75 pb-75 px-50">
           <form method="GET" action="{{route('dashmasters.spare-parts.main-category.index')}}">
             <div class="row">
                 <div class="col-sm-3 col-md-5 col-lg-7 col-xl-7">
@@ -46,7 +44,7 @@
                         
                     </div> 
                 </div>
-                <div class="col-md-12 pt-1 text-center">
+                <div class="col-md-12 pt-0 text-center">
                     <x-dash.form.buttons.search />
                     <x-dash.form.buttons.reset href="{{route('dashmasters.spare-parts.main-category.index')}}" />
                 </div>
@@ -57,64 +55,77 @@
         @php
         $request_params = request()->all();
         unset( $request_params['order'], $request_params['order_by'] );
+
+        $permission_and_urls = [
+                                  'multiple_delete' => ['url' => route('dashmasters.spare-parts.main-category.delete-multiple') ,
+                                  'permission' => 'masters-spare-parts-main-category-delete']                                
+                                ]; 
         @endphp
                     
         <div class="card">
         <!-- Basic Tables start -->
-          <div class="card-body">
-
+          <div class="card-body pt-75 pb-0 px-50">
+          @if (Auth::guard('dash')->user()->can('masters-spare-parts-main-category'))
                 @if(count($data) > 0 )
-                    <div class="table-responsive">
-                        <div class="mt-2">
-                            {{ $data->onEachSide(1)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
-                        </div>
-                            <div class="px-2 my-2">
-                                {{-- deleteMultiple() for delete multiple data pass url here  --}}
-                                <x-dash.form.buttons.multipleDelete url="{{route('dashmasters.spare-parts.main-category.delete-multiple')}}" />
-                            </div>
-                        <table class="table" id="master-list">
-                            <thead>
-                                <tr>
-                                        <th> <x-dash.form.inputs.multiple_select_checkbox id="checkAll"   value="1"  customClass=""  /> </th>
-                                        <th class="position-for-filter-heading"># <x-dash.filter.order-by-filter-div orderBy="id" />
-                                        </th>                                                
-                                        <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.main_category.caption')}}"> {{__('webCaption.main_category.title')}}<x-dash.filter.order-by-filter-div orderBy="name" />
-                                        </th>
-                                        <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.no_of_children.caption')}}" >{{__('webCaption.no_of_children.title')}}<x-dash.filter.order-by-filter-div orderBy="children_count" />
-                                        </th>
-                                        <th class="position-for-filter-heading" data-toggle="tooltip" title="{{__('webCaption.display_status.caption')}}"  >
-                                            {{__('webCaption.display_status.title')}} <x-dash.filter.order-by-filter-div orderBy="display" />
-                                        </th>
-                                        <th data-toggle="tooltip" title="{{__('webCaption.actions.caption')}}" >{{__('webCaption.actions.title')}}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($data as $item)
-                                    @include('dash.content.masters.spare_parts.main_category.item-tr', ['item'=>$item])    
-                                    @if( true || request()->input('search.parentOnlyShowAll') == 1)
-                                        @foreach($item->children as $childItem)
-                                            @include('dash.content.masters.spare_parts.main_category.item-tr', ['item'=>$childItem])    
-                                        @endforeach 
-                                    @endif
-                                @endforeach   
-                                            
-                            </tbody>                            
-                        </table>
-                        <div class="mt-2">
-                            {{ $data->onEachSide(1)->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}       
-                        </div>
+                    @if (Auth::guard('dash')->user()->can('masters-spare-parts-main-category-delete'))		
+                        {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4-dash', [ 'permission_and_urls' => $permission_and_urls  ] ) }} 
+                    @else
+                        {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4-dash') }}    
+                    @endif
+                    <div class="main_table mb-2" id="master-list">
+                        @php
+                        $heading_array = [
+                                        [
+                                            'title' => 'id',
+                                            'orderby' => 'id',
+                                            'classes' => 'width_5'
+                                        ] , 
+                                        [
+                                            'title' => 'main_category',
+                                            'orderby' => 'name',
+                                            'classes' => 'width_50'
+                                        ] , 
+                                        [
+                                            'title' => 'no_of_children',
+                                            'orderby' => 'children_count',
+                                            'classes' => 'width_15 text-center'
+                                        ] , 
+                                        [
+                                            'title' => 'display_status', 
+                                            'orderby' => 'display',
+                                            'classes' => 'width_15 text-center'
+                                        ] , 
+                                        [
+                                            'title' => 'actions',
+                                            'orderby' => null,
+                                            'classes' => 'width_15 text-center'
+                                        ]  
+                                    ];
+                        @endphp 
+
+                        <x-dash.table.table-heading :headingFields="$heading_array"/> 
+                        @foreach($data as $item)
+                            @include('dash.content.masters.spare_parts.main_category.item-tr', ['item'=>$item])    
+                            @if( true || request()->input('search.parentOnlyShowAll') == 1)
+                                @foreach($item->children as $childItem)
+                                    @include('dash.content.masters.spare_parts.main_category.item-tr', ['item'=>$childItem])    
+                                @endforeach 
+                            @endif
+                        @endforeach  
                     </div>
-                @else
-                    <div class="text-center my-2">
-                        <h3>{{__('webCaption.record_not_found.title')}} </h3>
-                    </div>
-                @endif    
+                    @if (Auth::guard('dash')->user()->can('masters-spare-parts-main-category-delete'))		
+                        {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4-dash', [ 'permission_and_urls' => $permission_and_urls  ] ) }} 
+                    @else
+                        {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4-dash') }}    
+                    @endif
+
+                    @else
+                        @include('components.dash.alerts.no-record-found')                    
+                    @endif   
+                @endcan    
 
             </div>
         </div>    
-    </div>
-  </div>     
-</div>
    
 <!-- list section end -->
 </section>
@@ -126,31 +137,3 @@
 <!-- users list ends -->
 
 @endsection
-
-@section('page-script')
-
-{{--  --}}
-<script type="text/javascript">
-$('.load-child-records').click( function(event){
-    event.preventDefault();
-    var eObject = this;
-    var itemId = $(this).attr('data-itemId');
-    var parent_tr = $(this).closest('tr');
-
-    if( $(this).hasClass('collasped') ) {
-        $(eObject).removeClass('collasped').addClass('expanded');
-        $(eObject).find('i:first').removeClass('fa-caret-right').addClass('fa-caret-down');
-        $('.parent-id-' + itemId).show();
-    } else {
-        $(eObject).removeClass('expanded').addClass('collasped');
-        $(eObject).find('i:first').removeClass('fa-caret-down').addClass('fa-caret-right');
-        $('.parent-id-' + itemId).hide();
-    }
-});
-</script>
-
-@endsection
-
-
- 
-

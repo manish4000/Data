@@ -114,19 +114,20 @@ class OnlinePaymentsController extends Controller
 
         $validator = Validator::make($request->all(),
           [
-            'display' => 'required',
-            'name' => 'required|unique:online_payments,name,'.$request->id.',id,deleted_at,NULL',
+          
+            'name' => 'required|unique:dash.online_payments,name,'.$request->id.',id,deleted_at,NULL',
             'logo'=> 'required_without:id|image|mimes:jpeg,png,jpg,gif|max:5000',
+            'commission' => 'nullable|numeric',
           ]  ,
           [
             'name.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.name.title')  ] ),
-            'display.required' => __('webCaption.validation_required.title', ['field'=> __('webCaption.display.title')  ] ),
             'name.unique' => __('webCaption.validation_unique.title', ['field'=> $request->input('name')] ),
             'logo.required'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.logo.title') ] ),
             'logo.required_without'=> __('webCaption.validation_required.title', ['field'=> __('webCaption.logo.title') ] ),
             'logo.image'=> __('webCaption.validation_image.title', ['field'=> __('webCaption.logo.title') ] ),
             'logo.mimes'=> __('webCaption.validation_mimes.title', ['field'=> __('webCaption.logo.title') ,"fileTypes" => "jpeg,png,jpg,gif"] ),
             'logo.max'=> __('webCaption.validation_max_file.title', ['field'=> __('webCaption.logo.title') ,"max" => "5000"] ),
+            'commission.numeric'=> __('webCaption.validation_numeric.title', ['field'=> __('webCaption.commission.title') ] ),
           ]);
     
         if ($validator->fails()) {
@@ -136,16 +137,15 @@ class OnlinePaymentsController extends Controller
                 $online_payments_model->name       =   $request->name;
                 $online_payments_model->commission     =   $request->commission;
                 $online_payments_model->description    =   $request->description;
-                $online_payments_model->display    =   $request->display;
 
                 if($request->has('logo')){
                    
                     $logo = time().'.'.$request->logo->extension();  
-                    $request->logo->move(public_path('dash/online_payments'), $logo);
-                    $social_media_model->logo = $logo;
+                    $request->logo->move(public_path('online_payments'), $logo);
+                    $online_payments_model->logo = $logo;
 
-                    if(is_file(public_path('dash/online_payments').'/'.$old_icon_name )){
-                        unlink(public_path('dash/online_payments').'/'.$old_icon_name);
+                    if(is_file(public_path('online_payments').'/'.$old_logo_name )){
+                        unlink(public_path('online_payments').'/'.$old_logo_name);
                     }
                 }
 
@@ -180,14 +180,14 @@ class OnlinePaymentsController extends Controller
         if (!Auth::user()->can('masters-company-online-payments-edit')) {
             abort(403);
         }
-        $data = OnlinePayments::select('id', 'name', 'commission', 'description', 'logo','display')->where('id', $id)->first();
+        $data = OnlinePayments::select('id', 'name', 'commission', 'description', 'logo')->where('id', $id)->first();
         $activeSiteLanguages = SiteLanguage::ActiveSiteLanguagesForMaster();
         $breadcrumbs[0] = [
             'link' => $this->baseUrl,
             'name' => __('webCaption.list.title')
         ];   
 
-        return view('content.admin.masters.company.online_payments.create-form',['data' => $data,'breadcrumbs' =>$breadcrumbs ,'activeSiteLanguages' => $activeSiteLanguages ,'parent_data' => $parent_data ,'menuUrl' =>$this->menuUrl]);
+        return view('content.admin.masters.company.online_payments.create-form',['data' => $data,'breadcrumbs' =>$breadcrumbs ,'activeSiteLanguages' => $activeSiteLanguages ,'menuUrl' =>$this->menuUrl]);
    
     }
 
@@ -216,8 +216,8 @@ class OnlinePaymentsController extends Controller
 
         $data = OnlinePayments::find($request->id);
         
-        if(is_file(public_path('dash/online_payments').'/'.$data->logo)){
-            unlink(public_path('dash/online_payments').'/'.$data->logo);
+        if(is_file(public_path('online_payments').'/'.$data->logo)){
+            unlink(public_path('online_payments').'/'.$data->logo);
         }
 
         if(OnlinePayments::where('id', $request->id)->firstorfail()->delete()){
@@ -245,8 +245,8 @@ class OnlinePaymentsController extends Controller
         $data = OnlinePayments::whereIn('id', $request->delete_ids)->get();
         
         foreach($data as $item){
-            if(is_file(public_path('dash/online_payments').'/'.$item->logo )){
-                unlink(public_path('dash/online_payments').'/'.$item->logo);
+            if(is_file(public_path('online_payments').'/'.$item->logo )){
+                unlink(public_path('online_payments').'/'.$item->logo);
             }
         }
 

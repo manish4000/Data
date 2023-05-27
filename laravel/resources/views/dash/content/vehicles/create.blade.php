@@ -77,15 +77,15 @@
       <div class="card card-primary">
         <div class="card-body py-75">
           <div class="row">
-              <ul class="nav nav-tabs nav-justified @if(isset($navigation_for) && $navigation_for == 'vehicle'){{'gabs-nav-tab-vehicle'}} @else{{'gabs-nav-tab-image'}} @endif" id="myTab2" role="tablist">
+              <ul class="nav nav-tabs nav-justified @if(isset($navigation_for) && $navigation_for == 'vehicle'){{'gabs-nav-tab-vehicle'}} @else{{'gabs-nav-tab-vehicle'}} @endif" id="myTab2" role="tablist">
                     <li class="nav-item gabs-nav-tab @if(isset($navigation_for) && $navigation_for == 'vehicle'){{'active'}}@endif">
                         @if(isset($navigation_for) && $navigation_for == 'vehicle')
                         <a class="nav-link " id="vehicle-tab" data-toggle="tab" href="#vehicle-just" role="tab" aria-controls="vehicle-just" aria-selected="true" >
                         @elseif(isset($navigation_for) && $navigation_for == 'image')
                         <a class="nav-link" id="vehicle-tab" href="{{url('vehicle/edit/'.$data->id)}}" aria-selected="true">
                         @endif
-                        <small class="font-weight-bold"> 1. <x-dash.form.label for="vehicle_info" 
-                        value="{{__('webCaption.vehicle_info.title')}}" class="" 
+                        <small class="font-weight-bold "> 1. <x-dash.form.label for="vehicle_info" 
+                        value="{{__('webCaption.vehicle_info.title')}}" class="pt-75" 
                         tooltip="{{__('webCaption.vehicle_info.caption')}}" /></small></a>
                     </li>
                     <li class="nav-item gabs-nav-tab @if(isset($navigation_for) && $navigation_for == 'image'){{'active'}}@endif">
@@ -95,7 +95,7 @@
                         <a class="nav-link " id="vehicle-photos-tab" data-toggle="tab" href="#vehicle-photos-just" role="tab" aria-controls="vehicle-photos-just" aria-selected="true" >
                         @endif  
                         <small class="font-weight-bold">2. <x-dash.form.label for="normal_photo" 
-                        value="{{__('webCaption.normal_photo.title')}}" class="" 
+                        value="{{__('webCaption.normal_photo.title')}}" class=" pt-75" 
                         tooltip="{{__('webCaption.normal_photo.caption')}}" /></small></a>
                     </li>
                     <li class="nav-item gabs-nav-tab">
@@ -105,7 +105,7 @@
                         <a class="nav-link" id="threesixty-photos-tab" data-toggle="tab" href="#threesixty-photos-just" role="tab" aria-controls="threesixty-photos-just" aria-selected="true">
                         @endif
                         <small class="font-weight-bold">3. <x-dash.form.label for="photo_360" 
-                        value="{{__('webCaption.photo_360.title')}}" class="" 
+                        value="{{__('webCaption.photo_360.title')}}" class="pt-75" 
                         tooltip="{{__('webCaption.photo_360.caption')}}" /></small></a>
                     </li>
                     <li class="nav-item gabs-nav-tab">
@@ -115,7 +115,7 @@
                         <a class="nav-link" id="internaluse-photos-tab" data-toggle="tab" href="#internaluse-photos-just" role="tab" aria-controls="internaluse-photos-just" aria-selected="false">
                         @endif
                         <small class="font-weight-bold">4. <x-dash.form.label for="internal_use_photo" 
-                        value="{{__('webCaption.internal_use_photo.title')}}" class="" 
+                        value="{{__('webCaption.internal_use_photo.title')}}" class="pt-75" 
                         tooltip="{{__('webCaption.internal_use_photo.caption')}}" /></small></a>
                     </li>
                     <li class="nav-item gabs-nav-tab">
@@ -125,7 +125,7 @@
                         <a class="nav-link" id="vehicle-docs-tab" data-toggle="tab" href="#vehicle-docs-just" role="tab" aria-controls="vehicle-docs-just" aria-selected="false">
                         @endif
                         <small class="font-weight-bold">5. <x-dash.form.label for="documents" 
-                        value="{{__('webCaption.documents.title')}}" class="" 
+                        value="{{__('webCaption.documents.title')}}" class="pt-75" 
                         tooltip="{{__('webCaption.documents.caption')}}" /></small></a>
                     </li>
                </ul>                
@@ -424,15 +424,20 @@
                                          @endif
                                   </div>
                               </div>  
-
+                              <div class="col-md-4 col-6">
+                                
+                                <x-dash.form.inputs.select_with_plus_icon  label="{{__('webCaption.sub_type.title')}}" 
+                                tooltip="{{__('webCaption.sub_type.caption')}}" for="sub_type2" name="membership"
+                                placeholder="{{ __('locale.sub_type.caption') }}" customClass="sub_type"  editSelected="{{(isset($data->membership) && ($data->membership != null)) ? $data->sub_type :'' }}"  required=""   />
+                               
+                              </div>
+                                
                               <div class="col-md-4 col-6">
                                   <div class="form-group">
                                      <x-dash.form.inputs.select label="{{__('webCaption.sub_type.title')}}" 
                                       tooltip="{{__('webCaption.sub_type.caption')}}" for="sub_type" name="membership"
                                       placeholder="{{ __('locale.sub_type.caption') }}" customClass="sub_type"  editSelected="{{(isset($data->membership) && ($data->membership != null)) ? $data->sub_type :'' }}"  required=""  />
-                                      @if($errors->has('membership'))
-                                       <x-dash.form.form_error_messages message="{{ $errors->first('membership') }}"  />
-                                         @endif
+                                    
                                   </div>
                               </div> 
 
@@ -469,7 +474,7 @@
                               </div> 
 
 
-                              <div class="col-md-4">
+                              <div class="col-md-4 col-6">
                                   <div class="form-group">
                                      <x-dash.form.inputs.select label="{{__('webCaption.model_code.title')}}" 
                                       tooltip="{{__('webCaption.model_code.caption')}}" for="model_code" name="membership"
@@ -1117,14 +1122,14 @@
             </div>        
        </div>     
 
-             <div class="row mb-2 text-center">
+            <div class="row mb-2 text-center">
                   <div class="col-12">
                         <div class="form-group text-center">
 			               <input type="hidden" name="id" value="@if(isset($user->id) && !empty($user->id)){{$user->id}}@endif" />
 		             	   @if(isset($user->id)) <x-dash.form.buttons.update /> @else <x-dash.form.buttons.create/> @endif                            
 		              </div>
                    </div>
-             </div>
+            </div>
 
  </form>
 

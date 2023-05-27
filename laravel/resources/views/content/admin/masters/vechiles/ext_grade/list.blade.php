@@ -116,7 +116,7 @@
                     {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4',['multiple_delete_url' => route('masters.vehicle.ext-grade.delete-multiple') ] ) }}  
                     @else
                         {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4') }}  
-                    @endifs
+                    @endif
                 @else
                     @include('components.admin.alerts.no-record-found')                    
                 @endif    

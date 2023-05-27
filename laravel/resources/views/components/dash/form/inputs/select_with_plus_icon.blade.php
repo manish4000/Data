@@ -31,7 +31,8 @@
     @endif
 
     <div class="input-group">
-        <div class="form-outline">
+      <div class="select_width">
+          <div class="form-outline ">
             <select  class=" <?php echo  $customClass ?> select2"  name="{{$name}}"
             
             @if(isset($for)) id="{{ $for }}" @endif   @if(isset($required)) {{ $required }} @endif
@@ -49,6 +50,7 @@
                     @endforeach
             @endif
             </select>
+           </div>
         </div>
         <div class="float-right input-group-append" data-toggle="tooltip" data-placement="top" title="Click on + button to Add New Vehicle Type.">
             <button class="btn bg-primary text-white" data-bs-toggle="offcanvas" data-bs-target="#offcanvasEnd" aria-controls="offcanvasEnd"  type="button" onclick="___openRightPanelModal('Vehicle Type', 'Types', 'type_id', true);">+</button>
@@ -65,7 +67,7 @@
 </div>
 @endif 
 
-
+@section('extra-content')
 <!-- End Offcanvas -->
 <div class="offcanvas-end-example">
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasEnd" aria-labelledby="offcanvasEndLabel">
@@ -73,6 +75,9 @@
             <h5 id="offcanvasEndLabel" class="offcanvas-title">@if(isset($modelData['heading'])) {{$modelData['heading']}}  @endif</h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
+
+      <form action="@if(isset($modelData['route'])){{$modelData['route']}}@endif" method="POST" >
+
         <div class="offcanvas-body  mx-0 flex-grow-0">
 
           <div class="card-body">
@@ -119,10 +124,12 @@
 
             
         </div>
+
+      </form>  
     </div>
 </div>
 <!--/ End Offcanvas-->
-
+@endsection
 
 
 @push('script')

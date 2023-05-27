@@ -61,8 +61,9 @@
         <div class="card">
         <!-- Basic Tables start -->
           <div class="card-body pt-75 pb-0 px-50">
-          @can('main-navigation-masters-vehicle-model') 
+          @can('masters-vehicle-model') 
                 @if(count($data) > 0 )
+
                     @if (Auth::guard('web')->user()->can('main-navigation-masters-vehicle-model-delete'))		
                         {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4',['multiple_delete_url' => route('masters.vehicle.model.delete-multiple') ] ) }}  
                     @else

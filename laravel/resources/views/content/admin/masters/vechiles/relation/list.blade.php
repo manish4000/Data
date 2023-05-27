@@ -45,6 +45,7 @@
         @php
         $request_params = request()->all();
         unset( $request_params['order'], $request_params['order_by'] );
+        
         @endphp
                     
         <div class="card">

@@ -7,7 +7,7 @@
 
     
     <div class="header_col position-for-filter-heading common_heading">    
-        <x-admin.form.inputs.multiple_select_checkbox id="checkAll"   value="1"  customClass=""  />
+        <x-dash.form.inputs.multiple_select_checkbox id="checkAll"   value="1"  customClass=""  />
     </div>
     
     @if(isset($headingFields) && is_array($headingFields))
@@ -23,7 +23,7 @@
                     <?php echo __('webCaption.'.$fields['title'].'.title') ?>
                     
                     @if($fields['orderby'] !== null)    
-                        <x-admin.filter.order-by-filter-div orderBy="{{$fields['orderby']}}" />
+                        <x-dash.filter.order-by-filter-div orderBy="{{$fields['orderby']}}" />
                     @endif
                 </div>
             @endforeach

@@ -1,11 +1,15 @@
 @php 
-$messenger  =   DB::table('messenger')->select('id as value', 'name', 'logo')->where('deleted_at',NULL)->get(); 
-if(isset($editSelected) && is_array($editSelected) && count($editSelected)>0)
-$edit_selected = $editSelected;
-else $edit_selected = [];
+$messenger  =   DB::connection('dash')->table('messenger')->select('id as value', 'name', 'logo')->where('deleted_at',NULL)->get();
+$makeArr = array(); 
+if(isset($editSelected) && is_array($editSelected) && count($editSelected)>0){
+    foreach ($editSelected as $key => $value) {
+        $makeArr[] = $value->id;
+    }
+}
+else $makeArr[] = "";
 @endphp
 
-<x-dash.form.inputs.multiple_select onChange="messengerSelect(this.id)" optionImg="{{asset('master/company/messenger/')}}" label="{{__('webCaption.messenger.title')}}" customClass="messenger" for="{{ isset($id) ? $id : '' }}" name="{{ isset($name) ? $name : '' }}[]" placeholder="{{__('webCaption.messenger.title')}}" :oldValues="[]" :editSelected="$edit_selected"  required="" :optionData="$messenger" />
+<x-dash.form.inputs.multiple_select onChange="messengerSelect(this.id)" optionImg="{{asset('master/company/messenger/')}}" label="{{__('webCaption.messenger.title')}}" customClass="messenger" for="{{ isset($id) ? $id : '' }}" name="{{ isset($name) ? $name : '' }}[]" placeholder="{{__('webCaption.messenger.title')}}" :oldValues="[]" :editSelected="$makeArr"  required="" :optionData="$messenger" />
     
 @push('script')
 <script type="text/javascript">
@@ -32,7 +36,7 @@ function optionImage (img) {
         var $img = $(
         '<span><img sytle="display:inline-block;" src='+img.title+' width="20" height="20" /> ' + img.text + '</span>'
     );
-return $img;
+    return $img;
 }
 
 /* function messengerSelect(id){

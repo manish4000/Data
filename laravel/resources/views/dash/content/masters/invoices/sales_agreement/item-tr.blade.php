@@ -32,12 +32,12 @@
     </div>
 
     <div class="make_col width_22 xs_width_50 @if($childTdColor != '') {{$childTdColor}}  @endif" >
-        <div class="div-mobile">{{__('webCaption.make.title')}}</div>
+        <div class="div-mobile">{{__('webCaption.sales_agreement.title')}}</div>
         @php echo  str_ireplace( request()->input('search.keyword'), '<span class="heighlight-string" >'. request()->input('search.keyword').'</span>',$item->name) @endphp
     </div>
 
     <div class="make_col width_22 xs_width_50 @if($childTdColor != '') {{$childTdColor}}  @endif" >
-        <div class="div-mobile">{{__('webCaption.make.title')}}</div>
+        <div class="div-mobile">{{__('webCaption.description.title')}}</div>
         @php echo  str_ireplace( request()->input('search.keyword'), '<span class="heighlight-string" >'. request()->input('search.keyword').'</span>',$item->description) @endphp
     </div>
     

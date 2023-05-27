@@ -56,6 +56,11 @@
         @php
         $request_params = request()->all();
         unset( $request_params['order'], $request_params['order_by'] );
+
+        $permission_and_urls = [
+                                  'multiple_delete' => ['url' => route('dashmasters.crm.rating.delete-multiple') ,
+                                  'permission' => 'masters-crm-rating-delete']                                
+                                ]; 
         @endphp
                     
         <div class="card">
@@ -65,9 +70,9 @@
           @if (Auth::guard('dash')->user()->can('masters-crm-rating'))
                 @if(count($data) > 0 )
                     @if (Auth::guard('dash')->user()->can('masters-crm-rating-delete'))		
-                        {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4',['multiple_delete_url' => route('dashmasters.crm.rating.delete-multiple') ] ) }}  
+                        {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4-dash', [ 'permission_and_urls' => $permission_and_urls  ] ) }}  
                     @else
-                        {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4') }}  
+                        {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4-dash') }}  
                     @endif
                     <div class="main_table mb-2" id="master-list">
                         @php
@@ -80,22 +85,22 @@
                                         [
                                             'title' => 'rating',
                                             'orderby' => 'name',
-                                            'classes' => 'width_44'
+                                            'classes' => 'width_45'
                                         ] , 
                                         [
                                             'title' => 'no_of_children',
                                             'orderby' => 'children_count',
-                                            'classes' => 'width_15'
+                                            'classes' => 'width_15 text-center'
                                         ] , 
                                         [
                                             'title' => 'display_status',
                                             'orderby' => 'display',
-                                            'classes' => 'width_15 '
+                                            'classes' => 'width_15 text-center'
                                         ] , 
                                         [
                                             'title' => 'actions',
                                             'orderby' => null,
-                                            'classes' => 'width_12 text-center'
+                                            'classes' => 'width_15 text-center'
                                         ]  
                                     ];
                         @endphp
@@ -112,9 +117,9 @@
                         @endforeach  
                     </div>
                     @if (Auth::guard('dash')->user()->can('masters-crm-rating-delete'))		
-                        {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4',['multiple_delete_url' => route('dashmasters.crm.rating.delete-multiple') ] ) }}  
+                        {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4-dash', [ 'permission_and_urls' => $permission_and_urls  ] ) }}  
                     @else
-                        {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4') }}  
+                        {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4-dash') }}  
                     @endif
 
                     @else

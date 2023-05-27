@@ -13,7 +13,7 @@
     $customClass = (isset($customClass)) ? $customClass : '';
 @endphp
 
-<div class="custom-control custom-checkbox d-inline ">
+<div class="custom-control custom-checkbox d-inline-block ">
     <input   type="radio" name='{{ $name }}' class="custom-control-input {{$customClass}}" id="{{ $for }}" value="{{ $value }}" {{$checked}} >
     <label  class="custom-control-label" for="{{ $for }}">{{ $label }}</label>
 </div>

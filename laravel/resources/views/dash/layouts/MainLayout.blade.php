@@ -23,6 +23,7 @@
             @endif 
             <div class="content-body">
                 @yield('content')
+                @yield('extra-content')
             </div>
         </div>
     </div>

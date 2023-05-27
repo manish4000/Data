@@ -26,7 +26,7 @@ if($orderBy_request == $orderBy ){
 }
 @endphp
 
-<div class="short-by-filter filter-short " @if(isset($orderBy)) data-orderBy="{{$orderBy}}"  @endif >
+<div class="short-by-filter filter-short" @if(isset($orderBy)) data-orderBy="{{$orderBy}}"  @endif >
        <i class="{{$icon}}"></i> 
 </div>
 

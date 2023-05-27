@@ -4,7 +4,7 @@
 @section('content')
 <!-- users list start -->
 <section>
-    <!-- filter  -->
+    <!--  filter  -->
     <div class="card">
         <div class="card-header py-75 px-50">
           <h4 class="card-title" data-toggle="tooltip" data-placement="right" title="{{__('webCaption.search_filter.caption')}}">{{__('webCaption.search_filter.title')}}</h4>                    
@@ -42,9 +42,9 @@
                                                               
                             </div>
                         </div>
-
                     </div> 
                 </div>
+
                 <div class="col-md-12 pt-0 text-center">
                     <x-admin.form.buttons.search />
                     <x-admin.form.buttons.reset href="{{route('masters.vehicle.make.index')}}" />
@@ -55,8 +55,15 @@
       </div>      
       
         @php
-        $request_params = request()->all();
-        unset( $request_params['order'], $request_params['order_by'] );
+ 
+        //send permission slug and url for multiple update and delete and more... for actions 
+        $permission_and_urls = [
+                'multiple_delete' => ['url' => route('masters.vehicle.make.delete-multiple') ,
+                                    'permission' => 'main-navigation-masters-vehicle-make-delete'],
+
+                'multiple_update' =>   ['url' => route('masters.vehicle.make.update-multiple') ,
+                                     'permission' => 'main-navigation-masters-vehicle-make-update']                               
+            ];                          
         @endphp
                     
         <div class="card">
@@ -64,13 +71,11 @@
           <div class="card-body pt-75 pb-0 px-50">
             @can('main-navigation-masters-vehicle-make') 
                 @if(count($data) > 0 )
-                    @if (Auth::guard('web')->user()->can('main-navigation-masters-vehicle-make-delete'))		
-                        {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4',['multiple_delete_url' => route('masters.vehicle.make.delete-multiple') ] ) }}  
-                    @else
-                        {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4') }}  
-                    @endif
+                   		
+             {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4', [ 'permission_and_urls' => $permission_and_urls  ] )}} 
+                  
                 {{--check delete permission  --}}          
-          <div class="main_table mb-2" id="master-list">
+            <div class="main_table mb-2" id="master-list">
             @php
             $heading_array = [
                             [
@@ -106,30 +111,30 @@
                 @foreach($data as $item)
                     @include('content.admin.masters.vechiles.makes.item-tr', ['item'=>$item])    
                         @if(true || request()->input('search.parentOnlyShowAll') == 1)
-                          @foreach($item->children as $childItem)
-                             @include('content.admin.masters.vechiles.makes.item-tr', ['item'=>$childItem])    
-                          @endforeach                                        
+                        @foreach($item->children as $childItem)
+                            @include('content.admin.masters.vechiles.makes.item-tr', ['item'=>$childItem])    
+                        @endforeach                                        
                         @endif
                 @endforeach      
                                                                                
              </div>                   
 
-                    @if (Auth::guard('web')->user()->can('main-navigation-masters-vehicle-make-delete'))		
-                    {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4',['multiple_delete_url' => route('masters.vehicle.make.delete-multiple') ] ) }}  
-                    @else
-                        {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4') }}  
-                    @endif
-                @else
-                    @include('components.admin.alerts.no-record-found')                    
-                @endif    
-            @endcan
+                {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4', [ 'permission_and_urls' => $permission_and_urls  ] )}} 
+
+                    @else 
+                        @include('components.admin.alerts.no-record-found')                    
+                    @endif    
+                @endcan
             </div>
         </div>
 <!-- list section end -->
 </section>
 {{-- this file include for delete alert box  --}}
+
 @include('components.admin.alerts.delete-alert-box')
+@include('components.admin.alerts.reference-model-box')
 @include('components.admin.alerts.multiple-delete-alert-box')
 @include('components.admin.filter.order-by')
 <!-- users list ends -->
+
 @endsection

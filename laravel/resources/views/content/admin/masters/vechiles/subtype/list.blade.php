@@ -13,13 +13,13 @@
         <div class="card-body pt-75 pb-75 px-50">
           <form method="GET" action="{{route('masters.vehicle.subtype.index')}}" style="margin-bottom:0px !important;">
             <div class="row">
-                <div class="col-sm-3 col-md-5 col-lg-7 col-xl-7">
+                <div class="col-sm-3 col-md-6 col-lg-6 col-xl-7">
                     <div class="form-group">
                         <x-admin.form.inputs.select id="searchType" for="{{__('webCaption.type.title')}}" label="{{__('webCaption.type.title')}}" tooltip="{{__('webCaption.type.caption')}}"  class="form-control" name="search[type]"  placeholder="{{__('webCaption.type.title')}}" :optionData="$alltypes" editSelected="{{ request()->input('search.type') }}"  required="" />
                     </div>
                 </div>
 
-                <div class="col-sm-3 col-md-5 col-lg-7 col-xl-7">
+                <div class="col-sm-3 col-md-6 col-lg-6 col-xl-7">
                     <div class="form-group">
                         <x-admin.form.inputs.text id="searchKeyword" for="{{__('webCaption.keyword.title')}}" label="{{__('webCaption.keyword.title')}}" tooltip="{{__('webCaption.keyword.caption')}}"  class="form-control" name="search[keyword]"  placeholder="{{__('webCaption.keyword.title')}}" value="{{ request()->input('search.keyword') }}"  required="" />
                     </div>
@@ -68,9 +68,9 @@
         <div class="card">
         <!-- Basic Tables start -->
          <div class="card-body pt-75 pb-0 px-50">
-         @can('main-navigation-masters-vehicle-subtype') 
+         @can('masters-vehicle-subtype') 
                 @if(count($data) > 0 )
-                    @if (Auth::guard('web')->user()->can('main-navigation-masters-vehicle-subtype-delete'))		
+                    @if (Auth::guard('web')->user()->can('masters-vehicle-subtype-delete'))		
                         {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4',['multiple_delete_url' => route('masters.vehicle.subtype.delete-multiple') ] ) }}  
                     @else
                         {{ $data->onEachSide(1)->links('vendor.pagination.bootstrap-4') }}  
